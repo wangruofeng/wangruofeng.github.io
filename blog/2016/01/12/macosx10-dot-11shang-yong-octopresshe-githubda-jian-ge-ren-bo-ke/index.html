@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MacOSX10.11上用Octopress和GitHub搭建个人博客 - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="MacOSX10.11上用Octopress和GitHub搭建个人博客">
+  <meta name="keywords" content="Octopress, iOS, GitHub搭建个人博客, Swift, Objective-c, MacOSX10.11">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MacOSX10.11上用Octopress和GitHub搭建个人博客</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:30:38+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:30 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>序言经过一晚上的折腾，终于从<code>Hexo</code>成功转入<code>Octopress</code>,那么本文就来细说一下如何使用 <code>Octopress</code>+<code>GitHub Pages</code>搭建个人博客</p>
+
+<h3>为什么选择 Octopress &amp; Github Pages?</h3>
+
+<ul>
+<li>免费且独立。把 Octopress 博客系统搭建到 Github Pages 虽是免费，但不失独立性，即便 Github 全站关闭，你也将有一份本地全站备份，随时可以重新恢复。不必受托管商之气，而且还免费，如果你愿意，甚至可以自行插入广告挣钱。</li>
+<li>版本控制。写文章，建网站，做软件都需要修改，但有时候改完了又会后悔，如果有时光机就好了，Git 就是你的时光机。当然如果你不想了解这些看上去很唬人的 IT 名词，只是想写博客的话，请在需要的时候再研究这条的内容。</li>
+<li>相对其他托管到 Github 上的博客程序，Octopress 更加成熟易上手。打个比方，<a href="http://jekyllcn.com">Jekyll</a> 可以说是毛坯房，<a href="https://hexo.io">Hexo</a> 和 <a href="http://octopress.org">Octopress</a> 算是简装修，但相比 Hexo，Octopress 有更多装修范例和更多熟练的装修工人，更容易获取帮助。当然如果你只想住精装修的房子，那不得不花点钱上 <a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=8&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwiOv6rSnqbKAhVGKJQKHefnDGAQFghGMAc&amp;url=https%3A%2F%2Fzh.wikipedia.org%2Fzh-cn%2FWordPress&amp;usg=AFQjCNGIb2sxhqKIuZ22-NHO6nclaYYOSQ&amp;sig2=GoW6MP3lSb9RasgVQGFxnw">WordPress</a> 了</li>
+<li>使用 Markdown。<a href="https://zh.wikipedia.org/wiki/Markdown">Markdown</a> 是现在最为流行的轻量级标记语言，也是已故的天才 Aaron Swartz 留给世人最好的礼物，窃以为每个在互联网上发布文章的人都该掌握。</li>
+<li>按照官方的说法，Octopress 是个<code>A blogging framework for hackers</code>(「为黑客设计的博客框架」)，这很酷，你不觉得吗？</li>
+</ul>
+
+
+<p>如果你之前没有写过博客，打算开始搭建自己第一个博客的话，其实也不妨试试 Octopress，免费还能学到东西，何乐而不为？</p>
+
+<p>本文是在<code>OS X EI Capitan</code>系统上搭建一个基于<code>Octopress</code>的个人博客系统，记录搭建过程的各种坑，希望对有想搭建个人博客的朋友有所帮助。</p>
+
+<p>本文是建立在你有Shell指令基础和Git操作基础之上，如果不了解的话，需要查阅相关资料。</p>
+
+<p>先解释几个专业术语：</p>
+
+<ul>
+<li><a href="https://www.ruby-lang.org/zh_cn/">Ruby</a>
+
+<ul>
+<li>Ruby 是一种编程语言。Octopress 是用 Ruby语言 实现的。我们不需要对它有太多了解，只需要正确安装 Ruby 的环境（Ruby版本必须不低于1.9.3-p0，后面会详细介绍）及按步骤执行指令即可。</li>
+</ul>
+</li>
+<li><a href="https://rubygems.org/">RubyGems</a>
+
+<ul>
+<li>RubyGems（简称 gems）是一个用于对 Ruby组件进行打包的 Ruby 打包系统。它可以用来查找、安装、升级和卸载软件包。我们也是通过它安装Octopress包的</li>
+</ul>
+</li>
+<li><a href="https://rvm.io/">RVM</a>
+
+<ul>
+<li>RVM  是Ruby Version Manager的简称，是一款 Ruby 语言安装、管理的工具。我们对 Ruby 的操作是通过它的指令完成的。</li>
+</ul>
+</li>
+<li><a href="http://jekyll.bootcss.com/">Jekyll</a>
+
+<ul>
+<li>Jekyll 一个简单的博客形态的静态站点生产机器。  Jekyll 有一套模板目录，可以将 Markdown文件（或者Textile）转换为静态网页，并生成一个完整的可发布的静态网站。</li>
+<li>同时，我们可以将产生的静态网站布置到 GitHub Pages 上，生成个人博客站点。</li>
+<li>想了解更多内容可以查看<a href="http://jekyll.bootcss.com/docs/home/">中文文档</a>。</li>
+</ul>
+</li>
+<li><a href="http://niumeng.me/blog/2015/08/26/create-your-website-1-init/www.github.com/imathis/octopress">Octopress</a>
+
+<ul>
+<li>Octopress 是基于 Jekyll 的博客框架。他们的关系就像 jQuery 与 js 的关系一样。</li>
+<li>它为我们提供了现成的美观的主题模板，并且配置简单，使用方便，大大降低了我们建站的门槛。</li>
+</ul>
+</li>
+<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html">Git</a>
+
+<ul>
+<li>分布式版本控制工具，跟它有点类似的是SVN，只是两者使用场景不一样。</li>
+</ul>
+</li>
+<li><a href="https://www.github.com/">GitHub</a>
+
+<ul>
+<li>GitHub 是全球最热的开源社区，程序界的 Facebook。它为我们提供代码托管服务，以及我们搭建博客所需要的 Pages 服务。</li>
+</ul>
+</li>
+<li><a href="https://pages.github.com/">GitHub Pages</a>
+
+<ul>
+<li>GitHub Pages 是 GitHub 提供的一项服务。它用于显示托管在 GitHub 上的静态网页。所以我们可以用 Github Pages 搭建博客，当然我们也可以把项目的文档和主页放在上面。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>通过以上内容，我们大概能够明白 Octopress 建站的原理：
+我们使用基于 Jekyll 的 Octopress 站点生成工具，生成本地的静态网站。然后将静态网站托管到 GitHub 为我们提供的 GitHub Pages 服务上。访问 <strong>username</strong>.github.io 即可显示你的个人博客站了</p>
+
+<hr />
+
+<p>明白了上面这些内容，下面进行具体的搭建工作：</p>
+
+<h3>第一步：安装 Ruby</h3>
+
+<p>Mac自带Ruby环境打开终端，安装 RVM ，终端执行指令：</p>
+
+<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<p>接下来我们要查看自己的 Ruby 环境</p>
+
+<pre><code>$ ruby -v
+</code></pre>
+
+<p>如果你的 Ruby 版本不低于 1.9.3-p0 可以忽略 Ruby 的安装（或升级），直接跳到安装 RubyGems 。 否则，我们执行之后的操作，终端执行指令：</p>
+
+<pre><code>$ rvm install 1.9.3
+$ rvm use 1.9.3
+</code></pre>
+
+<p>然后安装 RubyGems， 终端执行指令：</p>
+
+<pre><code>$ rvm rubygems latest
+</code></pre>
+
+<p>到这里第一步完成。我们可以再执行一次第一条指令 <code>ruby -v</code> 来查看当前 Ruby 的版本了。</p>
+
+<h3>第二步：安装Octopress</h3>
+
+<p>因为Mac系统自动git环境，所以我们不需要考虑git的安装。直接将 Octopress的项目clone到本地，在终端执行指令：</p>
+
+<pre><code>$ git clone git://github.com/imathis/octopress.git octopress
+</code></pre>
+
+<p>完成后进入 octopress 的目录</p>
+
+<pre><code>$ cd octopress
+</code></pre>
+
+<p>接下来，安装依赖：</p>
+
+<pre><code>$ gem install bundler
+# 这时你可能会遇到没有权限的问题，那么我们需要加上sudo重新执行，并输入密码。
+$ sudo gem install bundler
+# 接下来执行：
+$ bundle install
+</code></pre>
+
+<p>这时你可能还会遇到问题如下：</p>
+
+<pre><code>Fetching gem metadata from https://rubygems.org/...........
+Resolving dependencies...
+
+Gem::RemoteFetcher::FetchError: SocketError: getaddrinfo: Name or service not known (https://rubygems.org/gems/rake-10.4.2.gem)
+An error occurred while installing rake (10.4.2), and Bundler cannot continue.
+</code></pre>
+
+<p>这是因为被墙了，解决办法有两个： 一个是，可以使用自己的翻墙工具； 另一个，淘宝做了一个gem的镜像。我们需要在Octopress的文件目录下找到Gemfile文件，将其中的<code>source 'https://rubygems.org/'</code>改为<code>source 'https://ruby.taobao.org/'</code></p>
+
+<p>再重新运行<code>bundle install</code>就可以了。 这段内容可以参考 <a href="http://www.imooc.com/qadetail/59105">bundle install 提示如下，是需要翻墙解决么</a>。</p>
+
+<p>下面就可以安装 Octopress 的默认主题了，终端执行指令：</p>
+
+<pre><code>rake install
+</code></pre>
+
+<p>这样一个最基本的个人博客站就产生了。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezxvho05u3j20lx0ab764.jpg" alt="Octoress init" /></p>
+
+<p>可以看出，现在显示得都是预设值，并不是我们想要的，所以需要修改Octopress目录下的_config.yml文件。</p>
+
+<p>文件目录<code>_config.yml</code></p>
+
+<p>描述：保存配置数据。很多配置选项都会直接从命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。</p>
+
+<p>_config.yml 文件共分为3个部分内容</p>
+
+<ul>
+<li>Main Configs</li>
+<li>Jekyll &amp; Plugins</li>
+<li>3rd Party Settings</li>
+</ul>
+
+
+<p>目前，我们只需要关注第一部分Main Configs。</p>
+
+<pre><code># ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+
+#网站地址
+url: http://wangruofeng.github.io
+
+#网站标题
+title: 王若风的技术博客
+
+#网站副标题
+subtitle: 天天向上.
+
+#网址作者，通常显示在页尾和每篇文章的尾部
+author: Ace
+
+#搜索引擎
+#simple_search: http://google.com/search
+
+#网站的描述，出现在HTML页面中的 meta 中的 description
+#description:
+</code></pre>
+
+<p>对应填入你的个人信息，其中url为必填的，一般填GitHub仓库对应的连接，其内容大致就是 <strong>username</strong>.github.io ，这个地址我们会在后面步骤中获得。</p>
+
+<h3>第三步：集成 GitHub Pages</h3>
+
+<p>1.注册 Github 账号</p>
+
+<p>这个没什么好说的，早晚需要，去 <a href="http://github.com">http://github.com</a> 注册吧。</p>
+
+<p>2.在 GitHub 上创建一个代码参考，项目名称命名规则为 <strong>username</strong>.github.io，username必须与用户名称一致。</p>
+
+<ol>
+<li>域名指向（可选）
+如果你有自己的域名可用，可以在这时就配置好，毕竟解析起来需要一段时间，不如在我们搭建博客的时候让它开始，这样我们搭建完成后，基本上就可以直接用自有域名访问了。</li>
+</ol>
+
+
+<p>我的是在<a href="http://wanwang.aliyun.com/domain/?utm_medium=text&amp;utm_source=baidu&amp;utm_campaign=st1&amp;utm_content=se_2485">万网</a>申请的，原价一年100多点现在有活动便宜的几块的都有，想要个性域名的可以去注册一个。</p>
+
+<ul>
+<li><p>如果你用的是顶级域名，比如 wangruofeng007.com, 请创建两个 A 记录 (A Record) 分别指向 <code>192.30.252.153</code> 和 <code>192.30.252.154</code>.</p></li>
+<li><p>如果你使用二级域名，比如 blog.wangruofeng007.com, 请将该域名的 CNAME 指向 [your_username].github.io, 把其中的 [your_username]换成你自己在 Github 上的用户名。</p></li>
+<li><p>如果你暂时没有域名，这一步可以暂时不用管</p></li>
+</ul>
+
+
+<p>Ps. 在创建过程中最好不要<code>添加忽略文件</code>和<code>README</code>文件。因为我们要把本地的 git 仓库同步到 GitHub 远程仓库中。如果再远程仓库中添加了其他文件，需要我们执行 pull 操作。除非你能非常熟练的使用 git ，否则不建议你制造不必要的麻烦。
+接下来将本地代码仓库同步到 GitHub 上，执行终端指令：</p>
+
+<pre><code>$ rake setup_github_pages
+</code></pre>
+
+<p>它会要求你绑定远程仓库的地址，此时只需要输入即可：</p>
+
+<pre><code>$ git@github.com:username/username.github.com.git
+</code></pre>
+
+<p>这样就会将 Octopress 生成的静态站点与 GitHub 进行绑定了。</p>
+
+<p>之后我们创建第一篇文章：</p>
+
+<pre><code>rake new_post["title"]
+</code></pre>
+
+<p>然后会有一个名为 yyyy-mm-dd-Post-Title.markdown 的文件在 octopress/source/_posts 目录下生成，其中 yyyy-mm-dd 是你当时的日期。然后执行以下命令：</p>
+
+<pre><code>cd source/_posts/
+vim yyyy-mm-dd-Post-Title.markdown
+</code></pre>
+
+<p>即可用 vim 编辑器编辑的刚才的文章了，好吧我知道你作为这篇文章的读者并不是一个能熟练使用 vim 的人，那么请在命令行输入 q！退出这个编辑器。如果你不想假装是个黑客的话，其实发布文章并不需要这么麻烦。</p>
+
+<p>我们直接打开 <code>octopress/source/_posts</code> 文件夹，找到刚才生成的文件，用你喜欢的 Markdown 编辑器（免费的我推荐 <a href="http://mouapp.com/">Mou</a>或者<a href="https://atom.io">Atom</a>）或者文本编辑器打开，对文章内容进行编辑。</p>
+
+<p>打开文件后，你会发现文章开头有这么一段信息:
+    &mdash;<br/>
+    layout: post<br/>
+    title: &ldquo;Post Title&rdquo;<br/>
+    date: yyyy-mm-dd hh:mm:ss<br/>
+    comments: true<br/>
+    categories:  &ldquo;&rdquo;
+    &mdash;</p>
+
+<p>这其实是这篇文章的元数据：layout 暂时不要理会；title 是这篇文章显示在最终网页上的标题；date 部分是详细的文件生成时间，如 2014-01-28 03:35:00；comment 部分表示是否允许评论，目前显示是允许，如果想关闭评论，请改为 false；categories 指这篇文章的分类目录，请在后面引号中输入,不用引号也可以，多个分类用<code>空格</code>隔开，如果没有该目录，则会自动生成。请不要删除这段信息，在这段信息下面开始你的文章内容</p>
+
+<p>这件事情给我们的启发是，以后发布文章，其实并不需要使用终端命令行生成文件。可以直接将自己写好的文章放到这个文件夹下面，当然请按照 <code>yyyy-mm-dd-Post-Title.markdown</code> 这样的文件格式命名，同时记得在文章前面添加元数据信息。这种做法生成的文章与上面的方法无异</p>
+
+<p>生成的新文章在source/_post/目录下，文件名构成为时间和标题的拼音。我们可以用Markdown编辑器对文章进行修改。
+之后生成静态站点，终端执行指令：</p>
+
+<pre><code># 生成静态站点
+$ rake generate
+</code></pre>
+
+<p>如果你想预览本地的站点，可以执行终端指令：</p>
+
+<pre><code># 预览静态站点
+$ rake preview
+</code></pre>
+
+<p>此时，可以使用浏览器打开<code>localhost:4000</code> 查看效果。如果没有问题可以将静态站点同步到 GitHub 远程仓库中，终端执行指令：</p>
+
+<pre><code># 同步内容
+$ rake deploy
+</code></pre>
+
+<p>你会发现我们的静态站点已经被 push 到 GitHub仓库的 master 分支上。稍等几分钟，访问 <code>username.github.io</code> (或者 <code>username.github.com</code>)，就会发现你的个人博客站已创建成功了。
+如果你还想给自己的本地资源文件（如Markdown文件等内容）也同步到 GitHub 中，可以执行以下指令：</p>
+
+<pre><code>$ git add .
+$ git commit -m "comment"
+$ git push origin source
+</code></pre>
+
+<p>这样我们的资源文件就会同步到 GitHub 的 source 分支了。</p>
+
+<h3>使用自己的域名（可选）</h3>
+
+<p>如果你有自己的域名，并且想指向这个新博客的话，请首先确保执行了第三步的<code>域名指向（可选）</code>的内容。如果没有执行，可以随时执行。
+然后执行下面的命令，注意把 your-domain.com 换成你自己的域名。</p>
+
+<pre><code>echo 'your-domain.com' &gt;&gt; source/CNAME
+</code></pre>
+
+<p>这句话的意思是在<code>source</code>分支下创建一个CNAME的文件并且将<code>your-domain.com</code>写入文件</p>
+
+<p>然后再次执行以下命令：</p>
+
+<pre><code>rake generate
+rake deploy
+</code></pre>
+
+<p>或者二合一</p>
+
+<pre><code>rake gen_deploy
+</code></pre>
+
+<p>这样你就可以使用自己的域名了。域名解析需要一段时间，如果没有马上生效，请不要着急。如果长时间没有生效，请确保完整执行了 <code>域名指向（可选）</code>和<code>使用自己的域名（可选）</code>的内容。</p>
+
+<p>现在我们完成了个人博客的初级搭建，足够满足我们的基本需求。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li>唐巧的博客: [象写程序一样写博客：搭建基于github的博客]（<a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/%EF%BC%89">http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/%EF%BC%89</a></li>
+<li>觅珠人: <a href="http://tchen.me/posts/2012-12-16-first-blog.html">第一篇博文：用Octopress搭建博客系统</a></li>
+<li>破船之家: <a href="http://beyondvincent.com/blog/2013/07/27/107-hello-page-of-github/">你好！github页面</a></li>
+<li>opoo.org: <a href="http://opoo.org/octopress/">Octopress 博客系统 —— a Blogging Framework for Hackers</a></li>
+<li>Ocotpress: <a href="http://octopress.org/docs/">Octopress Documentation</a></li>
+<li>Havee’s Space: <a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
+<li>colors4.us: <a href="http://colors4.us/blog/2012/01/08/octopressbo-ke-cong-ling-kai-shi-iii/">Octopress博客从零开始 III</a></li>
+<li>浮生猎趣:<a href="http://blog.lessfun.com/blog/2013/11/27/create-blog-in-github-page-using-octopress-and-binding-domain/">用Octopress在Github搭建博客，并绑定独立域名</a></li>
+<li>Aster0id的个人博客:<a href="http://niumeng.me/blog/2015/08/26/create-your-website-1-init/">制作个人博客站（一）：Mac系统下使用 Octopress + GitHub Pages 搭建个人博客</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:30:38+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:30 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/skill/'>skill</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/12/ios7-tintcolorxiang-jie/" title="Next Post: iOS7 tintColor详解">iOS7 tintColor详解 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

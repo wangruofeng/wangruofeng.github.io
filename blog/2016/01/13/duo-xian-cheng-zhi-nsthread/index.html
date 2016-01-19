@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>多线程之NSThread - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="多线程之NSThread">
+  <meta name="keywords" content="Octopress, iOS, 多线程 , Swift, Objective-c, NSThread">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">多线程之NSThread</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T05:36:48+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:36 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>本文目录</h2>
+
+<ul>
+<li>前言</li>
+<li>1.获取当前线程</li>
+<li>2.获取主线程</li>
+<li>3.NSThread的创建</li>
+<li>4.暂停当前线程</li>
+<li>5.线程的其他操作</li>
+<li>6.优缺点</li>
+</ul>
+
+
+<h3>前言</h3>
+
+<p>每个iOS应用程序都有个专门用来更新显示UI界面、处理用户触摸事件的主线程，因此不能将其他太耗时的操作放在主线程中执行，不然会造成主线程堵塞(出现卡机现象)，带来极坏的用户体验。一般的解决方案就是将那些耗时的操作放到另外一个线程中去执行，多线程编程是防止主线程堵塞，增加运行效率的最佳方法。</p>
+
+<p>iOS中有3种常见的多线程编程方法
+1. <code>NSThread</code>
+这种方法需要管理线程的生命周期、同步、加锁问题，会导致一定的性能开销</p>
+
+<ol>
+<li><p><code>NSOperation</code>和<code>NSOperationQueue</code>
+是基于OC实现的。NSOperation以面向对象的方式封装了需要执行的操作，然后可以将这个操作放到一个NSOperationQueue中去异步执行。不必关心线程管理、同步等问题。</p></li>
+<li><p><code>Grand Centeral Dispatch</code>
+简称GCD，iOS4才开始支持，是纯C语言的API。自iPad2开始，苹果设备开始有了双核CPU，为了充分利用这2个核，GCD提供了一些新特性来支持多核并行编程</p></li>
+</ol>
+
+
+<p>这篇文章简单介绍<code>NSThread这</code>个类，一个<code>NSThread</code>实例就代表着一条线程</p>
+
+<h3>1.获取当前线程</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSThread</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.获取主线程</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSThread</span> <span class="o">*</span><span class="n">main</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">mainThread</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;主线程:%@&quot;</span><span class="p">,</span> <span class="n">main</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打印结果是：</p>
+
+<pre><code>2013-04-18 21:36:38.599 thread[7499:c07] 主线程:&lt;NSThread: 0x71434e0&gt;{name = (null), num = 1}
+</code></pre>
+
+<p>num相当于线程的id，主线程的num是为1的</p>
+
+<h3>3.NSThread的创建</h3>
+
+<h4>a.动态方法</h4>
+
+<pre><code>- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
+</code></pre>
+
+<p>在第2行创建了一条新线程，然后在第4行调用<code>start</code>方法启动线程，线程启动后会调用self的<code>run:</code>方法，并且将@&ldquo;mj"作为方法参数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 初始化线程</span>
+</span><span class='line'><span class="bp">NSThread</span> <span class="o">*</span><span class="kr">thread</span> <span class="o">=</span> <span class="p">[[[</span><span class="bp">NSThread</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">run</span><span class="p">:)</span> <span class="nl">object</span><span class="p">:</span><span class="s">@&quot;mj&quot;</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// 开启线程</span>
+</span><span class='line'><span class="p">[</span><span class="kr">thread</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>假如run:方法是这样的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">run:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">string</span> <span class="p">{</span>
+</span><span class='line'>     <span class="bp">NSThread</span> <span class="o">*</span><span class="n">current</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">];</span>
+</span><span class='line'>     <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;执行了run:方法-参数：%@，当前线程：%@&quot;</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">current</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>打印结果为：</p>
+
+<pre><code>2013-04-18 21:40:33.102 thread[7542:3e13] 执行了run:方法-参数：mj，当前线程：&lt;NSThread: 0x889e8d0&gt;{name = (null), num = 3}
+</code></pre>
+
+<p>可以发现，这条线程的num值为3，说明不是主线程，主线程的num为1</p>
+
+<h4>b.静态方法</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">detachNewThreadSelector:</span><span class="p">(</span><span class="kt">SEL</span><span class="p">)</span><span class="nv">selector</span> <span class="nf">toTarget:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">target</span> <span class="nf">withObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">argument</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="bp">NSThread</span> <span class="nl">detachNewThreadSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">run</span><span class="p">:)</span> <span class="nl">toTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">withObject</span><span class="p">:</span><span class="s">@&quot;mj&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>c.隐式创建线程</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="nb">self</span> <span class="nl">performSelectorInBackground</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">run</span><span class="p">:)</span> <span class="nl">withObject</span><span class="p">:</span><span class="s">@&quot;mj&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会隐式地创建一条新线程，并且在这条线程上调用self的run:方法，以@&ldquo;mj"为方法参数</p>
+
+<h3>4.暂停当前线程</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="bp">NSThread</span> <span class="nl">sleepForTimeInterval</span><span class="p">:</span><span class="mi">2</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSDate</span> <span class="o">*</span><span class="n">date</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSDate</span> <span class="nl">dateWithTimeInterval</span><span class="p">:</span><span class="mi">2</span> <span class="nl">sinceDate</span><span class="p">:[</span><span class="bp">NSDate</span> <span class="n">date</span><span class="p">]];</span>
+</span><span class='line'><span class="p">[</span><span class="bp">NSThread</span> <span class="nl">sleepUntilDate</span><span class="p">:</span><span class="n">date</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面两种做法都是暂停当前线程2秒</p>
+
+<h3>5.线程的其他操作</h3>
+
+<h4>a.在指定线程上执行操作</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="p">[</span><span class="nb">self</span> <span class="nl">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="nl">onThread</span><span class="p">:</span><span class="kr">thread</span> <span class="nl">withObject</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">waitUntilDone</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>上面代码的意思是在thread这条线程上调用self的run方法</li>
+<li>最后的YES代表：上面的代码会阻塞，等run方法在thread线程执行完毕后，上面的代码才会通过</li>
+</ul>
+
+
+<h4>b.在主线程上执行操作</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="nb">self</span> <span class="nl">performSelectorOnMainThread</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="nl">withObject</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">waitUntilDone</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在主线程调用self的run方法</p>
+
+<h4>c.在当前线程执行操作</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="nb">self</span> <span class="nl">performSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="nl">withObject</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在当前线程调用self的run方法</p>
+
+<h3>6.优缺点</h3>
+
+<ol>
+<li>优点：<code>NSThread</code>比其他多线程方案较轻量级，更直观地控制线程对象</li>
+<li>缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁会有一定的系统开销</li>
+</ol>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T05:36:48+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:36 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/networking/'>networking</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/" title="Previous Post: NSOperation and NSOperationQueue Tutorial in Swift">&laquo; NSOperation and NSOperationQueue Tutorial in Swift</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/13/gong-han-mo-shi-xiang-jie/" title="Next Post: 工厂模式详解">工厂模式详解 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

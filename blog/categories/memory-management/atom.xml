@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Memory_management | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/memory-management/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[__autoreleasing的理解]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/autoreleasingde-li-jie/"/>
+    <updated>2016-01-13T04:27:10+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/autoreleasingde-li-jie</id>
+    <content type="html"><![CDATA[<h3>__autoreleasing 修饰符</h3>
+
+<p>将对象赋值给附有__autoreleasing 修饰符的变量等同于ARC 无效时调用对象的autorelease方法。我们通过以下源代码来看一下</p>
+
+<pre><code class="objective-c">@autoreleasepool {
+id __autoreleasing obj  = [[NSObject alloc] init];
+}
+</code></pre>
+
+<p>该源代码主要将NSObject 类对象注册到autoreleasepool 中，可作如下变换：</p>
+
+<pre><code class="objective-c">/* 编译器的模拟代码 */
+id pool = objc_autoreleasePoolPush();
+id obj = objc_msgSend(NSObject, @selector(alloc));
+objc_msgSend(obj, @selector(init));
+objc_autorelease(obj);
+objc_autoreleasePoolPop(pool);
+</code></pre>
+
+<p>这与苹果的autorelease 实现中的说明（参考1.2.7 节）完全相同。虽然ARC 有效和无效时，其在源代码上的表现有所不同，但autorelease 的功能完全一样。</p>
+
+<p>在alloc/new/copy/mutableCopy 方法群之外的方法中使用注册到autoreleasepool 中的对象会如何呢？下面我们来看看NSMutableArray 类的array 类方法。</p>
+
+<pre><code class="objective-c">@autoreleasepool {
+id __autoreleasing obj = [NSMutableArray array];
+}
+</code></pre>
+
+<p>这与前面的源代码有何不同呢？</p>
+
+<pre><code class="objective-c">/* 编译器的模拟代码 */
+id pool = objc_autoreleasePoolPush();
+id obj = objc_msgSend(NSMutableArray, @selector(array));
+objc_retainAutoreleasedReturnValue(obj);
+objc_autorelease(obj);
+objc_autoreleasePoolPop(pool);
+</code></pre>
+
+<p>虽然持有对象的方法从alloc 方法变为objc_retainAutoreleasedReturnValue 函数， 但注册autoreleasepool 的方法没有改变，仍是objc_autorelease 函数。</p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

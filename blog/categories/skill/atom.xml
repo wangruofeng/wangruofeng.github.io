@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Skill | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/skill/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CocoaPods使用指南]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
+    <updated>2016-01-13T05:51:18+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
+    <content type="html"><![CDATA[<p>CocoaPods是iOS最常用的第三方类库管理工具，绝大部分有名的开源类库
+支持CocoaPods.
+CocoaPods是用Ruby实现的，要使用它首先需要有Ruby的环境。幸亏是
+OS X系统默认已经可以运行Ruby了，我么只需执行以下命令：</p>
+
+<pre><code class="objective-c">sudo gem install cocoapods
+</code></pre>
+
+<p>由于某些原因，执行时会出现下面的错误提示：</p>
+
+<pre><code class="objective-c">ERROR :Could not find a valid gem `cocoapods` (&gt;= 0), here is why:
+        Unable to download data from https://rubygems.org/ - Errno::EPIPI:
+        Broken pipe - SSL_connect
+(https://rubygems.org/lastest_specs.4.8.gz)
+</code></pre>
+
+<p>安装成功后，接着执行命令：</p>
+
+<pre><code class="objective-c">pod setup
+</code></pre>
+
+<p>如果Ruby环境不够新，可能需要更新以下：</p>
+
+<pre><code class="objective-c">sudo gem update --system
+</code></pre>
+
+<p>至此安装就完成了，我们可以尝试搜索一个第三方类库：</p>
+
+<pre><code class="objective-c">pod search AFNetworking
+</code></pre>
+
+<p>使用CocoaPods第一步，是在当前项目下，新疆一个Podfile文件：</p>
+
+<pre><code class="objective-c">touch Podfile
+</code></pre>
+
+<p>然后利用vim打开Podfile文件编辑，加入你想要的类库，格式如下：</p>
+
+<pre><code class="objective-c">platform :ios
+pod  'Reachability', '3.1.0'
+
+platform :ios, '6.0'
+pod 'JSONKit', '1.4'
+pod 'AFNetworking', '~&gt; 2.3,1'
+</code></pre>
+
+<p>如果是拷贝别人的项目，或是一个很久没打开过的项目，可能需要先执行一下：</p>
+
+<pre><code class="objective-c">pod update
+</code></pre>
+
+<p>最后一步，执行命令：</p>
+
+<pre><code class="objective-c">pod install
+</code></pre>
+
+<p>当终端出现类似下面的提示后，就代表成功了：</p>
+
+<pre><code class="objective-c">[!] From now no use `Sample0814.xcworkspace`.
+</code></pre>
+
+<p>这个时候会看到项目文件夹多了一个xxx.xcworkspace,以后要通过这个文件
+打开项目，老项目xxx.xcodeproj不再使用。</p>
+
+<blockquote><ol>
+<li>上面的每一步都可能出现问题，但大部分问题都是因为局域网的原因，用一个网速稳
+定的境外VPN可破</li>
+<li>如果上面因为权限问题安装失败，必须每次都要删除</li>
+</ol>
+
+
+<pre><code class="objective-c">rm -rf /User/loginname/Library/Caches/CocoaPods/
+</code></pre>
+
+<p>因为这个缓冲中会存下你的github的东西，造成每次调用上次权限问题的缓存。
+3. 关于Podfile文件编辑时，第三方版本号的各种写法:</p></blockquote>
+
+<pre><code class="objective-c">pod ‘AFNetworking’      //不显式指定依赖库版本，表示每次都获取最新版本
+pod ‘AFNetworking’,  ‘2.0’     //只使用2.0版本
+pod ‘AFNetworking’, ‘&gt;2.0′     //使用高于2.0的版本
+pod ‘AFNetworking’, ‘&gt;=2.0′     //使用大于或等于2.0的版本
+pod ‘AFNetworking’, ‘&lt;2.0′     //使用小于2.0的版本
+pod ‘AFNetworking’, ‘&lt;=2.0′     //使用小于或等于2.0的版本
+pod ‘AFNetworking’, ‘~&gt;0.1.2′     //使用大于等于0.1.2但小于0.2的版本，相当于&gt;=0.1.2并且&lt;0.2.0
+pod ‘AFNetworking’, ‘~&gt;0.1′     //使用大于等于0.1但小于1.0的版本
+pod ‘AFNetworking’, ‘~&gt;0′     //高于0的版本，写这个限制和什么都不写是一个效果，都表示使用最新版本
+</code></pre>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS中的触摸事件和手势处理]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/"/>
+    <updated>2016-01-13T05:05:09+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li</id>
+    <content type="html"><![CDATA[<h3>iOS触摸事件分类</h3>
+
+<ul>
+<li>触摸事件</li>
+<li>加速事件</li>
+<li>远程事件</li>
+</ul>
+
+
+<h3>谁能处理触摸事件?</h3>
+
+<p><strong>响应者对象</strong></p>
+
+<p>在iOS中不是任何对象都能处理事件,只有继承了UIResponder的对象才能接收并处理事件.我们称之为<strong>响应者对象</strong>.</p>
+
+<p><code>UIApplication</code>,<code>UIViewController</code>,<code>UIView</code>都继承自<code>UIResponder</code>,因此它们都是响应者对象,都能够接收并处理事件.</p>
+
+<h3>UIResponder</h3>
+
+<p>UIResponder内部提供了方法来处理事件</p>
+
+<ol>
+<li><p>触摸事件</p>
+
+<p> 一次完成的触摸过程,会经历3个状态;
+ UIView的触摸事件处理</p>
+
+<p> 1.一根或多根手指开始触摸view,系统会自动调用view下面的方法:</p>
+
+<pre><code> - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;  //触摸开始
+</code></pre>
+
+ 2.一根或者多根手指在view上移动，系统会自动调用view下面的方法（随着手指的移动，会持续调用该方法）
+
+<pre><code> - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;  //触摸移动
+</code></pre>
+
+ 3.一根或者多根手指离开view，系统会自动调用view下面的方法
+
+<pre><code> - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;  //触摸结束
+</code></pre>
+
+ 4.触摸结束前，某个系统事件（例如电话呼入 ）会打断触摸过程，系统会自动调用view下面的方法
+
+<pre><code> - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event; //触摸取消(可能会经历)
+</code></pre>
+
+ 4个触摸事件的处理方法中，都有 NSSet <em>touches 和 UIEvent </em>event 两个参数:
+
+<ul>
+<li>一次完整的触摸过程，只会产生一个事件对象，4个触摸方法都是同一个event参数</li>
+<li>如果两根手指同时触摸一个view，那么view只会调用一次 touchesBegan:withEvent: 方法，touches参数中装着两个UITouch对象；</li>
+<li>如果这两根手指一前一后分开触摸同一个view，那么view会分别调用两次 touchesBegan:withEvent:方法， 并且每次调用时的touches参数只包含一个UITouch对象；</li>
+<li>根据touches中UITouch个数可以判断出使单点触摸还是多点触摸</li>
+</ul>
+
+
+<p> 提示：touches中存放的都是UITouch对象。</p></li>
+<li><p>加速计事件</p>
+
+<pre><code> - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event;
+ - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event;
+ - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event;
+</code></pre></li>
+<li><p>远程控制事件</p>
+
+<pre><code> - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
+</code></pre></li>
+</ol>
+
+
+<h3>UITouch</h3>
+
+<p>当用户用一根手指触摸屏幕时，会创建一个与手指相关联的UITouch对象；一根手指对应一个UITouch对象
+UITouch的作用:</p>
+
+<ul>
+<li>保存跟手指相关的信息，比如触摸的位置、时间、阶段；</li>
+<li>当手指移动时，系统会更新同一个UITouch对象，使之能够一直保存该手指的触摸位置；</li>
+<li>当手指离开屏幕时，系统会销毁相应的UITouch对象。</li>
+</ul>
+
+
+<p>提示：iPhone开发中，要避免使用双击事件。</p>
+
+<p>UITouch的属性:
+触摸产生时所处的窗口:</p>
+
+<pre><code>@property(nonatomic,readonly,retain) UIWindow *window;
+</code></pre>
+
+<p>触摸产生时所处的视图</p>
+
+<pre><code> @property(nonatomic,readonly,retain) UIView *view;
+</code></pre>
+
+<p>短时间内点按屏幕的次数，可以根据tapCount判断单击、双击或更多地点击</p>
+
+<pre><code> @property(nonatomic,readonly) NSUInteger tapCount;
+</code></pre>
+
+<p>记录了触摸事件产生或变化时的时间，单位是秒</p>
+
+<pre><code> @property(nonatomic,readonly) NSTimeInterval timestamp;
+</code></pre>
+
+<p>当前触摸事件所处的状态</p>
+
+<pre><code>@property(nonatomic,readonly) UITouchPhase phase;
+/*
+UITouchPhase是一个枚举类型，包含：
+UITouchPhaseBegan（触摸开始）
+UITouchPhaseMoved（接触点移动）
+UITouchPhaseStationary（接触点无移动）
+UITouchPhaseEnded（触摸结束）
+UITouchPhaseCancelled（触摸取消）*/
+</code></pre>
+
+<p>UITouch的方法：</p>
+
+<pre><code>- (CGPoint)locationInView:(UIView *)view;
+</code></pre>
+
+<p>1.返回值表示触摸在view上的位置；</p>
+
+<p>2.这里返回的位置是针对view坐标系的,（以view的左上角为原点（0，0））；</p>
+
+<p>3.调用时传入的view参数为nil 的话，返回的是触摸点在UIWindow的位置。</p>
+
+<pre><code>- (CGPoint)previousLocationInView:(UIView *)view;
+</code></pre>
+
+<p>该方法记录了前一个触摸点的位置；</p>
+
+<h3>UIEvent</h3>
+
+<blockquote><p>每产生一个事件，就会产生一个UIEvent对象；</p>
+
+<p>UIEvent:称为事件对象，记录事件产生的时刻和类型。</p></blockquote>
+
+<p>常见属性：
+1.事件类型</p>
+
+<pre><code class="objective-c">@property(nonatomic,readonly) UIEventType  type;
+@property(nonatomic,readonly) UIEventSubtype  subtype;
+
+typedef
+NS_ENUM(NSInteger, UIEventType) {
+    UIEventTypeTouches,
+    UIEventTypeMotion,
+    UIEventTypeRemoteControl,
+};
+typedef
+NS_ENUM(NSInteger, UIEventSubtype) {
+    // available in iPhone OS 3.0
+    UIEventSubtypeNone                              = 0,    
+    // for UIEventTypeMotion, available in iPhone OS 3.0
+    UIEventSubtypeMotionShake                       = 1,
+    // for UIEventTypeRemoteControl, available in iOS 4.0
+    UIEventSubtypeRemoteControlPlay                 = 100,
+    UIEventSubtypeRemoteControlPause                = 101,
+    UIEventSubtypeRemoteControlStop                 = 102,
+    UIEventSubtypeRemoteControlTogglePlayPause      = 103,
+    UIEventSubtypeRemoteControlNextTrack            = 104,  
+    UIEventSubtypeRemoteControlPreviousTrack        = 105,
+    UIEventSubtypeRemoteControlBeginSeekingBackward = 106,   
+    UIEventSubtypeRemoteControlEndSeekingBackward   = 107,  
+    UIEventSubtypeRemoteControlBeginSeekingForward  = 108,  
+    UIEventSubtypeRemoteControlEndSeekingForward    = 109,
+};
+</code></pre>
+
+<p>2.事件产生的时间</p>
+
+<pre><code>@property(nonatomic,readonly) NSTimeInterval  timestamp;
+</code></pre>
+
+<p> UIEvent还提供了相应的方法可以获得在某个view上面的触摸对象（UITouch）。</p>
+
+<p> 触摸事件的产生：</p>
+
+<ol>
+<li><p>发生触摸事件后，系统会将该事件加入到一个由UIApplication管理的事件队列中；</p></li>
+<li><p>UIApplication会从事件队列中取出最前面的事件，并将事件分发下去以便处理，通常，先发送事件给应用程序的主窗口（keyWindow）；</p></li>
+<li><p>主窗口会在视图层次结构中找到一个最合适的视图控件来处理触摸事件，这也是整个事件处理过程的第一步；</p></li>
+<li><p>找到合适的视图控件后，就会调用视图控件的touches方法来做具体的事件处理。</p></li>
+</ol>
+
+
+<p>触摸事件的传递：</p>
+
+<blockquote><p>触摸事件的传递是从父控件传递到子控件；</p>
+
+<p>如果父控件不能接收触摸事件，那么子控件就不可能接收到触摸事件。</p></blockquote>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1eznrp087anj205t07rdfx.jpg" alt="触摸事件" />
+<img src="http://ww2.sinaimg.cn/mw690/64124373gw1eznrrf36ymj2097077dhc.jpg" alt="触摸事件2" /></p>
+
+<p>UIView不接收触摸事件的三种情况:
+不接受用户交互 ：</p>
+
+<ol>
+<li><p>userInteractionEnable = NO;</p></li>
+<li><p>隐藏 ：hidden = YES;</p></li>
+<li><p>透明：alpha = 0.0 ~ 0.01</p></li>
+</ol>
+
+
+<p>提示：UIImageView的userInteractionEnable默认就是NO，因此UIImageView以及它的子控件默认是不能接收触摸事件的。</p>
+
+<p>触摸事件处理的详细过程：</p>
+
+<ol>
+<li><p>用户点击屏幕后产生的一个触摸事件，经过一些列的传递过程后，会找到最合适的视图控件来处理这个事件</p></li>
+<li><p>找到最合适的视图控件后，就会调用控件的touches方法来作具体的事件处理</p>
+
+<p> touchesBegan…</p>
+
+<p> touchesMoved…</p>
+
+<p> touchedEnded…</p></li>
+</ol>
+
+
+<p>这些touches方法的默认做法是将事件顺着响应者链条向上传递，将事件交给上一个响应者进行处理</p>
+
+<p>响应者链的事件传递过程：</p>
+
+<ol>
+<li><p>如果view的控制器存在，就传递给控制器；如果控制器不存在，则将其传递给它的父视图；</p></li>
+<li><p>在视图层次结构最顶级的视图，如果也不能处理收到的事件或消息，则其将事件或消息传递给window对象进行处理。</p></li>
+<li><p>如果window对象也不处理，则其将事件或消息传递给UIApplication对象；</p></li>
+<li><p>如果UIApplication也不能处理该事件或消息，则将其丢弃</p></li>
+</ol>
+
+
+<h3>监听触摸事件的做法</h3>
+
+<p>如果想监听一个view上面的触摸事件，之前的做法是：</p>
+
+<ol>
+<li><p>自定义一个view；</p></li>
+<li><p>实现view的touches方法，在方法内部实现具体处理代码。</p>
+
+<p> 通过touches方法监听view触摸事件，有很明显的几个缺点：</p>
+
+<ul>
+<li><p>必须得自定义view；</p></li>
+<li><p>由于是在view内部的touches方法中监听触摸事件，因此默认情况下，无法让其他外界对象监听view的触摸事件；</p></li>
+<li><p>不容易区分用户的具体手势行为。</p></li>
+</ul>
+</li>
+</ol>
+
+
+<p>iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer）,在触摸事件处理方面，大大简化了开发者的开发难度。</p>
+
+<h3>UIGestureRescognizer</h3>
+
+<p>为了完成手势识别，必须借助于手势识别器：UIGestureRecognizer 。</p>
+
+<p>利用UIGestureRecognizer,能轻松识别用户在某个view上面做的一些常见手势。</p>
+
+<p>UIGestureRecognizer是一个抽象类，定义了所有的手势基本行为，使用它的子类才能处理具体的手势</p>
+
+<ul>
+<li>UITapGestureRecognizer(敲击)</li>
+<li>UIPinchGestureRecognizer(捏合，用于缩放)</li>
+<li>UIPanGestureRecognizer(拖拽)</li>
+<li>UISwipeGestureRecognizer(轻扫)</li>
+<li>UIRotationGestureRecognizer(旋转)</li>
+<li>UILongPressGestureRecognizer(长按)</li>
+</ul>
+
+
+<p>每一个手势识别器的用法都差不多，比如UITapGestureRecognizer的使用步骤如下:</p>
+
+<ol>
+<li><p>创建手势识别器对象；</p>
+
+<p> UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];</p></li>
+<li><p>设置手势识别器对象的具体属性；</p>
+
+<pre><code> // 连续敲击2次
+ tap.numberOfTapsRequired = 2;
+ // 需要2根手指一起敲击
+ tap.numberOfTouchesRequired = 2;
+</code></pre></li>
+<li><p>添加手势识别器到对应的view上</p>
+
+<p> [self.iconView addGestureRecognizer:tap];</p></li>
+<li><p>监听手势的触发</p>
+
+<p> [tap addTarget:self action:@selector(tapIconView:)];</p></li>
+</ol>
+
+
+<p>手势识别的状态</p>
+
+<pre><code class="objective-c">typedef NS_ENUM(NSInteger, UIGestureRecognizerState) {
+    // 没有触摸事件发生，所有手势识别的默认状态
+    UIGestureRecognizerStatePossible,
+    // 一个手势已经开始但尚未改变或者完成时
+    UIGestureRecognizerStateBegan,
+    // 手势状态改变
+    UIGestureRecognizerStateChanged,
+    // 手势完成
+    UIGestureRecognizerStateEnded,
+    // 手势取消，恢复至Possible状态
+    UIGestureRecognizerStateCancelled,
+    // 手势失败，恢复至Possible状态
+    UIGestureRecognizerStateFailed,
+    // 识别到手势识别
+    UIGestureRecognizerStateRecognized = UIGestureRecognizerStateEnded
+};
+</code></pre>
+
+<p>参考资料：<a href="http://my.oschina.net/aofe/blog/268749">傲风凌寒的博客</a></p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[优雅处理UIImage图片旋转]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/"/>
+    <updated>2016-01-13T04:38:49+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan</id>
+    <content type="html"><![CDATA[<h2>UIImag构造方式</h2>
+
+<p>UIImag构造方式大致有4种方式
+* 从本地bundle中加载 <code>imageNamed:</code>，传入一个bundle的文件名即可
+* 从本地一个文件路径读取 <code>imageWithContentsOfFile:</code>，需要传一个文件的文件路径path
+* 通过二进制数据<code>NSData</code>来创建<code>imageWithData:</code>
+* 通过一个<code>CoreGraphics</code>的<code>CGImageRef</code>来创建，<code>initWithCGImage:</code>
+* 通过一个<code>CoreImage</code>的<code>CIImage</code>来创建<code>initWithCIImage</code></p>
+
+<p>通过查阅Apple官网文档我们发现有2个这样的方法，今天就来一探究竟</p>
+
+<pre><code class="objective-c">+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
++ (UIImage *)imageWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
+
+- (instancetype)initWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
+- (instancetype)initWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
+</code></pre>
+
+<p>2个类方法2个实例方法都是类似，这里以<code>CGImageRef</code>为例</p>
+
+<pre><code class="objective-c">+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
+</code></pre>
+
+<ol>
+<li>新建的Xcode工程选择single Application</li>
+<li>在storyboard中拖一个<code>UIImageView</code>设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置<code>UIImageView</code>的<code>contentMode</code>为<code>Aspect Fit</code>方便查看以免变形</li>
+<li>在<code>UIImageView</code>下发放一个<code>UIButton</code>控件方便后面好对图片进行旋转操作</li>
+<li><p>在viewController中建立一个<code>UIImageView</code>引用,拉出一个rotate按钮的<code>IBAction</code></p>
+
+<p> 现在大概界面大概这样
+ <img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezhnagzyhpj20x7105doj.jpg" alt="UIImageOrientation效果图" /></p></li>
+<li><p>下面我们实现
+<code>- (IBAction)rotateImage:(id)sender {}</code>这个方法</p>
+
+<blockquote><p>在这里我们想通过点击按钮实现图片旋转
+  为了方便使用我们使用Category的方式实现
+  新建一个UIImage的分类取名叫Rotate</p>
+
+<p>这里需要传一张要处理的图片和一个待处理成的图片方向</p>
+
+<pre><code class="``objective-c">  + (UIImage *)rotateImage:(UIImage *)oldImage
+           orientation:(UIImageOrientation)orientation;
+</code></pre></blockquote></li>
+</ol>
+
+
+<pre><code class="objective-c">    + (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation{
+
+    UIImage *newImage = [UIImage imageWithCGImage:oldImage.CGImage scale:1 orientation:orientation];
+
+    NSString *orientationStr = nil;
+    switch (orientation) {
+        case UIImageOrientationUp: {
+            orientationStr = @"UIImageOrientationUp";
+            break;
+        }
+        case UIImageOrientationDown: {
+            orientationStr = @"UIImageOrientationDown";
+            break;
+        }
+        case UIImageOrientationLeft: {
+            orientationStr = @"UIImageOrientationLeft";
+            break;
+        }
+        case UIImageOrientationRight: {
+            orientationStr = @"UIImageOrientationRight";
+            break;
+        }
+        case UIImageOrientationUpMirrored: {
+            orientationStr = @"UIImageOrientationUpMirrored";
+            break;
+        }
+        case UIImageOrientationDownMirrored: {
+            orientationStr = @"UIImageOrientationDownMirrored";
+            break;
+        }
+        case UIImageOrientationLeftMirrored: {
+            orientationStr = @"UIImageOrientationLeftMirrored";
+            break;
+        }
+        case UIImageOrientationRightMirrored: {
+            orientationStr = @"UIImageOrientationRightMirrored";
+            break;
+        }
+
+    }
+
+    NSLog(@"current orientation: %@",orientationStr);
+
+    return newImage;
+}
+</code></pre>
+
+<p>在button点击事件触发时的这样使用</p>
+
+<pre><code class="objective-c">- (IBAction)rotateImage:(id)sender {
+
+    UIImage *oldImage = self.imgView.image;
+
+    UIImage *rotatedImage = [UIImage rotateImage:oldImage orientation:UIImageOrientationLeft];
+
+    self.imgView.image = rotatedImage;
+}
+</code></pre>
+
+<p>点击按钮测试发现第一次没问题，但是重逢点击无效
+原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过
+<code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，
+如果是就直接返回不做处理，如果不是再作旋转处理，
+也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
+
+<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？
+在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，
+再把UIImage通过<code>drawInRect
+</code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片
+下面是具体实现</p>
+
+<pre><code class="objective-c">- (UIImage *)fixedRotation{
+    if (self.imageOrientation == UIImageOrientationUp) return self;
+    CGAffineTransform transform = CGAffineTransformIdentity;
+
+    switch (self.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.width, self.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, self.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationUpMirrored:
+            break;
+    }
+
+    switch (self.imageOrientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationDown:
+        case UIImageOrientationLeft:
+        case UIImageOrientationRight:
+            break;
+    }
+
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, self.size.width, self.size.height,
+                                             CGImageGetBitsPerComponent(self.CGImage), 0,
+                                             CGImageGetColorSpace(self.CGImage),
+                                             CGImageGetBitmapInfo(self.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (self.imageOrientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0,0,self.size.height,self.size.width), self.CGImage);
+            break;
+
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,self.size.width,self.size.height), self.CGImage);
+            break;
+    }
+
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
+
+}
+</code></pre>
+
+<p>现在再优化一下原来<code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
+
+<pre><code class="objective-c">+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation{
+
+    UIImage *newImage = [UIImage imageWithCGImage:oldImage.CGImage scale:1 orientation:orientation];
+
+    //fix original Image with gived orientation.
+    UIImage *fixedRotationImage = [newImage fixedRotation];
+
+    NSString *orientationStr = nil;
+    switch (orientation) {
+        case UIImageOrientationUp: {
+            orientationStr = @"UIImageOrientationUp";
+            break;
+        }
+        case UIImageOrientationDown: {
+            orientationStr = @"UIImageOrientationDown";
+            break;
+        }
+        case UIImageOrientationLeft: {
+            orientationStr = @"UIImageOrientationLeft";
+            break;
+        }
+        case UIImageOrientationRight: {
+            orientationStr = @"UIImageOrientationRight";
+            break;
+        }
+        case UIImageOrientationUpMirrored: {
+            orientationStr = @"UIImageOrientationUpMirrored";
+            break;
+        }
+        case UIImageOrientationDownMirrored: {
+            orientationStr = @"UIImageOrientationDownMirrored";
+            break;
+        }
+        case UIImageOrientationLeftMirrored: {
+            orientationStr = @"UIImageOrientationLeftMirrored";
+            break;
+        }
+        case UIImageOrientationRightMirrored: {
+            orientationStr = @"UIImageOrientationRightMirrored";
+            break;
+        }
+
+    }
+
+    NSLog(@"current orientation: %@",orientationStr);
+
+    return fixedRotationImage;
+}
+</code></pre>
+
+<p> 现在再测试一下，well，It‘s OK。</p>
+
+<p> have fun!!!</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="http://www.galloway.me.uk/2012/01/uiimageorientation-exif-orientation-sample-images/">UIImageOrientation / EXIF orientation sample images</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/#//apple_ref/c/tdef/UIImageOrientation">Apple-UIImage Class Reference</a></li>
+<li><a href="http://stackoverflow.com/questions/8915630/ios-uiimageview-how-to-handle-uiimage-image-orientation">ios-uiimageview-how-to-handle-uiimage-image-orientation</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS7 tintColor详解]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie/"/>
+    <updated>2016-01-12T04:41:39+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie</id>
+    <content type="html"><![CDATA[<h3>为什么需要出现tintColor ？</h3>
+
+<blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
+ 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+
+<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示
+<code>objective-c
+self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal
+</code></p></blockquote>
+
+<p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举，
+* UIViewTintAdjustmentModeAutomatic（着色调整模式自动）
+* UIViewTintAdjustmentModeNormal（着色调整模式正常）
+* UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</p>
+
+<h3>先看看官方API说明</h3>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1eyvl7cyzvxj20du0kpn43.jpg" alt="tintColor官方说明" /></p>
+
+<blockquote><p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p></blockquote>
+
+<h3>注意事项</h3>
+
+<blockquote><p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。
+<code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举
+* UIImageRenderingModeAutomatic （默认渲染模式，自动模式）
+* UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）
+* UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</p></blockquote>
+
+<h3>UIImageView的使用</h3>
+
+<pre><code class="objective-c">UIImage *image = [UIImage imageNamed:@"xxx.png"];
+image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+</code></pre>
+
+<h3>- (void)tintColorDidChange的使用</h3>
+
+<p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+
+<pre><code class="objective-c"> - (void)tintColorDidChange
+ {
+    _tintColorLabel.textColor = self.tintColor;
+    _tintColorBlock.backgroundColor = self.tintColor;
+ }
+</code></pre>
+
+<h3>参考链接 <a href="https://www.shinobicontrols.com/blog/ios7-day-by-day-day-6-tint-color">Demo - iOS7 tintColor day by day</a></h3>
+
+<hr />
+
+<p>layout: post
+title: &ldquo;iOS7 tintColor详解&rdquo;
+date: 2016-01-13 04:41:39 +0800
+comments: true</p>
+
+<h2>categories: iOS oc 技巧</h2>
+
+<h1>iOS7 tintColor 详解</h1>
+
+<h3>为什么需要出现tintColor ？</h3>
+
+<blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
+ 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+
+<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示
+<code>objective-c
+self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal
+</code></p></blockquote>
+
+<p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举，
+* UIViewTintAdjustmentModeAutomatic（着色调整模式自动）
+* UIViewTintAdjustmentModeNormal（着色调整模式正常）
+* UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</p>
+
+<h3>先看看官方API说明</h3>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1eyvl7cyzvxj20du0kpn43.jpg" alt="tintColor官方说明" /></p>
+
+<blockquote><p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p></blockquote>
+
+<h3>注意事项</h3>
+
+<blockquote><p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。
+<code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举
+* UIImageRenderingModeAutomatic （默认渲染模式，自动模式）
+* UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）
+* UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</p></blockquote>
+
+<h3>UIImageView的使用</h3>
+
+<pre><code class="objective-c">UIImage *image = [UIImage imageNamed:@"xxx.png"];
+image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+</code></pre>
+
+<h3>- (void)tintColorDidChange的使用</h3>
+
+<p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+
+<pre><code class="objective-c"> - (void)tintColorDidChange
+ {
+    _tintColorLabel.textColor = self.tintColor;
+    _tintColorBlock.backgroundColor = self.tintColor;
+ }
+</code></pre>
+
+<h3>参考链接 <a href="https://www.shinobicontrols.com/blog/ios7-day-by-day-day-6-tint-color">Demo - iOS7 tintColor day by day</a></h3>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MacOSX10.11上用Octopress和GitHub搭建个人博客]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/"/>
+    <updated>2016-01-12T04:30:38+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke</id>
+    <content type="html"><![CDATA[<p>序言经过一晚上的折腾，终于从<code>Hexo</code>成功转入<code>Octopress</code>,那么本文就来细说一下如何使用 <code>Octopress</code>+<code>GitHub Pages</code>搭建个人博客</p>
+
+<h3>为什么选择 Octopress &amp; Github Pages?</h3>
+
+<ul>
+<li>免费且独立。把 Octopress 博客系统搭建到 Github Pages 虽是免费，但不失独立性，即便 Github 全站关闭，你也将有一份本地全站备份，随时可以重新恢复。不必受托管商之气，而且还免费，如果你愿意，甚至可以自行插入广告挣钱。</li>
+<li>版本控制。写文章，建网站，做软件都需要修改，但有时候改完了又会后悔，如果有时光机就好了，Git 就是你的时光机。当然如果你不想了解这些看上去很唬人的 IT 名词，只是想写博客的话，请在需要的时候再研究这条的内容。</li>
+<li>相对其他托管到 Github 上的博客程序，Octopress 更加成熟易上手。打个比方，<a href="http://jekyllcn.com">Jekyll</a> 可以说是毛坯房，<a href="https://hexo.io">Hexo</a> 和 <a href="http://octopress.org">Octopress</a> 算是简装修，但相比 Hexo，Octopress 有更多装修范例和更多熟练的装修工人，更容易获取帮助。当然如果你只想住精装修的房子，那不得不花点钱上 <a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=8&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwiOv6rSnqbKAhVGKJQKHefnDGAQFghGMAc&amp;url=https%3A%2F%2Fzh.wikipedia.org%2Fzh-cn%2FWordPress&amp;usg=AFQjCNGIb2sxhqKIuZ22-NHO6nclaYYOSQ&amp;sig2=GoW6MP3lSb9RasgVQGFxnw">WordPress</a> 了</li>
+<li>使用 Markdown。<a href="https://zh.wikipedia.org/wiki/Markdown">Markdown</a> 是现在最为流行的轻量级标记语言，也是已故的天才 Aaron Swartz 留给世人最好的礼物，窃以为每个在互联网上发布文章的人都该掌握。</li>
+<li>按照官方的说法，Octopress 是个<code>A blogging framework for hackers</code>(「为黑客设计的博客框架」)，这很酷，你不觉得吗？</li>
+</ul>
+
+
+<p>如果你之前没有写过博客，打算开始搭建自己第一个博客的话，其实也不妨试试 Octopress，免费还能学到东西，何乐而不为？</p>
+
+<p>本文是在<code>OS X EI Capitan</code>系统上搭建一个基于<code>Octopress</code>的个人博客系统，记录搭建过程的各种坑，希望对有想搭建个人博客的朋友有所帮助。</p>
+
+<p>本文是建立在你有Shell指令基础和Git操作基础之上，如果不了解的话，需要查阅相关资料。</p>
+
+<p>先解释几个专业术语：</p>
+
+<ul>
+<li><a href="https://www.ruby-lang.org/zh_cn/">Ruby</a>
+
+<ul>
+<li>Ruby 是一种编程语言。Octopress 是用 Ruby语言 实现的。我们不需要对它有太多了解，只需要正确安装 Ruby 的环境（Ruby版本必须不低于1.9.3-p0，后面会详细介绍）及按步骤执行指令即可。</li>
+</ul>
+</li>
+<li><a href="https://rubygems.org/">RubyGems</a>
+
+<ul>
+<li>RubyGems（简称 gems）是一个用于对 Ruby组件进行打包的 Ruby 打包系统。它可以用来查找、安装、升级和卸载软件包。我们也是通过它安装Octopress包的</li>
+</ul>
+</li>
+<li><a href="https://rvm.io/">RVM</a>
+
+<ul>
+<li>RVM  是Ruby Version Manager的简称，是一款 Ruby 语言安装、管理的工具。我们对 Ruby 的操作是通过它的指令完成的。</li>
+</ul>
+</li>
+<li><a href="http://jekyll.bootcss.com/">Jekyll</a>
+
+<ul>
+<li>Jekyll 一个简单的博客形态的静态站点生产机器。  Jekyll 有一套模板目录，可以将 Markdown文件（或者Textile）转换为静态网页，并生成一个完整的可发布的静态网站。</li>
+<li>同时，我们可以将产生的静态网站布置到 GitHub Pages 上，生成个人博客站点。</li>
+<li>想了解更多内容可以查看<a href="http://jekyll.bootcss.com/docs/home/">中文文档</a>。</li>
+</ul>
+</li>
+<li><a href="http://niumeng.me/blog/2015/08/26/create-your-website-1-init/www.github.com/imathis/octopress">Octopress</a>
+
+<ul>
+<li>Octopress 是基于 Jekyll 的博客框架。他们的关系就像 jQuery 与 js 的关系一样。</li>
+<li>它为我们提供了现成的美观的主题模板，并且配置简单，使用方便，大大降低了我们建站的门槛。</li>
+</ul>
+</li>
+<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html">Git</a>
+
+<ul>
+<li>分布式版本控制工具，跟它有点类似的是SVN，只是两者使用场景不一样。</li>
+</ul>
+</li>
+<li><a href="https://www.github.com/">GitHub</a>
+
+<ul>
+<li>GitHub 是全球最热的开源社区，程序界的 Facebook。它为我们提供代码托管服务，以及我们搭建博客所需要的 Pages 服务。</li>
+</ul>
+</li>
+<li><a href="https://pages.github.com/">GitHub Pages</a>
+
+<ul>
+<li>GitHub Pages 是 GitHub 提供的一项服务。它用于显示托管在 GitHub 上的静态网页。所以我们可以用 Github Pages 搭建博客，当然我们也可以把项目的文档和主页放在上面。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>通过以上内容，我们大概能够明白 Octopress 建站的原理：
+我们使用基于 Jekyll 的 Octopress 站点生成工具，生成本地的静态网站。然后将静态网站托管到 GitHub 为我们提供的 GitHub Pages 服务上。访问 <strong>username</strong>.github.io 即可显示你的个人博客站了</p>
+
+<hr />
+
+<p>明白了上面这些内容，下面进行具体的搭建工作：</p>
+
+<h3>第一步：安装 Ruby</h3>
+
+<p>Mac自带Ruby环境打开终端，安装 RVM ，终端执行指令：</p>
+
+<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<p>接下来我们要查看自己的 Ruby 环境</p>
+
+<pre><code>$ ruby -v
+</code></pre>
+
+<p>如果你的 Ruby 版本不低于 1.9.3-p0 可以忽略 Ruby 的安装（或升级），直接跳到安装 RubyGems 。 否则，我们执行之后的操作，终端执行指令：</p>
+
+<pre><code>$ rvm install 1.9.3
+$ rvm use 1.9.3
+</code></pre>
+
+<p>然后安装 RubyGems， 终端执行指令：</p>
+
+<pre><code>$ rvm rubygems latest
+</code></pre>
+
+<p>到这里第一步完成。我们可以再执行一次第一条指令 <code>ruby -v</code> 来查看当前 Ruby 的版本了。</p>
+
+<h3>第二步：安装Octopress</h3>
+
+<p>因为Mac系统自动git环境，所以我们不需要考虑git的安装。直接将 Octopress的项目clone到本地，在终端执行指令：</p>
+
+<pre><code>$ git clone git://github.com/imathis/octopress.git octopress
+</code></pre>
+
+<p>完成后进入 octopress 的目录</p>
+
+<pre><code>$ cd octopress
+</code></pre>
+
+<p>接下来，安装依赖：</p>
+
+<pre><code>$ gem install bundler
+# 这时你可能会遇到没有权限的问题，那么我们需要加上sudo重新执行，并输入密码。
+$ sudo gem install bundler
+# 接下来执行：
+$ bundle install
+</code></pre>
+
+<p>这时你可能还会遇到问题如下：</p>
+
+<pre><code>Fetching gem metadata from https://rubygems.org/...........
+Resolving dependencies...
+
+Gem::RemoteFetcher::FetchError: SocketError: getaddrinfo: Name or service not known (https://rubygems.org/gems/rake-10.4.2.gem)
+An error occurred while installing rake (10.4.2), and Bundler cannot continue.
+</code></pre>
+
+<p>这是因为被墙了，解决办法有两个： 一个是，可以使用自己的翻墙工具； 另一个，淘宝做了一个gem的镜像。我们需要在Octopress的文件目录下找到Gemfile文件，将其中的<code>source 'https://rubygems.org/'</code>改为<code>source 'https://ruby.taobao.org/'</code></p>
+
+<p>再重新运行<code>bundle install</code>就可以了。 这段内容可以参考 <a href="http://www.imooc.com/qadetail/59105">bundle install 提示如下，是需要翻墙解决么</a>。</p>
+
+<p>下面就可以安装 Octopress 的默认主题了，终端执行指令：</p>
+
+<pre><code>rake install
+</code></pre>
+
+<p>这样一个最基本的个人博客站就产生了。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezxvho05u3j20lx0ab764.jpg" alt="Octoress init" /></p>
+
+<p>可以看出，现在显示得都是预设值，并不是我们想要的，所以需要修改Octopress目录下的_config.yml文件。</p>
+
+<p>文件目录<code>_config.yml</code></p>
+
+<p>描述：保存配置数据。很多配置选项都会直接从命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。</p>
+
+<p>_config.yml 文件共分为3个部分内容</p>
+
+<ul>
+<li>Main Configs</li>
+<li>Jekyll &amp; Plugins</li>
+<li>3rd Party Settings</li>
+</ul>
+
+
+<p>目前，我们只需要关注第一部分Main Configs。</p>
+
+<pre><code># ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+
+#网站地址
+url: http://wangruofeng.github.io
+
+#网站标题
+title: 王若风的技术博客
+
+#网站副标题
+subtitle: 天天向上.
+
+#网址作者，通常显示在页尾和每篇文章的尾部
+author: Ace
+
+#搜索引擎
+#simple_search: http://google.com/search
+
+#网站的描述，出现在HTML页面中的 meta 中的 description
+#description:
+</code></pre>
+
+<p>对应填入你的个人信息，其中url为必填的，一般填GitHub仓库对应的连接，其内容大致就是 <strong>username</strong>.github.io ，这个地址我们会在后面步骤中获得。</p>
+
+<h3>第三步：集成 GitHub Pages</h3>
+
+<p>1.注册 Github 账号</p>
+
+<p>这个没什么好说的，早晚需要，去 <a href="http://github.com">http://github.com</a> 注册吧。</p>
+
+<p>2.在 GitHub 上创建一个代码参考，项目名称命名规则为 <strong>username</strong>.github.io，username必须与用户名称一致。</p>
+
+<ol>
+<li>域名指向（可选）
+如果你有自己的域名可用，可以在这时就配置好，毕竟解析起来需要一段时间，不如在我们搭建博客的时候让它开始，这样我们搭建完成后，基本上就可以直接用自有域名访问了。</li>
+</ol>
+
+
+<p>我的是在<a href="http://wanwang.aliyun.com/domain/?utm_medium=text&amp;utm_source=baidu&amp;utm_campaign=st1&amp;utm_content=se_2485">万网</a>申请的，原价一年100多点现在有活动便宜的几块的都有，想要个性域名的可以去注册一个。</p>
+
+<ul>
+<li><p>如果你用的是顶级域名，比如 wangruofeng007.com, 请创建两个 A 记录 (A Record) 分别指向 <code>192.30.252.153</code> 和 <code>192.30.252.154</code>.</p></li>
+<li><p>如果你使用二级域名，比如 blog.wangruofeng007.com, 请将该域名的 CNAME 指向 [your_username].github.io, 把其中的 [your_username]换成你自己在 Github 上的用户名。</p></li>
+<li><p>如果你暂时没有域名，这一步可以暂时不用管</p></li>
+</ul>
+
+
+<p>Ps. 在创建过程中最好不要<code>添加忽略文件</code>和<code>README</code>文件。因为我们要把本地的 git 仓库同步到 GitHub 远程仓库中。如果再远程仓库中添加了其他文件，需要我们执行 pull 操作。除非你能非常熟练的使用 git ，否则不建议你制造不必要的麻烦。
+接下来将本地代码仓库同步到 GitHub 上，执行终端指令：</p>
+
+<pre><code>$ rake setup_github_pages
+</code></pre>
+
+<p>它会要求你绑定远程仓库的地址，此时只需要输入即可：</p>
+
+<pre><code>$ git@github.com:username/username.github.com.git
+</code></pre>
+
+<p>这样就会将 Octopress 生成的静态站点与 GitHub 进行绑定了。</p>
+
+<p>之后我们创建第一篇文章：</p>
+
+<pre><code>rake new_post["title"]
+</code></pre>
+
+<p>然后会有一个名为 yyyy-mm-dd-Post-Title.markdown 的文件在 octopress/source/_posts 目录下生成，其中 yyyy-mm-dd 是你当时的日期。然后执行以下命令：</p>
+
+<pre><code>cd source/_posts/
+vim yyyy-mm-dd-Post-Title.markdown
+</code></pre>
+
+<p>即可用 vim 编辑器编辑的刚才的文章了，好吧我知道你作为这篇文章的读者并不是一个能熟练使用 vim 的人，那么请在命令行输入 q！退出这个编辑器。如果你不想假装是个黑客的话，其实发布文章并不需要这么麻烦。</p>
+
+<p>我们直接打开 <code>octopress/source/_posts</code> 文件夹，找到刚才生成的文件，用你喜欢的 Markdown 编辑器（免费的我推荐 <a href="http://mouapp.com/">Mou</a>或者<a href="https://atom.io">Atom</a>）或者文本编辑器打开，对文章内容进行编辑。</p>
+
+<p>打开文件后，你会发现文章开头有这么一段信息:
+    &mdash;<br/>
+    layout: post<br/>
+    title: &ldquo;Post Title&rdquo;<br/>
+    date: yyyy-mm-dd hh:mm:ss<br/>
+    comments: true<br/>
+    categories:  &ldquo;&rdquo;
+    &mdash;</p>
+
+<p>这其实是这篇文章的元数据：layout 暂时不要理会；title 是这篇文章显示在最终网页上的标题；date 部分是详细的文件生成时间，如 2014-01-28 03:35:00；comment 部分表示是否允许评论，目前显示是允许，如果想关闭评论，请改为 false；categories 指这篇文章的分类目录，请在后面引号中输入,不用引号也可以，多个分类用<code>空格</code>隔开，如果没有该目录，则会自动生成。请不要删除这段信息，在这段信息下面开始你的文章内容</p>
+
+<p>这件事情给我们的启发是，以后发布文章，其实并不需要使用终端命令行生成文件。可以直接将自己写好的文章放到这个文件夹下面，当然请按照 <code>yyyy-mm-dd-Post-Title.markdown</code> 这样的文件格式命名，同时记得在文章前面添加元数据信息。这种做法生成的文章与上面的方法无异</p>
+
+<p>生成的新文章在source/_post/目录下，文件名构成为时间和标题的拼音。我们可以用Markdown编辑器对文章进行修改。
+之后生成静态站点，终端执行指令：</p>
+
+<pre><code># 生成静态站点
+$ rake generate
+</code></pre>
+
+<p>如果你想预览本地的站点，可以执行终端指令：</p>
+
+<pre><code># 预览静态站点
+$ rake preview
+</code></pre>
+
+<p>此时，可以使用浏览器打开<code>localhost:4000</code> 查看效果。如果没有问题可以将静态站点同步到 GitHub 远程仓库中，终端执行指令：</p>
+
+<pre><code># 同步内容
+$ rake deploy
+</code></pre>
+
+<p>你会发现我们的静态站点已经被 push 到 GitHub仓库的 master 分支上。稍等几分钟，访问 <code>username.github.io</code> (或者 <code>username.github.com</code>)，就会发现你的个人博客站已创建成功了。
+如果你还想给自己的本地资源文件（如Markdown文件等内容）也同步到 GitHub 中，可以执行以下指令：</p>
+
+<pre><code>$ git add .
+$ git commit -m "comment"
+$ git push origin source
+</code></pre>
+
+<p>这样我们的资源文件就会同步到 GitHub 的 source 分支了。</p>
+
+<h3>使用自己的域名（可选）</h3>
+
+<p>如果你有自己的域名，并且想指向这个新博客的话，请首先确保执行了第三步的<code>域名指向（可选）</code>的内容。如果没有执行，可以随时执行。
+然后执行下面的命令，注意把 your-domain.com 换成你自己的域名。</p>
+
+<pre><code>echo 'your-domain.com' &gt;&gt; source/CNAME
+</code></pre>
+
+<p>这句话的意思是在<code>source</code>分支下创建一个CNAME的文件并且将<code>your-domain.com</code>写入文件</p>
+
+<p>然后再次执行以下命令：</p>
+
+<pre><code>rake generate
+rake deploy
+</code></pre>
+
+<p>或者二合一</p>
+
+<pre><code>rake gen_deploy
+</code></pre>
+
+<p>这样你就可以使用自己的域名了。域名解析需要一段时间，如果没有马上生效，请不要着急。如果长时间没有生效，请确保完整执行了 <code>域名指向（可选）</code>和<code>使用自己的域名（可选）</code>的内容。</p>
+
+<p>现在我们完成了个人博客的初级搭建，足够满足我们的基本需求。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li>唐巧的博客: [象写程序一样写博客：搭建基于github的博客]（<a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/%EF%BC%89">http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/%EF%BC%89</a></li>
+<li>觅珠人: <a href="http://tchen.me/posts/2012-12-16-first-blog.html">第一篇博文：用Octopress搭建博客系统</a></li>
+<li>破船之家: <a href="http://beyondvincent.com/blog/2013/07/27/107-hello-page-of-github/">你好！github页面</a></li>
+<li>opoo.org: <a href="http://opoo.org/octopress/">Octopress 博客系统 —— a Blogging Framework for Hackers</a></li>
+<li>Ocotpress: <a href="http://octopress.org/docs/">Octopress Documentation</a></li>
+<li>Havee’s Space: <a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
+<li>colors4.us: <a href="http://colors4.us/blog/2012/01/08/octopressbo-ke-cong-ling-kai-shi-iii/">Octopress博客从零开始 III</a></li>
+<li>浮生猎趣:<a href="http://blog.lessfun.com/blog/2013/11/27/create-blog-in-github-page-using-octopress-and-binding-domain/">用Octopress在Github搭建博客，并绑定独立域名</a></li>
+<li>Aster0id的个人博客:<a href="http://niumeng.me/blog/2015/08/26/create-your-website-1-init/">制作个人博客站（一）：Mac系统下使用 Octopress + GitHub Pages 搭建个人博客</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Animation | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/animation/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[iOS Animation Swift 版]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/"/>
+    <updated>2016-01-16T19:34:06+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban</id>
+    <content type="html"><![CDATA[<p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
+
+<h3>简介</h3>
+
+<p>此文主要记录我学习iOS的动画相关内容用<code>Swift</code>语言，记录下来以供参考，不定时更新。</p>
+
+<h3>目录结构</h3>
+
+<ul>
+<li>Section I: View 动画
+
+<ul>
+<li>View animation</li>
+<li>弹簧动画 - Springs</li>
+<li>转场动画 - Transitions</li>
+<li>关键帧动画 - Keyframe</li>
+</ul>
+</li>
+<li>Section II: Auto Layout 动画</li>
+<li>Section III: Layer 动画</li>
+<li>Section IV: 3D 动画</li>
+<li>Section V: 未来类型的动画</li>
+<li>Section VI: View Controller 动画</li>
+<li>Section VII：第三方动画库</li>
+</ul>
+
+
+<h4>Section I: View 动画</h4>
+
+<h5>1.View animation</h5>
+
+<p>简介：view 的动画主要是通过UIView的类方法创建，动画内容一般
+放在block里面，可以镶嵌使用，构成链式动画，主要有3个方法,三个访法只需会参数最多的那个就行，函数名<code>animateWithDuration(_:delay:options:animations:completion:)</code>，其他的使用起来都类似。</p>
+
+<pre><code class="swift">class func animateWithDuration(_ duration: NSTimeInterval, animations animations: () -&gt; Void)
+class func animateWithDuration(_ duration: NSTimeInterval, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
+class func animateWithDuration(_ duration: NSTimeInterval, delay delay: NSTimeInterval, options options: UIViewAnimationOptions, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
+</code></pre>
+
+<p>使用：
+<code>swift
+UIView.animateWithDuration(0.5, delay: 0, options: [], animations: {
+    //do something
+  }, completion: {_ in
+    //do something
+})
+</code></p>
+
+<blockquote><p>说明：<code>options</code>，动画选项，这个运行你设置一个动画选项集合，传<code>[]</code>表示不需要选项，单个时可以省略放括号例如<code>.Repeat</code>,多个用逗号连接<code>[.Repeat, .CurveEaseInOut]</code></p>
+
+<p><code>completion</code>闭包需要一个参数，不需要使用参数可以用<code>_</code>表示，不需要实现可以直接传<code>nil</code></p></blockquote>
+
+<p>或者像下面这样写</p>
+
+<pre><code class="swift">UIView.animateWithDuration(0.5, delay: 0, options: [], animations: { () -&gt; Void in
+  //do something
+  }) { (_) -&gt; Void in
+  //do something
+}
+</code></pre>
+
+<h5>2.弹簧动画 - Springs</h5>
+
+<p>简介：弹簧动画是iOS 7.0新增的API，函数名<code>animateWithDuration(_:delay:usingSpringWithDamping:initialSpringVelocity:opti ons:animations:completion:)</code>，</p>
+
+<pre><code class="swift">class func animateWithDuration(_ duration: NSTimeInterval, delay delay: NSTimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options options: UIViewAnimationOptions, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
+</code></pre>
+
+<p>使用：
+<code>swift
+UIView.animateWithDuration(0.5, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [], animations: {
+// do something
+}, completion: nil)
+</code></p>
+
+<blockquote><p>说明：<code>usingSpringWithDamping</code>:设置弹簧的阻尼，范围（0.0-1.0），越接近0.0弹簧越有弹性，越接近1.0，效果越僵硬，你可以把当成弹簧的刚度来理解，
+<code>initialSpringVelocity</code>:设置弹簧初始化的速度，设置1.0表示用1秒在动画跨度上完成整个动画距离，值越大或者越小会导致动画有相应的大的或者较小的速度，可以当成弹簧的初始动量来理解。</p></blockquote>
+
+<h5>3.转场动画 - Transitions</h5>
+
+<p>简介：前两种创建的动画是基于可动画的接口例如，position，alpha，frame等等，Transitions是专门处理添加或者移除一个view的动画,系统有2个标准函数，一个是对单个view的处理，一个是处理2个view替换。</p>
+
+<pre><code class="swift">class func transitionWithView(_ view: UIView, duration duration: NSTimeInterval, options options: UIViewAnimationOptions, animations animations: (() -&gt; Void)?, completion completion: ((Bool) -&gt; Void)?)
+class func transitionFromView(_ fromView: UIView, toView toView: UIView, duration duration: NSTimeInterval, options options: UIViewAnimationOptions, completion completion: ((Bool) -&gt; Void)?)
+</code></pre>
+
+<p>使用：
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//add the new view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">.</span><span class="n">addSubview</span><span class="p">(</span><span class="n">newView</span><span class="p">)</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//remove the view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">.</span><span class="n">removeFromSuperview</span><span class="p">()</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//hide the view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">true</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//replace via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionFromView</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">oldView</span><span class="o">!</span><span class="p">,</span> <span class="nl">toView</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">TransitionFlipFromTop</span><span class="p">],</span>
+</span><span class='line'><span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h5>4.关键帧动画 - Keyframe</h5>
+
+<p>简介：关键帧顾名思义就是设定关键的一些帧然后系统会根据一套算法计算中间的其他帧，这样改变的可动画属性时看看起来更加流畅自然，主要有两个函数,一个创建关键帧动画，一个设置具体每帧内容</p>
+
+<pre><code class="swift">class func animateKeyframesWithDuration(_ duration: NSTimeInterval, delay delay: NSTimeInterval, options options: UIViewKeyframeAnimationOptions, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
++ (void)addKeyframeWithRelativeStartTime:(double)frameStartTime relativeDuration:(double)frameDuration animations:(void (^)(void))animations
+</code></pre>
+
+<p>例如：
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">planeDepart</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="bp">UIView</span><span class="p">.</span><span class="n">animateKeyframesWithDuration</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="nl">delay</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//add keyframes&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">100.0</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mf">10.0</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformMakeRotation</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">(</span><span class="o">-</span><span class="n">M_PI_4</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">100.0</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mf">60.0</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.51</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformIdentity</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">CGPoint</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">originalCenter</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">originalCenter</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<blockquote><p>说明：这是设计一个飞机沿一条路径起飞然后再归位的一段动画，<code>addKeyframeWithRelativeStartTime(_:relativeDuration:animations:)</code>,第一个参数相对开始时间，是相对于动画持续时间的百分比，例如0.1就是10%，0.25就是25%，如果整个动画持续2秒，0.1就是在2*0.1=0.2秒的时候开始，后面的一个参数是相对持续时间，范围更第一参数类似也(0.0-1.0),只从相对开始时间起，往后推移的相对时间。</p></blockquote>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[用CAShapeLayer动画绘制CGPath]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath/"/>
+    <updated>2016-01-13T04:35:42+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath</id>
+    <content type="html"><![CDATA[<ul>
+<li><a href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/">原文链接</a></li>
+</ul>
+
+
+<h4>这是什么？</h4>
+
+<blockquote><p>此文将讲解通过形状图层<code>CAShaperLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现动画绘制路径<code>CGPath</code>,此文是<a href="http://oleb.net">By Ole Begemann</a>创建于December 18, 2010,当时是发布iOS SDK 4.2时<code>CAShapeLayer</code>新增加的两个属性<a href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW16">strokeStart</a>和<a href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW15">strokeEnd</a>,这两个值是两个浮点数取值范围0.0~1.0,用来表明形状图层所指向的路径在绘制开始和结束路径中的相对位置。</p></blockquote>
+
+<p><code>strokeStart</code>默认值是0.0，<code>strokeEnd</code>默认值是1.0，显然这会导致形状图层的路径将一整个被绘制。假如，你想说，如果设置了layer.strokeEnd = 0.5f,只让她绘制前半部分，那该多好。</p>
+
+<p>真正有趣的事情是这些接口都是可动画的。通过动画绘制<code>strokeEnd</code>从0.0到1.0在几秒内，我们就能很容易自己绘制路径像下面这样写：</p>
+
+<pre><code class="objective-c">CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+pathAnimation.duration = 10.0;
+pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
+[self.pathLayer addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
+</code></pre>
+
+<p>最后，再添加第二个图层包含一个铅笔图片，使用关键帧动画<code>CAKeyframeAnimation</code>来让它随着这个路径以相同的速度绘制，就可以达到完美的错觉效果：</p>
+
+<pre><code class="objective-c">CAKeyframeAnimation *penAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+penAnimation.duration = 10.0;
+penAnimation.path = self.pathLayer.path;
+penAnimation.calculationMode = kCAAnimationPaced;
+[self.penLayer addAnimation:penAnimation forKey:@"penAnimation"];
+</code></pre>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">绘制普通路径效果视频</a></p>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">下载地址</a></p>
+
+<p>这个对文本一样有效；我们只需要把字符转化成<code>CGPath</code>。<code>Core Text</code>提供了那样的功能的函数，<a href="http://developer.apple.com/library/ios/documentation/Carbon/Reference/CTFontRef/Reference/reference.html#//apple_ref/c/func/CTFontCreatePathForGlyph">CTFontCreatePathForGlyph( )</a>。为了使用它，我们需要创建一个带属性的字符串用我们想要渲染的文本，先把它们分割成行在分割成一个个字符。在把所有的字符转换成路径后，我们以子路径方式把它添加到一个单个的<code>CGPath</code>路径中。更多细节可以查看<a href="http://www.codeproject.com/script/Membership/View.aspx?mid=2887692">Ohmu</a>写的<a href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">Low-level text rendering</a>这篇文章。结果看以来非常的炫酷：</p>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">绘制文字路径效果视频</a></p>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">下载地址</a></p>
+
+<p>从Github上获得<a href="http://github.com/ole/Animated-Paths">iPad版的样品工程</a></p>
+
+<h4>你将学到的知识点</h4>
+
+<ul>
+<li>使用<code>CAShapeLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现路径动画,比较高级复杂的效果像google的下拉刷新转圈就可以从这里引申去实现。</li>
+<li><code>CABasicAnimation</code>和<code>CABasicAnimation</code>使用</li>
+<li>深入理解<code>CAShapeLayer</code>和<code>CALayer</code></li>
+<li>通过文本创建路径，核心函数<code>CTFontCreatePathForGlyph()</code></li>
+</ul>
+
+
+<h4>补充说明</h4>
+
+<pre><code class="objective-c">    CAShapeLayer *pathLayer = [CAShapeLayer layer];
+    pathLayer.frame = self.animationLayer.bounds;
+    pathLayer.bounds = pathRect;
+    pathLayer.geometryFlipped = YES;
+    pathLayer.path = path.CGPath;
+    pathLayer.strokeColor = [[UIColor blackColor] CGColor];
+    pathLayer.fillColor = nil;
+    pathLayer.lineWidth = 10.0f;
+    pathLayer.lineJoin = kCALineJoinBevel;
+
+    [self.animationLayer addSublayer:pathLayer];
+</code></pre>
+
+<p>有一点非常重要，CALayer在iOS系统中相对坐标系是以屏幕左上<code>top-left</code>为坐标原点的，在Mac OS X上以坐下<code>bottom-left</code>为坐标原点,但是可以通过<code>CALayer</code>的接口<code>geometryFlipped</code>垂直翻转坐标系，这个值默认是<code>NO</code>，设置成<code>YES</code>就可以把坐标系转换成左下<code>bottom-left</code>了，这里作者使用的左下<code>bottom-left</code>的坐标系。</p>
+
+<pre><code class="objective-c">@property(getter=isGeometryFlipped) BOOL geometryFlipped;
+</code></pre>
+
+<p>关于这个属性使用时需要特别注意</p>
+
+<ol>
+<li>翻转会同时作用于它的子图层</li>
+<li>即使这个属性设置成<code>YES</code>,图片的<code>orientation</code>仍然是不变的（也就是说当设置<code>flipped=YES</code>和<code>flipped=NO</code>时一个<code>CGImageRef</code>储存在<code>contents</code>接口中的内容将会显示一致，赋值并不会真正变换底层的图层）</li>
+</ol>
+
+
+<h4>pathLayer动画实现原理</h4>
+
+<ol>
+<li>先创建一个动画用的图层<code>animationLayer</code>类型<code>CALayer</code>，用来充当动画的画布。</li>
+<li>创建真正的路径图层<code>pathLayer</code>类型为<code>CAShapeLayer</code>,让它的坐标系垂直翻转，并且让图层宽高同时向内收缩100个点,通过<code>CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)</code>实现</li>
+<li>把<code>pathLayer</code>添加到<code>animationLayer</code>的子图层中去</li>
+<li>创建一个铅笔图层<code>penLayer</code>类型为<code>CALayer</code>,把它添加到<code>pathLayer</code>去</li>
+<li>对<code>pathLayer</code>添加<code>CABasicAnimation</code>动画，动画属性为<code>strokeEnd</code></li>
+<li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
+</ol>
+
+
+<h4>textLayer动画实现原理</h4>
+
+<ol>
+<li>先创建一个动画用的图层<code>animationLayer</code>类型<code>CALayer</code>，用来充当动画的画布</li>
+<li>Create path from text,See:<a href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">http://www.codeproject.com/KB/iPhone/Glyph.aspx</a>，最终保存到一个类型为<code>CGMutablePathRef</code>的letter中</li>
+<li>通过letter来创建文字<code>UIBezierPath</code>类型的<code>path</code></li>
+<li>通过path再创建<code>CAShapeLayer</code>pathLayer,并且把pathLayer添加到<code>animationLayer</code>中去</li>
+<li>创建一个铅笔图层<code>penLayer</code>类型为<code>CALayer</code>,把它添加到<code>pathLayer</code>去</li>
+<li>对<code>pathLayer</code>添加<code>CABasicAnimation</code>动画，动画属性为<code>strokeEnd</code></li>
+<li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
+</ol>
+
+
+<h4>修复一处bug</h4>
+
+<p>重复点击<code>UISegmentedControl</code>导致铅笔消失，这是设置了<code>penAnimation.delegate = self;</code>在代理方法里面没有判断结束直接将设置<code>self.penLayer.hidden = YES</code>，导致连续切换时铅笔不见了，要修复这个bug只需加一个判断<code>   if (flag)   self.penLayer.hidden = YES;
+</code>即可,这样的意思是只有当动画完成时才设置<code>self.penLayer.hidden</code>的值，好了现在已经非常完美了，快去动手自己试试吧！🍺</p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

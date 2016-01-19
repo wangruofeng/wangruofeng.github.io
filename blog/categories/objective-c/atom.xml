@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Objective-c | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[多线程之NSOperation]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/"/>
+    <updated>2016-01-13T05:14:59+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation</id>
+    <content type="html"><![CDATA[<h3>本文目录</h3>
+
+<ul>
+<li>前言</li>
+<li>1.NSInvocationOperation</li>
+<li>2.NSBlokcOperation</li>
+<li>3.NSOperation的其他用法</li>
+<li>4.自定义NSOperation</li>
+</ul>
+
+
+<h2>前言</h2>
+
+<p>1.虽然<code>NSThread</code>也可以实现多线程编程，但是需要我们去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销。我们也可以配合使用<code>NSOperation</code>和<code>NSOperationQueue</code>实现多线程编程，实现步骤大致是这样的</p>
+
+<ul>
+<li>先将需要执行的操作封装到一个NSOperation对象中</li>
+<li>然后将NSOperation对象添加到NSOperationQueue中</li>
+<li>系统会自动将<code>NSOperation</code>中封装的操作放到一条新线程中执行在此过程中，我们根本不用考虑线程的生命周期、同步、加锁等问题下面列举一个应用场景，比如微博的粉丝列表：</li>
+</ul>
+
+
+<p><img src="http://images.cnitblog.com/blog/497279/201304/19122046-b40c752b60a5413290b569f5377ef7f3.png" alt="微博的粉丝列表" /></p>
+
+<p>每一行的头像肯定要从新浪服务器下载图片后才能显示的，而且是需要异步下载。这时候你就可以把每一行的图片下载操作封装到一个<code>NSOperation</code>对象中，上面有6行，所以要创建6个<code>NSOperation</code>对象，然后添加到<code>NSOperationQueue</code>中，分别下载不同的图片，下载完毕后，回到对应的行将图片显示出来。</p>
+
+<p>2 .默认情况下，<code>NSOperation</code>并不具备封装操作的能力，必须使用它的子类，使用NSOperation子类的方式有3种：</p>
+
+<ul>
+<li>NSInvocationOperation</li>
+<li>NSBlockOperation</li>
+<li>自定义子类继承NSOperation，实现内部相应的方法</li>
+</ul>
+
+
+<p>这讲先介绍如何用<code>NSOperation</code>封装一个操作，后面再结合<code>NSOperationQueue</code>来使用。</p>
+
+<h2>1.NSInvocationOperation</h2>
+
+<pre><code class="objective-c">NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run:) object:@"mj"];
+[operation start];
+</code></pre>
+
+<ul>
+<li>第1行初始化了一个<code>NSInvocationOperation</code>对象，它是基于一个对象和selector来创建操作</li>
+<li>第2行调用了start方法，紧接着会马上执行封装好的操作，也就是会调用self的run:方法，并且将@&ldquo;mj"作为方法参数</li>
+<li>这里要注意：默认情况下，调用了start方法后并不会开一条新线程去执行操作，而是在当前线程同步执行操作。只有将operation放到一个NSOperationQueue中，才会异步执行操作。</li>
+</ul>
+
+
+<h2>2.NSBlockOperation</h2>
+
+<h3>a.同步执行一个操作</h3>
+
+<pre><code class="objective-c">NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^(){
+         NSLog(@"执行了一个新的操作");
+ }];
+  // 开始执行任务
+[operation start];
+</code></pre>
+
+<ul>
+<li>第1行初始化了一个NSBlockOperation对象，它是用一个Block来封装需要执行的操作</li>
+<li>第2行调用了start方法，紧接着会马上执行Block中的内容</li>
+<li>这里还是在当前线程同步执行操作，并没有异步执行</li>
+</ul>
+
+
+<h3>b.并发执行多个操作</h3>
+
+<pre><code class="objective-c">NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^(){
+　　NSLog(@"执行第1次操作，线程：%@", [NSThread currentThread]);
+}];
+
+[operation addExecutionBlock:^() {
+　　NSLog(@"又执行了1个新的操作，线程：%@", [NSThread currentThread]);
+}];
+
+[operation addExecutionBlock:^() {
+　　NSLog(@"又执行了1个新的操作，线程：%@", [NSThread currentThread]);
+}];
+
+[operation addExecutionBlock:^() {
+　　NSLog(@"又执行了1个新的操作，线程：%@", [NSThread currentThread]);
+}];
+
+// 开始执行任务
+[operation start];
+</code></pre>
+
+<ul>
+<li>第1行初始化了一个NSBlockOperation对象</li>
+<li>分别在第5、9、13行通过addExecutionBlock:方法添加了新的操作，包括第1行的操作，一共封装了4个操作</li>
+<li><p>在第18行调用start方法后，就会并发地执行这4个操作，也就是会在不同线程中执行</p>
+
+<pre><code>  1 2013-02-02 21:38:46.102 thread[4602:c07] 又执行了1个新的操作，线程：&lt;NSThread: 0x7121d50&gt;{name = (null), num = 1}
+  2 2013-02-02 21:38:46.102 thread[4602:3f03] 又执行了1个新的操作，线程：&lt;NSThread: 0x742e1d0&gt;{name = (null), num = 5}
+  3 2013-02-02 21:38:46.102 thread[4602:1b03] 执行第1次操作，线程：&lt;NSThread: 0x742de50&gt;{name = (null), num = 3}
+  4 2013-02-02 21:38:46.102 thread[4602:1303] 又执行了1个新的操作，线程：&lt;NSThread: 0x7157bf0&gt;{name = (null), num = 4}
+</code></pre></li>
+</ul>
+
+
+<p>可以看出，每个操作所在线程的num值都不一样，说明是不同线程</p>
+
+<h2>3.NSOperation的其他用法</h2>
+
+<h3>a.取消操作</h3>
+
+<p>operation开始执行之后, 默认会一直执行操作直到完成，我们也可以调用cancel方法中途取消操作</p>
+
+<pre><code>[operation cancel];
+</code></pre>
+
+<h3>b.在操作完成后做一些事情</h3>
+
+<p>如果想在一个NSOperation执行完毕后做一些事情，就调用NSOperation的setCompletionBlock方法来设置想做的事情</p>
+
+<pre><code>operation.completionBlock = ^() {
+    NSLog(@"执行完毕");
+};
+</code></pre>
+
+<p>当operation封装的操作执行完毕后，就会回调Block里面的内容</p>
+
+<h2>4.自定义NSOperation</h2>
+
+<p>如果<code>NSInvocationOperation</code>和<code>NSBlockOperation</code>不能满足需求，我们可以直接新建子类继承NSOperation，并添加任何需要执行的操作。如果只是简单地自定义NSOperation，只需要重载<code>-(void)main</code>这个方法，在这个方法里面添加需要执行的操作。</p>
+
+<p>下面写个子类DownloadOperation来下载图片</p>
+
+<h3>a.继承NSOperation，重写main方法</h3>
+
+<p><em>DownloadOperation.h</em></p>
+
+<pre><code class="objective-c">#import &lt;Foundation/Foundation.h&gt;
+@protocol DownloadOperationDelegate;
+
+@interface DownloadOperation : NSOperation
+// 图片的url路径
+@property (nonatomic, copy) NSString *imageUrl;
+// 代理
+@property (nonatomic, assign) id&lt;DownloadOperationDelegate&gt; delegate;
+
+- (id)initWithUrl:(NSString *)url delegate:(id&lt;DownloadOperationDelegate&gt;)delegate;
+@end
+
+// 图片下载的协议
+@protocol DownloadOperationDelegate &lt;NSObject&gt;
+- (void)downloadFinishWithImage:(UIImage *)image;
+@end
+</code></pre>
+
+<p>*DownloadOperation.m</p>
+
+<pre><code class="objective-c">#import "DownloadOperation.h"
+
+@implementation DownloadOperation
+@synthesize delegate = _delegate;
+@synthesize imageUrl = _imageUrl;
+
+// 初始化
+- (id)initWithUrl:(NSString *)url delegate:(id&lt;DownloadOperationDelegate&gt;)delegate {
+    if (self = [super init]) {
+        self.imageUrl = url;
+        self.delegate = delegate;
+    }
+    return self;
+}
+// 释放内存
+- (void)dealloc {
+    [super dealloc];
+    [_imageUrl release];
+}
+
+// 执行主任务
+- (void)main {
+    // 新建一个自动释放池，如果是异步执行操作，那么将无法访问到主线程的自动释放池
+    @autoreleasepool {
+        // ....
+    }
+}
+@end
+</code></pre>
+
+<ul>
+<li>在第22行重载了main方法，等会就把下载图片的代码写到这个方法中</li>
+<li>如果这个DownloadOperation是在异步线程中执行操作，也就是说main方法在异步线程调用，那么将无法访问主线程的自动释放池，所以在第24行创建了一个属于当前线程的自动释放池</li>
+</ul>
+
+
+<h3>b.正确响应取消事件</h3>
+
+<ul>
+<li>默认情况下，一个NSOperation开始执行之后，会一直执行任务到结束，就比如上面的DownloadOperation，默认会执行完main方法中的所有代码</li>
+<li>NSOperation提供了一个cancel方法，可以取消当前的操作。</li>
+<li>如果是自定义NSOperation的话，需要手动处理这个取消事件。比如，一旦调用了cancel方法，应该马上终止main方法的执行，并及时回收一些资源。</li>
+<li>处理取消事件的具体做法是：在<code>main</code>方法中定期地调用<code>isCancelled</code>方法检测操作是否已经被取消，也就是说是否调用了<code>cancel</code>方法，如果返回YES，表示已取消，则立即让main方法返回。</li>
+<li>以下地方可能需要调用<code>isCancelled</code>方法:
+
+<ol>
+<li>在执行任何实际的工作之前，也就是在main方法的开头。因为取消可能发生在任何时候，甚至在operation执行之前。</li>
+<li>执行了一段耗时的操作之后也需要检测操作是否已经被取消</li>
+</ol>
+</li>
+</ul>
+
+
+<pre><code class="objective-c">- (void)main {
+    // 新建一个自动释放池，如果是异步执行操作，那么将无法访问到主线程的自动释放池
+    @autoreleasepool {
+        if (self.isCancelled) return;
+
+        // 获取图片数据
+        NSURL *url = [NSURL URLWithString:self.imageUrl];
+        NSData *imageData = [NSData dataWithContentsOfURL:url];
+
+        if (self.isCancelled) {
+            url = nil;
+            imageData = nil;
+            return;
+        }
+
+        // 初始化图片
+        UIImage *image = [UIImage imageWithData:imageData];
+
+        if (self.isCancelled) {
+            image = nil;
+            return;
+        }
+
+        if ([self.delegate respondsToSelector:@selector(downloadFinishWithImage:)]) {
+            // 把图片数据传回到主线程
+            [(NSObject *)self.delegate performSelectorOnMainThread:@selector(downloadFinishWithImage:) withObject:image waitUntilDone:NO];
+        }
+    }
+}
+</code></pre>
+
+<ul>
+<li>在第4行main方法的开头就先判断operation有没有被取消。如果被取消了，那就没有必要往下执行了</li>
+<li>经过第8行下载图片后，在第10行也需要判断操作有没有被取消</li>
+<li>总之，执行了一段比较耗时的操作之后，都需要判断操作有没有被取消</li>
+<li>图片下载完毕后，在第26行将图片数据传递给了代理(delegate)对象</li>
+</ul>
+
+
+<p>资料参考：</p>
+
+<ul>
+<li>NSHipster 的<a href="http://nshipster.com/nsoperation/">NSOperation</a></li>
+<li>雷纯锋的博客的<a href="http://www.leichunfeng.com/blog/2015/07/29/ios-concurrency-programming-operation-queues/">《iOS 并发编程之 Operation Queues》</a></li>
+<li>objc的并发编程指南<a href="http://www.objc.io/issue-2/">《Concurrent Programming》</a></li>
+<li><a href="http://stackoverflow.com/questions/10373331/nsoperation-vs-grand-central-dispatch">StackOverflow: NSOperation vs. Grand Central Dispatch</a></li>
+<li><a href="http://eschatologist.net/blog/?p=232">Blog: When to use NSOperation vs. GCD</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[优雅处理UIImage图片旋转]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/"/>
+    <updated>2016-01-13T04:38:49+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan</id>
+    <content type="html"><![CDATA[<h2>UIImag构造方式</h2>
+
+<p>UIImag构造方式大致有4种方式
+* 从本地bundle中加载 <code>imageNamed:</code>，传入一个bundle的文件名即可
+* 从本地一个文件路径读取 <code>imageWithContentsOfFile:</code>，需要传一个文件的文件路径path
+* 通过二进制数据<code>NSData</code>来创建<code>imageWithData:</code>
+* 通过一个<code>CoreGraphics</code>的<code>CGImageRef</code>来创建，<code>initWithCGImage:</code>
+* 通过一个<code>CoreImage</code>的<code>CIImage</code>来创建<code>initWithCIImage</code></p>
+
+<p>通过查阅Apple官网文档我们发现有2个这样的方法，今天就来一探究竟</p>
+
+<pre><code class="objective-c">+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
++ (UIImage *)imageWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
+
+- (instancetype)initWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
+- (instancetype)initWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
+</code></pre>
+
+<p>2个类方法2个实例方法都是类似，这里以<code>CGImageRef</code>为例</p>
+
+<pre><code class="objective-c">+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
+</code></pre>
+
+<ol>
+<li>新建的Xcode工程选择single Application</li>
+<li>在storyboard中拖一个<code>UIImageView</code>设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置<code>UIImageView</code>的<code>contentMode</code>为<code>Aspect Fit</code>方便查看以免变形</li>
+<li>在<code>UIImageView</code>下发放一个<code>UIButton</code>控件方便后面好对图片进行旋转操作</li>
+<li><p>在viewController中建立一个<code>UIImageView</code>引用,拉出一个rotate按钮的<code>IBAction</code></p>
+
+<p> 现在大概界面大概这样
+ <img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezhnagzyhpj20x7105doj.jpg" alt="UIImageOrientation效果图" /></p></li>
+<li><p>下面我们实现
+<code>- (IBAction)rotateImage:(id)sender {}</code>这个方法</p>
+
+<blockquote><p>在这里我们想通过点击按钮实现图片旋转
+  为了方便使用我们使用Category的方式实现
+  新建一个UIImage的分类取名叫Rotate</p>
+
+<p>这里需要传一张要处理的图片和一个待处理成的图片方向</p>
+
+<pre><code class="``objective-c">  + (UIImage *)rotateImage:(UIImage *)oldImage
+           orientation:(UIImageOrientation)orientation;
+</code></pre></blockquote></li>
+</ol>
+
+
+<pre><code class="objective-c">    + (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation{
+
+    UIImage *newImage = [UIImage imageWithCGImage:oldImage.CGImage scale:1 orientation:orientation];
+
+    NSString *orientationStr = nil;
+    switch (orientation) {
+        case UIImageOrientationUp: {
+            orientationStr = @"UIImageOrientationUp";
+            break;
+        }
+        case UIImageOrientationDown: {
+            orientationStr = @"UIImageOrientationDown";
+            break;
+        }
+        case UIImageOrientationLeft: {
+            orientationStr = @"UIImageOrientationLeft";
+            break;
+        }
+        case UIImageOrientationRight: {
+            orientationStr = @"UIImageOrientationRight";
+            break;
+        }
+        case UIImageOrientationUpMirrored: {
+            orientationStr = @"UIImageOrientationUpMirrored";
+            break;
+        }
+        case UIImageOrientationDownMirrored: {
+            orientationStr = @"UIImageOrientationDownMirrored";
+            break;
+        }
+        case UIImageOrientationLeftMirrored: {
+            orientationStr = @"UIImageOrientationLeftMirrored";
+            break;
+        }
+        case UIImageOrientationRightMirrored: {
+            orientationStr = @"UIImageOrientationRightMirrored";
+            break;
+        }
+
+    }
+
+    NSLog(@"current orientation: %@",orientationStr);
+
+    return newImage;
+}
+</code></pre>
+
+<p>在button点击事件触发时的这样使用</p>
+
+<pre><code class="objective-c">- (IBAction)rotateImage:(id)sender {
+
+    UIImage *oldImage = self.imgView.image;
+
+    UIImage *rotatedImage = [UIImage rotateImage:oldImage orientation:UIImageOrientationLeft];
+
+    self.imgView.image = rotatedImage;
+}
+</code></pre>
+
+<p>点击按钮测试发现第一次没问题，但是重逢点击无效
+原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过
+<code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，
+如果是就直接返回不做处理，如果不是再作旋转处理，
+也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
+
+<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？
+在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，
+再把UIImage通过<code>drawInRect
+</code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片
+下面是具体实现</p>
+
+<pre><code class="objective-c">- (UIImage *)fixedRotation{
+    if (self.imageOrientation == UIImageOrientationUp) return self;
+    CGAffineTransform transform = CGAffineTransformIdentity;
+
+    switch (self.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.width, self.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, self.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationUpMirrored:
+            break;
+    }
+
+    switch (self.imageOrientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, self.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationDown:
+        case UIImageOrientationLeft:
+        case UIImageOrientationRight:
+            break;
+    }
+
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, self.size.width, self.size.height,
+                                             CGImageGetBitsPerComponent(self.CGImage), 0,
+                                             CGImageGetColorSpace(self.CGImage),
+                                             CGImageGetBitmapInfo(self.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (self.imageOrientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0,0,self.size.height,self.size.width), self.CGImage);
+            break;
+
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,self.size.width,self.size.height), self.CGImage);
+            break;
+    }
+
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
+
+}
+</code></pre>
+
+<p>现在再优化一下原来<code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
+
+<pre><code class="objective-c">+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation{
+
+    UIImage *newImage = [UIImage imageWithCGImage:oldImage.CGImage scale:1 orientation:orientation];
+
+    //fix original Image with gived orientation.
+    UIImage *fixedRotationImage = [newImage fixedRotation];
+
+    NSString *orientationStr = nil;
+    switch (orientation) {
+        case UIImageOrientationUp: {
+            orientationStr = @"UIImageOrientationUp";
+            break;
+        }
+        case UIImageOrientationDown: {
+            orientationStr = @"UIImageOrientationDown";
+            break;
+        }
+        case UIImageOrientationLeft: {
+            orientationStr = @"UIImageOrientationLeft";
+            break;
+        }
+        case UIImageOrientationRight: {
+            orientationStr = @"UIImageOrientationRight";
+            break;
+        }
+        case UIImageOrientationUpMirrored: {
+            orientationStr = @"UIImageOrientationUpMirrored";
+            break;
+        }
+        case UIImageOrientationDownMirrored: {
+            orientationStr = @"UIImageOrientationDownMirrored";
+            break;
+        }
+        case UIImageOrientationLeftMirrored: {
+            orientationStr = @"UIImageOrientationLeftMirrored";
+            break;
+        }
+        case UIImageOrientationRightMirrored: {
+            orientationStr = @"UIImageOrientationRightMirrored";
+            break;
+        }
+
+    }
+
+    NSLog(@"current orientation: %@",orientationStr);
+
+    return fixedRotationImage;
+}
+</code></pre>
+
+<p> 现在再测试一下，well，It‘s OK。</p>
+
+<p> have fun!!!</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="http://www.galloway.me.uk/2012/01/uiimageorientation-exif-orientation-sample-images/">UIImageOrientation / EXIF orientation sample images</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/#//apple_ref/c/tdef/UIImageOrientation">Apple-UIImage Class Reference</a></li>
+<li><a href="http://stackoverflow.com/questions/8915630/ios-uiimageview-how-to-handle-uiimage-image-orientation">ios-uiimageview-how-to-handle-uiimage-image-orientation</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RunLoop详解]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie/"/>
+    <updated>2016-01-12T04:44:06+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie</id>
+    <content type="html"><![CDATA[<h2>NSRunLoop是什么？</h2>
+
+<p>在Cocoa中，每个线程(<code>NSThread</code>)对象中内部都有一个run loop（<code>NSRunLoop</code>）对象用来循环处理输入事件.</p>
+
+<p><em>NSRunloop并不真的是一个loop，的apple的文档中 也提到了需要自己写while或者for语句来实现,类似下面：</em></p>
+
+<pre><code class="objective-c">while(running){
+    [NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+}
+</code></pre>
+
+<h2>何为Run loop 事件源</h2>
+
+<p>从字面翻译来看，run loop就是一个运行循环，的确它就是一个处理输入时间的运行循环，为什么需要这样处理，难道没有事件发生的时候让线程空转浪费资源？很明显在有事件发生的时候唤醒线程，没有事件发生的时候让其sleep更好。</p>
+
+<p>下面我还是拿这张百看不厌的图来说事：
+<img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezgx936dhzj20dg071aav.jpg" alt="runloop" /></p>
+
+<p>处理的事件包括两类
+* 来自Timer sources的同步事件
+* 来自Input sources的异步事件</p>
+
+<p>1.Time Source. Timer sources deliver synchronous events, occurring at a scheduled time or repeating interval.
+苹果文档中有句话需要注意，</p>
+
+<blockquote><p>Timer sources deliver events to their handler routines but do not cause the run loop to exit.*</p></blockquote>
+
+<p>创建NSTimer添加到run loop中的时候，这里需要注意的是，<code>NSTimer</code>默认是处于<code>NSDefaultRunloopMode</code>，这也就可以解释为什么如果你在你的控制器中添加了一个timer定时刷新你的界面，而你在拖动视图的时候timer不回fire，因为这个时候你的runloop 是<code>NSEventTrackingRunloopMode</code>,在这个mode下timer不回fire</p>
+
+<p>2.input source input source 主要是一些异步的事件，比如来自其它线程或者其它app的消息。</p>
+
+<p>input source 传递异步事件到其对应的处理函数，并且使runUntilDate(与线程相关联的runloop对象调用)返回</p>
+
+<p>为了能够处理input sourcr，run loops 产生notifications.通过注册成run-loop observers可以接受到这些通知（通过Core Foundation 来注册observers）.</p>
+
+<h2>RunLoopMode有哪些？</h2>
+
+<p>run loop在处理输入事件时会产生通知，可以通过Core Foundation向线程中添加run loop observers来监听特定事件,以在监听的事件发生时做附加的处理工作。</p>
+
+<p>每个run loop可运行在不同的模式下,一个run loop mode是一个集合，其中包含其监听的若干输入事件源，定时器，以及在事件发生时需要通知的run loop observers。运行在一种mode下的run loop只会处理其run loop mode中包含的输入源事件，定时器事件，以及通知run loop mode中包含的observers。</p>
+
+<p>Cocoa中的预定义模式有:
+1. Default模式</p>
+
+<pre><code>定义[NSDefaultRunLoopMode](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSDefaultRunLoopMode) (Cocoa) [kCFRunLoopDefaultMode](https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopDefaultMode) (Core Foundation)
+
+描述：默认模式中几乎包含了所有输入源(NSConnection除外),一般情况下应使用此模式，这是最常用的run loop mode。
+</code></pre>
+
+<ol>
+<li><p>Connection模式</p>
+
+<p> 定义：<code>NSConnectionReplyMode</code>(Cocoa)</p>
+
+<p> 描述：处理<code>NSConnection</code>对象相关事件，系统内部使用，这个mode表明<code>NSConnection</code>对象等待reply,用户基本不会使用。</p></li>
+<li><p>Modal模式</p>
+
+<p> 定义：<code>NSModalPanelRunLoopMode</code>(Cocoa)</p>
+
+<p> 描述：处理modal panels事件,需要等待处理的input source为modal panel时设置，比如NSSavePanel和NSOpenPanel。</p></li>
+<li><p>Event tracking模式
+ 定义：<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/index.html#//apple_ref/doc/uid/TP40006728-CH3-SW38">UITrackingRunLoopMode</a>(iOS) <code>NSEventTrackingRunLoopMode</code>(cocoa)</p>
+
+<p> 描述：使用该模式来处理用户界面相关的事件,例如在拖动loop或其他user interface tracking loops时处于此种模式下，在此模式下会限制输入事件的处理。例如，当手指按住UITableView拖动时就会处于此模式。</p></li>
+<li><p>Common模式</p>
+
+<p> 定义：<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSRunLoopCommonModes">NSRunLoopCommonModes</a> (Cocoa) <a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopCommonModes">kCFRunLoopCommonModes</a> (Core Foundation)</p>
+
+<p> 描述：这是一个伪模式，其为一组run loop mode的集合，将输入源加入此模式意味着在Common Modes中包含的所有模式下都可以处理。在Cocoa应用程序中，默认情况下Common Modes包含default modes,modal modes,event Tracking modes,
+ 可使用<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/func/CFRunLoopAddCommonMode">CFRunLoopAddCommonMode</a>方法向Common Modes中添加自定义modes。</p>
+
+<p> <strong>注意这个并不是一个特定的mode，而是一个mode的集合，而runloop必须运行在一个特定的mode下</strong>。</p></li>
+</ol>
+
+
+<p>获取当前线程的runloop mode</p>
+
+<pre><code class="objective-c">NSString* runLoopMode = [[NSRunLoop currentRunLoop] currentMode];
+</code></pre>
+
+<h2>NSTimer、NSURLConnection与UITrackingRunLoopMode</h2>
+
+<p>NSTimer与NSURLConnection默认运行在default mode下，这样当用户在拖动UITableView处于UITrackingRunLoopMode模式时，NSTimer不能fire,NSURLConnection的数据也无法处理。
+NSTimer的例子:
+在一个UITableViewController中启动一个0.2s的循环定时器，在定时器到期时更新一个计数器，并显示在label上。</p>
+
+<pre><code class="objective-c">- (void)viewDidLoad {
+
+    label =[[UILabel alloc]initWithFrame:CGRectMake(10, 100, 100, 50)];
+    [self.view addSubview:label];
+    count = 0;
+
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval: 0.2
+                                                      target: self
+                                                    selector: @selector(incrementCounter:)
+                                                    userInfo: nil
+                                                     repeats: YES];
+}
+
+- (void)incrementCounter:(NSTimer *)theTimer
+{
+    count++; label.text = [NSString stringWithFormat:@"%zd",count];
+}
+</code></pre>
+
+<p>在正常情况下，可看到每隔0.2s，label上显示的数字+1,但当你拖动或按住tableView时，label上的数字不再更新，当你手指离开时，label上的数字继续更新。当你拖动<code>UItableView</code>时，当前线程run loop处于<code>UIEventTrackingRunLoopMode</code>模式，在这种模式下，不处理定时器事件，即定时器无法fire,label上的数字也就无法更新。
+解决方法，一种方法是在另外的线程中处理定时器事件，可把Timer加入到<code>NSOperation</code>中在另一个线程中调度;还有一种方法时修改Timer运行的run loop模式，将其加入到<code>UITrackingRunLoopMode</code>模式或<code>NSRunLoopCommonModes</code>模式中。
+即</p>
+
+<pre><code class="objective-c">[[NSRunLoop currentRunLoop] addTimer:timer forMode:UITrackingRunLoopMode];
+</code></pre>
+
+<p>或</p>
+
+<pre><code class="objective-c">[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+</code></pre>
+
+<p>另外一种是放到<code>NSThread</code>中</p>
+
+<pre><code class="objective-c">- (void)viewDidLoad{
+    [super viewDidLoad];
+    NSLog(@"主线程 %@", [NSThread currentThread]);
+    //创建并执行新的线程
+    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(newThread) object:nil];
+    [thread start];
+}
+
+- (void)newThread{
+    @autoreleasepool{
+        //在当前Run Loop中添加timer，模式是默认的NSDefaultRunLoopMode
+        [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(timer_callback) userInfo:nil repeats:YES];
+        //开始执行新线程的Run Loop，如果不启动run loop，timer的事件是不会响应的
+        [[NSRunLoop currentRunLoop] run];
+    }
+}
+
+- (void)timer_callback{
+    NSLog(@"Timer %@", [NSThread currentThread]);
+}
+</code></pre>
+
+<p><code>NSURLConnection</code>也是如此，见<a href="https://github.com/rs/SDWebImage">SDWebImage</a>中的描述,以及<a href="https://github.com/rs/SDWebImage/blob/master/SDWebImage/SDWebImageDownloader.m">SDWebImageDownloader.m</a>代码中的实现。修改NSURLConnection的运行模式可使用<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/Reference/Reference.html#//apple_ref/occ/instm/NSURLConnection/scheduleInRunLoop:forMode:">scheduleInRunLoop:forMode:</a>方法。</p>
+
+<pre><code class="objective-c">NSURL *url = [NSURL URLWithString:@"https://www.baidu.com"];
+NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:15];
+
+self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+[connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+[connection start];
+</code></pre>
+
+<h3>参考资料：</h3>
+
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW1">Threading Programming Guide – Run Loops</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html">NSRunLoop Class Reference</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/">NSURLConnection Class Reference</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSTimer_Class/index.html">NSTimer Class Reference</a></li>
+<li><a href="http://iphonedevwiki.net/index.php/CFRunLoop">CFRunLoop wiki</a></li>
+<li><a href="https://github.com/rs/SDWebImage">SDWebImage</a></li>
+<li><a href="http://hayne.net/MacDev/TestButtonDown/">TestButtonDown</a></li>
+<li><a href="http://billwang1990.github.io/blog/2013/12/30/nsrunloop-issue/">关于NSRunloop的学习和理解</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS7 tintColor详解]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie/"/>
+    <updated>2016-01-12T04:41:39+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie</id>
+    <content type="html"><![CDATA[<h3>为什么需要出现tintColor ？</h3>
+
+<blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
+ 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+
+<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示
+<code>objective-c
+self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal
+</code></p></blockquote>
+
+<p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举，
+* UIViewTintAdjustmentModeAutomatic（着色调整模式自动）
+* UIViewTintAdjustmentModeNormal（着色调整模式正常）
+* UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</p>
+
+<h3>先看看官方API说明</h3>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1eyvl7cyzvxj20du0kpn43.jpg" alt="tintColor官方说明" /></p>
+
+<blockquote><p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p></blockquote>
+
+<h3>注意事项</h3>
+
+<blockquote><p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。
+<code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举
+* UIImageRenderingModeAutomatic （默认渲染模式，自动模式）
+* UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）
+* UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</p></blockquote>
+
+<h3>UIImageView的使用</h3>
+
+<pre><code class="objective-c">UIImage *image = [UIImage imageNamed:@"xxx.png"];
+image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+</code></pre>
+
+<h3>- (void)tintColorDidChange的使用</h3>
+
+<p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+
+<pre><code class="objective-c"> - (void)tintColorDidChange
+ {
+    _tintColorLabel.textColor = self.tintColor;
+    _tintColorBlock.backgroundColor = self.tintColor;
+ }
+</code></pre>
+
+<h3>参考链接 <a href="https://www.shinobicontrols.com/blog/ios7-day-by-day-day-6-tint-color">Demo - iOS7 tintColor day by day</a></h3>
+
+<hr />
+
+<p>layout: post
+title: &ldquo;iOS7 tintColor详解&rdquo;
+date: 2016-01-13 04:41:39 +0800
+comments: true</p>
+
+<h2>categories: iOS oc 技巧</h2>
+
+<h1>iOS7 tintColor 详解</h1>
+
+<h3>为什么需要出现tintColor ？</h3>
+
+<blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
+ 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+
+<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示
+<code>objective-c
+self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal
+</code></p></blockquote>
+
+<p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举，
+* UIViewTintAdjustmentModeAutomatic（着色调整模式自动）
+* UIViewTintAdjustmentModeNormal（着色调整模式正常）
+* UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</p>
+
+<h3>先看看官方API说明</h3>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1eyvl7cyzvxj20du0kpn43.jpg" alt="tintColor官方说明" /></p>
+
+<blockquote><p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p></blockquote>
+
+<h3>注意事项</h3>
+
+<blockquote><p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。
+<code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举
+* UIImageRenderingModeAutomatic （默认渲染模式，自动模式）
+* UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）
+* UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</p></blockquote>
+
+<h3>UIImageView的使用</h3>
+
+<pre><code class="objective-c">UIImage *image = [UIImage imageNamed:@"xxx.png"];
+image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+</code></pre>
+
+<h3>- (void)tintColorDidChange的使用</h3>
+
+<p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+
+<pre><code class="objective-c"> - (void)tintColorDidChange
+ {
+    _tintColorLabel.textColor = self.tintColor;
+    _tintColorBlock.backgroundColor = self.tintColor;
+ }
+</code></pre>
+
+<h3>参考链接 <a href="https://www.shinobicontrols.com/blog/ios7-day-by-day-day-6-tint-color">Demo - iOS7 tintColor day by day</a></h3>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

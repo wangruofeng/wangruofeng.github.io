@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>RunLoop详解 - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="RunLoop详解">
+  <meta name="keywords" content="Octopress, iOS, RunLoop, Swift, Objective-c">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">RunLoop详解</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:44:06+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:44 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>NSRunLoop是什么？</h2>
+
+<p>在Cocoa中，每个线程(<code>NSThread</code>)对象中内部都有一个run loop（<code>NSRunLoop</code>）对象用来循环处理输入事件.</p>
+
+<p><em>NSRunloop并不真的是一个loop，的apple的文档中 也提到了需要自己写while或者for语句来实现,类似下面：</em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">while</span><span class="p">(</span><span class="n">running</span><span class="p">){</span>
+</span><span class='line'>    <span class="p">[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">runMode</span><span class="p">:</span><span class="n">NSDefaultRunLoopMode</span> <span class="nl">beforeDate</span><span class="p">:[</span><span class="bp">NSDate</span> <span class="n">distantFuture</span><span class="p">]];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>何为Run loop 事件源</h2>
+
+<p>从字面翻译来看，run loop就是一个运行循环，的确它就是一个处理输入时间的运行循环，为什么需要这样处理，难道没有事件发生的时候让线程空转浪费资源？很明显在有事件发生的时候唤醒线程，没有事件发生的时候让其sleep更好。</p>
+
+<p>下面我还是拿这张百看不厌的图来说事：
+<img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezgx936dhzj20dg071aav.jpg" alt="runloop" /></p>
+
+<p>处理的事件包括两类
+* 来自Timer sources的同步事件
+* 来自Input sources的异步事件</p>
+
+<p>1.Time Source. Timer sources deliver synchronous events, occurring at a scheduled time or repeating interval.
+苹果文档中有句话需要注意，</p>
+
+<blockquote><p>Timer sources deliver events to their handler routines but do not cause the run loop to exit.*</p></blockquote>
+
+<p>创建NSTimer添加到run loop中的时候，这里需要注意的是，<code>NSTimer</code>默认是处于<code>NSDefaultRunloopMode</code>，这也就可以解释为什么如果你在你的控制器中添加了一个timer定时刷新你的界面，而你在拖动视图的时候timer不回fire，因为这个时候你的runloop 是<code>NSEventTrackingRunloopMode</code>,在这个mode下timer不回fire</p>
+
+<p>2.input source input source 主要是一些异步的事件，比如来自其它线程或者其它app的消息。</p>
+
+<p>input source 传递异步事件到其对应的处理函数，并且使runUntilDate(与线程相关联的runloop对象调用)返回</p>
+
+<p>为了能够处理input sourcr，run loops 产生notifications.通过注册成run-loop observers可以接受到这些通知（通过Core Foundation 来注册observers）.</p>
+
+<h2>RunLoopMode有哪些？</h2>
+
+<p>run loop在处理输入事件时会产生通知，可以通过Core Foundation向线程中添加run loop observers来监听特定事件,以在监听的事件发生时做附加的处理工作。</p>
+
+<p>每个run loop可运行在不同的模式下,一个run loop mode是一个集合，其中包含其监听的若干输入事件源，定时器，以及在事件发生时需要通知的run loop observers。运行在一种mode下的run loop只会处理其run loop mode中包含的输入源事件，定时器事件，以及通知run loop mode中包含的observers。</p>
+
+<p>Cocoa中的预定义模式有:
+1. Default模式</p>
+
+<pre><code>定义[NSDefaultRunLoopMode](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSDefaultRunLoopMode) (Cocoa) [kCFRunLoopDefaultMode](https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopDefaultMode) (Core Foundation)
+
+描述：默认模式中几乎包含了所有输入源(NSConnection除外),一般情况下应使用此模式，这是最常用的run loop mode。
+</code></pre>
+
+<ol>
+<li><p>Connection模式</p>
+
+<p> 定义：<code>NSConnectionReplyMode</code>(Cocoa)</p>
+
+<p> 描述：处理<code>NSConnection</code>对象相关事件，系统内部使用，这个mode表明<code>NSConnection</code>对象等待reply,用户基本不会使用。</p></li>
+<li><p>Modal模式</p>
+
+<p> 定义：<code>NSModalPanelRunLoopMode</code>(Cocoa)</p>
+
+<p> 描述：处理modal panels事件,需要等待处理的input source为modal panel时设置，比如NSSavePanel和NSOpenPanel。</p></li>
+<li><p>Event tracking模式
+ 定义：<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/index.html#//apple_ref/doc/uid/TP40006728-CH3-SW38">UITrackingRunLoopMode</a>(iOS) <code>NSEventTrackingRunLoopMode</code>(cocoa)</p>
+
+<p> 描述：使用该模式来处理用户界面相关的事件,例如在拖动loop或其他user interface tracking loops时处于此种模式下，在此模式下会限制输入事件的处理。例如，当手指按住UITableView拖动时就会处于此模式。</p></li>
+<li><p>Common模式</p>
+
+<p> 定义：<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSRunLoopCommonModes">NSRunLoopCommonModes</a> (Cocoa) <a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopCommonModes">kCFRunLoopCommonModes</a> (Core Foundation)</p>
+
+<p> 描述：这是一个伪模式，其为一组run loop mode的集合，将输入源加入此模式意味着在Common Modes中包含的所有模式下都可以处理。在Cocoa应用程序中，默认情况下Common Modes包含default modes,modal modes,event Tracking modes,
+ 可使用<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/func/CFRunLoopAddCommonMode">CFRunLoopAddCommonMode</a>方法向Common Modes中添加自定义modes。</p>
+
+<p> <strong>注意这个并不是一个特定的mode，而是一个mode的集合，而runloop必须运行在一个特定的mode下</strong>。</p></li>
+</ol>
+
+
+<p>获取当前线程的runloop mode</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSString</span><span class="o">*</span> <span class="n">runLoopMode</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="n">currentMode</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>NSTimer、NSURLConnection与UITrackingRunLoopMode</h2>
+
+<p>NSTimer与NSURLConnection默认运行在default mode下，这样当用户在拖动UITableView处于UITrackingRunLoopMode模式时，NSTimer不能fire,NSURLConnection的数据也无法处理。
+NSTimer的例子:
+在一个UITableViewController中启动一个0.2s的循环定时器，在定时器到期时更新一个计数器，并显示在label上。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">label</span> <span class="o">=</span><span class="p">[[</span><span class="bp">UILabel</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">label</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">NSTimer</span> <span class="o">*</span><span class="n">timer</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval</span><span class="p">:</span> <span class="mf">0.2</span>
+</span><span class='line'>                                                      <span class="nl">target</span><span class="p">:</span> <span class="nb">self</span>
+</span><span class='line'>                                                    <span class="nl">selector</span><span class="p">:</span> <span class="k">@selector</span><span class="p">(</span><span class="nl">incrementCounter</span><span class="p">:)</span>
+</span><span class='line'>                                                    <span class="nl">userInfo</span><span class="p">:</span> <span class="nb">nil</span>
+</span><span class='line'>                                                     <span class="nl">repeats</span><span class="p">:</span> <span class="nb">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">incrementCounter:</span><span class="p">(</span><span class="bp">NSTimer</span> <span class="o">*</span><span class="p">)</span><span class="nv">theTimer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">count</span><span class="o">++</span><span class="p">;</span> <span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;%zd&quot;</span><span class="p">,</span><span class="n">count</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在正常情况下，可看到每隔0.2s，label上显示的数字+1,但当你拖动或按住tableView时，label上的数字不再更新，当你手指离开时，label上的数字继续更新。当你拖动<code>UItableView</code>时，当前线程run loop处于<code>UIEventTrackingRunLoopMode</code>模式，在这种模式下，不处理定时器事件，即定时器无法fire,label上的数字也就无法更新。
+解决方法，一种方法是在另外的线程中处理定时器事件，可把Timer加入到<code>NSOperation</code>中在另一个线程中调度;还有一种方法时修改Timer运行的run loop模式，将其加入到<code>UITrackingRunLoopMode</code>模式或<code>NSRunLoopCommonModes</code>模式中。
+即</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">addTimer</span><span class="p">:</span><span class="n">timer</span> <span class="nl">forMode</span><span class="p">:</span><span class="n">UITrackingRunLoopMode</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">addTimer</span><span class="p">:</span><span class="n">timer</span> <span class="nl">forMode</span><span class="p">:</span><span class="n">NSRunLoopCommonModes</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外一种是放到<code>NSThread</code>中</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;主线程 %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'>    <span class="c1">//创建并执行新的线程</span>
+</span><span class='line'>    <span class="bp">NSThread</span> <span class="o">*</span><span class="kr">thread</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSThread</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">newThread</span><span class="p">)</span> <span class="nl">object</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="kr">thread</span> <span class="n">start</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">newThread</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">@autoreleasepool</span><span class="p">{</span>
+</span><span class='line'>        <span class="c1">//在当前Run Loop中添加timer，模式是默认的NSDefaultRunLoopMode</span>
+</span><span class='line'>        <span class="p">[</span><span class="bp">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval</span><span class="p">:</span><span class="mf">2.0</span> <span class="nl">target</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">timer_callback</span><span class="p">)</span> <span class="nl">userInfo</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">repeats</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">//开始执行新线程的Run Loop，如果不启动run loop，timer的事件是不会响应的</span>
+</span><span class='line'>        <span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="n">run</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">timer_callback</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Timer %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>NSURLConnection</code>也是如此，见<a href="https://github.com/rs/SDWebImage">SDWebImage</a>中的描述,以及<a href="https://github.com/rs/SDWebImage/blob/master/SDWebImage/SDWebImageDownloader.m">SDWebImageDownloader.m</a>代码中的实现。修改NSURLConnection的运行模式可使用<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/Reference/Reference.html#//apple_ref/occ/instm/NSURLConnection/scheduleInRunLoop:forMode:">scheduleInRunLoop:forMode:</a>方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span> <span class="nl">URLWithString</span><span class="p">:</span><span class="s">@&quot;https://www.baidu.com&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSURLRequest</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithURL</span><span class="p">:</span><span class="n">url</span> <span class="nl">cachePolicy</span><span class="p">:</span><span class="n">NSURLRequestReloadIgnoringLocalCacheData</span> <span class="nl">timeoutInterval</span><span class="p">:</span><span class="mi">15</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">connection</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSURLConnection</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithRequest</span><span class="p">:</span><span class="n">request</span> <span class="nl">delegate</span><span class="p">:</span><span class="nb">self</span> <span class="nl">startImmediately</span><span class="p">:</span><span class="nb">NO</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">connection</span> <span class="nl">scheduleInRunLoop</span><span class="p">:[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">forMode</span><span class="p">:</span><span class="n">NSRunLoopCommonModes</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">connection</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考资料：</h3>
+
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW1">Threading Programming Guide – Run Loops</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html">NSRunLoop Class Reference</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/">NSURLConnection Class Reference</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSTimer_Class/index.html">NSTimer Class Reference</a></li>
+<li><a href="http://iphonedevwiki.net/index.php/CFRunLoop">CFRunLoop wiki</a></li>
+<li><a href="https://github.com/rs/SDWebImage">SDWebImage</a></li>
+<li><a href="http://hayne.net/MacDev/TestButtonDown/">TestButtonDown</a></li>
+<li><a href="http://billwang1990.github.io/blog/2013/12/30/nsrunloop-issue/">关于NSRunloop的学习和理解</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:44:06+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:44 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/objective-c/'>objective-c</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/12/ios7-tintcolorxiang-jie/" title="Previous Post: iOS7 tintColor详解">&laquo; iOS7 tintColor详解</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/13/attribute/" title="Next Post: __attribute__">__attribute__ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

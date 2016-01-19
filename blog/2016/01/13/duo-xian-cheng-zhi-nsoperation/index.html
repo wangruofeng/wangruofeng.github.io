@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>多线程之NSOperation - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="多线程之NSOperation">
+  <meta name="keywords" content="Octopress, iOS, 多线程 , Swift, Objective-c, NSOperation">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">多线程之NSOperation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T05:14:59+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:14 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>本文目录</h3>
+
+<ul>
+<li>前言</li>
+<li>1.NSInvocationOperation</li>
+<li>2.NSBlokcOperation</li>
+<li>3.NSOperation的其他用法</li>
+<li>4.自定义NSOperation</li>
+</ul>
+
+
+<h2>前言</h2>
+
+<p>1.虽然<code>NSThread</code>也可以实现多线程编程，但是需要我们去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销。我们也可以配合使用<code>NSOperation</code>和<code>NSOperationQueue</code>实现多线程编程，实现步骤大致是这样的</p>
+
+<ul>
+<li>先将需要执行的操作封装到一个NSOperation对象中</li>
+<li>然后将NSOperation对象添加到NSOperationQueue中</li>
+<li>系统会自动将<code>NSOperation</code>中封装的操作放到一条新线程中执行在此过程中，我们根本不用考虑线程的生命周期、同步、加锁等问题下面列举一个应用场景，比如微博的粉丝列表：</li>
+</ul>
+
+
+<p><img src="http://images.cnitblog.com/blog/497279/201304/19122046-b40c752b60a5413290b569f5377ef7f3.png" alt="微博的粉丝列表" /></p>
+
+<p>每一行的头像肯定要从新浪服务器下载图片后才能显示的，而且是需要异步下载。这时候你就可以把每一行的图片下载操作封装到一个<code>NSOperation</code>对象中，上面有6行，所以要创建6个<code>NSOperation</code>对象，然后添加到<code>NSOperationQueue</code>中，分别下载不同的图片，下载完毕后，回到对应的行将图片显示出来。</p>
+
+<p>2 .默认情况下，<code>NSOperation</code>并不具备封装操作的能力，必须使用它的子类，使用NSOperation子类的方式有3种：</p>
+
+<ul>
+<li>NSInvocationOperation</li>
+<li>NSBlockOperation</li>
+<li>自定义子类继承NSOperation，实现内部相应的方法</li>
+</ul>
+
+
+<p>这讲先介绍如何用<code>NSOperation</code>封装一个操作，后面再结合<code>NSOperationQueue</code>来使用。</p>
+
+<h2>1.NSInvocationOperation</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSInvocationOperation</span> <span class="o">*</span><span class="n">operation</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSInvocationOperation</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">run</span><span class="p">:)</span> <span class="nl">object</span><span class="p">:</span><span class="s">@&quot;mj&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>第1行初始化了一个<code>NSInvocationOperation</code>对象，它是基于一个对象和selector来创建操作</li>
+<li>第2行调用了start方法，紧接着会马上执行封装好的操作，也就是会调用self的run:方法，并且将@&ldquo;mj"作为方法参数</li>
+<li>这里要注意：默认情况下，调用了start方法后并不会开一条新线程去执行操作，而是在当前线程同步执行操作。只有将operation放到一个NSOperationQueue中，才会异步执行操作。</li>
+</ul>
+
+
+<h2>2.NSBlockOperation</h2>
+
+<h3>a.同步执行一个操作</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSBlockOperation</span> <span class="o">*</span><span class="n">operation</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSBlockOperation</span> <span class="nl">blockOperationWithBlock</span><span class="p">:</span><span class="o">^</span><span class="p">(){</span>
+</span><span class='line'>         <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;执行了一个新的操作&quot;</span><span class="p">);</span>
+</span><span class='line'> <span class="p">}];</span>
+</span><span class='line'>  <span class="c1">// 开始执行任务</span>
+</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>第1行初始化了一个NSBlockOperation对象，它是用一个Block来封装需要执行的操作</li>
+<li>第2行调用了start方法，紧接着会马上执行Block中的内容</li>
+<li>这里还是在当前线程同步执行操作，并没有异步执行</li>
+</ul>
+
+
+<h3>b.并发执行多个操作</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSBlockOperation</span> <span class="o">*</span><span class="n">operation</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSBlockOperation</span> <span class="nl">blockOperationWithBlock</span><span class="p">:</span><span class="o">^</span><span class="p">(){</span>
+</span><span class='line'><span class="err">　　</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;执行第1次操作，线程：%@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="nl">addExecutionBlock</span><span class="p">:</span><span class="o">^</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="err">　　</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;又执行了1个新的操作，线程：%@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="nl">addExecutionBlock</span><span class="p">:</span><span class="o">^</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="err">　　</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;又执行了1个新的操作，线程：%@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="nl">addExecutionBlock</span><span class="p">:</span><span class="o">^</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="err">　　</span><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;又执行了1个新的操作，线程：%@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 开始执行任务</span>
+</span><span class='line'><span class="p">[</span><span class="n">operation</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>`</p>
+
+<ul>
+<li>第1行初始化了一个NSBlockOperation对象</li>
+<li>分别在第5、9、13行通过addExecutionBlock:方法添加了新的操作，包括第1行的操作，一共封装了4个操作</li>
+<li><p>在第18行调用start方法后，就会并发地执行这4个操作，也就是会在不同线程中执行</p>
+
+<pre><code>  1 2013-02-02 21:38:46.102 thread[4602:c07] 又执行了1个新的操作，线程：&lt;NSThread: 0x7121d50&gt;{name = (null), num = 1}
+  2 2013-02-02 21:38:46.102 thread[4602:3f03] 又执行了1个新的操作，线程：&lt;NSThread: 0x742e1d0&gt;{name = (null), num = 5}
+  3 2013-02-02 21:38:46.102 thread[4602:1b03] 执行第1次操作，线程：&lt;NSThread: 0x742de50&gt;{name = (null), num = 3}
+  4 2013-02-02 21:38:46.102 thread[4602:1303] 又执行了1个新的操作，线程：&lt;NSThread: 0x7157bf0&gt;{name = (null), num = 4}
+</code></pre></li>
+</ul>
+
+
+<p>可以看出，每个操作所在线程的num值都不一样，说明是不同线程</p>
+
+<h2>3.NSOperation的其他用法</h2>
+
+<h3>a.取消操作</h3>
+
+<p>operation开始执行之后, 默认会一直执行操作直到完成，我们也可以调用cancel方法中途取消操作</p>
+
+<pre><code>[operation cancel];
+</code></pre>
+
+<h3>b.在操作完成后做一些事情</h3>
+
+<p>如果想在一个NSOperation执行完毕后做一些事情，就调用NSOperation的setCompletionBlock方法来设置想做的事情</p>
+
+<pre><code>operation.completionBlock = ^() {
+    NSLog(@"执行完毕");
+};
+</code></pre>
+
+<p>当operation封装的操作执行完毕后，就会回调Block里面的内容</p>
+
+<h2>4.自定义NSOperation</h2>
+
+<p>如果<code>NSInvocationOperation</code>和<code>NSBlockOperation</code>不能满足需求，我们可以直接新建子类继承NSOperation，并添加任何需要执行的操作。如果只是简单地自定义NSOperation，只需要重载<code>-(void)main</code>这个方法，在这个方法里面添加需要执行的操作。</p>
+
+<p>下面写个子类DownloadOperation来下载图片</p>
+
+<h3>a.继承NSOperation，重写main方法</h3>
+
+<p><em>DownloadOperation.h</em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;Foundation/Foundation.h&gt;</span>
+</span><span class='line'><span class="k">@protocol</span> <span class="nc">DownloadOperationDelegate</span>;
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">DownloadOperation</span> : <span class="bp">NSOperation</span>
+</span><span class='line'><span class="c1">// 图片的url路径</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">copy</span><span class="p">)</span> <span class="bp">NSString</span> <span class="o">*</span><span class="n">imageUrl</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 代理</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">assign</span><span class="p">)</span> <span class="kt">id</span><span class="o">&lt;</span><span class="n">DownloadOperationDelegate</span><span class="o">&gt;</span> <span class="n">delegate</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithUrl:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span> <span class="nf">delegate:</span><span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">DownloadOperationDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 图片下载的协议</span>
+</span><span class='line'><span class="k">@protocol</span> <span class="nc">DownloadOperationDelegate</span> <span class="o">&lt;</span><span class="bp">NSObject</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">downloadFinishWithImage</span><span class="p">:(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">image</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>*DownloadOperation.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;DownloadOperation.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">DownloadOperation</span>
+</span><span class='line'><span class="k">@synthesize</span> <span class="n">delegate</span> <span class="o">=</span> <span class="n">_delegate</span><span class="p">;</span>
+</span><span class='line'><span class="k">@synthesize</span> <span class="n">imageUrl</span> <span class="o">=</span> <span class="n">_imageUrl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 初始化</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithUrl:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">url</span> <span class="nf">delegate:</span><span class="p">(</span><span class="kt">id</span><span class="o">&lt;</span><span class="n">DownloadOperationDelegate</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">delegate</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">self</span> <span class="o">=</span> <span class="p">[</span><span class="nb">super</span> <span class="n">init</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">imageUrl</span> <span class="o">=</span> <span class="n">url</span><span class="p">;</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">delegate</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 释放内存</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="n">dealloc</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_imageUrl</span> <span class="k">release</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 执行主任务</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">main</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 新建一个自动释放池，如果是异步执行操作，那么将无法访问到主线程的自动释放池</span>
+</span><span class='line'>    <span class="k">@autoreleasepool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// ....</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在第22行重载了main方法，等会就把下载图片的代码写到这个方法中</li>
+<li>如果这个DownloadOperation是在异步线程中执行操作，也就是说main方法在异步线程调用，那么将无法访问主线程的自动释放池，所以在第24行创建了一个属于当前线程的自动释放池</li>
+</ul>
+
+
+<h3>b.正确响应取消事件</h3>
+
+<ul>
+<li>默认情况下，一个NSOperation开始执行之后，会一直执行任务到结束，就比如上面的DownloadOperation，默认会执行完main方法中的所有代码</li>
+<li>NSOperation提供了一个cancel方法，可以取消当前的操作。</li>
+<li>如果是自定义NSOperation的话，需要手动处理这个取消事件。比如，一旦调用了cancel方法，应该马上终止main方法的执行，并及时回收一些资源。</li>
+<li>处理取消事件的具体做法是：在<code>main</code>方法中定期地调用<code>isCancelled</code>方法检测操作是否已经被取消，也就是说是否调用了<code>cancel</code>方法，如果返回YES，表示已取消，则立即让main方法返回。</li>
+<li>以下地方可能需要调用<code>isCancelled</code>方法:
+
+<ol>
+<li>在执行任何实际的工作之前，也就是在main方法的开头。因为取消可能发生在任何时候，甚至在operation执行之前。</li>
+<li>执行了一段耗时的操作之后也需要检测操作是否已经被取消</li>
+</ol>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">main</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 新建一个自动释放池，如果是异步执行操作，那么将无法访问到主线程的自动释放池</span>
+</span><span class='line'>    <span class="k">@autoreleasepool</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">isCancelled</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 获取图片数据</span>
+</span><span class='line'>        <span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span> <span class="nl">URLWithString</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">imageUrl</span><span class="p">];</span>
+</span><span class='line'>        <span class="bp">NSData</span> <span class="o">*</span><span class="n">imageData</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSData</span> <span class="nl">dataWithContentsOfURL</span><span class="p">:</span><span class="n">url</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">isCancelled</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">url</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>            <span class="n">imageData</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// 初始化图片</span>
+</span><span class='line'>        <span class="bp">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageWithData</span><span class="p">:</span><span class="n">imageData</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">isCancelled</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">image</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="p">([</span><span class="nb">self</span><span class="p">.</span><span class="n">delegate</span> <span class="nl">respondsToSelector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">downloadFinishWithImage</span><span class="p">:)])</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// 把图片数据传回到主线程</span>
+</span><span class='line'>            <span class="p">[(</span><span class="bp">NSObject</span> <span class="o">*</span><span class="p">)</span><span class="nb">self</span><span class="p">.</span><span class="n">delegate</span> <span class="nl">performSelectorOnMainThread</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">downloadFinishWithImage</span><span class="p">:)</span> <span class="nl">withObject</span><span class="p">:</span><span class="n">image</span> <span class="nl">waitUntilDone</span><span class="p">:</span><span class="nb">NO</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在第4行main方法的开头就先判断operation有没有被取消。如果被取消了，那就没有必要往下执行了</li>
+<li>经过第8行下载图片后，在第10行也需要判断操作有没有被取消</li>
+<li>总之，执行了一段比较耗时的操作之后，都需要判断操作有没有被取消</li>
+<li>图片下载完毕后，在第26行将图片数据传递给了代理(delegate)对象</li>
+</ul>
+
+
+<p>资料参考：</p>
+
+<ul>
+<li>NSHipster 的<a href="http://nshipster.com/nsoperation/">NSOperation</a></li>
+<li>雷纯锋的博客的<a href="http://www.leichunfeng.com/blog/2015/07/29/ios-concurrency-programming-operation-queues/">《iOS 并发编程之 Operation Queues》</a></li>
+<li>objc的并发编程指南<a href="http://www.objc.io/issue-2/">《Concurrent Programming》</a></li>
+<li><a href="http://stackoverflow.com/questions/10373331/nsoperation-vs-grand-central-dispatch">StackOverflow: NSOperation vs. Grand Central Dispatch</a></li>
+<li><a href="http://eschatologist.net/blog/?p=232">Blog: When to use NSOperation vs. GCD</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T05:14:59+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:14 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/networking/'>networking</a>, <a class='category' href='/blog/categories/objective-c/'>objective-c</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/" title="Previous Post: iOS中的触摸事件和手势处理">&laquo; iOS中的触摸事件和手势处理</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/" title="Next Post: NSOperation and NSOperationQueue Tutorial in Swift">NSOperation and NSOperationQueue Tutorial in Swift &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

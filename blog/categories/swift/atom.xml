@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Swift | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/swift/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[NSOperation and NSOperationQueue Tutorial in Swift]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
+    <updated>2016-01-13T05:18:36+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
+    <content type="html"><![CDATA[<ul>
+<li>译自 Written by <a href="http://www.raywenderlich.com/u/jrturton"> Richard Turton</a> — on October 7, 2014</li>
+<li>原文链接：<a href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift</a></li>
+<li>译者<a href="https://twitter.com/oneruofeng">@oneruofeng</a></li>
+</ul>
+
+
+<p><strong>Post info</strong>: Updated for Xcode 7.1 and Swift 2.1 &ndash; 1 January 2016</p>
+
+<p><strong>Update note</strong>: This tutorial was updated to iOS 8, Xcode 6.1 and Swift by Richard Turton.</p>
+
+<blockquote><p><a href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">Original post</a> by Tutorial Team member <a href="http://www.raywenderlich.com/u/Canopus">Soheil Azarpour</a>.</p></blockquote>
+
+<p>每个人都有点击一个按钮或者进入一些文本在iOS或者Mac App上的令人沮丧的经历，就是突然-WHAM，用户交互停止了响应。</p>
+
+<p>在Mac上，你的用户开始盯着一个沙漏或者一个七彩的轮子开始旋转直到它们再次恢复UI交互为止。在一个iOS app中，用户期望App立即响应它们的触摸事件，无响应的app给人的感觉是笨重和缓慢，这样通常会导致收到差评。</p>
+
+<p>保持你的app的可交互的状态说起来容易做起来难，一旦你的app需要执行不仅仅是少量的任务，事情很快就变得很复杂，我们并没有多少事件在主事件循环执行繁重的工作并且同时提供一个可以响应的UI。</p>
+
+<p>低级的开发者是怎样做的呢？解决方案就是把工作从主线程中移除通过并发。并发意味着你应用所有的操作同时执行在多个流（或者线程）中&ndash;这样的话用户界面就能保持响应的要执行的工作。</p>
+
+<p>一种实现并发操作在iOS是通过<code>NSOperation</code>和<code>NSOperationQueue</code>这两个类。在这个教程中，你将学会怎样使用它们！你将从一个没有使用并发的App开始，所以它将出现的非常迟钝和无响应。然后你将重做你的应用给它们添加并发操作并且&ndash;希望&ndash;呈现一个更加响应良好的可交互界面给用户！</p>
+
+<h3>我们开始吧</h3>
+
+<p>这份样品工程的总的目标的就是展示一个滤镜处理过的图片的表视图。图片将从网络上下载，经过一个滤镜处理后，然后在表视图中显示。</p>
+
+<p>下面是这个app模型的示意图</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" alt="app模型的示意图" /></p>
+
+<!--
+<img src = "http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" with= 300 height = 600>-->
+
+
+<h3>第一个版本尝试</h3>
+
+<p>下载你将在这个教程中使用的<a href="http://cdn5.raywenderlich.com/wp-content/uploads/2014/10/ClassicPhotos-Starter63.zip">第一个版本的项目</a></p>
+
+<blockquote><p>注意：所以的图片来自<a href="http://sxc.hu/"> stock.xchng.</a>。一下图片在数据源故意错误命名，以便这里有些例子是图片下载失败好处理失败的情况。</p></blockquote>
+
+<p>构建并且运行这个工程，最终你将看到这个app运行起来显示一列照片。尝试滚动这个列表，很痛苦，不是吗？
+<img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk45qmdigj205x08wdga.jpg" alt="list of photoes" /></p>
+
+<p><em>传统的相册，运行缓慢</em></p>
+
+<p>所有的操作都发生在<code>ListViewController.swift</code>里，并且最主要的是发生在<code>tableView(_:cellForRowAtIndexPath:)</code>方法里。看一下那个方法和注释这里有两件相当集中的事情需要思考：</p>
+
+<ol>
+<li><code>从网络载入图片数据</code>。即使网络状况良好，app将仍然必须等待直到下载完成了才能继续。</li>
+<li>使用<em>Core Image</em>给图片加滤镜。这个方法给图片应用一个深褐色的滤镜，假如你想了解更多关于<code>Core Image</code>滤镜的知识，请点击<a href="http://www.raywenderlich.com/76285/beginning-core-image-swift">Beginning Core Image in Swift</a></li>
+</ol>
+
+
+<p>还有，你将载入一系列图片请求从网络当它第一次被请求时:</p>
+
+<pre><code class="swift">  lazy var photos = NSDictionary(contentsOfURL:dataSourceURL)
+</code></pre>
+
+<p>所有的工作发生在应用的主线程。由于主线程也负责用户交互，让它一直忙于从网络下载东西和给图片加滤镜消磨掉了响应中的app。你可以通过使用Xcode的仪表测量视图获得这样一个快速的概述。你可以通过显示<code>调试导航</code>(Commnad+6)接入这个仪表视图,让后选择<code>CPU</code>当app正在运行的时候。</p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezk4seggwgj20jg0a0ta0.jpg" alt="gauges" /></p>
+
+<p><em>Xcode的仪表视图表明，主线程的任务非常重</em></p>
+
+<p>你会看到那些所有的长钉在<code>Thread 1</code>，那就是app的主线程。更多详细的信息你可以运行app的<code>Instruments</code>,但是那个在<a href="http://www.raywenderlich.com/?p=23037"> whole other tutorial :].</a>中</p>
+
+<p>是时候考虑怎样改善一下你的用户体验了！</p>
+
+<h3>任务，线程和进程</h3>
+
+<p>在你专研这篇教程之前，这里有一下技术上的慨念需要理一下，我将定义一些专用术语：</p>
+
+<ul>
+<li><strong>任务</strong> ：一个简单单个的需要完成的工作</li>
+<li><strong>线程</strong> ：操作系统提供的机制允许多个用户操作同时进行在一个应用中</li>
+<li><strong>进程</strong> ：一个可执行的代码块，它可以由多个线程构成</li>
+</ul>
+
+
+<blockquote><p>注意：在iOS和OS X中，线程的功能由POSIX线程API（或者 pthreads）实现，并且它使操作系统的一部分。而这个又是相当底层的东西，你将发现它很容易犯错误；或许关于线程最糟糕的事情是那些很难被发现的错误！</p>
+
+<p><code>Foundation</code>框架包含了一个叫做<code>NSThread</code>的类，这让我们处理事情更容易，但是用<code>NSThread</code>管理多个线程仍是一件令人头疼的事情。<code>NSOperation</code>和<code>NSOperationQueue</code>是为了最大化简化处理多线程的更高级的类。</p></blockquote>
+
+<p>在这个图解中，你会看到进程，线程和任务之间的关系：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk5dwtbhuj20go03n0t2.jpg" alt="the relationship between a process, threads, and tasks" /></p>
+
+<p><em>进程，线程和任务</em></p>
+
+<p>正如你所见，一个进程可以包涵多个执行的线程，每个线程能够同时执行多个任务。</p>
+
+<p>在这个图集中, <code>thread 2</code>执行文件的读的工作，同时<code>thread 1</code>执行UI相关的代码。这和你应该怎样在iOS中构建你的代码（主线程执行任何和UI相关的工作，第二线程应当执行慢的或者长时间运行的耗时操作例如读取文件，接入网络等等）有点相似。</p>
+
+<h3>NSOperation vs. Grand Central Dispatch (GCD)</h3>
+
+<p>你应该听说过<a href="http://developer.apple.com/library/ios/#documentation/Performance/Reference/GCD_libdispatch_Ref/Reference/reference.html">Grand Central Dispatch (GCD).</a>。简单的来说，<code>GCD</code>由语言的特征，运行时库和系统增强组成来提供一个在<code>iOS</code>和<code>OS X</code>多核硬件中支持并发系统并且综合的改良。假如你想了解更多关于GCD相关的知识，有可以阅读我们的<a href="http://www.raywenderlich.com/?p=4295">Multithreading and Grand Central Dispatch on iOS for Beginners Tutorial</a>。</p>
+
+<p><code>NSOperation</code>和<code>NSOperationQueue</code>构建在GCD之上。普遍来说，苹果推荐使用最高级别抽象，当需要显示他们一些需要的测量工作时回到最底层。</p>
+
+<p>下面是关于这两者的一些简单比较，将帮助你决定何时何地选择使用<code>GCD</code>或者<code>NSOperation</code>：</p>
+
+<ul>
+<li><p><strong>GCD</strong> 是一个轻量级的方式来描述将要被并发执行的工作单元。你不必定制这个工作单元的时刻表；系统为你定制时刻表。在blocks中增加依赖是一件头疼的事情。取消或者暂停一个block来进行额外的工作为作为开发者的你！ :]</p></li>
+<li><p><strong>NSOperation</strong> 和GCD相比增加了一些额外开支，但是你能够在各种操作之间增加依赖并且恢复，取消，暂停他们。</p></li>
+</ul>
+
+
+<p>这个教程将使用<code>NSOperation</code>,因为你将处理一个列表为了好的表现并且由于它大量的消耗的资源你需要能够取消一个操作针对某个图片，假如用户已经将那张图片滚出屏幕。即使这些操作在后台线程，假如这里有一打事情在队列里等着它们去处理，这将表现得跟糟糕。</p>
+
+<h3>重构 App Model</h3>
+
+<p>是时候重构开始的非多线程的模型了！假如你仔细观察先前的模型，你会发现这里有三个可以被改进的线程受困区域。通过切割这三个区域让后把他们放在单独的线程里，主线程的压力将得到缓解并且能够保持和用户交互。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk6m9a5xzj20i20nm416.jpg" alt="NSOperation_model_improved" /></p>
+
+<p><em>改进后的 model</em></p>
+
+<p>为了摆脱你应用的瓶颈，你需要一个指定一个线程来响应你的用户时间，一个线程专注于下载资源和图片，一个线程执行图片滤镜操作。在新的模型中，app从主线程启动让后载入一个空的表视图。同时，app启动第二个线程开始下载数据资源。</p>
+
+<p>一旦数据资源下载完成，你将通知表视图重新载入。这些事情必须在主线程完成，因为它涉及到用户界面相关的操作。从这一点来说，表视图知道有多少行，并且它知道他将显示图片的URL地址，但是她不知道它是否真的有图片！假如你立即开始下载所有的图片在这个点上，这可能导致效率极其低下，因为你不需要一次性把所有图片下载完！</p>
+
+<p>为了让这个变得更好我们能够做什么？</p>
+
+<p>一个更好的模型就是可交互的行在屏幕范围内可见时才开始下载图片。所以你的代码开始将询问表视图有多少行可见。因此，代码应该直到这里有一个未加滤镜的图片等待处理时才开始处理图片加滤镜操作。</p>
+
+<p>为了使app更加快速响应，代码将要让图片一旦下载完毕立即显示。让后才开始进行图片加滤镜操作，让后更新UI界面来显示已经经过滤镜处理后的图片。下面的图标显示了这个过程的控制流：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk75nd4bdj20i206yq3q.jpg" alt="Control Flow" /></p>
+
+<p><em>Cotroll Flow</em></p>
+
+<p>为了获得这些对象，你需要跟踪这张图片现在是否正在被下载，一旦完成下载，假如图片的滤镜被应用上。你需要跟跟踪每个操作的状态，它是否正在下载中或者执行滤镜操作，以便你能够取消，暂停或者恢复每个操作当用户滚动的时候。</p>
+
+<p>Okey！ 现在你准备好开始码代码了！ :]</p>
+
+<p>打开你下载的工程，添加一个新的<strong>Swift File</strong>到你的工程中命名为<strong> PhotoOperations.swift</strong>。添加下面代码：</p>
+
+<pre><code class="swift">class PendingOperations {
+  lazy var downloadsInProgress = [NSIndexPath:NSOperation]()
+  lazy var downloadQueue:NSOperationQueue = {
+    var queue = NSOperationQueue()
+    queue.name = "Download queue"
+    queue.maxConcurrentOperationCount = 1
+    return queue
+    }()
+
+  lazy var filtrationsInProgress = [NSIndexPath:NSOperation]()
+  lazy var filtrationQueue:NSOperationQueue = {
+    var queue = NSOperationQueue()
+    queue.name = "Image Filtration queue"
+    queue.maxConcurrentOperationCount = 1
+    return queue
+    }()
+}
+</code></pre>
+
+<p>这回类包含了2个字典为了跟踪激活和正在进行中的下载和滤镜操作对表中的每一行，并且两个操作队列都有各自的操作类型。</p>
+
+<p>所有的值被懒加载的方式创建，意味着他们不会被初始化知道他们第一次被接入。这样改善了你app的表现性能。</p>
+
+<p>创建一个<code>NSOperationQueue</code>是非常简单的，正如你所见，给你的队列命名是非常有用的，因为名字会在仪器或者调速器中显示。<code>maxConcurrentOperationCount</code>在这里由于这个教程的缘故被设置成1，是为了让你看到操作一个接一个完成。你可以离开这一部分允许队列决定他一次处理多少个操作&ndash;这样会进一步改善性能。</p>
+
+<p>队列是怎样决定一次运行多少个操作的呢？这是一个非常好的问题！ :] 这取决于硬件。默认，<code>NSOperationQueue</code>将要处理一写计算在屏幕背后，决定什么是最好的需要看代码是运行在某个具体的平台，和将载入的最大数量的线程数。</p>
+
+<p>考虑到下面的例子，假设系统此时是空闲的，这里有很多资源可用，所以这个队列能够载入可能8条并发的线程。下一个时刻你运行程序，系统可能忙于其他不相关的正在抢夺资源的操作，这时队列就仅仅载入2个并发的线程。因为你已经设置了一个最大并发操作数，在这个app中一次只会进行一个操作。</p>
+
+<blockquote><p>注意：你可能想知道为什么你必须跟踪所有的激活的和正在进行中操作。队列有一个<code>operations</code>的方法，它将返回一个操作的数组，所有为什么不用它呢？在这个工程中这样做效果不是很好。你需要跟踪更表视图行数关联的操作，它可能会重复执行数组每次你需要一个的时候。把它们储存在一个字典中用index path来作为他的key方便快速和高效的查找。</p></blockquote>
+
+<p>是时候考虑下载和过滤操作了。添加下列代码到<code>PhotoOperations.swift:</code>文件的末尾：</p>
+
+<pre><code class="swift">class ImageDownloader: NSOperation {
+  //1
+  let photoRecord: PhotoRecord
+
+  //2
+  init(photoRecord: PhotoRecord) {
+    self.photoRecord = photoRecord
+  }
+
+  //3
+  override func main() {
+    //4
+    if self.cancelled {
+      return
+    }
+    //5
+    let imageData = NSData(contentsOfURL:self.photoRecord.url)
+
+    //6
+    if self.cancelled {
+      return
+    }
+
+    //7
+    if imageData?.length &gt; 0 {
+      self.photoRecord.image = UIImage(data:imageData!)
+      self.photoRecord.state = .Downloaded
+    }
+    else
+    {
+      self.photoRecord.state = .Failed
+      self.photoRecord.image = UIImage(named: "Failed")
+    }
+  }
+}
+</code></pre>
+
+<p><code>NSOperation</code>是一个抽象类，为它的子类而设计。每个子类代表了一个特别的<code>任务</code>正如呈现在列表早期那样。</p>
+
+<p>下面是上面代码每行注释到底发生了什么的说明：</p>
+
+<ol>
+<li>添加一个常量引用到和操作相关的<code>PhotoRecord</code>对象</li>
+<li>创建一个设计初始化方法允许<code>photo record</code>参数可以被传进来</li>
+<li><code>main</code>是你在<code>NSOperation</code>子类中需要重写的方法，用来执行相关工作</li>
+<li>在启动开始前检查是否被取消，操作应该定期检查是否已经被取消在尝试长时间或密集的工作之前</li>
+<li>下载图片数据</li>
+<li>再次检查是否被取消</li>
+<li>假如这里有数据，创建一个图片对象然后把它添加到记录中，同时改变它的状态，假如这里没有数据，把这条记录标记成失败然后设置适当的图片</li>
+</ol>
+
+
+<p>下一步，你将创建另一个操作来处理图片加滤镜的操作！添加下面的代码到<code>PhotoOperations.swift</code>文件末尾：</p>
+
+<pre><code class="swift">class ImageFiltration: NSOperation {
+  let photoRecord: PhotoRecord
+
+  init(photoRecord: PhotoRecord) {
+    self.photoRecord = photoRecord
+  }
+
+  override func main () {
+    if self.cancelled {
+      return
+    }
+
+    if self.photoRecord.state != .Downloaded {
+      return
+    }
+
+    if let filteredImage = self.applySepiaFilter(self.photoRecord.image!) {
+      self.photoRecord.image = filteredImage
+      self.photoRecord.state = .Filtered
+    }
+  }
+}
+</code></pre>
+
+<p>除了你对图片应用滤镜（使用一个未实现的方法，因此编译1错误）而不是下载它之外，这个看起来和下载操作非常相像。</p>
+
+<p>添加遗失的图片滤镜处理方法到<code>ImageFiltration</code>类中:</p>
+
+<pre><code class="swift">(image:UIImage) -&gt; UIImage? {
+  let inputImage = CIImage(data:UIImagePNGRepresentation(image))
+
+  if self.cancelled {
+    return nil
+  }
+  let context = CIContext(options:nil)
+  let filter = CIFilter(name:"CISepiaTone")
+  filter.setValue(inputImage, forKey: kCIInputImageKey)
+  filter.setValue(0.8, forKey: "inputIntensity")
+  let outputImage = filter.outputImage
+
+  if self.cancelled {
+    return nil
+  }
+
+  let outImage = context.createCGImage(outputImage, fromRect: outputImage.extent())
+  let returnImage = UIImage(CGImage: outImage)
+  return returnImage
+}
+</code></pre>
+
+<p>图片添加滤镜操作使用先前<code>ListViewController</code>中相同的实现。已经把它移动到这里来了以至于它它能在后台的一个单独的操作中完成。再次强调，你应该非常频繁的检查取消操作；最佳实践是在进行任何耗时操作调用之前和之后。一旦加滤镜操作完成，你应该立即设置photo record 实例的值。</p>
+
+<p>很棒！现在你已经有了所有的工具和基础为了处理后台任务进程的操作。是时候回到控制器修改它以便能利用所有这些新的福利。</p>
+
+<p>切换到<code>ListViewController.swift</code>文件，然后删除<code>lazy var photos</code>接口声明。添加下面声明：</p>
+
+<pre><code class="swift">var photos = [PhotoRecord]()
+let pendingOperations = PendingOperations()
+</code></pre>
+
+<p>这些将持有一个数组的你在开始创建的<code>PhotoDetails</code>对象，<code>PendingOperations</code>对象来管理操作。</p>
+
+<p>添加一个下载<code>photos property</code>列表新的方法到类中：</p>
+
+<pre><code class="swift">func fetchPhotoDetails() {
+  let request = NSURLRequest(URL:dataSourceURL!)
+  UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+
+  NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {response,data,error in
+    if data != nil {
+      let datasourceDictionary = NSPropertyListSerialization.propertyListWithData(data, options: Int(NSPropertyListMutabilityOptions.Immutable.rawValue), format: nil, error: nil) as! NSDictionary
+
+      for(key : AnyObject,value : AnyObject) in datasourceDictionary {
+        let name = key as? String
+        let url = NSURL(string:value as? String ?? "")
+        if name != nil &amp;&amp; url != nil {
+          let photoRecord = PhotoRecord(name:name!, url:url!)
+          self.photos.append(photoRecord)
+        }
+      }
+
+      self.tableView.reloadData()
+    }
+
+    if error != nil {
+      let alert = UIAlertView(title:"Oops!",message:error.localizedDescription, delegate:nil, cancelButtonTitle:"OK")
+      alert.show()
+    }
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+  }
+}
+</code></pre>
+
+<p>这个方法创建一个异步的网络请求，当完成的时候，将执行<code>completion block</code>在主线程。当下载完成property list的数据被萃取成一个<code>NSDictionary</code>,然后再次处理一个数组的<code>PhotoRecord</code>的对象。你不能直接使用这里的<code>NSOperation</code>,你应该在主线程中接入它使用<code>NSOperationQueue.mainQueue()</code>。</p>
+
+<p>在<code>viewDidLoad</code>调用新方法</p>
+
+<blockquote><p>fetchPhotoDetails()</p></blockquote>
+
+<p>下一步找到<code>tableView(_:cellForRowAtIndexPath:)</code>然后替换它用下面的实现：</p>
+
+<pre><code class="swift">override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+  let cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath: indexPath) as! UITableViewCell
+
+  //1
+  if cell.accessoryView == nil {
+    let indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    cell.accessoryView = indicator
+  }
+  let indicator = cell.accessoryView as! UIActivityIndicatorView
+
+  //2
+  let photoDetails = photos[indexPath.row]
+
+  //3
+  cell.textLabel?.text = photoDetails.name
+  cell.imageView?.image = photoDetails.image
+
+  //4
+  switch (photoDetails.state){
+  case .Filtered:
+    indicator.stopAnimating()
+  case .Failed:
+    indicator.stopAnimating()
+    cell.textLabel?.text = "Failed to load"
+  case .New, .Downloaded:
+    indicator.startAnimating()
+    self.startOperationsForPhotoRecord(photoDetails,indexPath:indexPath)
+  }
+
+  return cell
+}
+</code></pre>
+
+<p>花点时间来通读注释区域下面的解释：</p>
+
+<ol>
+<li>为了给用户提供反馈，创建<code>UIActivityIndicatorView</code>让后把它设成cell的accessory view。</li>
+<li>数据源包含<code>PhotoRecord</code>实例。抓取正确的数据基于当前行的<code>indexPath</code>。</li>
+<li>cell的文本标签总是一样的，图片被正确的设置在<code>PhotoRecord</code>中当它被处理的时候，以便你能够设置他们两者，而不管记录的状态。</li>
+<li>检查记录，正确的设置activity indicator和文本，然后开始操作（暂时还没实现）</li>
+</ol>
+
+
+<p>你可以移除<code>applySepiaFilter</code>的实现，因为那个将不再被调用了，添加下面的方法到类中来开始操作：</p>
+
+<pre><code class="swift">func startOperationsForPhotoRecord(photoDetails: PhotoRecord, indexPath: NSIndexPath){
+  switch (photoDetails.state) {
+  case .New:
+    startDownloadForRecord(photoDetails, indexPath: indexPath)
+  case .Downloaded:
+    startFiltrationForRecord(photoDetails, indexPath: indexPath)
+  default:
+    NSLog("do nothing")
+  }
+}
+</code></pre>
+
+<p>这里，你将传递一个<code>PhotoRecord</code>类型的实例带有它的<code>index path</code>。
+依据<code>photo record</code>的状态，你选开始进行下载还是加滤镜的步骤。</p>
+
+<blockquote><p>注意：下载图片和给图片加滤镜的方法分开实现，因为这里有可能出现当一个图片正在被下载，用户可能把它滚开了，这样你就不必对它应用滤镜操作。当下一次用户又来到相同的哪行时，你不必重新下载图片；你只需对它应用
+图片滤镜即可！ Efficiency rocks! :]</p></blockquote>
+
+<p>现在你需要实现你在上面调用的方法。记住你创建的自定义的类，<code>PendingOperations</code>,保持跟踪操作；现在实际上你可以使用它了！添加下面的方法到类中：</p>
+
+<pre><code class="swift">func startDownloadForRecord(photoDetails: PhotoRecord, indexPath: NSIndexPath){
+  //1
+  if let downloadOperation = pendingOperations.downloadsInProgress[indexPath] {
+    return
+  }
+
+  //2
+  let downloader = ImageDownloader(photoRecord: photoDetails)
+  //3
+  downloader.completionBlock = {
+    if downloader.cancelled {
+      return
+    }
+    dispatch_async(dispatch_get_main_queue(), {
+      self.pendingOperations.downloadsInProgress.removeValueForKey(indexPath)
+      self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    })
+  }
+  //4
+  pendingOperations.downloadsInProgress[indexPath] = downloader
+  //5
+  pendingOperations.downloadQueue.addOperation(downloader)
+}
+
+func startFiltrationForRecord(photoDetails: PhotoRecord, indexPath: NSIndexPath){
+  if let filterOperation = pendingOperations.filtrationsInProgress[indexPath]{
+    return
+  }
+
+  let filterer = ImageFiltration(photoRecord: photoDetails)
+  filterer.completionBlock = {
+    if filterer.cancelled {
+      return
+    }
+    dispatch_async(dispatch_get_main_queue(), {
+      self.pendingOperations.filtrationsInProgress.removeValueForKey(indexPath)
+      self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+      })
+  }
+  pendingOperations.filtrationsInProgress[indexPath] = filterer
+  pendingOperations.filtrationQueue.addOperation(filterer)
+}
+</code></pre>
+
+<p>Okey!下面是一个快速列表来帮助你立即上面的代码到底做了什么：</p>
+
+<ol>
+<li>首先，检查特定的<code>indexPath</code>来看这里是否已经有一个操作在<code>downloadsInProgress</code>中。假如有，忽略它。</li>
+<li>假如没有，通过<code>designated initializer</code>创建一个<code>ImageDownloader</code>实例</li>
+<li>添加一个当操作完成时执行的完成block。这是最好的地方让你其余的应用知道一个操作已经完成。注意完成block必须被执行即使这个操作被取消，这相当的重要，所以你需要使用GCD来触发重新载入表视图在主线程。</li>
+<li>添加操作到<code>downloadsInProgress</code>中来保持跟踪一些事情。</li>
+<li>添加操作到下载队列中。这是你实际获取这些操作开始运行的方法&ndash;队列需要注意的是一旦你添加了操作它就会执行。</li>
+</ol>
+
+
+<p>过滤图片的方法遵循下面相同的类型，除了它使用<code>ImageFiltration</code>和<code>filtrationsInProgress</code>来跟踪操作。作为经验，你应该尝试不要重复这个区域的代码 :]</p>
+
+<p>你做到了！你的工程完成了。构建让后运行看有什么改进在操作上！当你滚动表视图的时候，app并没有停止，还是像它们变得可见一样继续下载图片和给图片加滤镜操作。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezkc6fh23sj205x08wdga.jpg" alt="classicphotos-stalled-screenshot" /></p>
+
+<p><em>原来的图片，现在可以滚动了</em></p>
+
+<p>是不是很酷？你能看到随做你的进步让你的应用更易于响应能做出的努力 &ndash;对用户来说更有趣！</p>
+
+<h3>细微的调整</h3>
+
+<p>你已经随着这个教程走过漫长的路！你的小项目现在反应灵敏表明了在原来的版本基础上有很多改进。然而，这里任然有一些遗留的细节我们需要考虑。你是想成为一名伟大的程序员，而不仅仅是一名优秀的程序员！</p>
+
+<p>你可能已经注意到了当你滚动表视图时，那些离屏的cell仍然在处理下载和给图片加滤镜的操作。假如你快速滚动，app将忙于下载和给图片处理滤镜的操作，在列表中从最前面甚至到不可见的地方。理想的情况下app应该对离开屏幕的cells就是现在不可见的取消滤镜操作。</p>
+
+<p>难道你没有把取消的规定放进你的代码里？ 是的，你做了&ndash;现在你应该充分利用它们！:]</p>
+
+<p>回到Xcode，让后打开<code>ListViewController.swift</code>文件。去到<code>tableView(_:cellForRowAtIndexPath:)</code>方法的实现，封装<code>startOperationsForPhotoRecord</code>调用在一个if条件向下面的：</p>
+
+<pre><code class="swift">if (!tableView.dragging &amp;&amp; !tableView.decelerating) {
+  self.startOperationsForPhotoRecord(photoDetails, indexPath: indexPath)
+}
+</code></pre>
+
+<p>你需要告诉表视图开始操作仅仅当表视图没有滚动的时候。这实际上是<code>UIScrollView</code>的接口，由于<code>UITableView</code>是<code>UIScrollView</code>的子类，你自动继承了这些接口。</p>
+
+<p>下一步，添加到下面<code>UIScrollView</code>代理方法的实现到类中：</p>
+
+<pre><code class="swift">override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+  //1
+  suspendAllOperations()
+}
+
+override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+  // 2
+  if !decelerate {
+    loadImagesForOnscreenCells()
+    resumeAllOperations()
+  }
+}
+
+override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  // 3
+  loadImagesForOnscreenCells()
+  resumeAllOperations()
+}
+</code></pre>
+
+<p>快速走查上面的代码显示在下面：</p>
+
+<ol>
+<li>当用户开始滚动，你想暂停所有的操作让后看看用户想看到什么。你将要实现<code>suspendAllOperations</code>在一会儿工夫。</li>
+<li>假如<code>decelerate</code>的值是<code>false</code>,那就意味着停止拖拽表视图，因此你想恢复暂停的，因为cell离开屏幕取消的操作，启动在屏幕内cells的操作。你将要一起实现<code>loadImagesForOnscreenCells</code>和<code>resumeAllOperations</code>。</li>
+<li>代理方法告诉你表视图已经停止滚动，所以你将做和#2条相同的处理。</li>
+</ol>
+
+
+<p>现在，添加下面这些遗失的方法的实现到<code>ListViewController.swift</code>:</p>
+
+<pre><code class="swift">func suspendAllOperations () {
+  pendingOperations.downloadQueue.suspended = true
+  pendingOperations.filtrationQueue.suspended = true
+}
+
+func resumeAllOperations () {
+  pendingOperations.downloadQueue.suspended = false
+  pendingOperations.filtrationQueue.suspended = false
+}
+
+func loadImagesForOnscreenCells () {
+  //1
+  if let pathsArray = tableView.indexPathsForVisibleRows() {
+    //2
+    var allPendingOperations = Set(pendingOperations.downloadsInProgress.keys.array)
+    allPendingOperations.unionInPlace(pendingOperations.filtrationsInProgress.keys.array)
+
+    //3
+    var toBeCancelled = allPendingOperations
+    let visiblePaths = Set(pathsArray as! [NSIndexPath])
+    toBeCancelled.subtractInPlace(visiblePaths)
+
+    //4
+    var toBeStarted = visiblePaths
+    toBeStarted.subtractInPlace(allPendingOperations)
+
+    // 5
+    for indexPath in toBeCancelled {
+      if let pendingDownload = pendingOperations.downloadsInProgress[indexPath] {
+        pendingDownload.cancel()
+      }
+      pendingOperations.downloadsInProgress.removeValueForKey(indexPath)
+      if let pendingFiltration = pendingOperations.filtrationsInProgress[indexPath] {
+        pendingFiltration.cancel()
+      }
+      pendingOperations.filtrationsInProgress.removeValueForKey(indexPath)
+    }
+
+    // 6
+    for indexPath in toBeStarted {
+      let indexPath = indexPath as NSIndexPath
+      let recordToProcess = self.photos[indexPath.row]
+      startOperationsForPhotoRecord(recordToProcess, indexPath: indexPath)
+    }
+  }
+}
+</code></pre>
+
+<p><code>suspendAllOperations</code>和<code>resumeAllOperations</code>有一个简单的实现。<code>NSOperationQueues</code>能够被暂停，通过设置<code>suspended</code>接口为<code>true</code>。这将暂停队列里面的所有操作&ndash;你不能单独暂停一个操作。</p>
+
+<p><code>loadImagesForOnscreenCells</code>有一点小复杂。这里发生了什么事？</p>
+
+<ol>
+<li>以一个包含了现在表视图可见的<code>index paths</code>的数组开始开始</li>
+<li>构造一个所有进行中的操作的集合通过结合所有在下载的进度+所有在处理滤镜的进度。</li>
+<li>构造一个<code>index paths</code>集合用来取消操作。开始所有的操作，然后移除可见行的<code>index paths</code>，这样讲留下一个离开屏幕的行正在执行的操作集合</li>
+<li>构造一个<code>index paths</code>集合，需要操作启动，用所有可见行的<code>index paths</code>启动，让后移除它们中在进行的操作。</li>
+<li>遍历那些被取消的操作，取消它们，然后移除它们的引用从<code>PendingOperations</code>。</li>
+<li>遍历那些将要开始的操作，然后对他们每个调用<code>startOperationsForPhotoRecord</code>。</li>
+</ol>
+
+
+<p>构建运行然后你发现一个更流畅，资源管理德更好的应用！给你自己一轮掌声！</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezkdl5q55nj20jg09qq4h.jpg" alt="improved app" /></p>
+
+<p><em>原来的相册，载入东西一次一个</em></p>
+
+<p>注意到当你完成滚动表视图，在可见区域行的cell的图片立即开始处理。</p>
+
+<h3>何去何从？</h3>
+
+<p>这里是<a href="http://cdn2.raywenderlich.com/wp-content/uploads/2014/10/ClassicPhotos-Final63.zip">completed version of the project</a>。</p>
+
+<blockquote><p>注意：此教程写于<code>Update 17 April 2015: Updated for Xcode 6.3 and Swift 1.2</code>,现在Swift最新版本2.1使用Xcode7+以上编辑会报错，这里打包一个新语法修改版<a href="https://github.com/wangruofeng/ClassicPhotos-Starter-fixed/archive/master.zip">completed fixed version of the project</a>。</p></blockquote>
+
+<p>假如你完成这个工程应该花时间来真正理解它，恭喜你！你可以认为你自己是一位更有价值iOS开发者了比起在教程刚开始的时候！大多数开发的公司是非常幸运的有一个或者两个人正在知道这个东西。</p>
+
+<p>当时请当心 &ndash; 像多层嵌套的blocks,不必要的使用多线程可能让一个工程变得难以理解对维护你代码的人来说。线程可能引入一些难以捉摸的bugs，将永远不出现知道你网络非常慢，或者代码运行在一个更快（或更慢）的设备上，或一个不同数量的核的芯片上时。小心测试，尽量使用<code>Instruments</code>（或者你自己的观察）来确定引入多线程真的有很大改进。</p>
+
+<p>一个有用的特征使用操作时在这里没涉及到就是依赖（<code>dependency</code>）。你可以给一个操作添加一个或者更多的操作的依赖。这个操作不会开始直到它所有依赖的操作完成时。例如：</p>
+
+<pre><code class="swift">// MyDownloadOperation is a subclass of NSOperation
+let downloadOperation = MyDownloadOperation()
+// MyFilterOperation  is a subclass of NSOperation
+let filterOperation = MyFilterOperation()
+
+filterOperation.addDependency(downloadOperation)
+</code></pre>
+
+<p>移除依赖：</p>
+
+<pre><code class="swift">filterOperation.removeDependency(downloadOperation)
+</code></pre>
+
+<p>这个工程是否能使用依赖简化呢？把你学到的新技能用起来试一试 ：]
+有件非常重要的事需要注意的就是一个依赖操作将仍然启动假如它依赖的操作被取消，还有它将自然完成。你需要牢记在心。</p>
+
+<p>假如你有任何评论或者问题关于这个教程或者<code>NSOperations</code>,请加<a href="https://github.com/wangruofeng/Github_Blog/pulls">Pull request</a>。</p>
+
+<p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

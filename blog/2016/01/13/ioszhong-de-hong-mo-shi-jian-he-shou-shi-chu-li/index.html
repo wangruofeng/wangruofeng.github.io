@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS中的触摸事件和手势处理 - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="iOS中的触摸事件和手势处理">
+  <meta name="keywords" content="Octopress, iOS, 触摸事件, Swift, Objective-c, 手势处理">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS中的触摸事件和手势处理</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T05:05:09+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:05 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>iOS触摸事件分类</h3>
+
+<ul>
+<li>触摸事件</li>
+<li>加速事件</li>
+<li>远程事件</li>
+</ul>
+
+
+<h3>谁能处理触摸事件?</h3>
+
+<p><strong>响应者对象</strong></p>
+
+<p>在iOS中不是任何对象都能处理事件,只有继承了UIResponder的对象才能接收并处理事件.我们称之为<strong>响应者对象</strong>.</p>
+
+<p><code>UIApplication</code>,<code>UIViewController</code>,<code>UIView</code>都继承自<code>UIResponder</code>,因此它们都是响应者对象,都能够接收并处理事件.</p>
+
+<h3>UIResponder</h3>
+
+<p>UIResponder内部提供了方法来处理事件</p>
+
+<ol>
+<li><p>触摸事件</p>
+
+<p> 一次完成的触摸过程,会经历3个状态;
+ UIView的触摸事件处理</p>
+
+<p> 1.一根或多根手指开始触摸view,系统会自动调用view下面的方法:</p>
+
+<pre><code> - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;  //触摸开始
+</code></pre>
+
+ 2.一根或者多根手指在view上移动，系统会自动调用view下面的方法（随着手指的移动，会持续调用该方法）
+
+<pre><code> - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;  //触摸移动
+</code></pre>
+
+ 3.一根或者多根手指离开view，系统会自动调用view下面的方法
+
+<pre><code> - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;  //触摸结束
+</code></pre>
+
+ 4.触摸结束前，某个系统事件（例如电话呼入 ）会打断触摸过程，系统会自动调用view下面的方法
+
+<pre><code> - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event; //触摸取消(可能会经历)
+</code></pre>
+
+ 4个触摸事件的处理方法中，都有 NSSet <em>touches 和 UIEvent </em>event 两个参数:
+
+<ul>
+<li>一次完整的触摸过程，只会产生一个事件对象，4个触摸方法都是同一个event参数</li>
+<li>如果两根手指同时触摸一个view，那么view只会调用一次 touchesBegan:withEvent: 方法，touches参数中装着两个UITouch对象；</li>
+<li>如果这两根手指一前一后分开触摸同一个view，那么view会分别调用两次 touchesBegan:withEvent:方法， 并且每次调用时的touches参数只包含一个UITouch对象；</li>
+<li>根据touches中UITouch个数可以判断出使单点触摸还是多点触摸</li>
+</ul>
+
+
+<p> 提示：touches中存放的都是UITouch对象。</p></li>
+<li><p>加速计事件</p>
+
+<pre><code> - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event;
+ - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event;
+ - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event;
+</code></pre></li>
+<li><p>远程控制事件</p>
+
+<pre><code> - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
+</code></pre></li>
+</ol>
+
+
+<h3>UITouch</h3>
+
+<p>当用户用一根手指触摸屏幕时，会创建一个与手指相关联的UITouch对象；一根手指对应一个UITouch对象
+UITouch的作用:</p>
+
+<ul>
+<li>保存跟手指相关的信息，比如触摸的位置、时间、阶段；</li>
+<li>当手指移动时，系统会更新同一个UITouch对象，使之能够一直保存该手指的触摸位置；</li>
+<li>当手指离开屏幕时，系统会销毁相应的UITouch对象。</li>
+</ul>
+
+
+<p>提示：iPhone开发中，要避免使用双击事件。</p>
+
+<p>UITouch的属性:
+触摸产生时所处的窗口:</p>
+
+<pre><code>@property(nonatomic,readonly,retain) UIWindow *window;
+</code></pre>
+
+<p>触摸产生时所处的视图</p>
+
+<pre><code> @property(nonatomic,readonly,retain) UIView *view;
+</code></pre>
+
+<p>短时间内点按屏幕的次数，可以根据tapCount判断单击、双击或更多地点击</p>
+
+<pre><code> @property(nonatomic,readonly) NSUInteger tapCount;
+</code></pre>
+
+<p>记录了触摸事件产生或变化时的时间，单位是秒</p>
+
+<pre><code> @property(nonatomic,readonly) NSTimeInterval timestamp;
+</code></pre>
+
+<p>当前触摸事件所处的状态</p>
+
+<pre><code>@property(nonatomic,readonly) UITouchPhase phase;
+/*
+UITouchPhase是一个枚举类型，包含：
+UITouchPhaseBegan（触摸开始）
+UITouchPhaseMoved（接触点移动）
+UITouchPhaseStationary（接触点无移动）
+UITouchPhaseEnded（触摸结束）
+UITouchPhaseCancelled（触摸取消）*/
+</code></pre>
+
+<p>UITouch的方法：</p>
+
+<pre><code>- (CGPoint)locationInView:(UIView *)view;
+</code></pre>
+
+<p>1.返回值表示触摸在view上的位置；</p>
+
+<p>2.这里返回的位置是针对view坐标系的,（以view的左上角为原点（0，0））；</p>
+
+<p>3.调用时传入的view参数为nil 的话，返回的是触摸点在UIWindow的位置。</p>
+
+<pre><code>- (CGPoint)previousLocationInView:(UIView *)view;
+</code></pre>
+
+<p>该方法记录了前一个触摸点的位置；</p>
+
+<h3>UIEvent</h3>
+
+<blockquote><p>每产生一个事件，就会产生一个UIEvent对象；</p>
+
+<p>UIEvent:称为事件对象，记录事件产生的时刻和类型。</p></blockquote>
+
+<p>常见属性：
+1.事件类型</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span><span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span><span class="k">readonly</span><span class="p">)</span> <span class="n">UIEventType</span>  <span class="n">type</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span><span class="k">readonly</span><span class="p">)</span> <span class="n">UIEventSubtype</span>  <span class="n">subtype</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">typedef</span>
+</span><span class='line'><span class="nf">NS_ENUM</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">,</span> <span class="n">UIEventType</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">UIEventTypeTouches</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventTypeMotion</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventTypeRemoteControl</span><span class="p">,</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="k">typedef</span>
+</span><span class='line'><span class="nf">NS_ENUM</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">,</span> <span class="n">UIEventSubtype</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// available in iPhone OS 3.0</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeNone</span>                              <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// for UIEventTypeMotion, available in iPhone OS 3.0</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeMotionShake</span>                       <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// for UIEventTypeRemoteControl, available in iOS 4.0</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlPlay</span>                 <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlPause</span>                <span class="o">=</span> <span class="mi">101</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlStop</span>                 <span class="o">=</span> <span class="mi">102</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlTogglePlayPause</span>      <span class="o">=</span> <span class="mi">103</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlNextTrack</span>            <span class="o">=</span> <span class="mi">104</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlPreviousTrack</span>        <span class="o">=</span> <span class="mi">105</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlBeginSeekingBackward</span> <span class="o">=</span> <span class="mi">106</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlEndSeekingBackward</span>   <span class="o">=</span> <span class="mi">107</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlBeginSeekingForward</span>  <span class="o">=</span> <span class="mi">108</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIEventSubtypeRemoteControlEndSeekingForward</span>    <span class="o">=</span> <span class="mi">109</span><span class="p">,</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2.事件产生的时间</p>
+
+<pre><code>@property(nonatomic,readonly) NSTimeInterval  timestamp;
+</code></pre>
+
+<p> UIEvent还提供了相应的方法可以获得在某个view上面的触摸对象（UITouch）。</p>
+
+<p> 触摸事件的产生：</p>
+
+<ol>
+<li><p>发生触摸事件后，系统会将该事件加入到一个由UIApplication管理的事件队列中；</p></li>
+<li><p>UIApplication会从事件队列中取出最前面的事件，并将事件分发下去以便处理，通常，先发送事件给应用程序的主窗口（keyWindow）；</p></li>
+<li><p>主窗口会在视图层次结构中找到一个最合适的视图控件来处理触摸事件，这也是整个事件处理过程的第一步；</p></li>
+<li><p>找到合适的视图控件后，就会调用视图控件的touches方法来做具体的事件处理。</p></li>
+</ol>
+
+
+<p>触摸事件的传递：</p>
+
+<blockquote><p>触摸事件的传递是从父控件传递到子控件；</p>
+
+<p>如果父控件不能接收触摸事件，那么子控件就不可能接收到触摸事件。</p></blockquote>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1eznrp087anj205t07rdfx.jpg" alt="触摸事件" />
+<img src="http://ww2.sinaimg.cn/mw690/64124373gw1eznrrf36ymj2097077dhc.jpg" alt="触摸事件2" /></p>
+
+<p>UIView不接收触摸事件的三种情况:
+不接受用户交互 ：</p>
+
+<ol>
+<li><p>userInteractionEnable = NO;</p></li>
+<li><p>隐藏 ：hidden = YES;</p></li>
+<li><p>透明：alpha = 0.0 ~ 0.01</p></li>
+</ol>
+
+
+<p>提示：UIImageView的userInteractionEnable默认就是NO，因此UIImageView以及它的子控件默认是不能接收触摸事件的。</p>
+
+<p>触摸事件处理的详细过程：</p>
+
+<ol>
+<li><p>用户点击屏幕后产生的一个触摸事件，经过一些列的传递过程后，会找到最合适的视图控件来处理这个事件</p></li>
+<li><p>找到最合适的视图控件后，就会调用控件的touches方法来作具体的事件处理</p>
+
+<p> touchesBegan…</p>
+
+<p> touchesMoved…</p>
+
+<p> touchedEnded…</p></li>
+</ol>
+
+
+<p>这些touches方法的默认做法是将事件顺着响应者链条向上传递，将事件交给上一个响应者进行处理</p>
+
+<p>响应者链的事件传递过程：</p>
+
+<ol>
+<li><p>如果view的控制器存在，就传递给控制器；如果控制器不存在，则将其传递给它的父视图；</p></li>
+<li><p>在视图层次结构最顶级的视图，如果也不能处理收到的事件或消息，则其将事件或消息传递给window对象进行处理。</p></li>
+<li><p>如果window对象也不处理，则其将事件或消息传递给UIApplication对象；</p></li>
+<li><p>如果UIApplication也不能处理该事件或消息，则将其丢弃</p></li>
+</ol>
+
+
+<h3>监听触摸事件的做法</h3>
+
+<p>如果想监听一个view上面的触摸事件，之前的做法是：</p>
+
+<ol>
+<li><p>自定义一个view；</p></li>
+<li><p>实现view的touches方法，在方法内部实现具体处理代码。</p>
+
+<p> 通过touches方法监听view触摸事件，有很明显的几个缺点：</p>
+
+<ul>
+<li><p>必须得自定义view；</p></li>
+<li><p>由于是在view内部的touches方法中监听触摸事件，因此默认情况下，无法让其他外界对象监听view的触摸事件；</p></li>
+<li><p>不容易区分用户的具体手势行为。</p></li>
+</ul>
+</li>
+</ol>
+
+
+<p>iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer）,在触摸事件处理方面，大大简化了开发者的开发难度。</p>
+
+<h3>UIGestureRescognizer</h3>
+
+<p>为了完成手势识别，必须借助于手势识别器：UIGestureRecognizer 。</p>
+
+<p>利用UIGestureRecognizer,能轻松识别用户在某个view上面做的一些常见手势。</p>
+
+<p>UIGestureRecognizer是一个抽象类，定义了所有的手势基本行为，使用它的子类才能处理具体的手势</p>
+
+<ul>
+<li>UITapGestureRecognizer(敲击)</li>
+<li>UIPinchGestureRecognizer(捏合，用于缩放)</li>
+<li>UIPanGestureRecognizer(拖拽)</li>
+<li>UISwipeGestureRecognizer(轻扫)</li>
+<li>UIRotationGestureRecognizer(旋转)</li>
+<li>UILongPressGestureRecognizer(长按)</li>
+</ul>
+
+
+<p>每一个手势识别器的用法都差不多，比如UITapGestureRecognizer的使用步骤如下:</p>
+
+<ol>
+<li><p>创建手势识别器对象；</p>
+
+<p> UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];</p></li>
+<li><p>设置手势识别器对象的具体属性；</p>
+
+<pre><code> // 连续敲击2次
+ tap.numberOfTapsRequired = 2;
+ // 需要2根手指一起敲击
+ tap.numberOfTouchesRequired = 2;
+</code></pre></li>
+<li><p>添加手势识别器到对应的view上</p>
+
+<p> [self.iconView addGestureRecognizer:tap];</p></li>
+<li><p>监听手势的触发</p>
+
+<p> [tap addTarget:self action:@selector(tapIconView:)];</p></li>
+</ol>
+
+
+<p>手势识别的状态</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">,</span> <span class="n">UIGestureRecognizerState</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 没有触摸事件发生，所有手势识别的默认状态</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStatePossible</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// 一个手势已经开始但尚未改变或者完成时</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStateBegan</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// 手势状态改变</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStateChanged</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// 手势完成</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStateEnded</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// 手势取消，恢复至Possible状态</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStateCancelled</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// 手势失败，恢复至Possible状态</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStateFailed</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// 识别到手势识别</span>
+</span><span class='line'>    <span class="n">UIGestureRecognizerStateRecognized</span> <span class="o">=</span> <span class="n">UIGestureRecognizerStateEnded</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考资料：<a href="http://my.oschina.net/aofe/blog/268749">傲风凌寒的博客</a></p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T05:05:09+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>5:05 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/skill/'>skill</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/13/iosli-cheng-bei-shi-jian/" title="Previous Post: iOS里程碑事件">&laquo; iOS里程碑事件</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/" title="Next Post: 多线程之NSOperation">多线程之NSOperation &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

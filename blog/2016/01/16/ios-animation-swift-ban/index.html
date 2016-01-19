@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>iOS Animation Swift 版 - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="iOS Animation Swift 版">
+  <meta name="keywords" content="octopress, iOS, Animation, Swift, Objective-c, CoreAnimation">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">iOS Animation Swift 版</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-16T19:34:06+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:34 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
+
+<h3>简介</h3>
+
+<p>此文主要记录我学习iOS的动画相关内容用<code>Swift</code>语言，记录下来以供参考，不定时更新。</p>
+
+<h3>目录结构</h3>
+
+<ul>
+<li>Section I: View 动画
+
+<ul>
+<li>View animation</li>
+<li>弹簧动画 - Springs</li>
+<li>转场动画 - Transitions</li>
+<li>关键帧动画 - Keyframe</li>
+</ul>
+</li>
+<li>Section II: Auto Layout 动画</li>
+<li>Section III: Layer 动画</li>
+<li>Section IV: 3D 动画</li>
+<li>Section V: 未来类型的动画</li>
+<li>Section VI: View Controller 动画</li>
+<li>Section VII：第三方动画库</li>
+</ul>
+
+
+<h4>Section I: View 动画</h4>
+
+<h5>1.View animation</h5>
+
+<p>简介：view 的动画主要是通过UIView的类方法创建，动画内容一般
+放在block里面，可以镶嵌使用，构成链式动画，主要有3个方法,三个访法只需会参数最多的那个就行，函数名<code>animateWithDuration(_:delay:options:animations:completion:)</code>，其他的使用起来都类似。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">animateWithDuration</span><span class="p">(</span><span class="n">_</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">animations</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span>
+</span><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">animateWithDuration</span><span class="p">(</span><span class="n">_</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">animations</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">,</span> <span class="n">completion</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">)</span>
+</span><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">animateWithDuration</span><span class="p">(</span><span class="n">_</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">delay</span> <span class="nl">delay</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">options</span> <span class="nl">options</span><span class="p">:</span> <span class="n">UIViewAnimationOptions</span><span class="p">,</span> <span class="n">animations</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">,</span> <span class="n">completion</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">animateWithDuration</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="nl">delay</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//do something</span>
+</span><span class='line'>  <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">{</span><span class="n">_</span> <span class="k">in</span>
+</span><span class='line'>    <span class="c1">//do something</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>说明：<code>options</code>，动画选项，这个运行你设置一个动画选项集合，传<code>[]</code>表示不需要选项，单个时可以省略放括号例如<code>.Repeat</code>,多个用逗号连接<code>[.Repeat, .CurveEaseInOut]</code></p>
+
+<p><code>completion</code>闭包需要一个参数，不需要使用参数可以用<code>_</code>表示，不需要实现可以直接传<code>nil</code></p></blockquote>
+
+<p>或者像下面这样写</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">animateWithDuration</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="nl">delay</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>  <span class="c1">//do something</span>
+</span><span class='line'>  <span class="p">})</span> <span class="p">{</span> <span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span> <span class="k">in</span>
+</span><span class='line'>  <span class="c1">//do something</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>2.弹簧动画 - Springs</h5>
+
+<p>简介：弹簧动画是iOS 7.0新增的API，函数名<code>animateWithDuration(_:delay:usingSpringWithDamping:initialSpringVelocity:opti ons:animations:completion:)</code>，</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">animateWithDuration</span><span class="p">(</span><span class="n">_</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">delay</span> <span class="nl">delay</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">usingSpringWithDamping</span> <span class="nl">dampingRatio</span><span class="p">:</span> <span class="n">CGFloat</span><span class="p">,</span> <span class="n">initialSpringVelocity</span> <span class="nl">velocity</span><span class="p">:</span> <span class="n">CGFloat</span><span class="p">,</span> <span class="n">options</span> <span class="nl">options</span><span class="p">:</span> <span class="n">UIViewAnimationOptions</span><span class="p">,</span> <span class="n">animations</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">,</span> <span class="n">completion</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">animateWithDuration</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="nl">delay</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nl">usingSpringWithDamping</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nl">initialSpringVelocity</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">// do something</span>
+</span><span class='line'><span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>说明：<code>usingSpringWithDamping</code>:设置弹簧的阻尼，范围（0.0-1.0），越接近0.0弹簧越有弹性，越接近1.0，效果越僵硬，你可以把当成弹簧的刚度来理解，
+<code>initialSpringVelocity</code>:设置弹簧初始化的速度，设置1.0表示用1秒在动画跨度上完成整个动画距离，值越大或者越小会导致动画有相应的大的或者较小的速度，可以当成弹簧的初始动量来理解。</p></blockquote>
+
+<h5>3.转场动画 - Transitions</h5>
+
+<p>简介：前两种创建的动画是基于可动画的接口例如，position，alpha，frame等等，Transitions是专门处理添加或者移除一个view的动画,系统有2个标准函数，一个是对单个view的处理，一个是处理2个view替换。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">transitionWithView</span><span class="p">(</span><span class="n">_</span> <span class="nl">view</span><span class="p">:</span> <span class="bp">UIView</span><span class="p">,</span> <span class="n">duration</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">options</span> <span class="nl">options</span><span class="p">:</span> <span class="n">UIViewAnimationOptions</span><span class="p">,</span> <span class="n">animations</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">,</span> <span class="n">completion</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">)</span>
+</span><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">transitionFromView</span><span class="p">(</span><span class="n">_</span> <span class="nl">fromView</span><span class="p">:</span> <span class="bp">UIView</span><span class="p">,</span> <span class="n">toView</span> <span class="nl">toView</span><span class="p">:</span> <span class="bp">UIView</span><span class="p">,</span> <span class="n">duration</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">options</span> <span class="nl">options</span><span class="p">:</span> <span class="n">UIViewAnimationOptions</span><span class="p">,</span> <span class="n">completion</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//add the new view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">.</span><span class="n">addSubview</span><span class="p">(</span><span class="n">newView</span><span class="p">)</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//remove the view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">.</span><span class="n">removeFromSuperview</span><span class="p">()</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//hide the view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">true</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//replace via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionFromView</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">oldView</span><span class="o">!</span><span class="p">,</span> <span class="nl">toView</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">TransitionFlipFromTop</span><span class="p">],</span>
+</span><span class='line'><span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>4.关键帧动画 - Keyframe</h5>
+
+<p>简介：关键帧顾名思义就是设定关键的一些帧然后系统会根据一套算法计算中间的其他帧，这样改变的可动画属性时看看起来更加流畅自然，主要有两个函数,一个创建关键帧动画，一个设置具体每帧内容</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">class</span> <span class="k">func</span> <span class="n">animateKeyframesWithDuration</span><span class="p">(</span><span class="n">_</span> <span class="nl">duration</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">delay</span> <span class="nl">delay</span><span class="p">:</span> <span class="n">NSTimeInterval</span><span class="p">,</span> <span class="n">options</span> <span class="nl">options</span><span class="p">:</span> <span class="n">UIViewKeyframeAnimationOptions</span><span class="p">,</span> <span class="n">animations</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">,</span> <span class="n">completion</span> <span class="nl">completion</span><span class="p">:</span> <span class="p">((</span><span class="n">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Void</span><span class="p">)</span><span class="o">?</span><span class="p">)</span>
+</span><span class='line'><span class="o">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">addKeyframeWithRelativeStartTime</span><span class="p">:(</span><span class="kt">double</span><span class="p">)</span><span class="n">frameStartTime</span> <span class="nl">relativeDuration</span><span class="p">:(</span><span class="kt">double</span><span class="p">)</span><span class="n">frameDuration</span> <span class="nl">animations</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="n">animations</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">planeDepart</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">animateKeyframesWithDuration</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="nl">delay</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//add keyframes</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">100.0</span>
+</span><span class='line'>      <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mf">10.0</span>
+</span><span class='line'>      <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformMakeRotation</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">(</span><span class="o">-</span><span class="n">M_PI_4</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">100.0</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mf">60.0</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.51</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformIdentity</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">CGPoint</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">originalCenter</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">originalCenter</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>说明：这是设计一个飞机沿一条路径起飞然后再归位的一段动画，<code>addKeyframeWithRelativeStartTime(_:relativeDuration:animations:)</code>,第一个参数相对开始时间，是相对于动画持续时间的百分比，例如0.1就是10%，0.25就是25%，如果整个动画持续2秒，0.1就是在2*0.1=0.2秒的时候开始，后面的一个参数是相对持续时间，范围更第一参数类似也(0.0-1.0),只从相对开始时间起，往后推移的相对时间。</p></blockquote>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-16T19:34:06+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:34 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/animation/'>animation</a>, <a class='category' href='/blog/categories/ios/'>ios</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/15/nsurlsession/" title="Previous Post: NSURLSession 教程">&laquo; NSURLSession 教程</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/18/tableviewxing-neng-you-hua/" title="Next Post: TableView性能优化">TableView性能优化 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

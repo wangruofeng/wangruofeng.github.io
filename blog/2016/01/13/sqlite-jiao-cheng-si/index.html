@@ -1,0 +1,774 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SQLite_教程(四) - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="SQLite_教程(四)">
+  <meta name="keywords" content="Octopress, iOS, Database, Swift, Objective-c, SQLite">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-si/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SQLite_教程(四)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T23:37:18+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:37 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>SQLite 运算符</h3>
+
+<p><strong>SQLite 运算符是什么？</strong></p>
+
+<p>运算符是一个保留字或字符，主要用于 SQLite 语句的 WHERE 子句中执行操作，如比较和算术运算。</p>
+
+<p>运算符用于指定 SQLite 语句中的条件，并在语句中连接多个条件。</p>
+
+<ul>
+<li>算术运算符</li>
+<li>比较运算符</li>
+<li>逻辑运算符</li>
+<li>位运算符</li>
+</ul>
+
+
+<hr />
+
+<h4>SQLite 算术运算符</h4>
+
+<p>假设变量 a=10，变量 b=20，则：</p>
+
+<table>
+<thead>
+<tr>
+<th>运算符  </th>
+<th>描述                      </th>
+<th>实例      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+      </td>
+<td>加法 - 把运算符两边的值相加</td>
+<td>a + b 将得到 30</td>
+</tr>
+<tr>
+<td>-      </td>
+<td>减法 - 左操作数减去右操作数</td>
+<td>a - b 将得到 -10</td>
+</tr>
+<tr>
+<td>*      </td>
+<td>乘法 - 把运算符两边的值相乘</td>
+<td>a * b 将得到 200</td>
+</tr>
+<tr>
+<td>/      </td>
+<td>除法 - 左操作数除以右操作数</td>
+<td>b / a 将得到 2</td>
+</tr>
+<tr>
+<td>%      </td>
+<td>取模 - 左操作数除以右操作数后得到的余数</td>
+<td>b % a will give 0</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>实例</strong></p>
+
+<p>下面是 SQLite 算术运算符的简单实例：</p>
+
+<pre><code>sqlite&gt; .mode line
+sqlite&gt; select 10 + 20;
+10 + 20 = 30
+
+
+sqlite&gt; select 10 - 20;
+10 - 20 = -10
+
+
+sqlite&gt; select 10 * 20;
+10 * 20 = 200
+
+
+sqlite&gt; select 10 / 5;
+10 / 5 = 2
+
+
+sqlite&gt; select 12 %  5;
+12 %  5 = 2
+</code></pre>
+
+<h4>SQLite 比较运算符</h4>
+
+<p>假设变量 a=10，变量 b=20，则：</p>
+
+<table>
+<thead>
+<tr>
+<th>运算符  </th>
+<th>描述                                       </th>
+<th>实例     </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>==     </td>
+<td>检查两个操作数的值是否相等，如果相等则条件为真。</td>
+<td>(a == b) 不为真。</td>
+</tr>
+<tr>
+<td>=      </td>
+<td>检查两个操作数的值是否相等，如果相等则条件为真。</td>
+<td>(a = b) 不为真。</td>
+</tr>
+<tr>
+<td>!=     </td>
+<td>检查两个操作数的值是否相等，如果不相等则条件为真。</td>
+<td>(a != b) 为真。</td>
+</tr>
+<tr>
+<td>&lt;>     </td>
+<td>检查两个操作数的值是否相等，如果不相等则条件为真。</td>
+<td>(a &lt;> b) 为真。</td>
+</tr>
+<tr>
+<td>>      </td>
+<td>检查左操作数的值是否大于右操作数的值，如果是则条件为真。</td>
+<td>(a > b) 不为真。</td>
+</tr>
+<tr>
+<td>&lt;      </td>
+<td>检查左操作数的值是否小于右操作数的值，如果是则条件为真。</td>
+<td>(a &lt; b) 为真。</td>
+</tr>
+<tr>
+<td>>=     </td>
+<td>检查左操作数的值是否大于等于右操作数的值，如果是则条件为真。</td>
+<td>(a >= b) 不为真。</td>
+</tr>
+<tr>
+<td>&lt;=     </td>
+<td>检查左操作数的值是否小于等于右操作数的值，如果是则条件为真。</td>
+<td>(a &lt;= b) 为真。</td>
+</tr>
+<tr>
+<td>!&lt;     </td>
+<td>检查左操作数的值是否不小于右操作数的值，如果是则条件为真。</td>
+<td>(a !&lt; b) 为假</td>
+</tr>
+<tr>
+<td>!>     </td>
+<td>检查左操作数的值是否不大于右操作数的值，如果是则条件为真。</td>
+<td>(a !> b) 为真</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>实例</strong>
+假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的实例演示了各种 SQLite 比较运算符的用法。</p>
+
+<blockquote><p>在这里，我们使用 WHERE 子句，这将会在后边单独的一个章节中讲解，但现在您需要明白，WHERE 子句是用来设置 SELECT 语句的条件语句。</p></blockquote>
+
+<p>下面的 SELECT 语句列出了 SALARY 大于 50,000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY &gt; 50000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 SALARY 等于 20,000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE SALARY = 20000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+3           Teddy       23          Norway      20000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 SALARY 不等于 20,000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE SALARY != 20000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 SALARY 不等于 20,000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY &lt;&gt; 20000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 SALARY 大于等于 65,000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY &gt;= 65000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<h4>SQLite 逻辑运算符</h4>
+
+<p>下面是 SQLite 中所有的逻辑运算符列表。</p>
+
+<table>
+<thead>
+<tr>
+<th>运算符    </th>
+<th>描述                              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AND      </td>
+<td>AND 运算符允许在一个 SQL 语句的 WHERE 子句中的多个条件的存在。</td>
+</tr>
+<tr>
+<td>BETWEEN  </td>
+<td>BETWEEN 运算符用于在给定最小值和最大值范围内的一系列值中搜索值。</td>
+</tr>
+<tr>
+<td>EXISTS   </td>
+<td>EXISTS 运算符用于在满足一定条件的指定表中搜索行的存在。</td>
+</tr>
+<tr>
+<td>IN       </td>
+<td>IN 运算符用于把某个值与一系列指定列表的值进行比较。</td>
+</tr>
+<tr>
+<td>NOT IN   </td>
+<td>IN 运算符的对立面，用于把某个值与不在一系列指定列表的值进行比较。</td>
+</tr>
+<tr>
+<td>LIKE     </td>
+<td>LIKE 运算符用于把某个值与使用通配符运算符的相似值进行比较。</td>
+</tr>
+<tr>
+<td>GLOB     </td>
+<td>GLOB 运算符用于把某个值与使用通配符运算符的相似值进行比较。GLOB 与 LIKE 不同之处在于，它是大小写敏感的。</td>
+</tr>
+<tr>
+<td>NOT      </td>
+<td>NOT 运算符是所用的逻辑运算符的对立面。比如 NOT EXISTS、NOT BETWEEN、NOT IN，等等。它是否定运算符。</td>
+</tr>
+<tr>
+<td>OR       </td>
+<td>OR 运算符用于结合一个 SQL 语句的 WHERE 子句中的多个条件。</td>
+</tr>
+<tr>
+<td>IS NULL  </td>
+<td>NULL 运算符用于把某个值与 NULL 值进行比较。</td>
+</tr>
+<tr>
+<td>IS       </td>
+<td>IS 运算符与 = 相似。</td>
+</tr>
+<tr>
+<td>IS NOT   </td>
+<td>IS NOT 运算符与 != 相似。</td>
+</tr>
+<tr>
+<td>||     </td>
+<td>连接两个不同的字符串，得到一个新的字符串。</td>
+</tr>
+<tr>
+<td>UNIQUE   </td>
+<td>UNIQUE 运算符搜索指定表中的每一行，确保唯一性（无重复）。</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>实例</strong>
+假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的实例演示了 SQLite 逻辑运算符的用法。
+下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 OR SALARY &gt;= 65000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 不为 NULL 的所有记录，结果显示所有的记录，意味着没有一个记录的 AGE 等于 NULL：</p>
+
+<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 NAME 以 &lsquo;Ki&rsquo; 开始的所有记录，'Ki' 之后的字符不做限制：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME LIKE 'Ki%';
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+6           Kim         22          South-Hall  45000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 NAME 以 &lsquo;Ki&rsquo; 开始的所有记录，'Ki' 之后的字符不做限制：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME GLOB 'Ki*';
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+6           Kim         22          South-Hall  45000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 的值为 25 或 27 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IN ( 25, 27 );
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 的值既不是 25 也不是 27 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE NOT IN ( 25, 27 );
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+3           Teddy       23          Norway      20000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句使用 SQL 子查询，子查询查找 SALARY > 65000 的带有 AGE 字段的所有记录，后边的 WHERE 子句与 EXISTS 运算符一起使用，列出了外查询中的 AGE 存在于子查询返回的结果中的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT AGE FROM COMPANY
+        WHERE EXISTS (SELECT AGE FROM COMPANY WHERE SALARY &gt; 65000);
+AGE
+----------
+32
+25
+23
+25
+27
+22
+24
+</code></pre>
+
+<p>下面的 SELECT 语句使用 SQL 子查询，子查询查找 SALARY > 65000 的带有 AGE 字段的所有记录，后边的 WHERE 子句与 > 运算符一起使用，列出了外查询中的 AGE 大于子查询返回的结果中的年龄的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY
+        WHERE AGE &gt; (SELECT AGE FROM COMPANY WHERE SALARY &gt; 65000);
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+</code></pre>
+
+<h4>SQLite 位运算符</h4>
+
+<p>位运算符作用于位，并逐位执行操作。真值表 &amp; 和 | 如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>p  </th>
+<th>q  </th>
+<th>p&amp;q</th>
+<th>p|q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0  </td>
+<td>0  </td>
+<td>0  </td>
+<td>0</td>
+</tr>
+<tr>
+<td>0  </td>
+<td>1  </td>
+<td>0  </td>
+<td>1</td>
+</tr>
+<tr>
+<td>1  </td>
+<td>1  </td>
+<td>1  </td>
+<td>1</td>
+</tr>
+<tr>
+<td>1  </td>
+<td>0  </td>
+<td>0  </td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>假设如果 A = 60，且 B = 13，现在以二进制格式，它们如下所示：</p>
+
+<p>A = 0011 1100</p>
+
+<p>B = 0000 1101</p>
+
+<hr />
+
+<p>A&amp;B = 0000 1100</p>
+
+<p>A|B = 0011 1101</p>
+
+<p>~A  = 1100 0011</p>
+
+<p>下表中列出了 SQLite 语言支持的位运算符。假设变量 A=60，变量 B=13，则：</p>
+
+<table>
+<thead>
+<tr>
+<th>运算符  </th>
+<th>描述                              </th>
+<th>实例     </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;      </td>
+<td>   如果同时存在于两个操作数中，二进制 AND 运算符复制一位到结果中。    </td>
+<td>(A &amp; B) 将得到 12，即为 0000 1100</td>
+</tr>
+<tr>
+<td>|     </td>
+<td>如果存在于任一操作数中，二进制 OR 运算符复制一位到结果中。  </td>
+<td>(A | B) 将得到 61，即为 0011 1101</td>
+</tr>
+<tr>
+<td>~      </td>
+<td>二进制补码运算符是一元运算符，具有"翻转"位效应。    </td>
+<td>(~A ) 将得到 -61，即为 1100 0011，2 的补码形式，带符号的二进制数。</td>
+</tr>
+<tr>
+<td>&lt;&lt;     </td>
+<td>二进制左移运算符。左操作数的值向左移动右操作数指定的位数。    </td>
+<td>A &lt;&lt; 2 将得到 240，即为 1111 0000</td>
+</tr>
+<tr>
+<td>>>     </td>
+<td>二进制右移运算符。左操作数的值向右移动右操作数指定的位数。    </td>
+<td>A >> 2 将得到 15，即为 0000 1111</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>实例</strong></p>
+
+<p>下面的实例演示了 SQLite 位运算符的用法：</p>
+
+<pre><code>sqlite&gt; .mode line
+sqlite&gt; select 60 | 13;
+60 | 13 = 61
+
+sqlite&gt; select 60 &amp; 13;
+60 &amp; 13 = 12
+
+sqlite&gt; select  60 ^ 13;
+10 * 20 = 200
+
+
+sqlite&gt;  select  (~60);
+(~60) = -61
+
+sqlite&gt;  select  (60 &lt;&lt; 2);
+(60 &lt;&lt; 2) = 240
+
+sqlite&gt;  select  (60 &gt;&gt; 2);
+(60 &gt;&gt; 2) = 15
+</code></pre>
+
+<p>资料整理于：<a href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite教程</a>
+转载请注明出处。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T23:37:18+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:37 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-si/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-si/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/13/sqlite-jiao-cheng-san/" title="Previous Post: SQLite_教程(三)">&laquo; SQLite_教程(三)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/14/sqlite-jiao-cheng-wu/" title="Next Post: SQLite_教程(五)">SQLite_教程(五) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

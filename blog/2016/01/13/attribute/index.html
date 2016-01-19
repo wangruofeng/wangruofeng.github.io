@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>__attribute__ - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="__attribute__">
+  <meta name="keywords" content="Octopress, iOS, __attribute__ , Swift, Objective-c">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/13/attribute/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">__attribute__</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:10:33+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:10 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><ul>
+<li>译自 Written by <a href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a> — January 14th, 2013</li>
+<li>原文链接：<a href="http://nshipster.com/__attribute__/">http://nshipster.com/__attribute__/</a></li>
+<li>译者<a href="https://twitter.com/oneruofeng">@oneruofeng</a></li>
+</ul>
+
+
+<p>重复发布这个主题已经说明了同编译器保存健康关系的重要性,像任何草稿一样，作为一个实践者的效率取决于他们怎样对待他们的工具，你照顾好它们，它们反过来也会对你有好处。</p>
+
+<p> <code>__attribute__</code>是一个编译器的指令在声明的时候指明了一些参数，这些参数允许更多的检查错误和高级的优化。</p>
+
+<p> 语法关键字是<code>__attribute__</code>紧跟2套圆括号（双圆括号让出现的宏更容易辨认，特别是在有多个属性的时候）。在括号内部是一个以逗号分隔的属性列表，<code>__attribute__</code>指令被放在函数，变量和类型声明后面。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="c1">// Return the square of a number</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="k">const</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Declare the availability of a particular API</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">availability</span><span class="p">(</span><span class="n">macosx</span><span class="p">,</span><span class="n">introduced</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span><span class="n">deprecated</span><span class="o">=</span><span class="mf">10.6</span><span class="p">)));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Send printf-like message to stderr and exit</span>
+</span><span class='line'><span class="k">extern</span> <span class="kt">void</span> <span class="nf">die</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">noreturn</span><span class="p">,</span> <span class="n">format</span><span class="p">(</span><span class="n">printf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>假如这个让你想起ISO C语言的 <code>#pragma</code>,你就不会感到孤单了。</p>
+
+<p>实际上，当<code>__attribute__</code>被第一次引入到<code>GCC</code>编译器时，它面临一些阻力，有人建议使用专用的<code>#pragma</code>因为相同的目的。</p>
+
+<p>这里，然而，有2个非常好的理由为什么<code>__attribute__</code>被添加进来</p>
+
+<blockquote><ul>
+<li>从一个宏中产生<code>#pragma</code>命令几乎是不能的（在C99 _Pragma 预算符以前）。</li>
+<li>这里没人知道相同的<code>#pragma</code>在另一个编译器中可能的意思。</li>
+</ul>
+</blockquote>
+
+<p> 引用<a href="http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">GCC Documentation for Function Attributes</a></p>
+
+<blockquote><ul>
+<li>这里有2个原因被应用到几乎所有的应用推荐使用<code>#pragma</code>,这犯了一个低级错误就是把<code>#pragma</code>使用到任何地方。</li>
+</ul>
+</blockquote>
+
+<p> 确实，假如你在苹果的框架中和牛逼工程师的开源项目中的头文件看一下现代的<code>Objective-c</code>&ndash;<code>__attribute__</code>被大量使用。（相反，<code>#pragma</code>的主要声明名声来着这些天是装饰:<code>#pragma mark</code>）</p>
+
+<p> 所以为了以后不费力，我们还是先看一下最重要的属性：</p>
+
+<hr />
+
+<h2>GCC</h2>
+
+<p><strong>format</strong></p>
+
+<blockquote><p><code>format</code>属性指定了一个函数像<code>printf</code>,<code>scanf</code>,<code>strftime</code>或者<code>strfmo</code>风格的参数，这个参数应该是可以进行类型检查的一个格式化字符串。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">extern</span> <span class="kt">int</span>
+</span><span class='line'><span class="nf">my_printf</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">my_object</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">my_format</span><span class="p">,</span> <span class="p">...)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">format</span><span class="p">(</span><span class="n">printf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Objective-C程序员也可使用<code>__NSString__</code>来格式化来做到相同的格式化规则，像在<code>NNString</code>中通过 <code>+stringWithFormat:</code> 和 <code>NSLog()</code>格式化字符串一样。</p>
+
+<p><strong>nonnull</strong></p>
+
+<blockquote><p>这个<code>nonnull</code>属性指定了某些函数的参数必须是非空的指针。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">extern</span> <span class="kt">void</span> <span class="o">*</span>
+</span><span class='line'><span class="nf">my_memcpy</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">nonnull</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用<code>nonnull</code>编码期望这个值遵守一个明确的约定中，这样能帮助捕获潜伏在任何代码调用的NULL指针bugs，请记住：
+<code>编译时的错误 &gt;&gt;  运行时的错误。</code></p>
+
+<p><strong>noreturn</strong></p>
+
+<blockquote><p>一些标准库函数，例如<code>abort</code>和<code>exit</code>,是不能返回的。GCC自动知道这些东西，这个noreturn属性用于指定任何其他函数永远不会返回的情况。</p></blockquote>
+
+<p>例如，AFNetworking 使用<code>noreturn</code>属性在它的<a href="https://github.com/AFNetworking/AFNetworking/blob/1.1.0/AFNetworking/AFURLConnectionOperation.m#L157">网络请求线程进入点的方法</a>里面,这个方法用在当大量产生专用的网络的线程里用来保证分离的线程持续执行在应用的整个生命周期中。</p>
+
+<p><strong>pure/const</strong></p>
+
+<blockquote><p><code>pure</code>属性指定了一个函数除了返回值没有副作用，例如它的返回值仅仅依赖参数和/或者全局变量。这样的函数可以用公共子表达式消除并且循环优化就像一个算数操作符那样。</p>
+
+<p><code>pure</code>属性指定了一个函数不会检查任何值除了它们的参数，并且返回值没有副作用。注意到一个函数有一个指针参数并且需呀检查数据的指向不能声明成<code>const</code>。同样的，一个函数调用一个非<code>nonst</code>函数通常不能为<code>const</code>,一个<code>const</code>函数返回<code>void</code>并没有什么意义。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="k">const</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>pure</code>和<code>const</code>是两个执行在一个函数式编程惯例中的参数为了允许有效性能优化。<code>const</code>可以被认为是严格形式的<code>pure</code>因为它不依赖全局变量或者指针。</p>
+
+<p>例如，因为一个函数声明为<code>const</code>的结果并不依赖任何东西除了传进来的参数。函数的结果能够缓存那个结果并且当函数被调用时返回，这样的函数叫做相同的组合参数（也就是说，我们知道一个数字的平方是一个常量，所以我们仅仅需要只计算它一次)。</p>
+
+<p><strong>unused</strong></p>
+
+<blockquote><p>这个属性，附着在一个函数后面，意味着那个函数很可能不会被使用，GCC不会对这个函数产生警告。</p></blockquote>
+
+<p>用<code>__unused</code>关键词可以获得相同的效果，声明这个在方法实现中不会被使用的参数中。知道那以后一些上下文就可以允许编译器来做相应的优化。你很可能喜欢在delegate方法实现李勉使用<code>__unused</code>,因为协议频繁的提高更多的上下文比通常必要的情况，为了满足大量的潜在使用案例。</p>
+
+<h3>LLVM</h3>
+
+<p>像GCC的很多特征一样，Clang也支持<code>__attribute__</code>,添加到它自己的小范围的扩展。为了检查某个属性的可用性，你可以直接使用<code>__has_attribute</code>属性。</p>
+
+<p><strong>availability</strong></p>
+
+<blockquote><p>Clang引进了availability属性，这个可以被取代在声明描述的生命周期中声明相对于操作系统的版本。思考对一个简单函数f：的函数声明</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">availability</span><span class="p">(</span><span class="n">macosx</span><span class="p">,</span><span class="n">introduced</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span><span class="n">deprecated</span><span class="o">=</span><span class="mf">10.6</span><span class="p">,</span><span class="n">obsoleted</span><span class="o">=</span><span class="mf">10.7</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p><code>availability</code>属性声明f在OS X老虎系统中被引入，在OS X雪豹系统中被弃用，在OS X 山狮系统中被废弃。</p>
+
+<p>这个信息被Clang用来决定什么时候使用f：函数式安全的，例如，假如Clang在OS X 美洲豹系统上编译，调用f()函数将成功。假如Clang在OS X雪豹系统中编译，函数调用将成功但是Clang会发出一个警告指明这个函数被弃用了。最后，假如Clang被引进编译OS X山狮系统的代码，函数调用将失败，因为f()函数已经不再可用了。</p>
+
+<p><code>availability</code>属性是一个逗号分隔的列表以平台名开始然后引入一些定语列举出生命周期内的重要里程碑事件附加额外的信息（以任何顺序）。</p></blockquote>
+
+<ul>
+<li>introduced：声明被引入的第一个版本</li>
+<li>deprecated：声明被弃用的第一个版本，这意味着用户应该把这个API移走</li>
+<li>obsoleted： 声明被废弃的第一个版本，这意味着它将被完全移除并且不能再使用</li>
+<li>unavailable：声明在这个平台上将永远不可用</li>
+<li>message：额外的消息将被Clang提供当忽略一个警告或者一个错误在使用一个被弃用或者被废弃的声明。对引导用户替换APIs很有用。</li>
+</ul>
+
+
+<blockquote><p>在声明时可以使用多个availability属性，每个对应不同的平台，仅当availability属性对应相应的目标平台被使用的时候，任何其他才将被忽略。假如没有availability 属性指定可用性对现在的目标平台，availability 属性将被忽略。</p></blockquote>
+
+<h4>支持的平台：</h4>
+
+<ul>
+<li>ios：苹果的iOS操作系统。最小的部署目标被指定通过<code>-mios-version-min=*version*</code>或者<code>-miphoneos-version-min=*version*</code>命令行参数。</li>
+<li>macosx：苹果的OS X 操作系统，最小的部署目标被指定通过<code>-mmacosx-version-min=*version*</code>命令行参数</li>
+</ul>
+
+
+<p><strong>overloadable</strong></p>
+
+<blockquote><p>Clang提供对C++函数在C中重载的支持。在C中函数重载被引进使用<code>overloadable</code>属性。例如，一个可能提供一个重载版本的<code>tgsin</code>函数来精确执行相关的标准函数计算<code>float</code>,<code>double</code>,<code>long double</code>的正弦值：</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#include &lt;math.h&gt;</span>
+</span><span class='line'><span class="kt">float</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">overloadable</span><span class="p">))</span> <span class="n">tgsin</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sinf</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="kt">double</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">overloadable</span><span class="p">))</span> <span class="n">tgsin</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="kt">long</span> <span class="kt">double</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">overloadable</span><span class="p">))</span> <span class="n">tgsin</span><span class="p">(</span><span class="kt">long</span> <span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sinl</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>请注意<code>overloadable</code>只对函数起作用。你可以重载方法声明在某种范围内通过使用通用的返回值和参数类型，想<code>id</code>或者<code>void *</code>.</p>
+
+<hr />
+
+<p>上下文是国王当它遇到编译器优化时。通过提供限制在怎样解析你的代码，增加你参数尽可能高效代码的可能性。遇到编译器把你打断，这将是一项奖励。</p>
+
+<p>还有<code>__attribute__</code>并不仅仅对编译器有用：下一个人看代码也将感谢这些额外的上下文。所以多走几英尺远将对你的合作中和接替者或者从现在算2年以后的你(那个时候你已经忘记了所以的事情关于这份代码)自己有用</p>
+
+<p>你付出了多少爱,最终你会得到多少爱。</p>
+
+<p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:10:33+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:10 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>ios</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/13/attribute/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/13/attribute/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/12/runloopxiang-jie/" title="Previous Post: RunLoop详解">&laquo; RunLoop详解</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/13/autoreleasingde-li-jie/" title="Next Post: __autoreleasing的理解">__autoreleasing的理解 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

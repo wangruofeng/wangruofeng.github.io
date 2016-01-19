@@ -1,0 +1,2040 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="UIImag构造方式 UIImag构造方式大致有4种方式
+* 从本地bundle中加载 imageNamed:，传入一个bundle的文件名即可
+* 从本地一个文件路径读取 imageWithContentsOfFile:，需要传一个文件的文件路径path
+* &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/posts/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/">优雅处理UIImage图片旋转</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:38:49+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:38 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>UIImag构造方式</h2>
+
+<p>UIImag构造方式大致有4种方式
+* 从本地bundle中加载 <code>imageNamed:</code>，传入一个bundle的文件名即可
+* 从本地一个文件路径读取 <code>imageWithContentsOfFile:</code>，需要传一个文件的文件路径path
+* 通过二进制数据<code>NSData</code>来创建<code>imageWithData:</code>
+* 通过一个<code>CoreGraphics</code>的<code>CGImageRef</code>来创建，<code>initWithCGImage:</code>
+* 通过一个<code>CoreImage</code>的<code>CIImage</code>来创建<code>initWithCIImage</code></p>
+
+<p>通过查阅Apple官网文档我们发现有2个这样的方法，今天就来一探究竟</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">+</span> <span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">imageWithCGImage:</span><span class="p">(</span><span class="n">CGImageRef</span><span class="p">)</span><span class="nv">cgImage</span> <span class="nf">scale:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">scale</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">4</span><span class="n">_0</span><span class="p">);</span>
+</span><span class='line'><span class="p">+</span> <span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">imageWithCIImage:</span><span class="p">(</span><span class="bp">CIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">ciImage</span> <span class="nf">scale:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">scale</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">6</span><span class="n">_0</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">instancetype</span><span class="p">)</span><span class="nf">initWithCGImage:</span><span class="p">(</span><span class="n">CGImageRef</span><span class="p">)</span><span class="nv">cgImage</span> <span class="nf">scale:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">scale</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">4</span><span class="n">_0</span><span class="p">);</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">instancetype</span><span class="p">)</span><span class="nf">initWithCIImage:</span><span class="p">(</span><span class="bp">CIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">ciImage</span> <span class="nf">scale:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">scale</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">6</span><span class="n">_0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2个类方法2个实例方法都是类似，这里以<code>CGImageRef</code>为例</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">+</span> <span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">imageWithCGImage:</span><span class="p">(</span><span class="n">CGImageRef</span><span class="p">)</span><span class="nv">cgImage</span> <span class="nf">scale:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">scale</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span> <span class="n">NS_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">4</span><span class="n">_0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>新建的Xcode工程选择single Application</li>
+<li>在storyboard中拖一个<code>UIImageView</code>设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置<code>UIImageView</code>的<code>contentMode</code>为<code>Aspect Fit</code>方便查看以免变形</li>
+<li>在<code>UIImageView</code>下发放一个<code>UIButton</code>控件方便后面好对图片进行旋转操作</li>
+<li><p>在viewController中建立一个<code>UIImageView</code>引用,拉出一个rotate按钮的<code>IBAction</code></p>
+
+<p> 现在大概界面大概这样
+ <img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezhnagzyhpj20x7105doj.jpg" alt="UIImageOrientation效果图" /></p></li>
+<li><p>下面我们实现
+<code>- (IBAction)rotateImage:(id)sender {}</code>这个方法</p>
+
+<blockquote><p>在这里我们想通过点击按钮实现图片旋转
+  为了方便使用我们使用Category的方式实现
+  新建一个UIImage的分类取名叫Rotate</p>
+
+<p>这里需要传一张要处理的图片和一个待处理成的图片方向</p>
+
+<pre><code class="``objective-c">  + (UIImage *)rotateImage:(UIImage *)oldImage
+           orientation:(UIImageOrientation)orientation;
+</code></pre></blockquote></li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">+</span> <span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">rotateImage:</span><span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">oldImage</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'><span class="bp">UIImage</span> <span class="o">*</span><span class="n">newImage</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageWithCGImage</span><span class="p">:</span><span class="n">oldImage</span><span class="p">.</span><span class="bp">CGImage</span> <span class="nl">scale</span><span class="p">:</span><span class="mi">1</span> <span class="nl">orientation</span><span class="p">:</span><span class="n">orientation</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">*</span><span class="n">orientationStr</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'><span class="k">switch</span> <span class="p">(</span><span class="n">orientation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationUp</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationUp&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationDown</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationDown&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationLeft</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationLeft&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationRight</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationRight&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationUpMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationUpMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationDownMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationDownMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationLeftMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationLeftMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nl">UIImageOrientationRightMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationRightMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;current orientation: %@&quot;</span><span class="p">,</span><span class="n">orientationStr</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="n">newImage</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在button点击事件触发时的这样使用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">rotateImage:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">UIImage</span> <span class="o">*</span><span class="n">oldImage</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">imgView</span><span class="p">.</span><span class="n">image</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">UIImage</span> <span class="o">*</span><span class="n">rotatedImage</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">rotateImage</span><span class="p">:</span><span class="n">oldImage</span> <span class="nl">orientation</span><span class="p">:</span><span class="n">UIImageOrientationLeft</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">imgView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">rotatedImage</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>点击按钮测试发现第一次没问题，但是重逢点击无效
+原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过
+<code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，
+如果是就直接返回不做处理，如果不是再作旋转处理，
+也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
+
+<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？
+在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，
+再把UIImage通过<code>drawInRect
+</code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片
+下面是具体实现</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">fixedRotation</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">imageOrientation</span> <span class="o">==</span> <span class="n">UIImageOrientationUp</span><span class="p">)</span> <span class="k">return</span> <span class="nb">self</span><span class="p">;</span>
+</span><span class='line'>    <span class="bp">CGAffineTransform</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformIdentity</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">imageOrientation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationDown</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationDownMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformTranslate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformRotate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">M_PI</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeft</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeftMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformTranslate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformRotate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="n">M_PI_2</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRight</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRightMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformTranslate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformRotate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="o">-</span><span class="n">M_PI_2</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationUp</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationUpMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">imageOrientation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationUpMirrored</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationDownMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformTranslate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformScale</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeftMirrored</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRightMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformTranslate</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>            <span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformScale</span><span class="p">(</span><span class="n">transform</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationUp</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationDown</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeft</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRight</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Now we draw the underlying CGImage into a new context, applying the transform</span>
+</span><span class='line'>    <span class="c1">// calculated above.</span>
+</span><span class='line'>    <span class="n">CGContextRef</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">CGBitmapContextCreate</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">,</span>
+</span><span class='line'>                                             <span class="n">CGImageGetBitsPerComponent</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="bp">CGImage</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>                                             <span class="n">CGImageGetColorSpace</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="bp">CGImage</span><span class="p">),</span>
+</span><span class='line'>                                             <span class="n">CGImageGetBitmapInfo</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="bp">CGImage</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">CGContextConcatCTM</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">transform</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">imageOrientation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeft</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeftMirrored</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRight</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRightMirrored</span><span class="p">:</span>
+</span><span class='line'>            <span class="c1">// Grr...</span>
+</span><span class='line'>            <span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">,</span><span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">),</span> <span class="nb">self</span><span class="p">.</span><span class="bp">CGImage</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">default</span><span class="o">:</span>
+</span><span class='line'>            <span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="nb">self</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="nb">self</span><span class="p">.</span><span class="bp">CGImage</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// And now we just create a new UIImage from the drawing context</span>
+</span><span class='line'>    <span class="n">CGImageRef</span> <span class="n">cgimg</span> <span class="o">=</span> <span class="n">CGBitmapContextCreateImage</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+</span><span class='line'>    <span class="bp">UIImage</span> <span class="o">*</span><span class="n">img</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageWithCGImage</span><span class="p">:</span><span class="n">cgimg</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">CGContextRelease</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CGImageRelease</span><span class="p">(</span><span class="n">cgimg</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">img</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在再优化一下原来<code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">+</span> <span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">rotateImage:</span><span class="p">(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nv">oldImage</span> <span class="nf">orientation:</span><span class="p">(</span><span class="n">UIImageOrientation</span><span class="p">)</span><span class="nv">orientation</span><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">UIImage</span> <span class="o">*</span><span class="n">newImage</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageWithCGImage</span><span class="p">:</span><span class="n">oldImage</span><span class="p">.</span><span class="bp">CGImage</span> <span class="nl">scale</span><span class="p">:</span><span class="mi">1</span> <span class="nl">orientation</span><span class="p">:</span><span class="n">orientation</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//fix original Image with gived orientation.</span>
+</span><span class='line'>    <span class="bp">UIImage</span> <span class="o">*</span><span class="n">fixedRotationImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">newImage</span> <span class="n">fixedRotation</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">NSString</span> <span class="o">*</span><span class="n">orientationStr</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">switch</span> <span class="p">(</span><span class="n">orientation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationUp</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationUp&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationDown</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationDown&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeft</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationLeft&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRight</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationRight&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationUpMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationUpMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationDownMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationDownMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationLeftMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationLeftMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">case</span> <span class="nl">UIImageOrientationRightMirrored</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">orientationStr</span> <span class="o">=</span> <span class="s">@&quot;UIImageOrientationRightMirrored&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;current orientation: %@&quot;</span><span class="p">,</span><span class="n">orientationStr</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">fixedRotationImage</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> 现在再测试一下，well，It‘s OK。</p>
+
+<p> have fun!!!</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="http://www.galloway.me.uk/2012/01/uiimageorientation-exif-orientation-sample-images/">UIImageOrientation / EXIF orientation sample images</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/#//apple_ref/c/tdef/UIImageOrientation">Apple-UIImage Class Reference</a></li>
+<li><a href="http://stackoverflow.com/questions/8915630/ios-uiimageview-how-to-handle-uiimage-image-orientation">ios-uiimageview-how-to-handle-uiimage-image-orientation</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/13/dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath/">用CAShapeLayer动画绘制CGPath</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:35:42+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:35 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li><a href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/">原文链接</a></li>
+</ul>
+
+
+<h4>这是什么？</h4>
+
+<blockquote><p>此文将讲解通过形状图层<code>CAShaperLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现动画绘制路径<code>CGPath</code>,此文是<a href="http://oleb.net">By Ole Begemann</a>创建于December 18, 2010,当时是发布iOS SDK 4.2时<code>CAShapeLayer</code>新增加的两个属性<a href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW16">strokeStart</a>和<a href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW15">strokeEnd</a>,这两个值是两个浮点数取值范围0.0~1.0,用来表明形状图层所指向的路径在绘制开始和结束路径中的相对位置。</p></blockquote>
+
+<p><code>strokeStart</code>默认值是0.0，<code>strokeEnd</code>默认值是1.0，显然这会导致形状图层的路径将一整个被绘制。假如，你想说，如果设置了layer.strokeEnd = 0.5f,只让她绘制前半部分，那该多好。</p>
+
+<p>真正有趣的事情是这些接口都是可动画的。通过动画绘制<code>strokeEnd</code>从0.0到1.0在几秒内，我们就能很容易自己绘制路径像下面这样写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">CABasicAnimation</span> <span class="o">*</span><span class="n">pathAnimation</span> <span class="o">=</span> <span class="p">[</span><span class="bp">CABasicAnimation</span> <span class="nl">animationWithKeyPath</span><span class="p">:</span><span class="s">@&quot;strokeEnd&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">pathAnimation</span><span class="p">.</span><span class="n">duration</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathAnimation</span><span class="p">.</span><span class="n">fromValue</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSNumber</span> <span class="nl">numberWithFloat</span><span class="p">:</span><span class="mf">0.0f</span><span class="p">];</span>
+</span><span class='line'><span class="n">pathAnimation</span><span class="p">.</span><span class="n">toValue</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSNumber</span> <span class="nl">numberWithFloat</span><span class="p">:</span><span class="mf">1.0f</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">pathLayer</span> <span class="nl">addAnimation</span><span class="p">:</span><span class="n">pathAnimation</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;strokeEndAnimation&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后，再添加第二个图层包含一个铅笔图片，使用关键帧动画<code>CAKeyframeAnimation</code>来让它随着这个路径以相同的速度绘制，就可以达到完美的错觉效果：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">CAKeyframeAnimation</span> <span class="o">*</span><span class="n">penAnimation</span> <span class="o">=</span> <span class="p">[</span><span class="bp">CAKeyframeAnimation</span> <span class="nl">animationWithKeyPath</span><span class="p">:</span><span class="s">@&quot;position&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">penAnimation</span><span class="p">.</span><span class="n">duration</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">;</span>
+</span><span class='line'><span class="n">penAnimation</span><span class="p">.</span><span class="n">path</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">pathLayer</span><span class="p">.</span><span class="n">path</span><span class="p">;</span>
+</span><span class='line'><span class="n">penAnimation</span><span class="p">.</span><span class="n">calculationMode</span> <span class="o">=</span> <span class="n">kCAAnimationPaced</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">penLayer</span> <span class="nl">addAnimation</span><span class="p">:</span><span class="n">penAnimation</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;penAnimation&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">绘制普通路径效果视频</a></p>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">下载地址</a></p>
+
+<p>这个对文本一样有效；我们只需要把字符转化成<code>CGPath</code>。<code>Core Text</code>提供了那样的功能的函数，<a href="http://developer.apple.com/library/ios/documentation/Carbon/Reference/CTFontRef/Reference/reference.html#//apple_ref/c/func/CTFontCreatePathForGlyph">CTFontCreatePathForGlyph( )</a>。为了使用它，我们需要创建一个带属性的字符串用我们想要渲染的文本，先把它们分割成行在分割成一个个字符。在把所有的字符转换成路径后，我们以子路径方式把它添加到一个单个的<code>CGPath</code>路径中。更多细节可以查看<a href="http://www.codeproject.com/script/Membership/View.aspx?mid=2887692">Ohmu</a>写的<a href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">Low-level text rendering</a>这篇文章。结果看以来非常的炫酷：</p>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">绘制文字路径效果视频</a></p>
+
+<p><a href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">下载地址</a></p>
+
+<p>从Github上获得<a href="http://github.com/ole/Animated-Paths">iPad版的样品工程</a></p>
+
+<h4>你将学到的知识点</h4>
+
+<ul>
+<li>使用<code>CAShapeLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现路径动画,比较高级复杂的效果像google的下拉刷新转圈就可以从这里引申去实现。</li>
+<li><code>CABasicAnimation</code>和<code>CABasicAnimation</code>使用</li>
+<li>深入理解<code>CAShapeLayer</code>和<code>CALayer</code></li>
+<li>通过文本创建路径，核心函数<code>CTFontCreatePathForGlyph()</code></li>
+</ul>
+
+
+<h4>补充说明</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">CAShapeLayer</span> <span class="o">*</span><span class="n">pathLayer</span> <span class="o">=</span> <span class="p">[</span><span class="bp">CAShapeLayer</span> <span class="n">layer</span><span class="p">];</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">animationLayer</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">pathRect</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">geometryFlipped</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="bp">CGPath</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">strokeColor</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIColor</span> <span class="n">blackColor</span><span class="p">]</span> <span class="bp">CGColor</span><span class="p">];</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">fillColor</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mf">10.0f</span><span class="p">;</span>
+</span><span class='line'><span class="n">pathLayer</span><span class="p">.</span><span class="n">lineJoin</span> <span class="o">=</span> <span class="n">kCALineJoinBevel</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">animationLayer</span> <span class="nl">addSublayer</span><span class="p">:</span><span class="n">pathLayer</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有一点非常重要，CALayer在iOS系统中相对坐标系是以屏幕左上<code>top-left</code>为坐标原点的，在Mac OS X上以坐下<code>bottom-left</code>为坐标原点,但是可以通过<code>CALayer</code>的接口<code>geometryFlipped</code>垂直翻转坐标系，这个值默认是<code>NO</code>，设置成<code>YES</code>就可以把坐标系转换成左下<code>bottom-left</code>了，这里作者使用的左下<code>bottom-left</code>的坐标系。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span><span class="p">(</span><span class="k">getter</span><span class="o">=</span><span class="n">isGeometryFlipped</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">geometryFlipped</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>关于这个属性使用时需要特别注意</p>
+
+<ol>
+<li>翻转会同时作用于它的子图层</li>
+<li>即使这个属性设置成<code>YES</code>,图片的<code>orientation</code>仍然是不变的（也就是说当设置<code>flipped=YES</code>和<code>flipped=NO</code>时一个<code>CGImageRef</code>储存在<code>contents</code>接口中的内容将会显示一致，赋值并不会真正变换底层的图层）</li>
+</ol>
+
+
+<h4>pathLayer动画实现原理</h4>
+
+<ol>
+<li>先创建一个动画用的图层<code>animationLayer</code>类型<code>CALayer</code>，用来充当动画的画布。</li>
+<li>创建真正的路径图层<code>pathLayer</code>类型为<code>CAShapeLayer</code>,让它的坐标系垂直翻转，并且让图层宽高同时向内收缩100个点,通过<code>CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)</code>实现</li>
+<li>把<code>pathLayer</code>添加到<code>animationLayer</code>的子图层中去</li>
+<li>创建一个铅笔图层<code>penLayer</code>类型为<code>CALayer</code>,把它添加到<code>pathLayer</code>去</li>
+<li>对<code>pathLayer</code>添加<code>CABasicAnimation</code>动画，动画属性为<code>strokeEnd</code></li>
+<li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
+</ol>
+
+
+<h4>textLayer动画实现原理</h4>
+
+<ol>
+<li>先创建一个动画用的图层<code>animationLayer</code>类型<code>CALayer</code>，用来充当动画的画布</li>
+<li>Create path from text,See:<a href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">http://www.codeproject.com/KB/iPhone/Glyph.aspx</a>，最终保存到一个类型为<code>CGMutablePathRef</code>的letter中</li>
+<li>通过letter来创建文字<code>UIBezierPath</code>类型的<code>path</code></li>
+<li>通过path再创建<code>CAShapeLayer</code>pathLayer,并且把pathLayer添加到<code>animationLayer</code>中去</li>
+<li>创建一个铅笔图层<code>penLayer</code>类型为<code>CALayer</code>,把它添加到<code>pathLayer</code>去</li>
+<li>对<code>pathLayer</code>添加<code>CABasicAnimation</code>动画，动画属性为<code>strokeEnd</code></li>
+<li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
+</ol>
+
+
+<h4>修复一处bug</h4>
+
+<p>重复点击<code>UISegmentedControl</code>导致铅笔消失，这是设置了<code>penAnimation.delegate = self;</code>在代理方法里面没有判断结束直接将设置<code>self.penLayer.hidden = YES</code>，导致连续切换时铅笔不见了，要修复这个bug只需加一个判断<code>   if (flag)   self.penLayer.hidden = YES;
+</code>即可,这样的意思是只有当动画完成时才设置<code>self.penLayer.hidden</code>的值，好了现在已经非常完美了，快去动手自己试试吧！🍺</p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/13/blogwang-zhan-bei-wang-lu/">Blog网站备忘录</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:29:59+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:29 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>用于收藏不错的个人或者公司Blog地址</p></blockquote>
+
+<h2>幽幽传送门</h2>
+
+<ul>
+<li><a href="http://www.jianshu.com/p/e5353a1a752c">我常常浏览的博客和网站
+</a> &ndash;<a href="http://www.jianshu.com/users/b82d2721ba07">叶孤城__</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150626/11348.html">11个超棒的iOS开发学习网站</a></li>
+<li><a href="http://blog.devtang.com/blog/2014/07/27/ios-levelup-tips/">iOS开发如何提高</a></li>
+<li><a href="https://github.com/tangqiaoboy/iOSBlogCN-">中文 iOS/Mac 开发博客列表</a>&ndash;唐巧精心整理了国内40多位iOS开发博主的博客地址列表</li>
+</ul>
+
+
+<h2>简书</h2>
+
+<ul>
+<li><a href="http://www.jianshu.com/users/b82d2721ba07/latest_articles">叶孤城___</a></li>
+<li><a href="http://www.jianshu.com/users/39eeabac725a/latest_articles">MarkNote</a></li>
+<li><a href="http://www.jianshu.com/users/384f80cdc57b/latest_articles">lp_马建成</a></li>
+<li><a href="http://www.jianshu.com/users/7ba5d9065301/latest_articles">seedante
+</a></li>
+<li><a href="http://www.jianshu.com/users/960f3b94323a/latest_articles">大灰灰iOS</a></li>
+<li><a href="http://www.jianshu.com/users/56475732c6e9/latest_articles">StrongX</a></li>
+</ul>
+
+
+<h2>国内个人</h2>
+
+<ul>
+<li><a href="http://onevcat.com/?from=inf&amp;wvr=5&amp;loc=infblog">猫神onevcat</a></li>
+<li><a href="http://blog.devtang.com/">唐巧</a>&ndash;猿题库作者</li>
+<li><a href="http://blog.txx.im/?from=inf&amp;wvr=5&amp;loc=infblog">虾神</a>&ndash;话说你们晓得虾神年纪多大么？反正我是觉得白活了。90后太厉害了。</li>
+<li><a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">sunnyxx</a></li>
+<li><a href="https://github.com/nixzhu/dev-blog">nixzhu</a>&ndash;有几篇翻译的文章质量不错</li>
+<li><a href="http://beyondvincent.com">破船之家</a>&ndash;这让我想起，喝上一杯朗姆酒🍺</li>
+<li><a href="http://macshuo.com/?page_id=93">MacTalk-池建强的随想录</a>&ndash;Mac开发大牛</li>
+<li><a href="http://www.xuanyusong.com">雨松MOMO</a>&ndash;专注移动互联网，专注Unity3D游戏开发,国内最早开发Unity3d的大神之一</li>
+<li><a href="http://yulingtianxia.com">玉令天下的博客</a> &ndash; 关于runtime的资料整理得非常不错</li>
+</ul>
+
+
+<h2>国外个人</h2>
+
+<ul>
+<li><a href="https://www.mikeash.com">mikeash</a>&ndash;白天飞行员，晚上程序员 ：] just this guy, you know?</li>
+<li><a href="https://www.shinobicontrols.com/blog">shinobicontrols</a>&ndash;iOS 最新 API 以及新功能用法</li>
+<li><a href="http://iosdevelopertips.com/user-interface/custom-visual-calendar-control-for-ios.html">iosdevelopertips</a>&ndash;教程配合Demo让你学习成长立竿见影</li>
+<li><a href="http://iosdevweekly.com">iosdevweekly</a>&ndash;很棒的个人技术博客网，已发表230篇文章</li>
+<li><a href="http://ios-goodies.com">ios-goodies</a>&ndash;iOS,UI,UX,Objective-c,Swift,Xcode</li>
+<li><a href="http://nshipster.cn/authors/mattt-thompson/">mattt-thompson</a> &ndash; 不用解释</li>
+<li><a href="http://subjc.com">subjc</a> &ndash;Subjective-C is a study of innovative iOS interfaces.</li>
+<li><a href="http://www.thinkandbuild.it">thinkandbuild</a>&ndash;《Introduction To 3D Drawing in CoreAnimtion》作者</li>
+<li><a href="http://robb.is/">robb.is</a>&ndash;《How to build a nice Hamburger transition in swift》作者</li>
+<li><a href="http://commandshift.co.uk">commandshift</a>&ndash;不多说，质量极高</li>
+<li><a href="http://indieambitions.com/">indieambitions</a>&ndash;raywenderlich常驻作者之一的blog，非常赞。</li>
+<li><a href="http://nvie.com">nvie</a>&ndash;国外一个大神的blog，讲得比较杂，git，ios，python都有涉猎，但是每篇都很精彩。</li>
+<li><a href="http://stuartkhall.com">stuartkhall</a>&ndash;很多关于app上线运营之类的blog，值得一看。</li>
+<li><a href="http://blog.ittybittyapps.com">ittybittyapps</a>&ndash;神器Reveal的作者的blog。</li>
+<li><a href="http://adoptioncurve.net/">adoptioncurve</a>&ndash;更新极快，当时iOS8还没出几个周，作者就写了篇sizeclass解析。非常棒</li>
+<li><a href="http://ciechanowski.me">ciechanowski</a>&ndash;各种数学上几何变化</li>
+<li><a href="https://www.bignerdranch.com/blog/">bignerdranch</a></li>
+<li><a href="http://www.cocoawithlove.com">cocoawithlove</a>&ndash;2008-2011的老文章，现在没怎么跟新了</li>
+<li><a href="http://blog.codinghorror.com/">codinghorror</a> &ndash;<a href="https://twitter.com/codinghorror">Jeff Atwood </a>主站</li>
+<li><a href="http://www.g8production.com/">g8production</a></li>
+<li><a href="http://lucida.me/about/">lucida</a> &ndash; 我比较佩服一名程序员，想学算法找他推荐咯😁</li>
+</ul>
+
+
+<h2>团体blog</h2>
+
+<ul>
+<li><a href="http://blog.ibireme.com">ibireme</a>&ndash;最近很🔥的YYKit的作者</li>
+<li><a href="http://tech.glowing.com/cn/">Glow技术团队</a></li>
+<li><a href="http://tech.meituan.com">美团点评技术团队</a></li>
+</ul>
+
+
+<h2>优质iOS学习资源</h2>
+
+<ul>
+<li><a href="https://github.com">github</a>&ndash;这个不用我说吧</li>
+<li><a href="http://stackoverflow.com">stackoverflow</a>&ndash;最专业的问答社区</li>
+<li><a href="http://www.raywenderlich.com">raywenderlich</a>&ndash;iOS界的百科全书</li>
+<li><a href="http://nshipster.com">nshipster</a>&ndash;里面文章质量非常的高，最喜欢的几个网站之一<a href="https://github.com/AFNetworking/AFNetworking">AFNetworkting</a>的作者<a href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a>&ndash;经常出没</li>
+<li><a href="http://nshipster.cn">nshipster中国</a></li>
+<li><a href="http://www.objc.io">objc.io</a>&ndash;这个也不用多说了，Raywenderlich是百科全书的话，这个就是深入深入再深入</li>
+<li><a href="http://objcio.cn">objc中国</a></li>
+<li><a href="https://realm.io">realm.io</a>&ndash;一个跨平台的移动数据库引擎</li>
+<li><a href="http://tutsplus.com/">tutsplus</a>&ndash;也是包罗万象的一个网站，有web ios ui，不比Raywenderlich逊色。</li>
+<li><a href="https://maniacdev.com">maniacdev</a>&ndash;类似Raywenderlich，文章质量高，而且涵盖面广</li>
+</ul>
+
+
+<h2>中文网站</h2>
+
+<ul>
+<li><a href="http://www.cocoachina.com">cocoachina</a></li>
+<li><a href="http://www.code4app.com">code4app</a></li>
+<li><a href="http://www.tairan.com">泰然网</a> &ndash;游戏教程不错的网站</li>
+<li><a href="http://blog.jobbole.com">伯乐在线</a></li>
+</ul>
+
+
+<h2>Swift：</h2>
+
+<ul>
+<li><a href="http://wiki.jikexueyuan.com/project/swift/">介紹 | 《The Swift Programming Language》中文版</a></li>
+<li><a href="http://swifter.tips">Swift必备Tips</a> &ndash; 猫神的杰作</li>
+<li><a href="http://letsswift.com/swift-site-index/">Let&rsquo;s Swift </a> &ndash; Swift站点导航</li>
+<li><a href="https://objectivec2swift.com/#/converter/code">Swiftify | Objective-C to Swift Converter </a> &ndash; 辅助将旧的* Objective-C代码转成Swift。</li>
+<li><a href="https://swift.org">Swift.org</a> &ndash; Apple Swift 官网</li>
+<li><a href="https://developer.apple.com/swift/blog/">Swift - Blog</a> &ndash; Apple Swift 官方博客</li>
+<li><a href="https://github.com/CocoaChina-editors/Welcome-to-Swift">CocoaChina小组翻译的Swift版本</a></li>
+<li><a href="http://www.tutorialspoint.com/swift/swift_environment.htm">tutorialspoint</a> &ndash; 有一些Swift教程</li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/13/autoreleasingde-li-jie/">__autoreleasing的理解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:27:10+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:27 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>__autoreleasing 修饰符</h3>
+
+<p>将对象赋值给附有__autoreleasing 修饰符的变量等同于ARC 无效时调用对象的autorelease方法。我们通过以下源代码来看一下</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@autoreleasepool</span> <span class="p">{</span>
+</span><span class='line'><span class="kt">id</span> <span class="k">__autoreleasing</span> <span class="n">obj</span>  <span class="o">=</span> <span class="p">[[</span><span class="bp">NSObject</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>该源代码主要将NSObject 类对象注册到autoreleasepool 中，可作如下变换：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cm">/* 编译器的模拟代码 */</span>
+</span><span class='line'><span class="kt">id</span> <span class="n">pool</span> <span class="o">=</span> <span class="n">objc_autoreleasePoolPush</span><span class="p">();</span>
+</span><span class='line'><span class="kt">id</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">objc_msgSend</span><span class="p">(</span><span class="bp">NSObject</span><span class="p">,</span> <span class="k">@selector</span><span class="p">(</span><span class="n">alloc</span><span class="p">));</span>
+</span><span class='line'><span class="n">objc_msgSend</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="k">@selector</span><span class="p">(</span><span class="n">init</span><span class="p">));</span>
+</span><span class='line'><span class="n">objc_autorelease</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class='line'><span class="n">objc_autoreleasePoolPop</span><span class="p">(</span><span class="n">pool</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这与苹果的autorelease 实现中的说明（参考1.2.7 节）完全相同。虽然ARC 有效和无效时，其在源代码上的表现有所不同，但autorelease 的功能完全一样。</p>
+
+<p>在alloc/new/copy/mutableCopy 方法群之外的方法中使用注册到autoreleasepool 中的对象会如何呢？下面我们来看看NSMutableArray 类的array 类方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@autoreleasepool</span> <span class="p">{</span>
+</span><span class='line'><span class="kt">id</span> <span class="k">__autoreleasing</span> <span class="n">obj</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这与前面的源代码有何不同呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cm">/* 编译器的模拟代码 */</span>
+</span><span class='line'><span class="kt">id</span> <span class="n">pool</span> <span class="o">=</span> <span class="n">objc_autoreleasePoolPush</span><span class="p">();</span>
+</span><span class='line'><span class="kt">id</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">objc_msgSend</span><span class="p">(</span><span class="bp">NSMutableArray</span><span class="p">,</span> <span class="k">@selector</span><span class="p">(</span><span class="n">array</span><span class="p">));</span>
+</span><span class='line'><span class="n">objc_retainAutoreleasedReturnValue</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class='line'><span class="n">objc_autorelease</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
+</span><span class='line'><span class="n">objc_autoreleasePoolPop</span><span class="p">(</span><span class="n">pool</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>虽然持有对象的方法从alloc 方法变为objc_retainAutoreleasedReturnValue 函数， 但注册autoreleasepool 的方法没有改变，仍是objc_autorelease 函数。</p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/13/attribute/">__attribute__</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-13T04:10:33+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:10 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>译自 Written by <a href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a> — January 14th, 2013</li>
+<li>原文链接：<a href="http://nshipster.com/__attribute__/">http://nshipster.com/__attribute__/</a></li>
+<li>译者<a href="https://twitter.com/oneruofeng">@oneruofeng</a></li>
+</ul>
+
+
+<p>重复发布这个主题已经说明了同编译器保存健康关系的重要性,像任何草稿一样，作为一个实践者的效率取决于他们怎样对待他们的工具，你照顾好它们，它们反过来也会对你有好处。</p>
+
+<p> <code>__attribute__</code>是一个编译器的指令在声明的时候指明了一些参数，这些参数允许更多的检查错误和高级的优化。</p>
+
+<p> 语法关键字是<code>__attribute__</code>紧跟2套圆括号（双圆括号让出现的宏更容易辨认，特别是在有多个属性的时候）。在括号内部是一个以逗号分隔的属性列表，<code>__attribute__</code>指令被放在函数，变量和类型声明后面。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="c1">// Return the square of a number</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="k">const</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Declare the availability of a particular API</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">availability</span><span class="p">(</span><span class="n">macosx</span><span class="p">,</span><span class="n">introduced</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span><span class="n">deprecated</span><span class="o">=</span><span class="mf">10.6</span><span class="p">)));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Send printf-like message to stderr and exit</span>
+</span><span class='line'><span class="k">extern</span> <span class="kt">void</span> <span class="nf">die</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">noreturn</span><span class="p">,</span> <span class="n">format</span><span class="p">(</span><span class="n">printf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>假如这个让你想起ISO C语言的 <code>#pragma</code>,你就不会感到孤单了。</p>
+
+<p>实际上，当<code>__attribute__</code>被第一次引入到<code>GCC</code>编译器时，它面临一些阻力，有人建议使用专用的<code>#pragma</code>因为相同的目的。</p>
+
+<p>这里，然而，有2个非常好的理由为什么<code>__attribute__</code>被添加进来</p>
+
+<blockquote><ul>
+<li>从一个宏中产生<code>#pragma</code>命令几乎是不能的（在C99 _Pragma 预算符以前）。</li>
+<li>这里没人知道相同的<code>#pragma</code>在另一个编译器中可能的意思。</li>
+</ul>
+</blockquote>
+
+<p> 引用<a href="http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">GCC Documentation for Function Attributes</a></p>
+
+<blockquote><ul>
+<li>这里有2个原因被应用到几乎所有的应用推荐使用<code>#pragma</code>,这犯了一个低级错误就是把<code>#pragma</code>使用到任何地方。</li>
+</ul>
+</blockquote>
+
+<p> 确实，假如你在苹果的框架中和牛逼工程师的开源项目中的头文件看一下现代的<code>Objective-c</code>&ndash;<code>__attribute__</code>被大量使用。（相反，<code>#pragma</code>的主要声明名声来着这些天是装饰:<code>#pragma mark</code>）</p>
+
+<p> 所以为了以后不费力，我们还是先看一下最重要的属性：</p>
+
+<hr />
+
+<h2>GCC</h2>
+
+<p><strong>format</strong></p>
+
+<blockquote><p><code>format</code>属性指定了一个函数像<code>printf</code>,<code>scanf</code>,<code>strftime</code>或者<code>strfmo</code>风格的参数，这个参数应该是可以进行类型检查的一个格式化字符串。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">extern</span> <span class="kt">int</span>
+</span><span class='line'><span class="nf">my_printf</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">my_object</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">my_format</span><span class="p">,</span> <span class="p">...)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">format</span><span class="p">(</span><span class="n">printf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Objective-C程序员也可使用<code>__NSString__</code>来格式化来做到相同的格式化规则，像在<code>NNString</code>中通过 <code>+stringWithFormat:</code> 和 <code>NSLog()</code>格式化字符串一样。</p>
+
+<p><strong>nonnull</strong></p>
+
+<blockquote><p>这个<code>nonnull</code>属性指定了某些函数的参数必须是非空的指针。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">extern</span> <span class="kt">void</span> <span class="o">*</span>
+</span><span class='line'><span class="nf">my_memcpy</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">dest</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">__attribute__</span><span class="p">((</span><span class="n">nonnull</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用<code>nonnull</code>编码期望这个值遵守一个明确的约定中，这样能帮助捕获潜伏在任何代码调用的NULL指针bugs，请记住：
+<code>编译时的错误 &gt;&gt;  运行时的错误。</code></p>
+
+<p><strong>noreturn</strong></p>
+
+<blockquote><p>一些标准库函数，例如<code>abort</code>和<code>exit</code>,是不能返回的。GCC自动知道这些东西，这个noreturn属性用于指定任何其他函数永远不会返回的情况。</p></blockquote>
+
+<p>例如，AFNetworking 使用<code>noreturn</code>属性在它的<a href="https://github.com/AFNetworking/AFNetworking/blob/1.1.0/AFNetworking/AFURLConnectionOperation.m#L157">网络请求线程进入点的方法</a>里面,这个方法用在当大量产生专用的网络的线程里用来保证分离的线程持续执行在应用的整个生命周期中。</p>
+
+<p><strong>pure/const</strong></p>
+
+<blockquote><p><code>pure</code>属性指定了一个函数除了返回值没有副作用，例如它的返回值仅仅依赖参数和/或者全局变量。这样的函数可以用公共子表达式消除并且循环优化就像一个算数操作符那样。</p>
+
+<p><code>pure</code>属性指定了一个函数不会检查任何值除了它们的参数，并且返回值没有副作用。注意到一个函数有一个指针参数并且需呀检查数据的指向不能声明成<code>const</code>。同样的，一个函数调用一个非<code>nonst</code>函数通常不能为<code>const</code>,一个<code>const</code>函数返回<code>void</code>并没有什么意义。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">int</span> <span class="nf">square</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="k">const</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>pure</code>和<code>const</code>是两个执行在一个函数式编程惯例中的参数为了允许有效性能优化。<code>const</code>可以被认为是严格形式的<code>pure</code>因为它不依赖全局变量或者指针。</p>
+
+<p>例如，因为一个函数声明为<code>const</code>的结果并不依赖任何东西除了传进来的参数。函数的结果能够缓存那个结果并且当函数被调用时返回，这样的函数叫做相同的组合参数（也就是说，我们知道一个数字的平方是一个常量，所以我们仅仅需要只计算它一次)。</p>
+
+<p><strong>unused</strong></p>
+
+<blockquote><p>这个属性，附着在一个函数后面，意味着那个函数很可能不会被使用，GCC不会对这个函数产生警告。</p></blockquote>
+
+<p>用<code>__unused</code>关键词可以获得相同的效果，声明这个在方法实现中不会被使用的参数中。知道那以后一些上下文就可以允许编译器来做相应的优化。你很可能喜欢在delegate方法实现李勉使用<code>__unused</code>,因为协议频繁的提高更多的上下文比通常必要的情况，为了满足大量的潜在使用案例。</p>
+
+<h3>LLVM</h3>
+
+<p>像GCC的很多特征一样，Clang也支持<code>__attribute__</code>,添加到它自己的小范围的扩展。为了检查某个属性的可用性，你可以直接使用<code>__has_attribute</code>属性。</p>
+
+<p><strong>availability</strong></p>
+
+<blockquote><p>Clang引进了availability属性，这个可以被取代在声明描述的生命周期中声明相对于操作系统的版本。思考对一个简单函数f：的函数声明</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">availability</span><span class="p">(</span><span class="n">macosx</span><span class="p">,</span><span class="n">introduced</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span><span class="n">deprecated</span><span class="o">=</span><span class="mf">10.6</span><span class="p">,</span><span class="n">obsoleted</span><span class="o">=</span><span class="mf">10.7</span><span class="p">)));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p><code>availability</code>属性声明f在OS X老虎系统中被引入，在OS X雪豹系统中被弃用，在OS X 山狮系统中被废弃。</p>
+
+<p>这个信息被Clang用来决定什么时候使用f：函数式安全的，例如，假如Clang在OS X 美洲豹系统上编译，调用f()函数将成功。假如Clang在OS X雪豹系统中编译，函数调用将成功但是Clang会发出一个警告指明这个函数被弃用了。最后，假如Clang被引进编译OS X山狮系统的代码，函数调用将失败，因为f()函数已经不再可用了。</p>
+
+<p><code>availability</code>属性是一个逗号分隔的列表以平台名开始然后引入一些定语列举出生命周期内的重要里程碑事件附加额外的信息（以任何顺序）。</p></blockquote>
+
+<ul>
+<li>introduced：声明被引入的第一个版本</li>
+<li>deprecated：声明被弃用的第一个版本，这意味着用户应该把这个API移走</li>
+<li>obsoleted： 声明被废弃的第一个版本，这意味着它将被完全移除并且不能再使用</li>
+<li>unavailable：声明在这个平台上将永远不可用</li>
+<li>message：额外的消息将被Clang提供当忽略一个警告或者一个错误在使用一个被弃用或者被废弃的声明。对引导用户替换APIs很有用。</li>
+</ul>
+
+
+<blockquote><p>在声明时可以使用多个availability属性，每个对应不同的平台，仅当availability属性对应相应的目标平台被使用的时候，任何其他才将被忽略。假如没有availability 属性指定可用性对现在的目标平台，availability 属性将被忽略。</p></blockquote>
+
+<h4>支持的平台：</h4>
+
+<ul>
+<li>ios：苹果的iOS操作系统。最小的部署目标被指定通过<code>-mios-version-min=*version*</code>或者<code>-miphoneos-version-min=*version*</code>命令行参数。</li>
+<li>macosx：苹果的OS X 操作系统，最小的部署目标被指定通过<code>-mmacosx-version-min=*version*</code>命令行参数</li>
+</ul>
+
+
+<p><strong>overloadable</strong></p>
+
+<blockquote><p>Clang提供对C++函数在C中重载的支持。在C中函数重载被引进使用<code>overloadable</code>属性。例如，一个可能提供一个重载版本的<code>tgsin</code>函数来精确执行相关的标准函数计算<code>float</code>,<code>double</code>,<code>long double</code>的正弦值：</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#include &lt;math.h&gt;</span>
+</span><span class='line'><span class="kt">float</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">overloadable</span><span class="p">))</span> <span class="n">tgsin</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sinf</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="kt">double</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">overloadable</span><span class="p">))</span> <span class="n">tgsin</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'><span class="kt">long</span> <span class="kt">double</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">overloadable</span><span class="p">))</span> <span class="n">tgsin</span><span class="p">(</span><span class="kt">long</span> <span class="kt">double</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sinl</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>请注意<code>overloadable</code>只对函数起作用。你可以重载方法声明在某种范围内通过使用通用的返回值和参数类型，想<code>id</code>或者<code>void *</code>.</p>
+
+<hr />
+
+<p>上下文是国王当它遇到编译器优化时。通过提供限制在怎样解析你的代码，增加你参数尽可能高效代码的可能性。遇到编译器把你打断，这将是一项奖励。</p>
+
+<p>还有<code>__attribute__</code>并不仅仅对编译器有用：下一个人看代码也将感谢这些额外的上下文。所以多走几英尺远将对你的合作中和接替者或者从现在算2年以后的你(那个时候你已经忘记了所以的事情关于这份代码)自己有用</p>
+
+<p>你付出了多少爱,最终你会得到多少爱。</p>
+
+<p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/12/runloopxiang-jie/">RunLoop详解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:44:06+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:44 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>NSRunLoop是什么？</h2>
+
+<p>在Cocoa中，每个线程(<code>NSThread</code>)对象中内部都有一个run loop（<code>NSRunLoop</code>）对象用来循环处理输入事件.</p>
+
+<p><em>NSRunloop并不真的是一个loop，的apple的文档中 也提到了需要自己写while或者for语句来实现,类似下面：</em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">while</span><span class="p">(</span><span class="n">running</span><span class="p">){</span>
+</span><span class='line'>    <span class="p">[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">runMode</span><span class="p">:</span><span class="n">NSDefaultRunLoopMode</span> <span class="nl">beforeDate</span><span class="p">:[</span><span class="bp">NSDate</span> <span class="n">distantFuture</span><span class="p">]];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>何为Run loop 事件源</h2>
+
+<p>从字面翻译来看，run loop就是一个运行循环，的确它就是一个处理输入时间的运行循环，为什么需要这样处理，难道没有事件发生的时候让线程空转浪费资源？很明显在有事件发生的时候唤醒线程，没有事件发生的时候让其sleep更好。</p>
+
+<p>下面我还是拿这张百看不厌的图来说事：
+<img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezgx936dhzj20dg071aav.jpg" alt="runloop" /></p>
+
+<p>处理的事件包括两类
+* 来自Timer sources的同步事件
+* 来自Input sources的异步事件</p>
+
+<p>1.Time Source. Timer sources deliver synchronous events, occurring at a scheduled time or repeating interval.
+苹果文档中有句话需要注意，</p>
+
+<blockquote><p>Timer sources deliver events to their handler routines but do not cause the run loop to exit.*</p></blockquote>
+
+<p>创建NSTimer添加到run loop中的时候，这里需要注意的是，<code>NSTimer</code>默认是处于<code>NSDefaultRunloopMode</code>，这也就可以解释为什么如果你在你的控制器中添加了一个timer定时刷新你的界面，而你在拖动视图的时候timer不回fire，因为这个时候你的runloop 是<code>NSEventTrackingRunloopMode</code>,在这个mode下timer不回fire</p>
+
+<p>2.input source input source 主要是一些异步的事件，比如来自其它线程或者其它app的消息。</p>
+
+<p>input source 传递异步事件到其对应的处理函数，并且使runUntilDate(与线程相关联的runloop对象调用)返回</p>
+
+<p>为了能够处理input sourcr，run loops 产生notifications.通过注册成run-loop observers可以接受到这些通知（通过Core Foundation 来注册observers）.</p>
+
+<h2>RunLoopMode有哪些？</h2>
+
+<p>run loop在处理输入事件时会产生通知，可以通过Core Foundation向线程中添加run loop observers来监听特定事件,以在监听的事件发生时做附加的处理工作。</p>
+
+<p>每个run loop可运行在不同的模式下,一个run loop mode是一个集合，其中包含其监听的若干输入事件源，定时器，以及在事件发生时需要通知的run loop observers。运行在一种mode下的run loop只会处理其run loop mode中包含的输入源事件，定时器事件，以及通知run loop mode中包含的observers。</p>
+
+<p>Cocoa中的预定义模式有:
+1. Default模式</p>
+
+<pre><code>定义[NSDefaultRunLoopMode](https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSDefaultRunLoopMode) (Cocoa) [kCFRunLoopDefaultMode](https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopDefaultMode) (Core Foundation)
+
+描述：默认模式中几乎包含了所有输入源(NSConnection除外),一般情况下应使用此模式，这是最常用的run loop mode。
+</code></pre>
+
+<ol>
+<li><p>Connection模式</p>
+
+<p> 定义：<code>NSConnectionReplyMode</code>(Cocoa)</p>
+
+<p> 描述：处理<code>NSConnection</code>对象相关事件，系统内部使用，这个mode表明<code>NSConnection</code>对象等待reply,用户基本不会使用。</p></li>
+<li><p>Modal模式</p>
+
+<p> 定义：<code>NSModalPanelRunLoopMode</code>(Cocoa)</p>
+
+<p> 描述：处理modal panels事件,需要等待处理的input source为modal panel时设置，比如NSSavePanel和NSOpenPanel。</p></li>
+<li><p>Event tracking模式
+ 定义：<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/index.html#//apple_ref/doc/uid/TP40006728-CH3-SW38">UITrackingRunLoopMode</a>(iOS) <code>NSEventTrackingRunLoopMode</code>(cocoa)</p>
+
+<p> 描述：使用该模式来处理用户界面相关的事件,例如在拖动loop或其他user interface tracking loops时处于此种模式下，在此模式下会限制输入事件的处理。例如，当手指按住UITableView拖动时就会处于此模式。</p></li>
+<li><p>Common模式</p>
+
+<p> 定义：<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSRunLoopCommonModes">NSRunLoopCommonModes</a> (Cocoa) <a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopCommonModes">kCFRunLoopCommonModes</a> (Core Foundation)</p>
+
+<p> 描述：这是一个伪模式，其为一组run loop mode的集合，将输入源加入此模式意味着在Common Modes中包含的所有模式下都可以处理。在Cocoa应用程序中，默认情况下Common Modes包含default modes,modal modes,event Tracking modes,
+ 可使用<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/func/CFRunLoopAddCommonMode">CFRunLoopAddCommonMode</a>方法向Common Modes中添加自定义modes。</p>
+
+<p> <strong>注意这个并不是一个特定的mode，而是一个mode的集合，而runloop必须运行在一个特定的mode下</strong>。</p></li>
+</ol>
+
+
+<p>获取当前线程的runloop mode</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSString</span><span class="o">*</span> <span class="n">runLoopMode</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="n">currentMode</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>NSTimer、NSURLConnection与UITrackingRunLoopMode</h2>
+
+<p>NSTimer与NSURLConnection默认运行在default mode下，这样当用户在拖动UITableView处于UITrackingRunLoopMode模式时，NSTimer不能fire,NSURLConnection的数据也无法处理。
+NSTimer的例子:
+在一个UITableViewController中启动一个0.2s的循环定时器，在定时器到期时更新一个计数器，并显示在label上。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">label</span> <span class="o">=</span><span class="p">[[</span><span class="bp">UILabel</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">label</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="bp">NSTimer</span> <span class="o">*</span><span class="n">timer</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval</span><span class="p">:</span> <span class="mf">0.2</span>
+</span><span class='line'>                                                      <span class="nl">target</span><span class="p">:</span> <span class="nb">self</span>
+</span><span class='line'>                                                    <span class="nl">selector</span><span class="p">:</span> <span class="k">@selector</span><span class="p">(</span><span class="nl">incrementCounter</span><span class="p">:)</span>
+</span><span class='line'>                                                    <span class="nl">userInfo</span><span class="p">:</span> <span class="nb">nil</span>
+</span><span class='line'>                                                     <span class="nl">repeats</span><span class="p">:</span> <span class="nb">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">incrementCounter:</span><span class="p">(</span><span class="bp">NSTimer</span> <span class="o">*</span><span class="p">)</span><span class="nv">theTimer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">count</span><span class="o">++</span><span class="p">;</span> <span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;%zd&quot;</span><span class="p">,</span><span class="n">count</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在正常情况下，可看到每隔0.2s，label上显示的数字+1,但当你拖动或按住tableView时，label上的数字不再更新，当你手指离开时，label上的数字继续更新。当你拖动<code>UItableView</code>时，当前线程run loop处于<code>UIEventTrackingRunLoopMode</code>模式，在这种模式下，不处理定时器事件，即定时器无法fire,label上的数字也就无法更新。
+解决方法，一种方法是在另外的线程中处理定时器事件，可把Timer加入到<code>NSOperation</code>中在另一个线程中调度;还有一种方法时修改Timer运行的run loop模式，将其加入到<code>UITrackingRunLoopMode</code>模式或<code>NSRunLoopCommonModes</code>模式中。
+即</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">addTimer</span><span class="p">:</span><span class="n">timer</span> <span class="nl">forMode</span><span class="p">:</span><span class="n">UITrackingRunLoopMode</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">addTimer</span><span class="p">:</span><span class="n">timer</span> <span class="nl">forMode</span><span class="p">:</span><span class="n">NSRunLoopCommonModes</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外一种是放到<code>NSThread</code>中</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;主线程 %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'>    <span class="c1">//创建并执行新的线程</span>
+</span><span class='line'>    <span class="bp">NSThread</span> <span class="o">*</span><span class="kr">thread</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSThread</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">newThread</span><span class="p">)</span> <span class="nl">object</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="kr">thread</span> <span class="n">start</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">newThread</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">@autoreleasepool</span><span class="p">{</span>
+</span><span class='line'>        <span class="c1">//在当前Run Loop中添加timer，模式是默认的NSDefaultRunLoopMode</span>
+</span><span class='line'>        <span class="p">[</span><span class="bp">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval</span><span class="p">:</span><span class="mf">2.0</span> <span class="nl">target</span><span class="p">:</span><span class="nb">self</span> <span class="nl">selector</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="n">timer_callback</span><span class="p">)</span> <span class="nl">userInfo</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">repeats</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">//开始执行新线程的Run Loop，如果不启动run loop，timer的事件是不会响应的</span>
+</span><span class='line'>        <span class="p">[[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="n">run</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">timer_callback</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Timer %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">NSThread</span> <span class="n">currentThread</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>NSURLConnection</code>也是如此，见<a href="https://github.com/rs/SDWebImage">SDWebImage</a>中的描述,以及<a href="https://github.com/rs/SDWebImage/blob/master/SDWebImage/SDWebImageDownloader.m">SDWebImageDownloader.m</a>代码中的实现。修改NSURLConnection的运行模式可使用<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/Reference/Reference.html#//apple_ref/occ/instm/NSURLConnection/scheduleInRunLoop:forMode:">scheduleInRunLoop:forMode:</a>方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSURL</span> <span class="nl">URLWithString</span><span class="p">:</span><span class="s">@&quot;https://www.baidu.com&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="bp">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSURLRequest</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithURL</span><span class="p">:</span><span class="n">url</span> <span class="nl">cachePolicy</span><span class="p">:</span><span class="n">NSURLRequestReloadIgnoringLocalCacheData</span> <span class="nl">timeoutInterval</span><span class="p">:</span><span class="mi">15</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">connection</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSURLConnection</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithRequest</span><span class="p">:</span><span class="n">request</span> <span class="nl">delegate</span><span class="p">:</span><span class="nb">self</span> <span class="nl">startImmediately</span><span class="p">:</span><span class="nb">NO</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">connection</span> <span class="nl">scheduleInRunLoop</span><span class="p">:[</span><span class="bp">NSRunLoop</span> <span class="n">currentRunLoop</span><span class="p">]</span> <span class="nl">forMode</span><span class="p">:</span><span class="n">NSRunLoopCommonModes</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">connection</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考资料：</h3>
+
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW1">Threading Programming Guide – Run Loops</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html">NSRunLoop Class Reference</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/">NSURLConnection Class Reference</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSTimer_Class/index.html">NSTimer Class Reference</a></li>
+<li><a href="http://iphonedevwiki.net/index.php/CFRunLoop">CFRunLoop wiki</a></li>
+<li><a href="https://github.com/rs/SDWebImage">SDWebImage</a></li>
+<li><a href="http://hayne.net/MacDev/TestButtonDown/">TestButtonDown</a></li>
+<li><a href="http://billwang1990.github.io/blog/2013/12/30/nsrunloop-issue/">关于NSRunloop的学习和理解</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/12/ios7-tintcolorxiang-jie/">iOS7 tintColor详解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:41:39+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:41 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>为什么需要出现tintColor ？</h3>
+
+<blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
+ 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+
+<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示
+<code>objective-c
+self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal
+</code></p></blockquote>
+
+<p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举，
+* UIViewTintAdjustmentModeAutomatic（着色调整模式自动）
+* UIViewTintAdjustmentModeNormal（着色调整模式正常）
+* UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</p>
+
+<h3>先看看官方API说明</h3>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1eyvl7cyzvxj20du0kpn43.jpg" alt="tintColor官方说明" /></p>
+
+<blockquote><p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p></blockquote>
+
+<h3>注意事项</h3>
+
+<blockquote><p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。
+<code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举
+* UIImageRenderingModeAutomatic （默认渲染模式，自动模式）
+* UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）
+* UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</p></blockquote>
+
+<h3>UIImageView的使用</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;xxx.png&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">image</span> <span class="nl">imageWithRenderingMode</span><span class="p">:</span><span class="n">UIImageRenderingModeAlwaysTemplate</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>- (void)tintColorDidChange的使用</h3>
+
+<p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">tintColorDidChange</span>
+</span><span class='line'> <span class="p">{</span>
+</span><span class='line'>    <span class="n">_tintColorLabel</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tintColor</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">_tintColorBlock</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tintColor</span><span class="p">;</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考链接 <a href="https://www.shinobicontrols.com/blog/ios7-day-by-day-day-6-tint-color">Demo - iOS7 tintColor day by day</a></h3>
+
+<hr />
+
+<p>layout: post
+title: &ldquo;iOS7 tintColor详解&rdquo;
+date: 2016-01-13 04:41:39 +0800
+comments: true</p>
+
+<h2>categories: iOS oc 技巧</h2>
+
+<h1>iOS7 tintColor 详解</h1>
+
+<h3>为什么需要出现tintColor ？</h3>
+
+<blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
+ 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+
+<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示
+<code>objective-c
+self.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal
+</code></p></blockquote>
+
+<p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举，
+* UIViewTintAdjustmentModeAutomatic（着色调整模式自动）
+* UIViewTintAdjustmentModeNormal（着色调整模式正常）
+* UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</p>
+
+<h3>先看看官方API说明</h3>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1eyvl7cyzvxj20du0kpn43.jpg" alt="tintColor官方说明" /></p>
+
+<blockquote><p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p></blockquote>
+
+<h3>注意事项</h3>
+
+<blockquote><p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。
+<code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举
+* UIImageRenderingModeAutomatic （默认渲染模式，自动模式）
+* UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）
+* UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</p></blockquote>
+
+<h3>UIImageView的使用</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;xxx.png&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">image</span> <span class="nl">imageWithRenderingMode</span><span class="p">:</span><span class="n">UIImageRenderingModeAlwaysTemplate</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>- (void)tintColorDidChange的使用</h3>
+
+<p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">tintColorDidChange</span>
+</span><span class='line'> <span class="p">{</span>
+</span><span class='line'>    <span class="n">_tintColorLabel</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tintColor</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">_tintColorBlock</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">tintColor</span><span class="p">;</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考链接 <a href="https://www.shinobicontrols.com/blog/ios7-day-by-day-day-6-tint-color">Demo - iOS7 tintColor day by day</a></h3>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/">MacOSX10.11上用Octopress和GitHub搭建个人博客</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-12T04:30:38+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:30 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>序言经过一晚上的折腾，终于从<code>Hexo</code>成功转入<code>Octopress</code>,那么本文就来细说一下如何使用 <code>Octopress</code>+<code>GitHub Pages</code>搭建个人博客</p>
+
+<h3>为什么选择 Octopress &amp; Github Pages?</h3>
+
+<ul>
+<li>免费且独立。把 Octopress 博客系统搭建到 Github Pages 虽是免费，但不失独立性，即便 Github 全站关闭，你也将有一份本地全站备份，随时可以重新恢复。不必受托管商之气，而且还免费，如果你愿意，甚至可以自行插入广告挣钱。</li>
+<li>版本控制。写文章，建网站，做软件都需要修改，但有时候改完了又会后悔，如果有时光机就好了，Git 就是你的时光机。当然如果你不想了解这些看上去很唬人的 IT 名词，只是想写博客的话，请在需要的时候再研究这条的内容。</li>
+<li>相对其他托管到 Github 上的博客程序，Octopress 更加成熟易上手。打个比方，<a href="http://jekyllcn.com">Jekyll</a> 可以说是毛坯房，<a href="https://hexo.io">Hexo</a> 和 <a href="http://octopress.org">Octopress</a> 算是简装修，但相比 Hexo，Octopress 有更多装修范例和更多熟练的装修工人，更容易获取帮助。当然如果你只想住精装修的房子，那不得不花点钱上 <a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=8&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwiOv6rSnqbKAhVGKJQKHefnDGAQFghGMAc&amp;url=https%3A%2F%2Fzh.wikipedia.org%2Fzh-cn%2FWordPress&amp;usg=AFQjCNGIb2sxhqKIuZ22-NHO6nclaYYOSQ&amp;sig2=GoW6MP3lSb9RasgVQGFxnw">WordPress</a> 了</li>
+<li>使用 Markdown。<a href="https://zh.wikipedia.org/wiki/Markdown">Markdown</a> 是现在最为流行的轻量级标记语言，也是已故的天才 Aaron Swartz 留给世人最好的礼物，窃以为每个在互联网上发布文章的人都该掌握。</li>
+<li>按照官方的说法，Octopress 是个<code>A blogging framework for hackers</code>(「为黑客设计的博客框架」)，这很酷，你不觉得吗？</li>
+</ul>
+
+
+<p>如果你之前没有写过博客，打算开始搭建自己第一个博客的话，其实也不妨试试 Octopress，免费还能学到东西，何乐而不为？</p>
+
+<p>本文是在<code>OS X EI Capitan</code>系统上搭建一个基于<code>Octopress</code>的个人博客系统，记录搭建过程的各种坑，希望对有想搭建个人博客的朋友有所帮助。</p>
+
+<p>本文是建立在你有Shell指令基础和Git操作基础之上，如果不了解的话，需要查阅相关资料。</p>
+
+<p>先解释几个专业术语：</p>
+
+<ul>
+<li><a href="https://www.ruby-lang.org/zh_cn/">Ruby</a>
+
+<ul>
+<li>Ruby 是一种编程语言。Octopress 是用 Ruby语言 实现的。我们不需要对它有太多了解，只需要正确安装 Ruby 的环境（Ruby版本必须不低于1.9.3-p0，后面会详细介绍）及按步骤执行指令即可。</li>
+</ul>
+</li>
+<li><a href="https://rubygems.org/">RubyGems</a>
+
+<ul>
+<li>RubyGems（简称 gems）是一个用于对 Ruby组件进行打包的 Ruby 打包系统。它可以用来查找、安装、升级和卸载软件包。我们也是通过它安装Octopress包的</li>
+</ul>
+</li>
+<li><a href="https://rvm.io/">RVM</a>
+
+<ul>
+<li>RVM  是Ruby Version Manager的简称，是一款 Ruby 语言安装、管理的工具。我们对 Ruby 的操作是通过它的指令完成的。</li>
+</ul>
+</li>
+<li><a href="http://jekyll.bootcss.com/">Jekyll</a>
+
+<ul>
+<li>Jekyll 一个简单的博客形态的静态站点生产机器。  Jekyll 有一套模板目录，可以将 Markdown文件（或者Textile）转换为静态网页，并生成一个完整的可发布的静态网站。</li>
+<li>同时，我们可以将产生的静态网站布置到 GitHub Pages 上，生成个人博客站点。</li>
+<li>想了解更多内容可以查看<a href="http://jekyll.bootcss.com/docs/home/">中文文档</a>。</li>
+</ul>
+</li>
+<li><a href="http://niumeng.me/blog/2015/08/26/create-your-website-1-init/www.github.com/imathis/octopress">Octopress</a>
+
+<ul>
+<li>Octopress 是基于 Jekyll 的博客框架。他们的关系就像 jQuery 与 js 的关系一样。</li>
+<li>它为我们提供了现成的美观的主题模板，并且配置简单，使用方便，大大降低了我们建站的门槛。</li>
+</ul>
+</li>
+<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html">Git</a>
+
+<ul>
+<li>分布式版本控制工具，跟它有点类似的是SVN，只是两者使用场景不一样。</li>
+</ul>
+</li>
+<li><a href="https://www.github.com/">GitHub</a>
+
+<ul>
+<li>GitHub 是全球最热的开源社区，程序界的 Facebook。它为我们提供代码托管服务，以及我们搭建博客所需要的 Pages 服务。</li>
+</ul>
+</li>
+<li><a href="https://pages.github.com/">GitHub Pages</a>
+
+<ul>
+<li>GitHub Pages 是 GitHub 提供的一项服务。它用于显示托管在 GitHub 上的静态网页。所以我们可以用 Github Pages 搭建博客，当然我们也可以把项目的文档和主页放在上面。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>通过以上内容，我们大概能够明白 Octopress 建站的原理：
+我们使用基于 Jekyll 的 Octopress 站点生成工具，生成本地的静态网站。然后将静态网站托管到 GitHub 为我们提供的 GitHub Pages 服务上。访问 <strong>username</strong>.github.io 即可显示你的个人博客站了</p>
+
+<hr />
+
+<p>明白了上面这些内容，下面进行具体的搭建工作：</p>
+
+<h3>第一步：安装 Ruby</h3>
+
+<p>Mac自带Ruby环境打开终端，安装 RVM ，终端执行指令：</p>
+
+<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<p>接下来我们要查看自己的 Ruby 环境</p>
+
+<pre><code>$ ruby -v
+</code></pre>
+
+<p>如果你的 Ruby 版本不低于 1.9.3-p0 可以忽略 Ruby 的安装（或升级），直接跳到安装 RubyGems 。 否则，我们执行之后的操作，终端执行指令：</p>
+
+<pre><code>$ rvm install 1.9.3
+$ rvm use 1.9.3
+</code></pre>
+
+<p>然后安装 RubyGems， 终端执行指令：</p>
+
+<pre><code>$ rvm rubygems latest
+</code></pre>
+
+<p>到这里第一步完成。我们可以再执行一次第一条指令 <code>ruby -v</code> 来查看当前 Ruby 的版本了。</p>
+
+<h3>第二步：安装Octopress</h3>
+
+<p>因为Mac系统自动git环境，所以我们不需要考虑git的安装。直接将 Octopress的项目clone到本地，在终端执行指令：</p>
+
+<pre><code>$ git clone git://github.com/imathis/octopress.git octopress
+</code></pre>
+
+<p>完成后进入 octopress 的目录</p>
+
+<pre><code>$ cd octopress
+</code></pre>
+
+<p>接下来，安装依赖：</p>
+
+<pre><code>$ gem install bundler
+# 这时你可能会遇到没有权限的问题，那么我们需要加上sudo重新执行，并输入密码。
+$ sudo gem install bundler
+# 接下来执行：
+$ bundle install
+</code></pre>
+
+<p>这时你可能还会遇到问题如下：</p>
+
+<pre><code>Fetching gem metadata from https://rubygems.org/...........
+Resolving dependencies...
+
+Gem::RemoteFetcher::FetchError: SocketError: getaddrinfo: Name or service not known (https://rubygems.org/gems/rake-10.4.2.gem)
+An error occurred while installing rake (10.4.2), and Bundler cannot continue.
+</code></pre>
+
+<p>这是因为被墙了，解决办法有两个： 一个是，可以使用自己的翻墙工具； 另一个，淘宝做了一个gem的镜像。我们需要在Octopress的文件目录下找到Gemfile文件，将其中的<code>source 'https://rubygems.org/'</code>改为<code>source 'https://ruby.taobao.org/'</code></p>
+
+<p>再重新运行<code>bundle install</code>就可以了。 这段内容可以参考 <a href="http://www.imooc.com/qadetail/59105">bundle install 提示如下，是需要翻墙解决么</a>。</p>
+
+<p>下面就可以安装 Octopress 的默认主题了，终端执行指令：</p>
+
+<pre><code>rake install
+</code></pre>
+
+<p>这样一个最基本的个人博客站就产生了。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezxvho05u3j20lx0ab764.jpg" alt="Octoress init" /></p>
+
+<p>可以看出，现在显示得都是预设值，并不是我们想要的，所以需要修改Octopress目录下的_config.yml文件。</p>
+
+<p>文件目录<code>_config.yml</code></p>
+
+<p>描述：保存配置数据。很多配置选项都会直接从命令行中进行设置，但是如果你把那些配置写在这儿，你就不用非要去记住那些命令了。</p>
+
+<p>_config.yml 文件共分为3个部分内容</p>
+
+<ul>
+<li>Main Configs</li>
+<li>Jekyll &amp; Plugins</li>
+<li>3rd Party Settings</li>
+</ul>
+
+
+<p>目前，我们只需要关注第一部分Main Configs。</p>
+
+<pre><code># ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+
+#网站地址
+url: http://wangruofeng.github.io
+
+#网站标题
+title: 王若风的技术博客
+
+#网站副标题
+subtitle: 天天向上.
+
+#网址作者，通常显示在页尾和每篇文章的尾部
+author: Ace
+
+#搜索引擎
+#simple_search: http://google.com/search
+
+#网站的描述，出现在HTML页面中的 meta 中的 description
+#description:
+</code></pre>
+
+<p>对应填入你的个人信息，其中url为必填的，一般填GitHub仓库对应的连接，其内容大致就是 <strong>username</strong>.github.io ，这个地址我们会在后面步骤中获得。</p>
+
+<h3>第三步：集成 GitHub Pages</h3>
+
+<p>1.注册 Github 账号</p>
+
+<p>这个没什么好说的，早晚需要，去 <a href="http://github.com">http://github.com</a> 注册吧。</p>
+
+<p>2.在 GitHub 上创建一个代码参考，项目名称命名规则为 <strong>username</strong>.github.io，username必须与用户名称一致。</p>
+
+<ol>
+<li>域名指向（可选）
+如果你有自己的域名可用，可以在这时就配置好，毕竟解析起来需要一段时间，不如在我们搭建博客的时候让它开始，这样我们搭建完成后，基本上就可以直接用自有域名访问了。</li>
+</ol>
+
+
+<p>我的是在<a href="http://wanwang.aliyun.com/domain/?utm_medium=text&amp;utm_source=baidu&amp;utm_campaign=st1&amp;utm_content=se_2485">万网</a>申请的，原价一年100多点现在有活动便宜的几块的都有，想要个性域名的可以去注册一个。</p>
+
+<ul>
+<li><p>如果你用的是顶级域名，比如 wangruofeng007.com, 请创建两个 A 记录 (A Record) 分别指向 <code>192.30.252.153</code> 和 <code>192.30.252.154</code>.</p></li>
+<li><p>如果你使用二级域名，比如 blog.wangruofeng007.com, 请将该域名的 CNAME 指向 [your_username].github.io, 把其中的 [your_username]换成你自己在 Github 上的用户名。</p></li>
+<li><p>如果你暂时没有域名，这一步可以暂时不用管</p></li>
+</ul>
+
+
+<p>Ps. 在创建过程中最好不要<code>添加忽略文件</code>和<code>README</code>文件。因为我们要把本地的 git 仓库同步到 GitHub 远程仓库中。如果再远程仓库中添加了其他文件，需要我们执行 pull 操作。除非你能非常熟练的使用 git ，否则不建议你制造不必要的麻烦。
+接下来将本地代码仓库同步到 GitHub 上，执行终端指令：</p>
+
+<pre><code>$ rake setup_github_pages
+</code></pre>
+
+<p>它会要求你绑定远程仓库的地址，此时只需要输入即可：</p>
+
+<pre><code>$ git@github.com:username/username.github.com.git
+</code></pre>
+
+<p>这样就会将 Octopress 生成的静态站点与 GitHub 进行绑定了。</p>
+
+<p>之后我们创建第一篇文章：</p>
+
+<pre><code>rake new_post["title"]
+</code></pre>
+
+<p>然后会有一个名为 yyyy-mm-dd-Post-Title.markdown 的文件在 octopress/source/_posts 目录下生成，其中 yyyy-mm-dd 是你当时的日期。然后执行以下命令：</p>
+
+<pre><code>cd source/_posts/
+vim yyyy-mm-dd-Post-Title.markdown
+</code></pre>
+
+<p>即可用 vim 编辑器编辑的刚才的文章了，好吧我知道你作为这篇文章的读者并不是一个能熟练使用 vim 的人，那么请在命令行输入 q！退出这个编辑器。如果你不想假装是个黑客的话，其实发布文章并不需要这么麻烦。</p>
+
+<p>我们直接打开 <code>octopress/source/_posts</code> 文件夹，找到刚才生成的文件，用你喜欢的 Markdown 编辑器（免费的我推荐 <a href="http://mouapp.com/">Mou</a>或者<a href="https://atom.io">Atom</a>）或者文本编辑器打开，对文章内容进行编辑。</p>
+
+<p>打开文件后，你会发现文章开头有这么一段信息:
+    &mdash;<br/>
+    layout: post<br/>
+    title: &ldquo;Post Title&rdquo;<br/>
+    date: yyyy-mm-dd hh:mm:ss<br/>
+    comments: true<br/>
+    categories:  &ldquo;&rdquo;
+    &mdash;</p>
+
+<p>这其实是这篇文章的元数据：layout 暂时不要理会；title 是这篇文章显示在最终网页上的标题；date 部分是详细的文件生成时间，如 2014-01-28 03:35:00；comment 部分表示是否允许评论，目前显示是允许，如果想关闭评论，请改为 false；categories 指这篇文章的分类目录，请在后面引号中输入,不用引号也可以，多个分类用<code>空格</code>隔开，如果没有该目录，则会自动生成。请不要删除这段信息，在这段信息下面开始你的文章内容</p>
+
+<p>这件事情给我们的启发是，以后发布文章，其实并不需要使用终端命令行生成文件。可以直接将自己写好的文章放到这个文件夹下面，当然请按照 <code>yyyy-mm-dd-Post-Title.markdown</code> 这样的文件格式命名，同时记得在文章前面添加元数据信息。这种做法生成的文章与上面的方法无异</p>
+
+<p>生成的新文章在source/_post/目录下，文件名构成为时间和标题的拼音。我们可以用Markdown编辑器对文章进行修改。
+之后生成静态站点，终端执行指令：</p>
+
+<pre><code># 生成静态站点
+$ rake generate
+</code></pre>
+
+<p>如果你想预览本地的站点，可以执行终端指令：</p>
+
+<pre><code># 预览静态站点
+$ rake preview
+</code></pre>
+
+<p>此时，可以使用浏览器打开<code>localhost:4000</code> 查看效果。如果没有问题可以将静态站点同步到 GitHub 远程仓库中，终端执行指令：</p>
+
+<pre><code># 同步内容
+$ rake deploy
+</code></pre>
+
+<p>你会发现我们的静态站点已经被 push 到 GitHub仓库的 master 分支上。稍等几分钟，访问 <code>username.github.io</code> (或者 <code>username.github.com</code>)，就会发现你的个人博客站已创建成功了。
+如果你还想给自己的本地资源文件（如Markdown文件等内容）也同步到 GitHub 中，可以执行以下指令：</p>
+
+<pre><code>$ git add .
+$ git commit -m "comment"
+$ git push origin source
+</code></pre>
+
+<p>这样我们的资源文件就会同步到 GitHub 的 source 分支了。</p>
+
+<h3>使用自己的域名（可选）</h3>
+
+<p>如果你有自己的域名，并且想指向这个新博客的话，请首先确保执行了第三步的<code>域名指向（可选）</code>的内容。如果没有执行，可以随时执行。
+然后执行下面的命令，注意把 your-domain.com 换成你自己的域名。</p>
+
+<pre><code>echo 'your-domain.com' &gt;&gt; source/CNAME
+</code></pre>
+
+<p>这句话的意思是在<code>source</code>分支下创建一个CNAME的文件并且将<code>your-domain.com</code>写入文件</p>
+
+<p>然后再次执行以下命令：</p>
+
+<pre><code>rake generate
+rake deploy
+</code></pre>
+
+<p>或者二合一</p>
+
+<pre><code>rake gen_deploy
+</code></pre>
+
+<p>这样你就可以使用自己的域名了。域名解析需要一段时间，如果没有马上生效，请不要着急。如果长时间没有生效，请确保完整执行了 <code>域名指向（可选）</code>和<code>使用自己的域名（可选）</code>的内容。</p>
+
+<p>现在我们完成了个人博客的初级搭建，足够满足我们的基本需求。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li>唐巧的博客: [象写程序一样写博客：搭建基于github的博客]（<a href="http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/%EF%BC%89">http://blog.devtang.com/blog/2012/02/10/setup-blog-based-on-github/%EF%BC%89</a></li>
+<li>觅珠人: <a href="http://tchen.me/posts/2012-12-16-first-blog.html">第一篇博文：用Octopress搭建博客系统</a></li>
+<li>破船之家: <a href="http://beyondvincent.com/blog/2013/07/27/107-hello-page-of-github/">你好！github页面</a></li>
+<li>opoo.org: <a href="http://opoo.org/octopress/">Octopress 博客系统 —— a Blogging Framework for Hackers</a></li>
+<li>Ocotpress: <a href="http://octopress.org/docs/">Octopress Documentation</a></li>
+<li>Havee’s Space: <a href="http://havee.me/internet/2013-02/add-duoshuo-commemt-system-into-octopress.html">为 Octopress 添加多说评论系统</a></li>
+<li>colors4.us: <a href="http://colors4.us/blog/2012/01/08/octopressbo-ke-cong-ling-kai-shi-iii/">Octopress博客从零开始 III</a></li>
+<li>浮生猎趣:<a href="http://blog.lessfun.com/blog/2013/11/27/create-blog-in-github-page-using-octopress-and-binding-domain/">用Octopress在Github搭建博客，并绑定独立域名</a></li>
+<li>Aster0id的个人博客:<a href="http://niumeng.me/blog/2015/08/26/create-your-website-1-init/">制作个人博客站（一）：Mac系统下使用 Octopress + GitHub Pages 搭建个人博客</a></li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/2">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

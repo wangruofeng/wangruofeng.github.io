@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Favorite | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/favorite/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[TableView性能优化]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
+    <updated>2016-01-18T22:00:04+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua</id>
+    <content type="html"><![CDATA[<blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
+
+<h4>TableView为什么会卡？</h4>
+
+<p>主要由以下原因：</p>
+
+<ul>
+<li><code>cellForRowAtIndexPath:</code>方法中处理了过多业务</li>
+<li>tableviewCell的subview层级太复杂，做了大量透明处理</li>
+<li>cell的height动态变化时计算方式不对</li>
+</ul>
+
+
+<h4>优化核心思想：<code>UITableViewCell</code>重用机制</h4>
+
+<p>简单的理解就是：UITableView只会创建一屏幕（或一屏幕多一点）的UITableViewCell，其他都是从中取出来重用的。每当Cell滑出屏幕时，就会放入到一个集合（或数组）中（这里就相当于一个重用池），当要显示某一位置的Cell时，会先去集合（或数组）中取，如果有，就直接拿来显示；如果没有，才会创建。这样做的好处可想而知，极大的减少了内存的开销。</p>
+
+<h4>Tips：</h4>
+
+<ol>
+<li>提前计算并缓存好高度（布局），因为<code>heightForRowAtIndexPath:</code>是调用最频繁的方法；</li>
+<li>异步绘制,遇到复杂界面,参考<code>Facebook</code>的<code>AsyncDisplayKit</code>和<a href="https://github.com/ibireme/YYAsyncLayer">YYAsyncLayer</a>异步绘制框架；</li>
+<li>缓存图片（<code>SDWebImage</code>），提前处理好<code>UIImageView</code>图片的尺寸按需加载而不是加载原图；</li>
+<li>计算等耗时操作异步处理，处理完再回主线程更新UI；</li>
+<li>图文混排不定高度采用<code>CoreText</code>排版，缓存Cell高度参考<a href="https://github.com/ibireme/YYKit">YYKit</a>；</li>
+<li>实现Cell的<code>drawRect:</code>方法直接绘制，减少<code>UIView</code>，<code>UIImageView</code>，<code>UILabel</code>等容器的使用。</li>
+</ol>
+
+
+<h4>Bonus：</h4>
+
+<ol>
+<li>正确使用reuseIdentifier来重用Cell；</li>
+<li>尽量少用或不用透明图层或View；</li>
+<li>如果Cell内现实的内容来自web，使用异步加载，缓存请求结果；</li>
+<li>减少subviews的数量在<code>heightForRowAtIndexPath:</code>中尽量不使用<code>cellForRowAtIndexPath:</code>，如果你需要用到它，只用一次然后缓存结果；</li>
+<li>尽量少用addView给Cell动态添加View，可以初始化时就添加，然后通过hide来控制是否显示；</li>
+<li>固定高度不要实现<code>heightForRowAtIndexPath:</code>方法。</li>
+</ol>
+
+
+<p>可以通过实现以下方法，可以减少高度计算次数</p>
+
+<pre><code class="objective-c">@property (nonatomic) CGFloat rowHeight;             // will return the default value if unset
+@property (nonatomic) CGFloat sectionHeaderHeight;   // will return the default value if unset
+@property (nonatomic) CGFloat sectionFooterHeight;   // will return the default value if unset
+@property (nonatomic) CGFloat estimatedRowHeight NS_AVAILABLE_IOS(7_0); // default is 0, which means there is no estimate
+@property (nonatomic) CGFloat estimatedSectionHeaderHeight NS_AVAILABLE_IOS(7_0); // default is 0, which means there is no estimate
+@property (nonatomic) CGFloat estimatedSectionFooterHeight NS_AVAILABLE_IOS(7_0); // default is 0, which means there is no estimate
+</code></pre>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="http://ealui.com/index.php/blog/view/code-uitableviewcell-optimizations">code-uitableviewcell-optimizations-part-1</a></li>
+<li><a href="http://ealui.com/blog/view/code-uitableviewcell-optimization-part-2">code-uitableviewcell-optimization-part-2</a></li>
+<li><a href="https://medium.com/ios-os-x-development/perfect-smooth-scrolling-in-uitableviews-fd609d5275a5#.b176bxlm3">Perfect smooth scrolling in UITableViews</a></li>
+<li><a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">优化UITableViewCell高度计算的那些事</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150602/11968.html">详细整理：UITableView优化技巧</a></li>
+<li><a href="http://www.cnblogs.com/wengzilin/p/4288027.html">UITableview性能优化总结</a></li>
+<li><a href="https://github.com/nixzhu/dev-blog/blob/master/2014-11-22-asyncdisplaykit-tutorial-achieving-60-fps-scrolling.md">AsyncDisplayKit 教程：达到 60 FPS 的滚动帧率</a></li>
+<li><a href="https://github.com/facebook/AsyncDisplayKit">AsyncDisplayKit</a></li>
+<li><a href="https://github.com/ibireme/YYAsyncLayer">YYAsyncLayer</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS里程碑事件]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/iosli-cheng-bei-shi-jian/"/>
+    <updated>2016-01-13T04:46:48+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/iosli-cheng-bei-shi-jian</id>
+    <content type="html"><![CDATA[<blockquote><p>记录iOS各种重要里程碑事件</p></blockquote>
+
+<h2>私有成员变量的实现</h2>
+
+<p>1.0时代，在.h文件采用<code>@private</code>关键词</p>
+
+<pre><code>@interface ViewController : UIViewController {
+    @private
+    NSInteger _value;
+}
+</code></pre>
+
+<p>2.0时代 通过在.m文件通过<code>匿名Category</code></p>
+
+<pre><code>@interface ViewController ()
+
+@property (nonatomic) NSInteger value;
+
+@end
+</code></pre>
+
+<p>3.0时代 2013 年的 WWDC 允许在 .m 的 <code>@implementation</code>中</p>
+
+<pre><code>@implementation ViewController {
+    NSInteger _value;
+}
+</code></pre>
+
+<h2>ARC推出</h2>
+
+<p>2011</p>
+
+<h2>自动生成getter和setter方法的<code>@synthesize</code></h2>
+
+<p>2012</p>
+
+<h2>AutoLayout引入</h2>
+
+<p>iOS 6.0</p>
+
+<h2>Swift</h2>
+
+<ul>
+<li><a href="http://baike.baidu.com/view/404495.htm">WWDC</a> 1.0 版本发布 &ndash; 2014.06.02</li>
+<li>Swift 2.0发布   &ndash; 2015.08.07</li>
+<li>Open Source &ndash; 2015.12.04</li>
+</ul>
+
+
+<h2>Size Classes</h2>
+
+<p>iOS 8.0</p>
+
+<h2>Blocks</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Mac_OS_X_Snow_Leopard">Mac OS X 10.6 &ldquo;Snow Leopard&rdquo;</a> and <a href="https://en.wikipedia.org/wiki/IOS">iOS 4.0</a></p>
+
+<h2>Objective-C 2.0</h2>
+
+<p>At the <a href="https://en.wikipedia.org/wiki/Apple_Worldwide_Developers_Conference">2006 Worldwide Developers Conference</a> release of <a href="https://en.wikipedia.org/wiki/Objective-C#Objective-C_2.0">Objective-C 2.0</a></p>
+
+<h2>Watch OS</h2>
+
+<p>2015.05.21</p>
+
+<h2>iOS 2.1 to iOS 2.2 API Differences</h2>
+
+<p>Added frameworks:</p>
+
+<ul>
+<li>AVFoundation</li>
+</ul>
+
+
+<h2>iOS 2.2 to iOS 3.0 API Differences</h2>
+
+<p>Added frameworks:</p>
+
+<ul>
+<li>CoreData</li>
+<li>ExternalAccessory</li>
+<li>GameKit</li>
+<li>MapKit</li>
+<li>MessageUI</li>
+<li>MobileCoreServices</li>
+<li>StoreKit</li>
+</ul>
+
+
+<h2>iOS 3.2 to iOS 4.0 API Differences</h2>
+
+<p>Added frameworks:</p>
+
+<ul>
+<li>Accelerate</li>
+<li>AssetsLibrary</li>
+<li>CoreMedia</li>
+<li>CoreMotion</li>
+<li>CoreTelephony</li>
+<li>CoreVideo</li>
+<li>EventKit</li>
+<li>EventKitUI</li>
+<li>iAd</li>
+<li>ImageIO</li>
+<li>QuickLook</li>
+</ul>
+
+
+<h2>iOS 4.3 to iOS 5.0 API Differences</h2>
+
+<p>Added frameworks</p>
+
+<ul>
+<li>Accounts</li>
+<li>CoreBluetooth</li>
+<li>CoreImage</li>
+<li>GLKit</li>
+<li>GSS</li>
+<li>NewsstandKit</li>
+<li>Twitter</li>
+</ul>
+
+
+<h2>5.1 to iOS 6.0 API Differences</h2>
+
+<p>Added frameworks</p>
+
+<ul>
+<li>AdSupport</li>
+<li>MediaToolbox</li>
+<li>PassKit</li>
+<li>Social</li>
+</ul>
+
+
+<h2>6.1 to iOS 7.0 API Differences</h2>
+
+<p>Added frameworks</p>
+
+<ul>
+<li>GameController</li>
+<li>JavaScriptCore</li>
+<li>MediaAccessibility</li>
+<li>MultipeerConnectivity</li>
+<li>SafariServices</li>
+<li>SpriteKit</li>
+</ul>
+
+
+<h2>iOS 7.1 to iOS 8.0 API Differences</h2>
+
+<p>Added frameworks</p>
+
+<ul>
+<li>Accelerate</li>
+<li>Accounts</li>
+<li>AddressBook</li>
+<li>AddressBookUI</li>
+<li>AudioToolbox</li>
+<li>AudioUnit</li>
+<li>AVFoundation</li>
+<li>AVKit (Added)</li>
+<li>CFNetwork</li>
+<li>CloudKit (Added)</li>
+<li>CoreAudio</li>
+<li>CoreAudioKit (Added)</li>
+<li>CoreAuthentication (Added)</li>
+<li>CoreBluetooth</li>
+<li>CoreData</li>
+<li>CoreFoundation</li>
+<li>CoreImage</li>
+<li>CoreLocation</li>
+<li>CoreMedia</li>
+<li>CoreMotion</li>
+<li>CoreText</li>
+<li>CoreVideo</li>
+<li>EventKit</li>
+<li>EventKitUI</li>
+<li>ExternalAccessory</li>
+<li>Foundation</li>
+<li>GameController</li>
+<li>GameKit</li>
+<li>GLKit</li>
+<li>GSS</li>
+<li>HealthKit (Added)</li>
+<li>HomeKit (Added)</li>
+<li>iAd</li>
+<li>ImageIO</li>
+<li>IOKit</li>
+<li>JavaScriptCore</li>
+<li>LocalAuthentication (Added)</li>
+<li>MapKit</li>
+<li>MediaAccessibility</li>
+<li>MediaPlayer</li>
+<li>MessageUI</li>
+<li>Metal (Added)</li>
+<li>MobileCoreServices</li>
+<li>MultipeerConnectivity</li>
+<li>NetworkExtension (Added)</li>
+<li>NewsstandKit</li>
+<li>NotificationCenter (Added)</li>
+<li>OpenGLES</li>
+<li>PassKit</li>
+<li>Photos (Added)</li>
+<li>PhotosUI (Added)</li>
+<li>PushKit (Added)</li>
+<li>QuartzCore</li>
+<li>QuickLook</li>
+<li>SceneKit (Added)</li>
+<li>Security</li>
+<li>Social</li>
+<li>SpriteKit</li>
+<li>StoreKit</li>
+<li>UIKit</li>
+<li>VideoToolbox</li>
+<li>WebKit (Added)</li>
+</ul>
+
+
+<h2>iOS 8.3 to iOS 9.0 API Differences</h2>
+
+<p>Added frameworks</p>
+
+<p>Objective-C</p>
+
+<ul>
+<li>/usr/include</li>
+<li>Accelerate</li>
+<li>Accounts</li>
+<li>AddressBook</li>
+<li>AddressBookUI</li>
+<li>AssetsLibrary</li>
+<li>AudioToolbox</li>
+<li>AudioUnit</li>
+<li>AVFoundation</li>
+<li>AVKit</li>
+<li>CFNetwork</li>
+<li>CloudKit</li>
+<li>Contacts (Added)</li>
+<li>ContactsUI (Added)</li>
+<li>CoreAudio</li>
+<li>CoreAudioKit</li>
+<li>CoreBluetooth</li>
+<li>CoreData</li>
+<li>CoreFoundation</li>
+<li>CoreGraphics</li>
+<li>CoreImage</li>
+<li>CoreLocation</li>
+<li>CoreMedia</li>
+<li>CoreMIDI</li>
+<li>CoreMotion</li>
+<li>CoreSpotlight (Added)</li>
+<li>CoreTelephony</li>
+<li>CoreText</li>
+<li>CoreVideo</li>
+<li>EventKit</li>
+<li>EventKitUI</li>
+<li>ExternalAccessory</li>
+<li>Foundation</li>
+<li>GameController</li>
+<li>GameKit</li>
+<li>GameplayKit (Added)</li>
+<li>GLKit</li>
+<li>GSS</li>
+<li>HealthKit</li>
+<li>HomeKit</li>
+<li>iAd</li>
+<li>ImageIO</li>
+<li>JavaScriptCore</li>
+<li>LocalAuthentication</li>
+<li>MapKit</li>
+<li>MediaPlayer</li>
+<li>MediaToolbox</li>
+<li>MessageUI</li>
+<li>Metal</li>
+<li>MetalKit (Added)</li>
+<li>MetalPerformanceShaders (Added)</li>
+<li>MobileCoreServices</li>
+<li>ModelIO (Added)</li>
+<li>MultipeerConnectivity</li>
+<li>NetworkExtension</li>
+<li>NewsstandKit</li>
+<li>OpenAL</li>
+<li>PassKit</li>
+<li>Photos</li>
+<li>PushKit</li>
+<li>QuartzCore</li>
+<li>QuickLook</li>
+<li>ReplayKit (Added)</li>
+<li>SafariServices</li>
+<li>SceneKit</li>
+<li>Security</li>
+<li>SpriteKit</li>
+<li>StoreKit</li>
+<li>SystemConfiguration</li>
+<li>UIKit</li>
+<li>VideoToolbox</li>
+<li>WatchConnectivity (Added)</li>
+<li>WatchKit</li>
+<li>WebKit</li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Blog网站备忘录]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/blogwang-zhan-bei-wang-lu/"/>
+    <updated>2016-01-13T04:29:59+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/blogwang-zhan-bei-wang-lu</id>
+    <content type="html"><![CDATA[<blockquote><p>用于收藏不错的个人或者公司Blog地址</p></blockquote>
+
+<h2>幽幽传送门</h2>
+
+<ul>
+<li><a href="http://www.jianshu.com/p/e5353a1a752c">我常常浏览的博客和网站
+</a> &ndash;<a href="http://www.jianshu.com/users/b82d2721ba07">叶孤城__</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150626/11348.html">11个超棒的iOS开发学习网站</a></li>
+<li><a href="http://blog.devtang.com/blog/2014/07/27/ios-levelup-tips/">iOS开发如何提高</a></li>
+<li><a href="https://github.com/tangqiaoboy/iOSBlogCN-">中文 iOS/Mac 开发博客列表</a>&ndash;唐巧精心整理了国内40多位iOS开发博主的博客地址列表</li>
+</ul>
+
+
+<h2>简书</h2>
+
+<ul>
+<li><a href="http://www.jianshu.com/users/b82d2721ba07/latest_articles">叶孤城___</a></li>
+<li><a href="http://www.jianshu.com/users/39eeabac725a/latest_articles">MarkNote</a></li>
+<li><a href="http://www.jianshu.com/users/384f80cdc57b/latest_articles">lp_马建成</a></li>
+<li><a href="http://www.jianshu.com/users/7ba5d9065301/latest_articles">seedante
+</a></li>
+<li><a href="http://www.jianshu.com/users/960f3b94323a/latest_articles">大灰灰iOS</a></li>
+<li><a href="http://www.jianshu.com/users/56475732c6e9/latest_articles">StrongX</a></li>
+</ul>
+
+
+<h2>国内个人</h2>
+
+<ul>
+<li><a href="http://onevcat.com/?from=inf&amp;wvr=5&amp;loc=infblog">猫神onevcat</a></li>
+<li><a href="http://blog.devtang.com/">唐巧</a>&ndash;猿题库作者</li>
+<li><a href="http://blog.txx.im/?from=inf&amp;wvr=5&amp;loc=infblog">虾神</a>&ndash;话说你们晓得虾神年纪多大么？反正我是觉得白活了。90后太厉害了。</li>
+<li><a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">sunnyxx</a></li>
+<li><a href="https://github.com/nixzhu/dev-blog">nixzhu</a>&ndash;有几篇翻译的文章质量不错</li>
+<li><a href="http://beyondvincent.com">破船之家</a>&ndash;这让我想起，喝上一杯朗姆酒🍺</li>
+<li><a href="http://macshuo.com/?page_id=93">MacTalk-池建强的随想录</a>&ndash;Mac开发大牛</li>
+<li><a href="http://www.xuanyusong.com">雨松MOMO</a>&ndash;专注移动互联网，专注Unity3D游戏开发,国内最早开发Unity3d的大神之一</li>
+<li><a href="http://yulingtianxia.com">玉令天下的博客</a> &ndash; 关于runtime的资料整理得非常不错</li>
+</ul>
+
+
+<h2>国外个人</h2>
+
+<ul>
+<li><a href="https://www.mikeash.com">mikeash</a>&ndash;白天飞行员，晚上程序员 ：] just this guy, you know?</li>
+<li><a href="https://www.shinobicontrols.com/blog">shinobicontrols</a>&ndash;iOS 最新 API 以及新功能用法</li>
+<li><a href="http://iosdevelopertips.com/user-interface/custom-visual-calendar-control-for-ios.html">iosdevelopertips</a>&ndash;教程配合Demo让你学习成长立竿见影</li>
+<li><a href="http://iosdevweekly.com">iosdevweekly</a>&ndash;很棒的个人技术博客网，已发表230篇文章</li>
+<li><a href="http://ios-goodies.com">ios-goodies</a>&ndash;iOS,UI,UX,Objective-c,Swift,Xcode</li>
+<li><a href="http://nshipster.cn/authors/mattt-thompson/">mattt-thompson</a> &ndash; 不用解释</li>
+<li><a href="http://subjc.com">subjc</a> &ndash;Subjective-C is a study of innovative iOS interfaces.</li>
+<li><a href="http://www.thinkandbuild.it">thinkandbuild</a>&ndash;《Introduction To 3D Drawing in CoreAnimtion》作者</li>
+<li><a href="http://robb.is/">robb.is</a>&ndash;《How to build a nice Hamburger transition in swift》作者</li>
+<li><a href="http://commandshift.co.uk">commandshift</a>&ndash;不多说，质量极高</li>
+<li><a href="http://indieambitions.com/">indieambitions</a>&ndash;raywenderlich常驻作者之一的blog，非常赞。</li>
+<li><a href="http://nvie.com">nvie</a>&ndash;国外一个大神的blog，讲得比较杂，git，ios，python都有涉猎，但是每篇都很精彩。</li>
+<li><a href="http://stuartkhall.com">stuartkhall</a>&ndash;很多关于app上线运营之类的blog，值得一看。</li>
+<li><a href="http://blog.ittybittyapps.com">ittybittyapps</a>&ndash;神器Reveal的作者的blog。</li>
+<li><a href="http://adoptioncurve.net/">adoptioncurve</a>&ndash;更新极快，当时iOS8还没出几个周，作者就写了篇sizeclass解析。非常棒</li>
+<li><a href="http://ciechanowski.me">ciechanowski</a>&ndash;各种数学上几何变化</li>
+<li><a href="https://www.bignerdranch.com/blog/">bignerdranch</a></li>
+<li><a href="http://www.cocoawithlove.com">cocoawithlove</a>&ndash;2008-2011的老文章，现在没怎么跟新了</li>
+<li><a href="http://blog.codinghorror.com/">codinghorror</a> &ndash;<a href="https://twitter.com/codinghorror">Jeff Atwood </a>主站</li>
+<li><a href="http://www.g8production.com/">g8production</a></li>
+<li><a href="http://lucida.me/about/">lucida</a> &ndash; 我比较佩服一名程序员，想学算法找他推荐咯😁</li>
+</ul>
+
+
+<h2>团体blog</h2>
+
+<ul>
+<li><a href="http://blog.ibireme.com">ibireme</a>&ndash;最近很🔥的YYKit的作者</li>
+<li><a href="http://tech.glowing.com/cn/">Glow技术团队</a></li>
+<li><a href="http://tech.meituan.com">美团点评技术团队</a></li>
+</ul>
+
+
+<h2>优质iOS学习资源</h2>
+
+<ul>
+<li><a href="https://github.com">github</a>&ndash;这个不用我说吧</li>
+<li><a href="http://stackoverflow.com">stackoverflow</a>&ndash;最专业的问答社区</li>
+<li><a href="http://www.raywenderlich.com">raywenderlich</a>&ndash;iOS界的百科全书</li>
+<li><a href="http://nshipster.com">nshipster</a>&ndash;里面文章质量非常的高，最喜欢的几个网站之一<a href="https://github.com/AFNetworking/AFNetworking">AFNetworkting</a>的作者<a href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a>&ndash;经常出没</li>
+<li><a href="http://nshipster.cn">nshipster中国</a></li>
+<li><a href="http://www.objc.io">objc.io</a>&ndash;这个也不用多说了，Raywenderlich是百科全书的话，这个就是深入深入再深入</li>
+<li><a href="http://objcio.cn">objc中国</a></li>
+<li><a href="https://realm.io">realm.io</a>&ndash;一个跨平台的移动数据库引擎</li>
+<li><a href="http://tutsplus.com/">tutsplus</a>&ndash;也是包罗万象的一个网站，有web ios ui，不比Raywenderlich逊色。</li>
+<li><a href="https://maniacdev.com">maniacdev</a>&ndash;类似Raywenderlich，文章质量高，而且涵盖面广</li>
+</ul>
+
+
+<h2>中文网站</h2>
+
+<ul>
+<li><a href="http://www.cocoachina.com">cocoachina</a></li>
+<li><a href="http://www.code4app.com">code4app</a></li>
+<li><a href="http://www.tairan.com">泰然网</a> &ndash;游戏教程不错的网站</li>
+<li><a href="http://blog.jobbole.com">伯乐在线</a></li>
+</ul>
+
+
+<h2>Swift：</h2>
+
+<ul>
+<li><a href="http://wiki.jikexueyuan.com/project/swift/">介紹 | 《The Swift Programming Language》中文版</a></li>
+<li><a href="http://swifter.tips">Swift必备Tips</a> &ndash; 猫神的杰作</li>
+<li><a href="http://letsswift.com/swift-site-index/">Let&rsquo;s Swift </a> &ndash; Swift站点导航</li>
+<li><a href="https://objectivec2swift.com/#/converter/code">Swiftify | Objective-C to Swift Converter </a> &ndash; 辅助将旧的* Objective-C代码转成Swift。</li>
+<li><a href="https://swift.org">Swift.org</a> &ndash; Apple Swift 官网</li>
+<li><a href="https://developer.apple.com/swift/blog/">Swift - Blog</a> &ndash; Apple Swift 官方博客</li>
+<li><a href="https://github.com/CocoaChina-editors/Welcome-to-Swift">CocoaChina小组翻译的Swift版本</a></li>
+<li><a href="http://www.tutorialspoint.com/swift/swift_environment.htm">tutorialspoint</a> &ndash; 有一些Swift教程</li>
+</ul>
+
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

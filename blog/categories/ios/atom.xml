@@ -1,0 +1,1706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ios | 王若风的技术博客]]></title>
+  <link href="http://wangruofeng.github.io/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://wangruofeng.github.io/"/>
+  <updated>2016-01-19T23:13:33+08:00</updated>
+  <id>http://wangruofeng.github.io/</id>
+  <author>
+    <name><![CDATA[王若风]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[TableView性能优化]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
+    <updated>2016-01-18T22:00:04+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua</id>
+    <content type="html"><![CDATA[<blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
+
+<h4>TableView为什么会卡？</h4>
+
+<p>主要由以下原因：</p>
+
+<ul>
+<li><code>cellForRowAtIndexPath:</code>方法中处理了过多业务</li>
+<li>tableviewCell的subview层级太复杂，做了大量透明处理</li>
+<li>cell的height动态变化时计算方式不对</li>
+</ul>
+
+
+<h4>优化核心思想：<code>UITableViewCell</code>重用机制</h4>
+
+<p>简单的理解就是：UITableView只会创建一屏幕（或一屏幕多一点）的UITableViewCell，其他都是从中取出来重用的。每当Cell滑出屏幕时，就会放入到一个集合（或数组）中（这里就相当于一个重用池），当要显示某一位置的Cell时，会先去集合（或数组）中取，如果有，就直接拿来显示；如果没有，才会创建。这样做的好处可想而知，极大的减少了内存的开销。</p>
+
+<h4>Tips：</h4>
+
+<ol>
+<li>提前计算并缓存好高度（布局），因为<code>heightForRowAtIndexPath:</code>是调用最频繁的方法；</li>
+<li>异步绘制,遇到复杂界面,参考<code>Facebook</code>的<code>AsyncDisplayKit</code>和<a href="https://github.com/ibireme/YYAsyncLayer">YYAsyncLayer</a>异步绘制框架；</li>
+<li>缓存图片（<code>SDWebImage</code>），提前处理好<code>UIImageView</code>图片的尺寸按需加载而不是加载原图；</li>
+<li>计算等耗时操作异步处理，处理完再回主线程更新UI；</li>
+<li>图文混排不定高度采用<code>CoreText</code>排版，缓存Cell高度参考<a href="https://github.com/ibireme/YYKit">YYKit</a>；</li>
+<li>实现Cell的<code>drawRect:</code>方法直接绘制，减少<code>UIView</code>，<code>UIImageView</code>，<code>UILabel</code>等容器的使用。</li>
+</ol>
+
+
+<h4>Bonus：</h4>
+
+<ol>
+<li>正确使用reuseIdentifier来重用Cell；</li>
+<li>尽量少用或不用透明图层或View；</li>
+<li>如果Cell内现实的内容来自web，使用异步加载，缓存请求结果；</li>
+<li>减少subviews的数量在<code>heightForRowAtIndexPath:</code>中尽量不使用<code>cellForRowAtIndexPath:</code>，如果你需要用到它，只用一次然后缓存结果；</li>
+<li>尽量少用addView给Cell动态添加View，可以初始化时就添加，然后通过hide来控制是否显示；</li>
+<li>固定高度不要实现<code>heightForRowAtIndexPath:</code>方法。</li>
+</ol>
+
+
+<p>可以通过实现以下方法，可以减少高度计算次数</p>
+
+<pre><code class="objective-c">@property (nonatomic) CGFloat rowHeight;             // will return the default value if unset
+@property (nonatomic) CGFloat sectionHeaderHeight;   // will return the default value if unset
+@property (nonatomic) CGFloat sectionFooterHeight;   // will return the default value if unset
+@property (nonatomic) CGFloat estimatedRowHeight NS_AVAILABLE_IOS(7_0); // default is 0, which means there is no estimate
+@property (nonatomic) CGFloat estimatedSectionHeaderHeight NS_AVAILABLE_IOS(7_0); // default is 0, which means there is no estimate
+@property (nonatomic) CGFloat estimatedSectionFooterHeight NS_AVAILABLE_IOS(7_0); // default is 0, which means there is no estimate
+</code></pre>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="http://ealui.com/index.php/blog/view/code-uitableviewcell-optimizations">code-uitableviewcell-optimizations-part-1</a></li>
+<li><a href="http://ealui.com/blog/view/code-uitableviewcell-optimization-part-2">code-uitableviewcell-optimization-part-2</a></li>
+<li><a href="https://medium.com/ios-os-x-development/perfect-smooth-scrolling-in-uitableviews-fd609d5275a5#.b176bxlm3">Perfect smooth scrolling in UITableViews</a></li>
+<li><a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">优化UITableViewCell高度计算的那些事</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150602/11968.html">详细整理：UITableView优化技巧</a></li>
+<li><a href="http://www.cnblogs.com/wengzilin/p/4288027.html">UITableview性能优化总结</a></li>
+<li><a href="https://github.com/nixzhu/dev-blog/blob/master/2014-11-22-asyncdisplaykit-tutorial-achieving-60-fps-scrolling.md">AsyncDisplayKit 教程：达到 60 FPS 的滚动帧率</a></li>
+<li><a href="https://github.com/facebook/AsyncDisplayKit">AsyncDisplayKit</a></li>
+<li><a href="https://github.com/ibireme/YYAsyncLayer">YYAsyncLayer</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS Animation Swift 版]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/"/>
+    <updated>2016-01-16T19:34:06+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban</id>
+    <content type="html"><![CDATA[<p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
+
+<h3>简介</h3>
+
+<p>此文主要记录我学习iOS的动画相关内容用<code>Swift</code>语言，记录下来以供参考，不定时更新。</p>
+
+<h3>目录结构</h3>
+
+<ul>
+<li>Section I: View 动画
+
+<ul>
+<li>View animation</li>
+<li>弹簧动画 - Springs</li>
+<li>转场动画 - Transitions</li>
+<li>关键帧动画 - Keyframe</li>
+</ul>
+</li>
+<li>Section II: Auto Layout 动画</li>
+<li>Section III: Layer 动画</li>
+<li>Section IV: 3D 动画</li>
+<li>Section V: 未来类型的动画</li>
+<li>Section VI: View Controller 动画</li>
+<li>Section VII：第三方动画库</li>
+</ul>
+
+
+<h4>Section I: View 动画</h4>
+
+<h5>1.View animation</h5>
+
+<p>简介：view 的动画主要是通过UIView的类方法创建，动画内容一般
+放在block里面，可以镶嵌使用，构成链式动画，主要有3个方法,三个访法只需会参数最多的那个就行，函数名<code>animateWithDuration(_:delay:options:animations:completion:)</code>，其他的使用起来都类似。</p>
+
+<pre><code class="swift">class func animateWithDuration(_ duration: NSTimeInterval, animations animations: () -&gt; Void)
+class func animateWithDuration(_ duration: NSTimeInterval, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
+class func animateWithDuration(_ duration: NSTimeInterval, delay delay: NSTimeInterval, options options: UIViewAnimationOptions, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
+</code></pre>
+
+<p>使用：
+<code>swift
+UIView.animateWithDuration(0.5, delay: 0, options: [], animations: {
+    //do something
+  }, completion: {_ in
+    //do something
+})
+</code></p>
+
+<blockquote><p>说明：<code>options</code>，动画选项，这个运行你设置一个动画选项集合，传<code>[]</code>表示不需要选项，单个时可以省略放括号例如<code>.Repeat</code>,多个用逗号连接<code>[.Repeat, .CurveEaseInOut]</code></p>
+
+<p><code>completion</code>闭包需要一个参数，不需要使用参数可以用<code>_</code>表示，不需要实现可以直接传<code>nil</code></p></blockquote>
+
+<p>或者像下面这样写</p>
+
+<pre><code class="swift">UIView.animateWithDuration(0.5, delay: 0, options: [], animations: { () -&gt; Void in
+  //do something
+  }) { (_) -&gt; Void in
+  //do something
+}
+</code></pre>
+
+<h5>2.弹簧动画 - Springs</h5>
+
+<p>简介：弹簧动画是iOS 7.0新增的API，函数名<code>animateWithDuration(_:delay:usingSpringWithDamping:initialSpringVelocity:opti ons:animations:completion:)</code>，</p>
+
+<pre><code class="swift">class func animateWithDuration(_ duration: NSTimeInterval, delay delay: NSTimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options options: UIViewAnimationOptions, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
+</code></pre>
+
+<p>使用：
+<code>swift
+UIView.animateWithDuration(0.5, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [], animations: {
+// do something
+}, completion: nil)
+</code></p>
+
+<blockquote><p>说明：<code>usingSpringWithDamping</code>:设置弹簧的阻尼，范围（0.0-1.0），越接近0.0弹簧越有弹性，越接近1.0，效果越僵硬，你可以把当成弹簧的刚度来理解，
+<code>initialSpringVelocity</code>:设置弹簧初始化的速度，设置1.0表示用1秒在动画跨度上完成整个动画距离，值越大或者越小会导致动画有相应的大的或者较小的速度，可以当成弹簧的初始动量来理解。</p></blockquote>
+
+<h5>3.转场动画 - Transitions</h5>
+
+<p>简介：前两种创建的动画是基于可动画的接口例如，position，alpha，frame等等，Transitions是专门处理添加或者移除一个view的动画,系统有2个标准函数，一个是对单个view的处理，一个是处理2个view替换。</p>
+
+<pre><code class="swift">class func transitionWithView(_ view: UIView, duration duration: NSTimeInterval, options options: UIViewAnimationOptions, animations animations: (() -&gt; Void)?, completion completion: ((Bool) -&gt; Void)?)
+class func transitionFromView(_ fromView: UIView, toView toView: UIView, duration duration: NSTimeInterval, options options: UIViewAnimationOptions, completion completion: ((Bool) -&gt; Void)?)
+</code></pre>
+
+<p>使用：
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="c1">//add the new view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">.</span><span class="n">addSubview</span><span class="p">(</span><span class="n">newView</span><span class="p">)</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//remove the view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="n">animationContainerView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+</span><span class='line'><span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">.</span><span class="n">removeFromSuperview</span><span class="p">()</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//hide the view via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionWithView</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">CurveEaseOut</span><span class="p">,</span> <span class="p">.</span><span class="n">TransitionFlipFromBottom</span><span class="p">],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'><span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="nb">true</span> <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="c1">//replace via transition</span>
+</span><span class='line'><span class="bp">UIView</span><span class="p">.</span><span class="n">transitionFromView</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">oldView</span><span class="o">!</span><span class="p">,</span> <span class="nl">toView</span><span class="p">:</span> <span class="nb">self</span><span class="p">.</span><span class="n">newView</span><span class="o">!</span><span class="p">,</span> <span class="nl">duration</span><span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[.</span><span class="n">TransitionFlipFromTop</span><span class="p">],</span>
+</span><span class='line'><span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h5>4.关键帧动画 - Keyframe</h5>
+
+<p>简介：关键帧顾名思义就是设定关键的一些帧然后系统会根据一套算法计算中间的其他帧，这样改变的可动画属性时看看起来更加流畅自然，主要有两个函数,一个创建关键帧动画，一个设置具体每帧内容</p>
+
+<pre><code class="swift">class func animateKeyframesWithDuration(_ duration: NSTimeInterval, delay delay: NSTimeInterval, options options: UIViewKeyframeAnimationOptions, animations animations: () -&gt; Void, completion completion: ((Bool) -&gt; Void)?)
++ (void)addKeyframeWithRelativeStartTime:(double)frameStartTime relativeDuration:(double)frameDuration animations:(void (^)(void))animations
+</code></pre>
+
+<p>例如：
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='swift'><span class='line'><span class="k">func</span> <span class="nf">planeDepart</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="bp">UIView</span><span class="p">.</span><span class="n">animateKeyframesWithDuration</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="nl">delay</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//add keyframes&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="nl">animations</span><span class="p">:</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">100.0</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mf">10.0</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformMakeRotation</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">(</span><span class="o">-</span><span class="n">M_PI_4</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mf">100.0</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mf">60.0</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.51</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformIdentity</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">CGPoint</span><span class="p">(</span><span class="nl">x</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nl">y</span><span class="p">:</span> <span class="n">originalCenter</span><span class="p">.</span><span class="n">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="bp">UIView</span><span class="p">.</span><span class="n">addKeyframeWithRelativeStartTime</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="nl">relativeDuration</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span><span class='line'>    <span class="nb">self</span><span class="p">.</span><span class="n">planeImage</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">originalCenter</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">},</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<blockquote><p>说明：这是设计一个飞机沿一条路径起飞然后再归位的一段动画，<code>addKeyframeWithRelativeStartTime(_:relativeDuration:animations:)</code>,第一个参数相对开始时间，是相对于动画持续时间的百分比，例如0.1就是10%，0.25就是25%，如果整个动画持续2秒，0.1就是在2*0.1=0.2秒的时候开始，后面的一个参数是相对持续时间，范围更第一参数类似也(0.0-1.0),只从相对开始时间起，往后推移的相对时间。</p></blockquote>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[NSURLSession 教程]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/15/nsurlsession/"/>
+    <updated>2016-01-15T18:15:01+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/15/nsurlsession</id>
+    <content type="html"><![CDATA[<p>本文翻译自 <a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">http://www.raywenderlich.com/51127/nsurlsession-tutorial</a></p>
+
+<p>原作者： Charlie Fulton</p>
+
+<p>译者：<a href="https://twitter.com/oneruofeng">@oneruofeng</a></p>
+
+<p>注意：这是一篇来自我们作为即将发布<a href="http://www.raywenderlich.com/?p=49762"> iOS 7 Feast</a>的一部分<a href="http://www.raywenderlich.com/?page_id=48020">iOS 7 by Tutorials</a>的简短版本的章节。我们希望你们喜欢。</p>
+
+<p>每一个新的iOS版本发布都会包含一些极好的新的网络APIs，iOS7也不例外，在iOS7中，Apple引入了<code>NSURLSession</code>,这是为了取代<code>NSURLConnection</code>作为偏好的网络请求的一系列类。</p>
+
+<p>在这个<code>NSURLSession</code>的教程中，你将了解到这个新类究竟是什么，为什么你要使用它以及你怎样使用它，它和以前的类库比较而言怎样，最后最重要的是：获得一个整合到一个真正的App的实践。</p>
+
+<p>请注意：这个课程是假设你熟悉基本的网络概念。假如网络对你来说完全是新的，你仍然可以跟我一起一步一步的学习，但是可能有些你不熟悉的概念需要需要自己查询在这个过程中。</p>
+
+<h4>为什么使用<code>NSURLSession</code></h4>
+
+<p>为什么你要使用<code>NSURLSession</code>? 饿，因为它可以带给你一些好处和优势相比以前的：</p>
+
+<ul>
+<li><strong>后台上传和下载</strong> ： 当你创建<code>NSURLSession</code>的时候你只需配置一个选项即可，你便可以进行所有的后台网络任务。这将有对你的电池寿命有利，它支持<code>UIKit</code>多任务并且当切换线程的时候使用相同的代理模型。</li>
+<li><strong>使你的网络操作可以暂停和恢复</strong> ：你稍后将会看到，任何使用<code>NSURLSession</code>API的网络任务都可以被暂停，停止，重新开始。而没有使用<code>NSOperation</code>子类的必要。</li>
+<li><strong>可配置的容器</strong>：对于放进里面的请求而言每一个<code>NSURLSession</code>都是可配置的。例如，假如你需要设置一个HTTP header选项，你只需要设置一次然后每个在session中的请求就都会有相同的配置了。</li>
+<li><strong>可子类化和私密存储</strong>： <code>NSURLSession</code>是可子类化的并且你可以配置一个session用来作为私密存储在某个会话中。这允许你拥有私密存储对象在全局状态下。</li>
+<li><strong>优化的授权处理机制</strong>：授权被完成基于某个特定的连接。当使用<code>NSURLConnection</code>的时候假如发生了一处授权改变，这个改变将返回一个随意的请求，你不能确定你具体得到的那个。使用<code>NSURLSession</code>的话，代理回来处理授权。</li>
+<li><strong>丰富的代理模型</strong>：<code>NSURLConnection</code>有些基于block的同步方法，然而代理就不能使用它们了。当一个请求建立了无论它是成功还是失败，哪怕需要授权。使用<code>NSURLSession</code>就就可以混合接入，使用基于block的异步方法同时也可以设置代理来处理授权。</li>
+<li><strong>通过文件系统上传和下载</strong>：苹果鼓励把（文件内容）数据跟(URL和一些设置)元数据分开。</li>
+</ul>
+
+
+<h4><code>NSURLSession</code> vs <code>NSURLConnection</code></h4>
+
+<p>&ldquo;哇哦，<code>NSURLSession</code>听起来很复杂呀！&rdquo;,你可能这么想。"我可能还是继续使用我的老朋友<code>NSURLConnection</code>。"</p>
+
+<p>别担心&ndash;使用<code>NSURLSession</code>使用起来其实和它的前辈<code>NSURLConnection</code>一样简单对于简单的任务来说。例如，让我来看一个在获取伦敦最新的天气的一个简单网络请求，通过它来获取JSON数据的例子。</p>
+
+<p>假设你用这个<code>NSString</code>来构造这个<code>NSURL</code>:</p>
+
+<pre><code class="objective-c">NSString *londonWeatherUrl = @"http://api.openweathermap.org/data/2.5/weather?q=London,uk";
+</code></pre>
+
+<p>这里是第一步你使用<code>NSURLConnection</code>来调用：</p>
+
+<pre><code class="objective-c">NSURLRequest *request = [NSURLRequest requestWithURL:
+[NSURL URLWithString:londonWeatherUrl]];
+
+[NSURLConnection sendAsynchronousRequest:request
+   queue:[NSOperationQueue mainQueue]
+   completionHandler:^(NSURLResponse *response,
+                       NSData *data,
+                       NSError *connectionError) {
+      // handle response
+}];
+</code></pre>
+
+<p>现在让我们来使用<code>NSURLSession</code>。注意这是使用<code>NSURLSession</code>的最简单的方式来快速构造一个请求。在后面的课程你将看到怎样配置session和设置其他特征比如像代理。</p>
+
+<pre><code class="objective-c">NSURLSession *session = [NSURLSession sharedSession];
+[[session dataTaskWithURL:[NSURL URLWithString:londonWeatherUrl]
+          completionHandler:^(NSData *data,
+                              NSURLResponse *response,
+                              NSError *error) {
+            // handle response
+
+  }] resume];
+</code></pre>
+
+<p>注意你并不需要指定它运行在那个队列中。除了你特别指定，这个调用将会在后台线程。你可能很难注意到这两者之间有什么不同，它就是故意这样的。Apple提到打算使用<code>dataTaskWithURL</code>来取代在<code>NSURLConnection</code>中的<code>sendAsynchronousRequest</code>。</p>
+
+<p>所有从根本上来讲&ndash;对于简单的任务使用<code>NSURLSession</code>就和使用<code>NSURLConnection</code>一样简单，并且它还有一些列额外的定制功能当你需要它的时候。</p>
+
+<h4><code>NSURLSession</code> vs <code>AFNetworking</code></h4>
+
+<p>不提到<code>AFNetworking</code>框架就谈不上谈论网络编程。这个事在<code>iOS/OS X</code>上最流行的框架，有杰出的<code>Mattt Thompson</code>创建。</p>
+
+<blockquote><p>注意：想了解更多关于<code>AFNetworking</code>,请检出在<a href="https://github.com/AFNetworking/AFNetworking">https://github.com/AFNetworking/AFNetworking</a>的github页面。我们也有一个关于它的课程：<a href="http://www.raywenderlich.com/30445/afnetworking-crash-course">http://www.raywenderlich.com/30445/afnetworking-crash-course</a></p></blockquote>
+
+<p>下面是的使用<code>AFNetworking</code> 1.x版本处理相同的数据任务的代码：</p>
+
+<pre><code class="objective-c">NSURLRequest *request = [NSURLRequest requestWithURL:
+                         [NSURL URLWithString:londonWeatherUrl]];
+
+AFJSONRequestOperation *operation =
+[AFJSONRequestOperation JSONRequestOperationWithRequest:request
+    success:^(NSURLRequest  *request,
+              NSHTTPURLResponse  *response,
+              id JSON) {
+    // handle response
+} failure:nil];
+[operation start];
+</code></pre>
+
+<p>使用<code>AFNetworking</code>的一个好处是处理响应的数据的数据根据类型被归类。使用<code>AFJSONRequestOperation</code>(或者诸如<code>XML</code>和plist相似的类),成功block已经被解析根据响应并且为你返回你想要的数据。使用<code>NSURLSession</code>你将收到一个<code>NSData</code>对象在<code>completion handler</code>,所有你只需要把<code>NSData</code>转换成<code>JOSN</code>或者其他形式。</p>
+
+<blockquote><p>注意：你能够很方便的把数据从<code>NSData</code>转换成<code>JSON</code>使用在iOS 5引入的<code>NSJSONSerialization</code>这个类。如果你想了解更多，请查看23章的iOS 5 教程，“Working with JSON”。</p></blockquote>
+
+<p>你或许想知道你是应该使用<code>AFNetworking</code>还是仅仅是继续使用<code>NSURLSession</code>。</p>
+
+<p>就个人而言，我认为对于简单的需求最好还是继续使用<code>NSURLSession</code>&ndash;这样可以避免不必要的引入一个第三方库在你的工程中。另外，使用新的代理，配置，和基于很多添加到<code>AFNetworking</code>中的的“遗失特征”现在都被包括了的API的任务。</p>
+
+<p>然而，假如你想使用一些在<code>AFNetworking</code>中2.0版本的新特性，诸如序列化和将来对
+<code>UIKit</code>的整合（添加到<code>UIIImageView</code>分类中），然后这样很难争辩不使用它！</p>
+
+<blockquote><p>注意：在<code>AFNetworking</code>2.0分支中，它们已经转换到使用<code>NSURLSession</code>。更多信息看这篇帖子：<a href="https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-2.0-Migration-Guide">https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-2.0-Migration-Guide</a></p></blockquote>
+
+<h4>介绍 Byte Club</h4>
+
+<p>在这篇<code>NSURLSession</code>教程中，你将探索这个新的API通过构建一篇日记好图片分享app基于<code>Dropbox Core API</code>,因为是顶级机密组织因此姑且命名它<code>Byte Club</code>。</p>
+
+<p>考虑到这个课程是你接受到<code>Byte Club</code>的官方邀请！什么是你可能会问到的关于<code>Byte Club</code>的第一条规则？没人谈论<code>Byte Club</code>&ndash;除了那些足够炫酷的人将会阅读这个教程。并且那些Android用户完全不知道；他们被他们俩的生活劫持了。 ：]</p>
+
+<p>开始构建app迎战下一个章节，将充当被<code>Byte Club</code>组织邀请。</p>
+
+<p>主要到这个教程是假设你对基本的网络有基本的了解在先前的版本iOS。它非常有用假如你已经使用过诸如<code>NSURLConnection</code>或者<code>NSURLSession</code>在过去。假如在iOS方面你是网络方面的新手，在继续这个课程之前你应该查询我们的iOS学徒系列作为最初的开发者。</p>
+
+<h4>现在开始吧</h4>
+
+<p><code>Byte Club</code>是iOS 开发者专有的组织，一起来加入挑战你的编程吧。由于每个成员都是远程工作，在这个挑战中有一个是跨越世界，成员通过分享他们“战场”的全景照片也能找到它的乐趣。</p>
+
+<p>例如，下面是Ray的办公场所的全景照片：
+<img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezzf1ygxi8j20go03njs2.jpg" alt="Ray's office setup" /></p>
+
+<blockquote><p>注意：你可能想创建你自己办公室的全景照片&ndash;它很有趣，在这个课程的后续中我们将会处理。</p>
+
+<p>在 iOS 7中，你可以通过打开相机选择一个叫<code>Pano</code>（全景）的标签照一张全景照片。</p>
+
+<p>加入你喜欢那张，把它设置成你锁屏界面的墙纸通过打开<code>设置</code>让后选择<code>墙纸</code>  \选择墙纸 \我的全景照片。</p></blockquote>
+
+<p>当然-<code>Byte Club</code>有它自己的app，我们来见证奇迹。你可以和其他成员使用app来完成编程挑战或者分享全景照片。在幕后，这是通过网络实现-明确的说，就是通过<code>Dropbox API</code>来分享文件。</p>
+
+<h4>开始的工程概述</h4>
+
+<p>首先，下载<a href="http://cdn1.raywenderlich.com/downloads/ByteClub_Starter.zip">教程开始的工程</a>。</p>
+
+<p>开始的工程包含了为你预先准备好的UI，所以你只需把精力集中在这个教程中app的网络部分。开始的工程也包含一些处理<code>Dropbox</code>授权的代码,在后面你将学到更多。</p>
+
+<p>在Xcode中打开工程让后在你设备或者模拟器上运行，你应该看到像下面这样：</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/64124373gw1ezzf1vk3t1j205b09edg2.jpg" alt="networking2" /></p>
+
+<p>然而你还并不能登录它-你不得不先配置app，你将做一点。</p>
+
+<p>下一步打开<code>Main.storyboard</code>纵览一下整个app的设计：</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezzf1x56zfj20go0a9q3e.jpg" alt="networking2" /></p>
+
+<p>这是一个最基本的使用2个标签的的TabBarController app：一个是为了挑战编程，另
+一个是为了放全景照片。这里也有预先让用户登录到app中的一步。你将要配置登录在你创建完<code>Dropbox</code>平台下的App后。</p>
+
+<p>感到很轻松浏览一下App剩余的部分并且找到到目前为止相似的地方。你将会注意到除了授权组件，这里没有检索挑战编程或者全景照片的网络代码-那就是你的工作！</p>
+
+<h4>创建一个新的<code>Dropbox</code>平台App</h4>
+
+<p>为了开始你的新的<code>Dropbox</code> App,打开 Dropbox App 位于<a href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>的控制台</p>
+
+<p>用你的<code>Dropbox</code>账号登录，假如没有，没问题：马上创建一个免费的Dropbox账号。假如这是你第一次使用Dropbox的API，你需要通知Dropbox的条款和条件。</p>
+
+<p>经过这个法定的材料以后就是上路了，选择创建App选项。将呈现给你一系列问题-提供下面的答案</p>
+
+<ul>
+<li>What type of app do you want to create?
+
+<ul>
+<li>Choose: <strong>Dropbox API app</strong></li>
+</ul>
+</li>
+<li>What type of data does your app need to store on Dropbox?
+
+<ul>
+<li>Choose: <strong>Files and Datastore</strong></li>
+</ul>
+</li>
+<li>Can your app be limited to its own, private folder?
+
+<ul>
+<li>Choose: <strong>No – My App needs access to files already on Dropbox</strong></li>
+</ul>
+</li>
+<li>What type of files does your app need access to?
+
+<ul>
+<li>Choose: <strong>All File Types</strong></li>
+</ul>
+</li>
+</ul>
+
+
+<p>最终，为你的App准备一个名字，选择什么并没有关系只有它是唯一的。假如你选择了一个别人已经在使用的名字<code>Dropbox</code>将会告诉你。你的屏幕应该看起来像下面这样：</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezzf38fs1nj20go0epdhp.jpg" alt="networking3" /></p>
+
+<p>点击<code>Create App</code>，你将开始上路了！</p>
+
+<p>下一个屏幕你将看到显示到屏幕中的包含 <strong>App key</strong> 和 <strong>App secret</strong> :</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzfuk4ucmj208z08rglt.jpg" alt="networking5" /></p>
+
+<p>先不要关闭这个屏幕，你将需要需要下一步的<code>App Key</code>和<code>App Secret</code>。</p>
+
+<p>打开<code>Dropbox.m</code>文件找到下面这些行：</p>
+
+<pre><code class="objective-c">#warning INSERT YOUR OWN API KEY and SECRET HERE
+static NSString *apiKey = @"YOUR_KEY";
+static NSString *appSecret = @"YOUR_SECRET";
+</code></pre>
+
+<p>填写你的app key 和 secret，让后删除 #warning line，现在你可以关闭<code>Dropbox</code> Web App 页面。</p>
+
+<p>下面，创建一个文件夹在你Dropbox主文件下的根目录给它命一个你想要的名字。假如你把这个文件夹个和其他的Dropbox用户分享，发送他们在构建 Byte Club App的时候，他们将能够创建笔记并且能够上传所有人都能看得见的照片。</p>
+
+<p>在Dropbox.m中找打下面这些行：</p>
+
+<pre><code class="objective-c">#warning THIS FOLDER MUST BE CREATED AT THE TOP LEVEL OF YOUR DROPBOX FOLDER, you can then share this folder with others
+NSString * const appFolder = @"byteclub";
+</code></pre>
+
+<p>改变字符串的值，设置成你创建的Dropbox文件夹的名字，让后删除 #warning pragma.</p>
+
+<p>为了把这个app分发给其他用户，给他们接入<code>access tokens</code>,你将需要为你的Dropbox 平台 App打开<code>Enable additional users</code>设置。</p>
+
+<p>去在<a href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>Dropbox app的控制台。点击你app 名称。然后点击<code>Enable Additional Users</code>按钮。将出现一个状态对话框表明你已经增加了你的用户限制。点击Okay关闭对话框。你的App 页面将像下面这样显示：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzg9htvs2j20go056jrj.jpg" alt="networking5" /></p>
+
+<blockquote><p>注意：你可能注意到当你正在开发你的app的时候，你可以接入多达100个用户。当你准备发布app销售的时候，你必须申请生产状态，你可以通过点击<code>Apply for production</code>按钮来发送给<code>Dropbox</code>一些额外的信息。</p>
+
+<p>Dropbox 将随后审核你的App 来确保它遵守指南，假如所有的一切进行得顺利的话，你将打开你的app的 API接入无线的用户。</p></blockquote>
+
+<h4>Dropbox 授权: 概览</h4>
+
+<p>假如你曾经使用过第三方<code>twitter</code>客服端app，像<code>TweetBot</code>,你将会熟悉<code>OAuth</code>授权处理步骤从一个用户的角度。<code>OAuth</code>授权接入过程对你app来说是完全一样的。</p>
+
+<p>构建运行你的app，按照步骤登录。你将看到一个有2个标签的空白屏幕，一个是Notes，一个是PanoPhotos，如下图显示：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzglpqm1aj209f0fa0t7.jpg" alt="networking7" /></p>
+
+<p><code>OAuth</code>授权发生在3和高级的步骤：</p>
+
+<ol>
+<li>获取用来处理剩下的授权一个OAuth请求 token。这是请求token。</li>
+<li>一个web 页面被呈现到用户面前通过他们的web浏览器。没有这一步的用户授权，对你的应用想获取一个第三步中的接入token几乎不可能。</li>
+<li>在第二步完成后，应用调用web服务来交换临时请求token（从第一步中的）为了一个将存储在app里面的持久接入token。</li>
+</ol>
+
+
+<blockquote><p>注意：为了保证这个教程的简洁，我们不打算进行更详细的讲解关于这里Dropbox授权工作。然而，假如你想了解更多点击整个教程的完全版本，它是<a href="http://www.raywenderlich.com/?page_id=48020">iOS 7 by Tutorials.</a>的一部分。</p></blockquote>
+
+<h4>NSURLSession 的一系列类</h4>
+
+<p>Apple已经把<code>NSURLSession</code>描述成一个新类和一系列旧类的组合。这些新的工具是为了处理 上传，下载，处理授权已经处理在HTTP协议里面的任何事情。</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzgzutn43j20go0dwgn3.jpg" alt="networking12" /></p>
+
+<p>一个<code>NSURLSession</code>用一个带可选代理的<code>NSURLSessionConfiguration</code>构造。在你创建会话以后，你应该能够满足你的网络需要通过创建<code>NSURLSessionTask</code>的任务。</p>
+
+<h4>NSURLSessionConfiguration</h4>
+
+<p>这里有三种方式创建<code>NSURLSessionConfiguration</code>:</p>
+
+<ul>
+<li><strong>defaultSessionConfiguration</strong> - 创建一个使用全局缓存，cookie的配置对象和凭证存储的对象。这个配置会使你的会话最像<code>NSURLConnection</code>。</li>
+<li><strong>ephemeralSessionConfiguration</strong> - 这个配置是用来作为‘私有的’会话并且不会持久化存储缓存，cookie，或者信用存储对象。</li>
+<li><strong>backgroundSessionConfiguration</strong> - 当你想要从远程推送或者当app被暂时挂起时进行网络业务使用这个这个配置。参考17章和18章在<a href="http://www.raywenderlich.com/?page_id=48020"> iOS 7 by Tutorials</a>,<code>Beginning and Intermediate Multitasking</code>,有更详细的讲解。</li>
+</ul>
+
+
+<p>一旦你创建一个<code>NSURLSessionConfiguration</code>对象，你就可以在它上面设置各种接口像这样：</p>
+
+<pre><code class="objective-c">NSURLSessionConfiguration *sessionConfig =
+[NSURLSessionConfiguration defaultSessionConfiguration];
+
+// 1
+sessionConfig.allowsCellularAccess = NO;
+
+// 2
+[sessionConfig setHTTPAdditionalHeaders:
+          @{@"Accept": @"application/json"}];
+
+// 3
+sessionConfig.timeoutIntervalForRequest = 30.0;
+sessionConfig.timeoutIntervalForResource = 60.0;
+sessionConfig.HTTPMaximumConnectionsPerHost = 1;
+</code></pre>
+
+<ol>
+<li>你限制了网络操作只有wifi才能进行。</li>
+<li>这将设置所有的请求只接受 JSON类型的响应。</li>
+<li>这些接口将配置资源或者请求超时时间。你也可以限制你的app对你的主机只能有一个网络连接。</li>
+</ol>
+
+
+<p>这些仅仅是你能配置的一些东西，确保检查所有列表的文档。</p>
+
+<h4>NSURLSession</h4>
+
+<p><code>NSURLSession</code>被设计成替代<code>NSURLConnection</code>的API。Sessions做了他们的工作通过他们的部下，也就是非常出名的<code>NSURLSessionTask</code>对象。使用<code>NSURLSession</code>你能够创建任务使用基于block的便利方法，设置一个代理，或者同时两者。例如，假如你想要下载一张
+图片（ <em>challenge hint </em>）,你就需要创建一个<code>NSURLSessionDownloadTask</code>。</p>
+
+<p>第一步，你需要创建(会话)session。 这里有一个例子：</p>
+
+<pre><code class="objective-c">// 1
+NSString *imageUrl =
+@"http://www.raywenderlich.com/images/store/iOS7_PDFonly_280@2x_authorTBA.png";
+
+// 2
+NSURLSessionConfiguration *sessionConfig =
+  [NSURLSessionConfiguration defaultSessionConfiguration];
+
+// 3
+NSURLSession *session =
+  [NSURLSession sessionWithConfiguration:sessionConfig
+                                delegate:self
+                           delegateQueue:nil];
+</code></pre>
+
+<p>Ok,这个仅仅是你目前所看到的一点点不同。让我们一步步重温。</p>
+
+<ol>
+<li>用这个代码片段我们将一样进行下载在两个任务中。</li>
+<li>你总是以创建<code>NSURLConfiguration</code>开始。</li>
+<li>这里创建一个会话使用现在的类作为代理。</li>
+</ol>
+
+
+<p>在你创建会话后，你可以通过创建一个带一个<code>completion handler</code>的任务下载这张图片，想下面这样:</p>
+
+<pre><code class="objective-c">// 1
+NSURLSessionDownloadTask *getImageTask =
+[session downloadTaskWithURL:[NSURL URLWithString:imageUrl]
+
+    completionHandler:^(NSURL *location,
+                        NSURLResponse *response,
+                        NSError *error) {
+        // 2
+        UIImage  *downloadedImage =
+          [UIImage imageWithData:
+              [NSData dataWithContentsOfURL:location]];
+      //3
+      dispatch_async(dispatch_get_main_queue(), ^{
+        // do stuff with image
+         _imageWithBlock.image = downloadedImage;
+      });
+}];
+
+// 4
+[getImageTask resume];
+</code></pre>
+
+<p>Ah ha!现在这个看起来有点像网络代码！</p>
+
+<ol>
+<li><p>任务总是被sessions创建。任务一旦被基于block的方法创建。记住你仍然可以使用<code>NSURLSessionDownloadDelegate</code>来跟踪下载进度。所以你将获得最好的两个单词！（ <em>hint for challenge </em>）</p>
+
+<p> -URLSession:downloadTask
+ :didWriteData:totalBytesWritten
+ :totalBytesExpectedToWrite:</p></li>
+<li><p>这里你使用在 <code>completion handler</code>提供的本地变量来获取一个指向图片的指针。</p></li>
+<li>最终你能够，例如，更新 <code>UIIImageView</code>的图片来显示新的文件。(hint hint ☺)</li>
+<li>你总得自己启动任务！</li>
+<li>记住我在前面所说的，一个会话也可以创建将要发送消息给代理方法来通知你完成等的任务。</li>
+</ol>
+
+
+<p>应该长成这样，使用相同的会话从上面：</p>
+
+<pre><code class="objective-c">// 1
+NSURLSessionDownloadTask *getImageTask =
+  [session downloadTaskWithURL:[NSURL URLWithString:imageUrl]];
+
+[getImageTask resume];
+</code></pre>
+
+<ol>
+<li>这当然是确定使用更少的代码☺ 然而，假如你只这样做，你将什么都看不到。
+你需要让你的代理实现一些<code>NSURLSessionDownloadDelegate</code>协议的方法。</li>
+</ol>
+
+
+<p>首先我们需要获得通知当下载完成时：</p>
+
+<pre><code class="objective-c">-(void)URLSession:(NSURLSession *)session
+     downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)location
+{
+  // use code above from completion handler
+}
+</code></pre>
+
+<p>再有你需要提供将要下载的文件存放的位置，然后你就可以使用这个来处理图片。</p>
+
+<p>最后，假如你需要跟踪下载进度，对于任务创建方法，你需要像下面这样用：</p>
+
+<pre><code class="objective-c">-(void)URLSession:(NSURLSession *)session
+     downloadTask:(NSURLSessionDownloadTask *)downloadTask
+     didWriteData:(int64_t)bytesWritten
+totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
+{
+  NSLog(@"%f / %f", (double)totalBytesWritten,
+    (double)totalBytesExpectedToWrite);
+}
+</code></pre>
+
+<p>正如你所见，<code>NSURLSessionTask</code>是一匹通过网络来干活的真实的驮马。</p>
+
+<h4>NSURLSessionTask</h4>
+
+<p>目前为止你已经知道<code>NSURLSessionDataTask</code>和<code>NSURLSessionDownloadTask</code>怎样使用了。这两个的任务是来自他们共同的基类<code>NSURLSessionTask</code>，你可以在这类看到：</p>
+
+<p><img src="http://ww1.sinaimg.cn/mw690/64124373gw1ezzij54674j20go0d53zc.jpg" alt="networking13" /></p>
+
+<p><code>NSURLSessionTask</code>在你的会话中是任务的基类；他们只能通过一个会话创建并且它们是下面子类中的一个。</p>
+
+<h4>NSURLSessionDataTask</h4>
+
+<p>这个任务发起HTTP GET请求来从服服务器拉取数据。数据被返回以NSData的形式返回。你应该在随后将其把这个数据转换成正确的数据类型比如<code>XML</code>,<code>JSON</code>,UIImage，plist等等。</p>
+
+<pre><code class="objective-c">NSURLSessionDataTask *jsonData = [session dataTaskWithURL:yourNSURL
+      completionHandler:^(NSData  *data,
+                          NSURLResponse  *response,
+                          NSError  *error) {
+        // handle NSData
+}];
+</code></pre>
+
+<h4>NSURLSessionUploadTask</h4>
+
+<p>使用这个类当你需要上传一些东西到web服务器时，使用HTTP <code>POST</code> 或者 <code>PUT</code> 命令。任务带来也允许你监视网络状况当它正在传输的时候。</p>
+
+<p>上传一张图片：</p>
+
+<pre><code class="objective-c">NSData *imageData = UIImageJPEGRepresentation(image, 0.6);
+
+NSURLSessionUploadTask *uploadTask =
+  [upLoadSession uploadTaskWithRequest:request
+                              fromData:imageData];
+</code></pre>
+
+<p>在这类任务被创建从一个会话中并且图片以NSData的形式上传。这里也可以通使用一个文件或者流的方法来进行上传。</p>
+
+<h4>NSURLSessionDownloadTask</h4>
+
+<p><code>NSURLSessionDownloadTask</code>让通过远程服务下载文件变得超级简单，并且可以暂停和恢复下载只要你想。这个子类有别于其他两个。</p>
+
+<ul>
+<li>这个类型的任务直接写入一个临时文件。</li>
+<li>在下载会话中将调用<code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:</code>来更新状态信息。</li>
+<li>当任务完成时，<code>URLSession:downloadTask:didFinishDownloadingToURL:</code>被调用。这就是你该保存文件从临时位置到一个永久位置的时候。</li>
+<li>当下载失败或者取消时，你可以让数据重新开始下载。</li>
+</ul>
+
+
+<p>这个特性将极其有用当你在下载一个<code>Byte Club</code>定位 全景照片给你的设备的相机胶卷。你看到的一个下载任务例子在上面下载图片片段中。</p>
+
+<h5>上述全部</h5>
+
+<p>所有的上述任务被创建在一个暂停的状态；在创建一个任务时你需要调用它的继续方法像下面演示的那样：</p>
+
+<pre><code class="objective-c">[uploadTask resume];
+</code></pre>
+
+<p>当你一次不只管理一个任务时，<code>taskIdentifier</code>接口允许你唯一标示一个在会话中的任务</p>
+
+<p>这就是！既然你已经知道了<code>NSURLSession</code>系列的主要类，让我们尝试一下。</p>
+
+<h4>Sharing notes with NSURLSession</h4>
+
+<p>OK，这不是死亡诗社，这是<code>Byte Club</code>!是时候开始看看一下这个的网络代码在起作用了。</p>
+
+<p>你需要一个方法来给<code>Byte Club</code>的其他成员发送消息。既然你已经设置了接入token，下一步就是实例化<code>NSURLSesssion</code>对象，让后调用你的第一个Dropbox API。</p>
+
+<h5>Creating an NSURLSession</h5>
+
+<p>添加下面的接口到 <strong>NotesViewController.m</strong> 文件，就在 NSArray  *notes 行的后面：</p>
+
+<pre><code class="objective-c">@property (nonatomic, strong) NSURLSession *session;
+</code></pre>
+
+<p>你将创造所有你的下属从上面的session中。</p>
+
+<p>添加下面的方法到<code>NotesViewController.m</code>就在<code>initWithStyle</code>方法的上面：</p>
+
+<pre><code class="objective-c">- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // 1
+        NSURLSessionConfiguration  *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+
+        // 2
+        [config setHTTPAdditionalHeaders:@{@"Authorization": [Dropbox apiAuthorizationHeader]}];
+
+        // 3
+         _session = [NSURLSession sessionWithConfiguration:config];
+    }
+    return self;
+}
+</code></pre>
+
+<p>下面是上面代码注释的注释的解释：</p>
+
+<ol>
+<li>你的app调用 <code>initWithCoder</code>当你实例化一个控制器从一个故事版中;因此这是一个完美的时刻初始化和创建<code>NSURLSession</code>。你并不想积极缓存或者持久化这里，所有你使用<code>ephemeralSessionConfiguration</code>便利方法，它返回一个没有持久化缓存，cookies，或者认证存储的会话。这是一个"私有浏览"配置。</li>
+<li>下一步，你添加授权HTTP头道配置对象中。apiAuthorizationHeader是一个我写的辅助方法，返回一个字符串，以授权制定的格式。这个字符串包含access token，token secret和你的 Dropbox App API 秘钥。记住这是必要的因为每个对 Dropbox API 的调用都需要被授权。</li>
+<li>最后，你使用上面的配置创建了<code>NSURLSession</code>。</li>
+</ol>
+
+
+<p>会话现在准备好创建在你app中你所需要的任何网络任务。</p>
+
+<h5>GET Notes through the Dropbox API</h5>
+
+<p>为了模拟一条笔记被另一个用户添加，添加任何你在设置在你的Dropbox根目录下的文件夹中选择的文本文件。例如位于Dropbox文件夹下 <strong>byteclub</strong> 下面显示的 <strong>test.txt</strong>：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzkkwyf6ej20go03tglw.jpg" alt="networking14" /></p>
+
+<p>等待直到<code>Dropbox</code>确认它已经同步完你的文件，让后继续下面代码。</p>
+
+<p>添加下面的代码到空的<code>notesOnDropBox</code>方法中在<code>NotesViewController.m</code>:</p>
+
+<pre><code class="objective-c">[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+// 1
+NSURL *url = [Dropbox appRootURL];
+
+// 2
+NSURLSessionDataTask *dataTask =
+[self.session dataTaskWithURL:url
+            completionHandler:^(NSData  *data,
+                                NSURLResponse  *response,
+                                NSError  *error) {
+    if (!error) {            
+        // TODO 1: More coming here!
+    }                
+}];
+
+// 3  
+[dataTask resume];
+</code></pre>
+
+<p>这个方法的目标是检索在app的Dropbox文件下的文件列表。让我们来重温一下这是怎样工作的一步步。</p>
+
+<ol>
+<li>在Dropbox中，你能看到一个文件夹的内容通过进行一个已经授权的<code>GET</code>请求到某个特别的URL - 像<a href="https://api.dropbox.com/1/metadata/dropbox/byteclub.">https://api.dropbox.com/1/metadata/dropbox/byteclub.</a> 我已经创建了一个便利的方法在Dropbox类中来为你产生这个URL。</li>
+<li><code>NSURLSession</code>用便利构造方法来简单的创建各种类型的任务。这是你创建的一个数据任务为了执行一个GET请求到那个URL。当请求完成时，你的<code>completionHandler</code> block被调用。一会儿你将添加一下代码到这里。</li>
+<li>记住一个任务默认是一个<code>暂停</code>的状态,因此你需要调用恢复方法来启动运行。</li>
+</ol>
+
+
+<p>那就是所有你需要做的来开始一个<code>GET</code>请求-现在让我们添加代码到解析的结果中。添加下面的这些行到"TUDO 1"注释的后面:</p>
+
+<pre><code class="objective-c">// 1
+NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *) response;
+if (httpResp.statusCode == 200) {
+
+    NSError  *jsonError;
+
+    // 2
+    NSDictionary  *notesJSON =
+      [NSJSONSerialization JSONObjectWithData:data                                                                        
+        options:NSJSONReadingAllowFragments                                                                             
+        error:&amp;jsonError];
+
+    NSMutableArray  *notesFound = [[NSMutableArray alloc] init];
+
+    if (!jsonError) {                    
+        // TODO 2: More coming here!
+    }
+}
+</code></pre>
+
+<p>下面是两个主要的部分:</p>
+
+<ol>
+<li><p>你知道你已经发送一个HTTP请求，所以响应将是一个HTTPP响应。因此这里你可以抛出<code>NSURLResponse</code>到一个<code>NSHTTPURLRequest</code>响应以便你能够接入到接口的状态码。
+假如你收到了一个HTTP状态码200，然后一切正常。</p>
+
+<p>  HTTP 错误码举例：</p>
+
+<ul>
+<li>400 - 输入参数错误。错误消息将表明那个和为什么错误。</li>
+<li>401 - token错误或者失效。这个可能发生假如用户或者<code>Dropbox</code>被撤销或者接入token过期。你可以通过重新授权修复这个用户。</li>
+<li>403 - 错误的授权请求（错误的用户键，坏的随机数，时间戳过期&hellip;）。不信的是，重新授权用户在这里并没有用。</li>
+<li>404 - 指定路径下的文件或者文件夹没找到。</li>
+<li>405 - 未知的请求方法（通常应该是 GET 或者 POST）。</li>
+<li>429 - 你的app发送太多请求超出了限制的速率，429能够触发在每个app或者每个用户根部。</li>
+<li>503 - 假如响应包括重发后的头，这就意味做你的<code>OAuth</code> 1.0 app 正在被限速。否则，这个表明了一个短暂的服务器错误，并且你的app应该重新发送这这个请求。</li>
+<li>507 - 用户超出 Dropbox 储存配额。</li>
+<li>5xx - 服务器错误。</li>
+</ul>
+</li>
+<li><p>Dropbox API返回JSON类型的数据。所有你收到一个200的响应，然后应该把数据转发成JSON使用iOS的构建JSON序列化的方法。了解更多关于JSON和NSJSONSerialization，查看第23章在 <code>iOS 5 by Tutorials</code>,&ldquo;Working with JSON.&rdquo;</p></li>
+</ol>
+
+
+<p>JSON 数据返回从Dropbox将看起来像下面这样：</p>
+
+<pre><code>{
+    "hash": "6a29b68d106bda4473ffdaf2e94c4b61",
+    "revision": 73052,
+    "rev": "11d5c00e1cf6c",
+    "thumb_exists": false,
+    "bytes": 0,
+    "modified": "Sat, 10 Aug 2013 21:56:50 +0000",
+    "path": "/byteclub",
+    "is_dir": true,
+    "icon": "folder",
+    "root": "dropbox",
+    "contents": [{
+        "revision": 73054,
+        "rev": "11d5e00e1cf6c",
+        "thumb_exists": false,
+        "bytes": 16,
+        "modified": "Sat, 10 Aug 2013 23:21:03 +0000",
+        "client_mtime": "Sat, 10 Aug 2013 23:21:02 +0000",
+        "path": "/byteclub/test.txt",
+        "is_dir": false,
+        "icon": "page_white_text",
+        "root": "dropbox",
+        "mime_type": "text/plain",
+        "size": "16 bytes"
+    }],
+    "size": "0 bytes"
+}
+</code></pre>
+
+<p>所有最后一段添加的代码是拉取的部分你感兴趣的从JSON中。特别的，你想循环遍历“contents”数组来把“is_dir”设置成<code>false</code>。</p>
+
+<p>这样做，添加下面的代码到“TODO 2”注释后面：</p>
+
+<pre><code class="objective-c">// 1
+NSArray *contentsOfRootDirectory = notesJSON[@"contents"];
+
+for (NSDictionary *data in contentsOfRootDirectory) {
+    if (![data[@"is_dir"] boolValue]) {
+        DBFile  *note = [[DBFile alloc] initWithJSONData:data];
+        [notesFound addObject:note];
+    }
+}
+
+[notesFound sortUsingComparator:
+  ^NSComparisonResult(id obj1, id obj2) {
+    return [obj1 compare:obj2];                    
+}];
+
+self.notes = notesFound;
+
+// 6
+dispatch_async(dispatch_get_main_queue(), ^{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.tableView reloadData];
+});
+</code></pre>
+
+<p>这里有两部分：</p>
+
+<ol>
+<li><p>你拉取数组对象从“contents”键中，让后循环便利数组。每个数组入口是一个文件，所以你创建一个相应的<code>DBFile</code>文件模型为每一个文件。</p>
+
+<p> <code>DBFile</code>是一个我为你创建的辅助类，为了拉取信息从一个JSON字典到一个文件中 - 轻轻一瞥就能看到它是怎样工作的。</p>
+
+<p> 当你完成时，你添加所有的笔记到<code>self.notes</code>接口中。表视图被设置来显示数组中的任何记录。</p></li>
+</ol>
+
+
+<p>既然你的表视图数据源已经更新了，你需要重载表的数据。无论何时你正在处理异步网络请求时，你必须保证更新UIKit在主线程。</p>
+
+<p>机敏的读者将会注意到在上述代码中没有错误处理；假如你感觉你像一个哭丧女（大多数Byte Club 都是！）添加一些代码在这里（在随后的代码块中你将添加），代码在错误和警告用户的时候将重试。</p>
+
+<p>构建运行你的app；你应该看你添加到你的<code>Dropbox</code>文件夹的文件是否显示在列表中，就像下面例子一样显示：</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezzmc48hezj20aa0gojs1.jpg" alt="networking16" /></p>
+
+<p>事情本来是小事，当时这证明了你正确的调用了Dropbox API。</p>
+
+<p>下一步是发布比较然后向其他俱乐部成员发起挑战，再一次使用Dropbox API 就当你是传送机构。</p>
+
+<h5>POST Notes through the Dropbox API</h5>
+
+<p>轻点右上角的 + 号，你将看到笔记add/edit屏幕出现，就像下面演示的一样：</p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezzmc5whzij20a90gojru.jpg" alt="networking17" /></p>
+
+<p>开始的app已经安装了DBFile 模型对象到NoteDetailsViewController在<code>prepareForSegue:sender:</code>方法中：</p>
+
+<p>加入你瞥一眼这个方法，你将看到<code>NoteViewController</code>被设置成<code>NoteDetailsViewController</code>的代理。这种方法，<code>NoteDetailsViewController</code>能够通知<code>NoteViewController</code>当用户完成编辑一篇笔记或者取消编辑一篇笔记时。</p>
+
+<p>打开<code>NotesViewController.m</code>,添加下面这行到<code>prepareForSegue:sender:</code>中，就在<code>showNote.delegate = self</code>行的后面；</p>
+
+<pre><code class="objective-c">showNote.session = _session;
+</code></pre>
+
+<p><code>NoteDetailsViewController</code>已经有一个<code>NSURLSession</code>的接口名字叫做<code>session</code>,因此你能够设置它在<code>prepareForSegue:sender:</code>载入之前。</p>
+
+<p>现在detail view controller将获得相同的<code>NSURLSession</code>,所有detail view controller能够使用它来进行DropBox 的API调用。</p>
+
+<p><code>Cancel</code>和<code>Done</code>按钮已经呈现在你的app中；你只需要添加一些在他们背后保存或者取消在尚未完工的笔记逻辑。</p>
+
+<p>在<code>NoteDetailsViewController.m</code>,找到下面这一行在<code>(IBAction)done:(id)sender:</code>方法中：</p>
+
+<pre><code class="objective-c">// - UPLOAD FILE TO DROPBOX - //
+    [self.delegate noteDetailsViewControllerDoneWithDetails:self];
+</code></pre>
+
+<p>&hellip;用下面的替换它：</p>
+
+<pre><code class="objective-c">// 1
+NSURL  *url = [Dropbox uploadURLForPath: _note.path];
+
+// 2
+NSMutableURLRequest *request =
+  [[NSMutableURLRequest alloc] initWithURL:url];
+[request setHTTPMethod:@"PUT"];
+
+// 3
+NSData *noteContents = [_note.contents dataUsingEncoding:NSUTF8StringEncoding];
+
+// 4
+NSURLSessionUploadTask *uploadTask = [_session      
+  uploadTaskWithRequest:request                                                                  
+  fromData:noteContents                                                        
+  completionHandler:^(NSData *data,                                                                             
+  NSURLResponse *response,                                                                               
+  NSError *error)
+{   
+   NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+
+   if (!error &amp;&amp; httpResp.statusCode == 200) {
+
+       [self.delegate noteDetailsViewControllerDoneWithDetails:self];
+   } else {
+       // alert for error saving / updating note
+   }
+}];
+
+// 5
+[uploadTask resume];
+</code></pre>
+
+<p>这个实现了你需要保存和分享你的笔记的所有事情。假如仔细观察每一块的注释，你将发现做了下面的事：</p>
+
+<ol>
+<li>为了上传一个文件到Dropbox，你需要再次使用某个API URL。就像先前你需要一个URL来列出在一个文件夹中的文件，我已经构造了一个辅助方法来为你产生URL。你可以在这里调用。</li>
+<li>下一步是你的老朋友<code>NSMutableURLRequest</code>,新的APIs能够同时使用普通的URL是和<code>NSURLRequest</code>对象，但是这里你需要可变的形式来使Dropbox API让它的请求变成PUT请求。设置HTTP方法作为PUT发信号给Dropbox来让它为你创建一个新的文件。</li>
+<li>下一步是将文本从你的<code>UITextView</code>编码成NSData对象。</li>
+<li>既然你已经创建好了请求和NSData数据，你下一步就是创建一个<code>NSURLSessionUploadTask</code>然后设置<code>completion handler</code> block.一旦成功，你就调用代理方法<code>noteDetailsViewControllerDoneWithDetails:</code>来关闭呈现的内容。在生产级别的应用中你可以回传一个新的BDFile给代理然后同步你需要持久化的数据。为了这个应用，你只需要刷新<code>NotesViewController</code>用一个网络调用。</li>
+<li>再次提到，所有的任务以暂停的状态被创建，所以你必须调用恢复来启动他们。</li>
+</ol>
+
+
+<p>构建然后运行你的App，点击笔记标签上的+号。在<code>challenge name</code>字段上输入你的名字，输入一些文本在<code>note</code>字段想Ray发布一份挑战书，和下面的例子相似：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f008ujjji0j20aa0godgy.jpg" alt="networking17" /></p>
+
+<p>当你清点<code>Done</code>时，<code>NoteViewController</code>将返回并且给你列出新的笔记像下面显示的那样：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f008ukjg7bj20aa0go3z4.jpg" alt="networking18" />
+)</p>
+
+<p>你已经正式的给Ray下发挑战书；然而，他有朋友在非常高的位置所有你最好尽力完成这场比赛。</p>
+
+<p>但是这里有一条非常重要的消息遗漏了。你能告诉我是什么么？</p>
+
+<p>轻点笔记包含的挑战；<code>NoteDetailsViewController</code>自己呈现，当时笔记的内容确实空白的。</p>
+
+<p>Ray并不会找到你的发的非常有威胁的挑战假如他没有读的话！</p>
+
+<p>现在，app只是调用<code>Dropbox</code>元数据API来检索文件列表。你也需要添加一些代码来抓取笔记的内容。</p>
+
+<p>打开<code>NoteDetailsViewController.m</code>,用下面的实现替换空白的<code>retreiveNoteText</code>的实现：</p>
+
+<pre><code class="objective-c">-(void)retreiveNoteText
+{
+    // 1
+    NSString  *fileApi =
+      @"https://api-content.dropbox.com/1/files/dropbox";
+    NSString  *escapedPath = [ _note.path
+      stringByAddingPercentEscapesUsingEncoding:
+      NSUTF8StringEncoding];
+
+    NSString  *urlStr = [NSString stringWithFormat: @"%@/%@",
+      fileApi,escapedPath];
+
+    NSURL  *url = [NSURL URLWithString: urlStr];
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
+    // 2
+    [[ _session dataTaskWithURL:url completionHandler:^(NSData  *data, NSURLResponse  *response, NSError  *error) {
+
+        if (!error) {
+            NSHTTPURLResponse  *httpResp = (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+                // 3
+                NSString  *text =
+                 [[NSString alloc]initWithData:data
+                   encoding:NSUTF8StringEncoding];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                    self.textView.text = text;
+                });
+
+            } else {
+                // HANDLE BAD RESPONSE //
+            }
+        } else {
+            // ALWAYS HANDLE ERRORS :-] //
+        }
+        // 4
+    }] resume];
+}
+</code></pre>
+
+<p>上面在笔记中的代码（没有错误检查）下面来解释：</p>
+
+<ol>
+<li>设置请求的路径和你期望检索的文件的URL地址；/文件的端点在Dropbox API中将会返回给你一个指定文件的内容。</li>
+<li>用指向感兴趣的文件的URL创建数据任务。这个调用应该开始，只要你纵览整个app你会相当熟悉。</li>
+<li>假如你响应的代码表明所有的都是好的，在主线程用你在先前的步骤中检索到的文件内容设置textView。记住，UI更新必须切换到主线程。</li>
+<li>一旦这个任务被初始化，调用恢复。这里有写不一样的方法和以前的相比，当恢复被直接调用时在任务还没有指派时。</li>
+</ol>
+
+
+<p>构建运行你的App，在列表中对你的挑战轻点，内容将直接正确的显示在view中，像下面这样：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f008ulhco4j20a90got9d.jpg" alt="networking19" /></p>
+
+<p>你可以扮演Ray然后通过向笔记中输入文本响应这个挑战；文件将很快更新当你轻点<code>Done</code>。</p>
+
+<h4>使用<code>NSURLSessionTask</code>代理发送照片</h4>
+
+<p>你已经看到怎样使用<code>NSURLSession</code>异步便利构造方法。但是假如你想把注意力集中在文件传输上，例如上传一个大文件并且显示一个进度条怎么样？</p>
+
+<p>对于这种异步的，耗时任务类型你需要实现<code>NSURLSessionTaskDelegate</code>协议方。通过实现这个方法，你能够检索回调当一个任务接收到数据和完成接收数据时。</p>
+
+<p>你可能已经注意到<code>PanoPhotos</code>标签是空的当你启动App的时候。然而，<code>Byte Club</code>组织的创办成员已经慷慨的提供了一些他们自己的全景照片，你可以用它来填充你的app。</p>
+
+<p>下载这些 我们为你放在一起的<a href="http://cdn4.raywenderlich.com/downloads/ByteClub_photos.zip">全景照片</a>。解压文件，拷贝到你的app在Dropbox目录下的照片目录。你文件夹的内容应该和下面一样：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f00a5m7rhhj20go06ddhi.jpg" alt="networking20" /></p>
+
+<p>Dropbox和核心API可以提供照片的缩略图；使用一个 UITableView cell这听起来想一件非常完美的事。</p>
+
+<p>打开<code>PhotosViewController.m</code>然后在<code>“GO GET THUMBNAILS</code>注释后面添加下面的代码到<code>tableView:cellForRowAtIndexPath:</code></p>
+
+<pre><code class="objective-c">[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:url
+  completionHandler:^(NSData  *data, NSURLResponse  *response,
+  NSError  *error) {
+    if (!error) {
+      UIImage  *image = [[UIImage alloc] initWithData:data];
+      photo.thumbNail = image;
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        cell.thumbnailImage.image = photo.thumbNail;
+      });
+    } else {
+      // HANDLE ERROR //
+    }
+}];
+[dataTask resume];
+</code></pre>
+
+<p>上面的代码显示了照片的缩略图图在表视图的cell中。。。或者至少它会是，假如<code>_photoThumbnails</code>现在不是空的话。</p>
+
+<p>找到<code>refreshPhotos</code>用下面的实现替换：</p>
+
+<pre><code class="objective-c">- (void)refreshPhotos
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSString  *photoDir = [NSString stringWithFormat:@"https://api.dropbox.com/1/search/dropbox/%@/photos?query=.jpg",appFolder];
+    NSURL  *url = [NSURL URLWithString:photoDir];
+
+    [[ _session dataTaskWithURL:url completionHandler:^(NSData
+       *data, NSURLResponse  *response, NSError  *error) {
+        if (!error) {
+            NSHTTPURLResponse  *httpResp =
+             (NSHTTPURLResponse*) response;
+            if (httpResp.statusCode == 200) {
+
+                NSError  *jsonError;
+                NSArray  *filesJSON = [NSJSONSerialization  
+                  JSONObjectWithData:data                                                                     
+                  options:NSJSONReadingAllowFragments                                                                           
+                  error:&amp;jsonError];
+                NSMutableArray  *dbFiles =
+                  [[NSMutableArray alloc] init];
+
+                if (!jsonError) {
+                    for (NSDictionary  *fileMetadata in
+                      filesJSON) {
+                        DBFile  *file = [[DBFile alloc]
+                          initWithJSONData:fileMetadata];
+                        [dbFiles addObject:file];
+                    }
+
+                    [dbFiles sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                        return [obj1 compare:obj2];
+                    }];
+
+                     _photoThumbnails = dbFiles;
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                        [self.tableView reloadData];
+                    });
+                }
+            } else {
+                // HANDLE BAD RESPONSE //
+            }
+        } else {
+            // ALWAYS HANDLE ERRORS :-] //
+        }
+    }] resume];
+}
+</code></pre>
+
+<p>这个和你早期载入挑战笔记时写的代码很像。这次，API调用来查找在<code>photos</code>目录的内容，并且只会以.jpg拓展的文件。</p>
+
+<p>既然<code>_photoThumbnails</code>数组已经填充好了，缩略图将出现在表视图中并且异步更新。</p>
+
+<p>构建运行你的app，然后切换到<code>PanoPhotos</code>标签；缩略图将载入并且像下面这样出现：</p>
+
+<p>！<a href="http://ww2.sinaimg.cn/mw690/64124373gw1f00ahhaw20j20a90go0uz.jpg">networking21</a></p>
+
+<p>照片看起来非常的棒&ndash;只是请当心Matthijs家撕裂代码的猫🐱！</p>
+
+<h4>上传一张全景照片</h4>
+
+<p>你的app能够下载相片，如果它也能上传照片并且显示上传进度的话就非常棒了。</p>
+
+<p>为了跟踪上传的进度，<code>PhotosViewController</code>必须成为<code>NSURLSessionDelegate</code>和<code>NSURLSessionTaskDelegate</code>协议的代理，以便你能收到进度回调。</p>
+
+<p>修改在<code>PhotosViewController.m</code>中<code>PhotosViewController</code>的接口声明，添加<code>NSURLSessionTaskDelegate</code>,像下面这样：</p>
+
+<pre><code class="objective-c"> @ interface PhotosViewController ()UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NSURLSessionTaskDelegate&gt;
+</code></pre>
+
+<p>下一步，添加下面的私有接口：</p>
+
+<pre><code class="objective-c">@property (nonatomic, strong)
+  NSURLSessionUploadTask *uploadTask;
+</code></pre>
+
+<p>上面的指针引用了任务对象；通过哪种方式，你就可以接入到对象的成员中来跟踪上传任务的进度了。</p>
+
+<p>当用户选择一张图片上传时，<code>didFinishPickingMediaWithInfo</code>调用<code>uploadImage:</code>方法来执行文件上传。
+现在，那个方法空了-这是你的工作让它丰满起来。</p>
+
+<p>替换<code>uploadImage:</code>用下面的代码：</p>
+
+<pre><code class="objective-c">- (void)uploadImage:(UIImage*)image
+{
+    NSData  *imageData = UIImageJPEGRepresentation(image, 0.6);
+
+    // 1
+    NSURLSessionConfiguration  *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    config.HTTPMaximumConnectionsPerHost = 1;
+    [config setHTTPAdditionalHeaders:@{@"Authorization": [Dropbox apiAuthorizationHeader]}];
+
+    // 2
+    NSURLSession  *upLoadSession = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+
+    // for now just create a random file name, dropbox will handle it if we overwrite a file and create a new name..
+    NSURL  *url = [Dropbox createPhotoUploadURL];
+
+    NSMutableURLRequest  *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"PUT"];
+
+    // 3
+    self.uploadTask = [upLoadSession uploadTaskWithRequest:request fromData:imageData];
+
+    // 4
+    self.uploadView.hidden = NO;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
+    // 5
+    [ _uploadTask resume];
+}
+</code></pre>
+
+<p>下面是上面的代码做的事：</p>
+
+<ol>
+<li>起先，你使用设置在<code>initWithCoder</code>的会话和相关的便利方法来创建异步任务。这个时候，你使用一个<code>NSURLSessionConfiguration</code>,它只允许一个连接连接到远程主机，因为你上传进度处理一次就是一个文件。</li>
+<li>上传和下载任务报告信息通过它们的代理返回；你将简短的实现。</li>
+<li>这里你设置了<code>uploadTask</code>接口使用从<code>UIImagePicker</code>获得的JPEG图片。</li>
+<li>下一步，你显示<code>UIProgressView</code>让它隐藏在<code>PhotosViewController</code>内部。</li>
+<li>开始任务&ndash;额，抱歉，是恢复任务。</li>
+</ol>
+
+
+<p>既然代理已经设置了，你就可以实现<code>NSURLSessionTaskDelegate</code>方法来更新进度视图。</p>
+
+<p>添加下面的代码到<code>PhotosViewController.m</code>文件末尾：</p>
+
+<pre><code class="objective-c">#pragma mark - NSURLSessionTaskDelegate methods
+
+- (void)URLSession:(NSURLSession *)session
+  task:(NSURLSessionTask *)task
+  didSendBodyData:(int64_t)bytesSent
+  totalBytesSent:(int64_t)totalBytesSent
+  totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ _progress setProgress:
+          (double)totalBytesSent /
+          (double)totalBytesExpectedToSend animated:YES];
+    });
+}
+</code></pre>
+
+<p>上面的代理方法将定期报告信息给调用者关于上传任务的信息。它同时会更新<code>UIProgressView</code>（ _progress）的进度以便显示 totalBytesSent/totalBytesExpectedToSend,这比显示一个完成的百分比跟有意义（也更极客）。</p>
+
+<p>剩下唯一的事就是当上传任务结束时指示一下。添加下面的代码到<code>PhotosViewController.m</code>文件末尾：</p>
+
+<pre><code class="objective-c">- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{
+    // 1
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+         _uploadView.hidden = YES;
+        [ _progress setProgress:0.5];
+    });
+
+    if (!error) {
+        // 2
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self refreshPhotos];
+        });
+    } else {
+        // Alert for error
+    }
+}
+</code></pre>
+
+<p>这里没有很多代码，但是它执行了两项非常重要的任务：</p>
+
+<ol>
+<li>打开网络指示器，然后隐藏<code>_uploadView</code>作为上传完成的一点点清理工作。</li>
+<li>刷新<code>PhotosViewController</code>以便包含你刚刚上传的照片，由于demo app是不能进行任何本地储存的上传
+。在一个真正的app中，你应该把图片在本地进行储存和缓存。</li>
+</ol>
+
+
+<p>构建运行你的app，导航到<code>PanoPhotos</code>标签，点击照相图标选择一张照片。</p>
+
+<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1f00bn13wq4j20di09ojs2.jpg" alt="networking22" /></p>
+
+<blockquote><p>注意：假如你说使用模拟器测试app，很显然你不能用你的Mac拍照，所有仅仅是拷贝一张全景照片
+给模拟器然后上传。这样做，可以确保没有其他的Xcode工程现在连接到这个模拟器，在Xcode中选择 <strong>Xcode   Open Developer Tool   iOS Simulator</strong>。</p>
+
+<p>从Finder中拖拽一张全景照片带模拟器中，在模拟器中图片将会在Safari中打开。长按图片然后保存图片到图库中。</p></blockquote>
+
+<p>在选择一张图片后上传，uploadView显示在屏幕的中央，并且带有上传进度，乡下面这一样显示：</p>
+
+<p>！<a href="http://ww1.sinaimg.cn/mw690/64124373gw1f00bn4hmqwj209e0gomzu.jpg">networking23</a></p>
+
+<p>你可能注意到一张图片上传需要花一些时间由于上传任务设置了<code>better quality</code>缩放因子。对于那些A类性格的人，你应该提供一个取消函数假如上传花费太长的时间。</p>
+
+<p>取消按钮在<code>uploadView</code>已经被封装起来在故事板中，所有你只需实现清楚逻辑来杀死下载操作就行。</p>
+
+<p>用下面的代码替换<code>PhotosViewController.m</code>的<code>cancelUpload:</code>：</p>
+
+<pre><code class="objective-c">- (IBAction)cancelUpload:(id)sender {    
+    if ( _uploadTask.state == NSURLSessionTaskStateRunning) {
+        [ _uploadTask cancel];
+    }
+}
+</code></pre>
+
+<p>在这类你会看到，取消一个任务相当简单就是调用一个取消方法。</p>
+
+<p>现在构建运行你的app，选择一张照片上传然后点击<code>Cancel</code>。图片上传将会停止并且<code>uploadView</code>将会被隐藏。</p>
+
+<p>就这样&ndash;<code>Byte Club</code>完成了！</p>
+
+<h4>何去何从？</h4>
+
+<p>这里是<a href="http://cdn5.raywenderlich.com/downloads/ByteClub_Completed.zip">完成的工程</a>在这个<code>NSURLSession</code>教程中。</p>
+
+<p>假如你做到这一步，恭喜你可以享受到<code>Byte Club</code>的时光！不要告诉任何<code>Android</code>的小伙伴们！ :]
+你现在能够处理在你app需要的任何网络任务了。</p>
+
+<p>假如你喜欢这个课程，你可能想要查阅我们的新书<a href="http://www.raywenderlich.com/?page_id=48020"> iOS 7 by Tutorials</a>,这是这本书的一个简略版本，这本书几乎涵盖了在iOS 7中最新和最多的APIs，这些你应该清楚的知道作为一个开发者。</p>
+
+<p>我几乎忘记了。。。</p>
+
+<pre><code>/slap &lt;you the reader&gt; have been slapped around a bit with a large trout.
+</code></pre>
+
+<p>（不要问我为什么 hehe！😄）</p>
+
+<p>假如你有任何问题或者评论关于这个教程或者<code>NSURLSession</code>,请加入到下面的论坛讨论！</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="http://objccn.io/issue-5-4/">从 NSURLConnection 到 NSURLSession</a></li>
+<li><a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">NSURLSession Tutorial</a></li>
+</ul>
+
+
+<p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS线程安全-锁]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
+    <updated>2016-01-14T02:08:36+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
+    <content type="html"><![CDATA[<h3>“Object－C”语言</h3>
+
+<p>1.<strong>使用 @synchronized 类实现锁</strong></p>
+
+<pre><code class="objective-c">
+// 实例类person
+Person *person = [[Person alloc] init];
+// 线程A
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    @synchronized(person) {
+        [person personA];
+        [NSThread sleepForTimeInterval:3];
+        // 线程休眠3秒
+    }
+});
+// 线程B
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    @synchronized(person) {
+        [person personB];
+    }
+});
+</code></pre>
+
+<p>2.<strong>使用 NSRecursiveLock 类实现锁</strong></p>
+
+<blockquote><p>递归锁，递归或循环方法时使用此方法实现锁，可避免死锁等问题</p></blockquote>
+
+<pre><code class="objective-c">
+// 实例类person
+Person *person = [[Person alloc] init];
+
+// 创建锁对象
+NSRecursiveLock *theLock = [[NSRecursiveLock alloc] init];
+
+// 创建递归方法
+static void (^testCode)(int);
+testCode = ^(int value) {
+    [theLock tryLock];
+    if (value &gt; 0)  {
+        [person personA];
+        [NSThread sleepForTimeInterval:1];
+        testCode(value - 1);
+    }
+    [theLock unlock];
+};
+
+//线程A
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    testCode(5);
+});
+
+//线程B
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [theLock lock];
+    [person personB];
+    [theLock unlock];
+});
+</code></pre>
+
+<p>3.<strong>使用 NSConditionLock（条件锁）类实现锁</strong></p>
+
+<blockquote><p>使用此方法可以指定，只有满足条件的时候才可以解锁</p></blockquote>
+
+<pre><code class="objective-c">
+// 实例类person
+Person *person = [[Person alloc] init];
+// 创建条件锁
+NSConditionLock *conditionLock = [[NSConditionLock alloc] init];
+// 线程A
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [conditionLock lock];
+    [person personA];
+    [NSThread sleepForTimeInterval:5];
+    [conditionLock unlockWithCondition:10];
+ });
+// 线程B
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [conditionLock lockWhenCondition:10];
+    [person personB];
+    [conditionLock unlock];
+ });
+</code></pre>
+
+<p>4.<strong>NSDistributedLock（分布式锁）</strong></p>
+
+<blockquote><p>在iOS中不需要用到，也没有这个方法，因此本文不作介绍，这里写出来只是想让大家知道有这个锁存在。
+如果想要学习NSDistributedLock的话，你可以创建MAC OS的项目自己演练，方法请自行Google，谢谢</p></blockquote>
+
+<h3>C语言</h3>
+
+<p>1.<strong>使用 pthread_mutex_t 实现锁</strong></p>
+
+<blockquote><p>注意：必须在头文件导入：#import &lt;pthread.h></p></blockquote>
+
+<pre><code class="objective-c">
+// 实例类person
+Person *person = [[Person alloc] init];
+// 创建锁对象
+__block pthread_mutex_t mutex;
+pthread_mutex_init(&amp;mutex, NULL);
+// 线程A
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    pthread_mutex_lock(&amp;mutex);
+    [person personA];
+    [NSThread sleepForTimeInterval:5];
+    pthread_mutex_unlock(&amp;mutex);
+});
+// 线程B
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    pthread_mutex_lock(&amp;mutex);
+    [person personB];
+    pthread_mutex_unlock(&amp;mutex);
+});
+</code></pre>
+
+<p>2.<strong>使用 GCD 实现“锁”(信号量）</strong></p>
+
+<blockquote><p>GCD提供一种信号的机制，使用它我们可以创建“锁”</p></blockquote>
+
+<pre><code class="objective-c">// 实例类person
+Person *person = [[Person alloc] init];
+
+// 创建并设置信量
+dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+
+// 线程A
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    [person personA];
+    [NSThread sleepForTimeInterval:5];
+    dispatch_semaphore_signal(semaphore);
+});
+
+// 线程B
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    [person personB];
+    dispatch_semaphore_signal(semaphore);
+});
+</code></pre>
+
+<p>我在这里解释一下代码。<code>dispatch_semaphore_wait</code>方法是把信号量加1，<code>dispatch_semaphore_signal</code>
+是把信号量减1。</p>
+
+<p>我们把信号量当作是一个计数器，当计数器是一个非负整数时，所有通过它的线程都应该把这个整数减1。</p>
+
+<p>如果计数器大于0，那么则允许访问，并把计数器减1。如果为0，则访问被禁止，所有通过它的线程都处于
+等待的状态。</p>
+
+<p>3.<strong>使用POSIX（条件锁）创建锁）</strong></p>
+
+<pre><code class="objective-c">// 实例类person
+Person *person = [[Person alloc] init];
+
+// 创建互斥锁
+ __block pthread_mutex_t mutex;
+ pthread_mutex_init(&amp;mutex, NULL);
+
+ // 创建条件锁
+ __block pthread_cond_t cond;
+ pthread_cond_init(&amp;cond, NULL);
+
+ // 线程A
+ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     pthread_mutex_lock(&amp;mutex);
+     pthread_cond_wait(&amp;cond, &amp;mutex);
+     [person personA];
+     pthread_mutex_unlock(&amp;mutex);
+ });
+
+ // 线程B
+ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     pthread_mutex_lock(&amp;mutex);
+     [person personB];
+     [NSThread sleepForTimeInterval:5];
+     pthread_cond_signal(&amp;cond);
+     pthread_mutex_unlock(&amp;mutex);
+ });
+</code></pre>
+
+<p>效果：程序会首先调用线程B，在5秒后再调用线程A。因为在线程A中创建了等待条件锁，线程B有激活锁，只有当线程B执行完后会激活线程A。</p>
+
+<p><code>pthread_cond_wait</code>方法为等待条件锁。</p>
+
+<p><code>pthread_cond_signal</code>方法为激活一个相同条件的条件锁。</p>
+
+<p>参考资料：<a href="http://www.liuhaihua.cn/archives/25316.html">http://www.liuhaihua.cn/archives/25316.html</a></p>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CocoaPods使用指南]]></title>
+    <link href="http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
+    <updated>2016-01-13T05:51:18+08:00</updated>
+    <id>http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
+    <content type="html"><![CDATA[<p>CocoaPods是iOS最常用的第三方类库管理工具，绝大部分有名的开源类库
+支持CocoaPods.
+CocoaPods是用Ruby实现的，要使用它首先需要有Ruby的环境。幸亏是
+OS X系统默认已经可以运行Ruby了，我么只需执行以下命令：</p>
+
+<pre><code class="objective-c">sudo gem install cocoapods
+</code></pre>
+
+<p>由于某些原因，执行时会出现下面的错误提示：</p>
+
+<pre><code class="objective-c">ERROR :Could not find a valid gem `cocoapods` (&gt;= 0), here is why:
+        Unable to download data from https://rubygems.org/ - Errno::EPIPI:
+        Broken pipe - SSL_connect
+(https://rubygems.org/lastest_specs.4.8.gz)
+</code></pre>
+
+<p>安装成功后，接着执行命令：</p>
+
+<pre><code class="objective-c">pod setup
+</code></pre>
+
+<p>如果Ruby环境不够新，可能需要更新以下：</p>
+
+<pre><code class="objective-c">sudo gem update --system
+</code></pre>
+
+<p>至此安装就完成了，我们可以尝试搜索一个第三方类库：</p>
+
+<pre><code class="objective-c">pod search AFNetworking
+</code></pre>
+
+<p>使用CocoaPods第一步，是在当前项目下，新疆一个Podfile文件：</p>
+
+<pre><code class="objective-c">touch Podfile
+</code></pre>
+
+<p>然后利用vim打开Podfile文件编辑，加入你想要的类库，格式如下：</p>
+
+<pre><code class="objective-c">platform :ios
+pod  'Reachability', '3.1.0'
+
+platform :ios, '6.0'
+pod 'JSONKit', '1.4'
+pod 'AFNetworking', '~&gt; 2.3,1'
+</code></pre>
+
+<p>如果是拷贝别人的项目，或是一个很久没打开过的项目，可能需要先执行一下：</p>
+
+<pre><code class="objective-c">pod update
+</code></pre>
+
+<p>最后一步，执行命令：</p>
+
+<pre><code class="objective-c">pod install
+</code></pre>
+
+<p>当终端出现类似下面的提示后，就代表成功了：</p>
+
+<pre><code class="objective-c">[!] From now no use `Sample0814.xcworkspace`.
+</code></pre>
+
+<p>这个时候会看到项目文件夹多了一个xxx.xcworkspace,以后要通过这个文件
+打开项目，老项目xxx.xcodeproj不再使用。</p>
+
+<blockquote><ol>
+<li>上面的每一步都可能出现问题，但大部分问题都是因为局域网的原因，用一个网速稳
+定的境外VPN可破</li>
+<li>如果上面因为权限问题安装失败，必须每次都要删除</li>
+</ol>
+
+
+<pre><code class="objective-c">rm -rf /User/loginname/Library/Caches/CocoaPods/
+</code></pre>
+
+<p>因为这个缓冲中会存下你的github的东西，造成每次调用上次权限问题的缓存。
+3. 关于Podfile文件编辑时，第三方版本号的各种写法:</p></blockquote>
+
+<pre><code class="objective-c">pod ‘AFNetworking’      //不显式指定依赖库版本，表示每次都获取最新版本
+pod ‘AFNetworking’,  ‘2.0’     //只使用2.0版本
+pod ‘AFNetworking’, ‘&gt;2.0′     //使用高于2.0的版本
+pod ‘AFNetworking’, ‘&gt;=2.0′     //使用大于或等于2.0的版本
+pod ‘AFNetworking’, ‘&lt;2.0′     //使用小于2.0的版本
+pod ‘AFNetworking’, ‘&lt;=2.0′     //使用小于或等于2.0的版本
+pod ‘AFNetworking’, ‘~&gt;0.1.2′     //使用大于等于0.1.2但小于0.2的版本，相当于&gt;=0.1.2并且&lt;0.2.0
+pod ‘AFNetworking’, ‘~&gt;0.1′     //使用大于等于0.1但小于1.0的版本
+pod ‘AFNetworking’, ‘~&gt;0′     //高于0的版本，写这个限制和什么都不写是一个效果，都表示使用最新版本
+</code></pre>
+
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com">http://blog.wangruofeng007.com</a></p>
+]]></content>
+  </entry>
+  
+</feed>

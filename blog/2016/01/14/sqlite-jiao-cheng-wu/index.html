@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SQLite_教程(五) - 王若风的技术博客</title>
+  <meta name="author" content="王若风">
+
+  
+  <meta name="description" content="SQLite_教程(五)">
+  <meta name="keywords" content="Octopress, iOS, Database, Swift, Objective-c, SQLite">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-wu/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-72379345-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">王若风的技术博客</a></h1>
+  
+    <h2>世界尽头与冷酷仙境</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SQLite_教程(五)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-01-14T01:35:50+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:35 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h4>SQL表达式</h4>
+
+<p>表达式是一个或多个值、运算符和计算值的SQL函数的组合。</p>
+
+<p>SQL 表达式与公式类似，都写在查询语言中。您还可以使用特定的数据集来查询数据库。</p>
+
+<hr />
+
+<p><strong>语法</strong></p>
+
+<p>假设 SELECT 语句的基本语法如下：</p>
+
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+WHERE [CONTION | EXPRESSION];
+</code></pre>
+
+<p>有不同类型的 SQLite 表达式，具体讲解如下：</p>
+
+<h4>SQLite - 布尔表达式</h4>
+
+<p>SQLite 的布尔表达式在匹配单个值的基础上获取数据。语法如下：</p>
+
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+WHERE SINGLE VALUE MATCHTING EXPRESSION;
+</code></pre>
+
+<p>假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的实例演示了 SQLite 布尔表达式的用法：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY = 10000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+4           James        24          Houston   10000.0
+</code></pre>
+
+<h4>SQLite - 数值表达式</h4>
+
+<p>这些表达式用来执行查询中的任何数学运算。语法如下：</p>
+
+<pre><code>SELECT numerical_expression as  OPERATION_NAME
+[FROM table_name WHERE CONDITION] ;
+</code></pre>
+
+<p>在这里，numerical_expression 用于数学表达式或任何公式。下面的实例演示了 SQLite 数值表达式的用法：</p>
+
+<pre><code>sqlite&gt; SELECT (15 + 6) AS ADDITION
+ADDITION = 21
+</code></pre>
+
+<p>有几个内置的函数，比如 avg()、sum()、count()，等等，执行被称为对一个表或一个特定的表列的汇总数据计算。</p>
+
+<pre><code>sqlite&gt; SELECT COUNT(*) AS "RECORDS" FROM COMPANY;
+RECORDS = 7
+</code></pre>
+
+<hr />
+
+<h4>SQLite - 日期表达式</h4>
+
+<p>日期表达式返回当前系统日期和时间值，这些表达式将被用于各种数据操作。</p>
+
+<pre><code>sqlite&gt;  SELECT CURRENT_TIMESTAMP;
+CURRENT_TIMESTAMP = 2016-01-13 16:29:56
+</code></pre>
+
+<h4>SQLite Where 子句</h4>
+
+<p>SQLite的 WHERE 子句用于指定从一个表或多个表中获取数据的条件。</p>
+
+<p>如果满足给定的条件，即为真（true）时，则从表中返回特定的值。您可以使用 WHERE 子句来过滤记录，只获取需要的记录。</p>
+
+<p>WHERE 子句不仅可用在 SELECT 语句中，它也可用在 UPDATE、DELETE 语句中，等等，这些我们将在随后的章节中学习到。</p>
+
+<hr />
+
+<p><strong>语法</strong></p>
+
+<p>SQLite 的带有 WHERE 子句的 SELECT 语句的基本语法如下：</p>
+
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+WHERE [condition]
+</code></pre>
+
+<p><strong>实例</strong></p>
+
+<p>您还可以使用比较或逻辑运算符指定条件，比如 >、&lt;、=、LIKE、NOT，等等。假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的实例演示了 SQLite 逻辑运算符的用法。下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
+
+<p>sqlite> SELECT * FROM COMPANY WHERE AGE >= 25 OR SALARY >= 65000;</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 不为 NULL 的所有记录，结果显示所有的记录，意味着没有一个记录的 AGE 等于 NULL：</p>
+
+<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 NAME 以 &lsquo;Ki&rsquo; 开始的所有记录，'Ki' 之后的字符不做限制（不区分大小写）：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME LIKE 'Ki%';
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+6           Kim         22          South-Hall  45000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 NAME 以 &lsquo;Ki&rsquo; 开始的所有记录，'Ki' 之后的字符不做限制（区分大小写）：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME GLOB 'Ki*';
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+6           Kim         22          South-Hall  45000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 的值为 25 或 27 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IN ( 25, 27 );
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<h4>SQLite AND/OR 运算符</h4>
+
+<p>SQLite 的 AND 和 OR 运算符用于编译多个条件来缩小在 SQLite 语句中所选的数据。这两个运算符被称为连接运算符。</p>
+
+<p>这些运算符为同一个 SQLite 语句中不同的运算符之间的多个比较提供了可能。</p>
+
+<hr />
+
+<h4>AND 运算符</h4>
+
+<p>AND 运算符允许在一个 SQL 语句的 WHERE 子句中的多个条件的存在。使用 AND 运算符时，只有当所有条件都为真（true）时，整个条件为真（true）。例如，只有当 condition1 和 condition2 都为真（true）时，[condition1] AND [condition2] 为真（true）。</p>
+
+<p><strong>语法</strong></p>
+
+<p>带有 WHERE 子句的 AND 运算符的基本语法如下：</p>
+
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+WHERE [condition1] AND [condition2]...AND [conditionN];
+</code></pre>
+
+<p>您可以使用 AND 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，所有由 AND 分隔的条件都必须为真（TRUE）。</p>
+
+<p><strong>实例</strong></p>
+
+<p>假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<h4>OR 运算符</h4>
+
+<p>OR 运算符也用于结合一个 SQL 语句的 WHERE 子句中的多个条件。使用 OR 运算符时，只要当条件中任何一个为真（true）时，整个条件为真（true）。例如，只要当 condition1 或 condition2 有一个为真（true）时，[condition1] OR [condition2] 为真（true）</p>
+
+<p><strong>语法</strong></p>
+
+<p>带有 WHERE 子句的 OR 运算符的基本语法如下：</p>
+
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+WHERE [condition1] OR [condition2]...OR [conditionN]
+</code></pre>
+
+<p>您可以使用 OR 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，只要任何一个由 OR 分隔的条件为真（TRUE）即可。</p>
+
+<p><strong>实例</strong></p>
+
+<p>假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
+
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 OR SALARY &gt;= 65000;
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+</code></pre>
+
+<h4>SQLite Update 语句</h4>
+
+<p>SQLite 的 <strong>UPDATE </strong>查询用于修改表中已有的记录。可以使用带有 WHERE 子句的 UPDATE 查询来更新选定行，否则所有的行都会被更新。</p>
+
+<hr />
+
+<p><strong>语法</strong></p>
+
+<p>带有 WHERE 子句的 UPDATE 查询的基本语法如下：</p>
+
+<pre><code>UPDATE table_name
+SET column1 = value1, column2 = value2...., columnN = valueN
+WHERE [condition];
+</code></pre>
+
+<p>您可以使用 AND 或 OR 运算符来结合 N 个数量的条件。</p>
+
+<hr />
+
+<p><strong>实例</strong></p>
+
+<p>假设 COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          South-Hall  45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>下面是一个实例，它会更新 ID 为 6 的客户地址：</p>
+
+<pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = 'Texas' WHERE ID = 6;
+</code></pre>
+
+<p>现在，COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          California  20000.0
+2           Allen       25          Texas       15000.0
+3           Teddy       23          Norway      20000.0
+4           Mark        25          Rich-Mond   65000.0
+5           David       27          Texas       85000.0
+6           Kim         22          Texas       45000.0
+7           James       24          Houston     10000.0
+</code></pre>
+
+<p>如果您想修改 COMPANY 表中 ADDRESS 和 SALARY 列的所有值，则不需要使用 WHERE 子句，UPDATE 查询如下：</p>
+
+<pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = 'Texas', SALARY = 20000.00;
+</code></pre>
+
+<p>现在，COMPANY 表有以下记录：</p>
+
+<pre><code>ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+1           Paul        32          Texas       20000.0
+2           Allen       25          Texas       20000.0
+3           Teddy       23          Texas       20000.0
+4           Mark        25          Texas       20000.0
+5           David       27          Texas       20000.0
+6           Kim         22          Texas       20000.0
+7           James       24          Texas       20000.0
+</code></pre>
+
+<p>资料整理于：<a href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite教程</a>
+转载请注明出处。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">王若风</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-01-14T01:35:50+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:35 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-wu/" data-via="" data-counturl="http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-wu/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/13/sqlite-jiao-cheng-si/" title="Previous Post: SQLite_教程(四)">&laquo; SQLite_教程(四)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/01/14/sqlite-jiao-cheng-liu/" title="Next Post: SQLite_教程(六)">SQLite_教程(六) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    Included file 'asides/category_list.html' not found in _includes directory<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+Included file 'custom/asides/recent_comments.html' not found in _includes directory
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - 王若风 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
