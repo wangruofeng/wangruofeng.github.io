@@ -1,17 +1,11 @@
-
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html class="no-js" lang="en">
 <head>
   <meta charset="utf-8">
   <title>王若风的技术博客</title>
   <meta name="author" content="王若风">
 
   
-  <meta name="description" content="此文整理一下TableView优化相关的方案和思路。 TableView为什么会卡？ 主要由以下原因： cellForRowAtIndexPath:方法中处理了过多业务
-tableviewCell的subview层级太复杂，做了大量透明处理
-cell的height动态变化时计算方式不对 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,87 +15,127 @@ cell的height动态变化时计算方式不对 &hellip;">
 
   
   <link rel="canonical" href="http://wangruofeng.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="王若风的技术博客" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <!-- http://opengraphprotocol.org/ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://wangruofeng.github.io/">
+  <meta property="og:title" content="王若风的技术博客">
+  <meta property="og:description" content="王若风的技术博客">
+
+  <script src="/javascripts/libs/jquery/jquery-2.1.3.min.js"></script>
+
+<link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+
 
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-72379345-1']);
-    _gaq.push(['_trackPageview']);
+  <link href="/stylesheets/screen.css" media="screen, projection, print" rel="stylesheet" type="text/css">
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+  
+   <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-72379345-1', 'auto');
+    ga('send', 'pageview');
+
   </script>
 
 
 </head>
 
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">王若风的技术博客</a></h1>
-  
-    <h2>世界尽头与冷酷仙境</h2>
-  
-</hgroup>
+  <body   >
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" title="toggle navbar" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">王若风的技术博客</a>
+        </div>
 
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a rel="index" href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="sitesearch" value="wangruofeng.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
+
+
+      </header>
+      <div id="main" role="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9">
+    <div class="blog-index" itemscope itemtype="http://schema.org/Blog">
+    <meta itemprop="name" content="王若风的技术博客" />
+    <meta itemprop="description" content="王若风的技术博客" />
+    <meta itemprop="url" content="http://wangruofeng.github.io" />
       
-  <header>
+      
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-18T22:00:04+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:00 pm</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-18T22:00:04+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/18/tableviewxing-neng-you-hua/" itemprop="url">TableView性能优化</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
+  <div class="entry-content clearfix" itemprop="articleBody description"><blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
 
 <h4>TableView为什么会卡？</h4>
 
@@ -178,30 +212,38 @@ cell的height动态变化时计算方式不对 &hellip;">
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-16T19:34:06+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:34 pm</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-16T19:34:06+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/16/ios-animation-swift-ban/" itemprop="url">iOS Animation Swift 版</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
+  <div class="entry-content clearfix" itemprop="articleBody description"><p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
 
 <h3>简介</h3>
 
@@ -439,30 +481,38 @@ cell的height动态变化时计算方式不对 &hellip;">
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-15T18:15:01+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>6:15 pm</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-15T18:15:01+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/15/nsurlsession/" itemprop="url">NSURLSession 教程</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><p>本文翻译自 <a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">http://www.raywenderlich.com/51127/nsurlsession-tutorial</a></p>
+  <div class="entry-content clearfix" itemprop="articleBody description"><p>本文翻译自 <a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">http://www.raywenderlich.com/51127/nsurlsession-tutorial</a></p>
 
 <p>原作者： Charlie Fulton</p>
 
@@ -2022,30 +2072,38 @@ cell的height动态变化时计算方式不对 &hellip;">
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-14T02:08:36+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>2:08 am</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-14T02:08:36+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/" itemprop="url">iOS线程安全-锁</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h3>“Object－C”语言</h3>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h3>“Object－C”语言</h3>
 
 <p>1.<strong>使用 @synchronized 类实现锁</strong></p>
 
@@ -2368,30 +2426,38 @@ cell的height动态变化时计算方式不对 &hellip;">
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-14T01:46:57+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:46 am</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-14T01:46:57+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/" itemprop="url">SQLite_教程(七)</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h4>SQLite Order By</h4>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h4>SQLite Order By</h4>
 
 <p>SQLite 的 <strong>ORDER BY</strong> 子句是用来基于一个或多个列按升序或降序顺序排列数据。</p>
 
@@ -2706,30 +2772,38 @@ James
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-14T01:41:01+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:41 am</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-14T01:41:01+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/" itemprop="url">SQLite_教程(六)</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h4>SQLite Delete 语句</h4>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h4>SQLite Delete 语句</h4>
 
 <p>SQLite 的 <strong>DELETE</strong> 查询用于删除表中已有的记录。可以使用带有 WHERE 子句的 DELETE 查询来删除选定行，否则所有的记录都会被删除。</p>
 
@@ -3125,30 +3199,38 @@ LIMIT [no of rows] OFFSET [row num]
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-14T01:35:50+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>1:35 am</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-14T01:35:50+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/" itemprop="url">SQLite_教程(五)</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h4>SQL表达式</h4>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h4>SQL表达式</h4>
 
 <p>表达式是一个或多个值、运算符和计算值的SQL函数的组合。</p>
 
@@ -3487,30 +3569,38 @@ WHERE [condition];
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-13T23:37:18+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:37 pm</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-13T23:37:18+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/13/sqlite-jiao-cheng-si/" itemprop="url">SQLite_教程(四)</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h3>SQLite 运算符</h3>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h3>SQLite 运算符</h3>
 
 <p><strong>SQLite 运算符是什么？</strong></p>
 
@@ -4041,30 +4131,38 @@ sqlite&gt;  select  (60 &gt;&gt; 2);
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-13T23:22:37+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:22 pm</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-13T23:22:37+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/13/sqlite-jiao-cheng-san/" itemprop="url">SQLite_教程(三)</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h4>SQLite Insert 语句</h4>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h4>SQLite Insert 语句</h4>
 
 <p>SQLite 的 INSERT INTO 语句用于向数据库的某个表中添加新的数据行。</p>
 
@@ -4280,30 +4378,38 @@ COMPANY
   
 
 
-    </article>
-  
-  
-    <article>
+        </article>
       
-  <header>
+      
+        <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          
+  <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a></h1>
-    
-    
-      <p class="meta">
+      <p class="meta text-muted text-uppercase">
         
 
 
 
 
-<time class='entry-date' datetime='2016-01-13T23:21:34+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>11:21 pm</span></time>
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2016-01-13T23:21:34+08:00"  data-updated="true" itemprop="datePublished dateCreated">ordinal</time>
         
       </p>
+    
+    
+      <h2 class="entry-title" itemprop="name headline"><a href="/blog/2016/01/13/sqlite-jiao-cheng-er/" itemprop="url">SQLite_教程(二)</a></h2>
     
   </header>
 
 
-  <div class="entry-content"><h4>SQLite 数据类型</h4>
+  <div class="entry-content clearfix" itemprop="articleBody description"><h4>SQLite 数据类型</h4>
 
 <p>SQLite 数据类型是一个用来指定任何对象的数据类型的属性。SQLite 中的每一列，每个变量和表达式都有相关的数据类型。</p>
 
@@ -4703,72 +4809,58 @@ sqlite&gt;
   
 
 
-    </article>
+        </article>
+      
+    </div>
+
+    <ul class="pager">
+      
+        <li class="previous"><a href="/posts/2">&larr;&nbsp;Older</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+        <li class="next disabled"><a href="#">Newer&nbsp;&rarr;</a></li>
+      
+    </ul>
+  </div>
+
   
-  <div class="pagination">
+    <aside class="sidebar col-md-3">
+      
+        Included file 'asides/category_list.html' not found in _includes directory<section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
     
-      <a class="prev" href="/posts/2">&larr; Older</a>
+    <a class="list-group-item " href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
     
-    <a href="/blog/archives">Blog Archives</a>
+    <a class="list-group-item " href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
+    
+    <a class="list-group-item " href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
     
   </div>
-</div>
-<aside class="sidebar">
-  
-    Included file 'asides/category_list.html' not found in _includes directory<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/01/18/tableviewxing-neng-you-hua/">TableView性能优化</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/16/ios-animation-swift-ban/">iOS Animation Swift 版</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/15/nsurlsession/">NSURLSession 教程</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/14/iosxian-cheng-an-quan-suo/">iOS线程安全-锁</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/14/sqlite-jiao-cheng-qi/">SQLite_教程(七)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/14/sqlite-jiao-cheng-liu/">SQLite_教程(六)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/14/sqlite-jiao-cheng-wu/">SQLite_教程(五)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/13/sqlite-jiao-cheng-si/">SQLite_教程(四)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/13/sqlite-jiao-cheng-san/">SQLite_教程(三)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/13/sqlite-jiao-cheng-er/">SQLite_教程(二)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/">SQLite_教程(一)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/">CocoaPods使用指南</a>
-      </li>
-    
-  </ul>
 </section>
+
 
 
 
@@ -4778,18 +4870,26 @@ sqlite&gt;
   <p>A little something about me.</p>
 </section>
 Included file 'custom/asides/recent_comments.html' not found in _includes directory
+      
+    </aside>
   
-</aside>
+</div>
 
+        </div>
+      </div>
     </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - 王若风 -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2016 - 王若风<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
 </p>
 
+</div>
 </footer>
-  
+    
 
 
 
@@ -4808,8 +4908,9 @@ Included file 'custom/asides/recent_comments.html' not found in _includes direct
   </script>
 
 
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr.js"></script>
 
 
-
-</body>
+  </body>
 </html>
