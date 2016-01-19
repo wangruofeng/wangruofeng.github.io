@@ -287,9 +287,31 @@ An error occurred while installing rake (10.4.2), and Bundler cannot continue.
 
 <h4>安装<code>octostrap3</code>主题（可选）</h4>
 
-<pre><code>$ git clone https://github.com/kAworu/octostrap3.git .themes/octostrap3
+<pre><code>$ cd octopress
+$ git clone https://github.com/kAworu/octostrap3.git .themes/octostrap3
 $ rake "install[octostrap3]"
+$ rake generate
 </code></pre>
+
+<p>会提示以下信息</p>
+
+<pre><code>A theme is already installed, proceeding will overwrite existing files. Are you sure? [y/n]
+</code></pre>
+
+<p>输入<code>y</code>继续，然后开始安装。。。</p>
+
+<pre><code>## Copying octostrap3 theme into ./source and ./sass
+mkdir -p source
+cp -r .themes/octostrap3/source/. source
+mkdir -p sass
+cp -r .themes/octostrap3/sass/. sass
+mkdir -p source/_posts
+mkdir -p public
+</code></pre>
+
+<p>显示上面的内容完成后没有错误，就安装主题完成</p>
+
+<hr />
 
 <p>可以看出，现在显示得都是预设值，并不是我们想要的，所以需要修改Octopress目录下的_config.yml文件。</p>
 
@@ -460,7 +482,7 @@ fatal: Could not read from remote repository.
 </code></pre>
 
 <p>说明需要提供SSH keys 才有权限push到远程仓库
-解决方案<a href="https://help.github.com/articles/generating-ssh-keys/">Generating SSH keys</a></p>
+解决方案:<a href="https://help.github.com/articles/generating-ssh-keys/">Generating SSH keys</a></p>
 
 <p>参考资料：</p>
 
