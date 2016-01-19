@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Memory_management | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/memory-management/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/memory-management/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[__autoreleasing的理解]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/autoreleasingde-li-jie/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/autoreleasingde-li-jie/"/>
     <updated>2016-01-13T04:27:10+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/autoreleasingde-li-jie</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/autoreleasingde-li-jie</id>
     <content type="html"><![CDATA[<h3>__autoreleasing 修饰符</h3>
 
 <p>将对象赋值给附有__autoreleasing 修饰符的变量等同于ARC 无效时调用对象的autorelease方法。我们通过以下源代码来看一下</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Favorite | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/favorite/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/favorite/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[TableView性能优化]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
     <updated>2016-01-18T22:00:04+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/18/tableviewxing-neng-you-hua</id>
     <content type="html"><![CDATA[<blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
 
 <h4>TableView为什么会卡？</h4>
@@ -88,9 +88,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS里程碑事件]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/iosli-cheng-bei-shi-jian/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/iosli-cheng-bei-shi-jian/"/>
     <updated>2016-01-13T04:46:48+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/iosli-cheng-bei-shi-jian</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/iosli-cheng-bei-shi-jian</id>
     <content type="html"><![CDATA[<blockquote><p>记录iOS各种重要里程碑事件</p></blockquote>
 
 <h2>私有成员变量的实现</h2>
@@ -400,9 +400,9 @@
   
   <entry>
     <title type="html"><![CDATA[Blog网站备忘录]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/blogwang-zhan-bei-wang-lu/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/blogwang-zhan-bei-wang-lu/"/>
     <updated>2016-01-13T04:29:59+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/blogwang-zhan-bei-wang-lu</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/blogwang-zhan-bei-wang-lu</id>
     <content type="html"><![CDATA[<blockquote><p>用于收藏不错的个人或者公司Blog地址</p></blockquote>
 
 <h2>幽幽传送门</h2>

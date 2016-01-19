@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Skill | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/skill/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/skill/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[CocoaPods使用指南]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
     <updated>2016-01-13T05:51:18+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
     <content type="html"><![CDATA[<p>CocoaPods是iOS最常用的第三方类库管理工具，绝大部分有名的开源类库
 支持CocoaPods.
 CocoaPods是用Ruby实现的，要使用它首先需要有Ruby的环境。幸亏是
@@ -112,9 +112,9 @@ pod ‘AFNetworking’, ‘~&gt;0′     //高于0的版本，写这个限制和
   
   <entry>
     <title type="html"><![CDATA[iOS中的触摸事件和手势处理]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/"/>
     <updated>2016-01-13T05:05:09+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li</id>
     <content type="html"><![CDATA[<h3>iOS触摸事件分类</h3>
 
 <ul>
@@ -440,9 +440,9 @@ NS_ENUM(NSInteger, UIEventSubtype) {
   
   <entry>
     <title type="html"><![CDATA[优雅处理UIImage图片旋转]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/"/>
     <updated>2016-01-13T04:38:49+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan</id>
     <content type="html"><![CDATA[<h2>UIImag构造方式</h2>
 
 <p>UIImag构造方式大致有4种方式
@@ -708,9 +708,9 @@ NS_ENUM(NSInteger, UIEventSubtype) {
   
   <entry>
     <title type="html"><![CDATA[iOS7 tintColor详解]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/12/ios7-tintcolorxiang-jie/"/>
     <updated>2016-01-12T04:41:39+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/12/ios7-tintcolorxiang-jie</id>
     <content type="html"><![CDATA[<h3>为什么需要出现tintColor ？</h3>
 
 <blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
@@ -824,9 +824,9 @@ image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
   
   <entry>
     <title type="html"><![CDATA[MacOSX10.11上用Octopress和GitHub搭建个人博客]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke/"/>
     <updated>2016-01-12T04:30:38+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/12/macosx10-dot-11shang-yong-octopresshe-githubda-jian-ge-ren-bo-ke</id>
     <content type="html"><![CDATA[<p>序言经过一晚上的折腾，终于从<code>Hexo</code>成功转入<code>Octopress</code>,那么本文就来细说一下如何使用 <code>Octopress</code>+<code>GitHub Pages</code>搭建个人博客</p>
 
 <h3>为什么选择 Octopress &amp; Github Pages?</h3>

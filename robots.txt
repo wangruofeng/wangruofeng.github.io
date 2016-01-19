@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://wangruofeng.github.io/sitemap.xml 
+Sitemap: http://blog.wangruofeng007.com/sitemap.xml 

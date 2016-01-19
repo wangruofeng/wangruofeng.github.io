@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Ios | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/ios/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[TableView性能优化]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
     <updated>2016-01-18T22:00:04+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/18/tableviewxing-neng-you-hua</id>
     <content type="html"><![CDATA[<blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
 
 <h4>TableView为什么会卡？</h4>
@@ -88,9 +88,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS Animation Swift 版]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/16/ios-animation-swift-ban/"/>
     <updated>2016-01-16T19:34:06+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/16/ios-animation-swift-ban</id>
     <content type="html"><![CDATA[<p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
 
 <h3>简介</h3>
@@ -301,9 +301,9 @@ class func transitionFromView(_ fromView: UIView, toView toView: UIView, duratio
   
   <entry>
     <title type="html"><![CDATA[NSURLSession 教程]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/15/nsurlsession/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/15/nsurlsession/"/>
     <updated>2016-01-15T18:15:01+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/15/nsurlsession</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/15/nsurlsession</id>
     <content type="html"><![CDATA[<p>本文翻译自 <a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">http://www.raywenderlich.com/51127/nsurlsession-tutorial</a></p>
 
 <p>原作者： Charlie Fulton</p>
@@ -1411,9 +1411,9 @@ NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:url
   
   <entry>
     <title type="html"><![CDATA[iOS线程安全-锁]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
     <updated>2016-01-14T02:08:36+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
     <content type="html"><![CDATA[<h3>“Object－C”语言</h3>
 
 <p>1.<strong>使用 @synchronized 类实现锁</strong></p>
@@ -1608,9 +1608,9 @@ Person *person = [[Person alloc] init];
   
   <entry>
     <title type="html"><![CDATA[CocoaPods使用指南]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
     <updated>2016-01-13T05:51:18+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
     <content type="html"><![CDATA[<p>CocoaPods是iOS最常用的第三方类库管理工具，绝大部分有名的开源类库
 支持CocoaPods.
 CocoaPods是用Ruby实现的，要使用它首先需要有Ruby的环境。幸亏是

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Multithreading | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/multithreading/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/multithreading/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS线程安全-锁]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
     <updated>2016-01-14T02:08:36+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
     <content type="html"><![CDATA[<h3>“Object－C”语言</h3>
 
 <p>1.<strong>使用 @synchronized 类实现锁</strong></p>

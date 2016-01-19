@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[TableView性能优化]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/18/tableviewxing-neng-you-hua/"/>
     <updated>2016-01-18T22:00:04+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/18/tableviewxing-neng-you-hua</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/18/tableviewxing-neng-you-hua</id>
     <content type="html"><![CDATA[<blockquote><p>此文整理一下TableView优化相关的方案和思路。</p></blockquote>
 
 <h4>TableView为什么会卡？</h4>
@@ -95,9 +95,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS Animation Swift 版]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/16/ios-animation-swift-ban/"/>
     <updated>2016-01-16T19:34:06+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/16/ios-animation-swift-ban</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/16/ios-animation-swift-ban</id>
     <content type="html"><![CDATA[<p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation" /></p>
 
 <h3>简介</h3>
@@ -336,9 +336,9 @@
   
   <entry>
     <title type="html"><![CDATA[NSURLSession 教程]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/15/nsurlsession/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/15/nsurlsession/"/>
     <updated>2016-01-15T18:15:01+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/15/nsurlsession</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/15/nsurlsession</id>
     <content type="html"><![CDATA[<p>本文翻译自 <a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">http://www.raywenderlich.com/51127/nsurlsession-tutorial</a></p>
 
 <p>原作者： Charlie Fulton</p>
@@ -1899,9 +1899,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS线程安全-锁]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/14/iosxian-cheng-an-quan-suo/"/>
     <updated>2016-01-14T02:08:36+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/14/iosxian-cheng-an-quan-suo</id>
     <content type="html"><![CDATA[<h3>“Object－C”语言</h3>
 
 <p>1.<strong>使用 @synchronized 类实现锁</strong></p>
@@ -2225,9 +2225,9 @@
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(七)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-qi/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/14/sqlite-jiao-cheng-qi/"/>
     <updated>2016-01-14T01:46:57+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-qi</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/14/sqlite-jiao-cheng-qi</id>
     <content type="html"><![CDATA[<h4>SQLite Order By</h4>
 
 <p>SQLite 的 <strong>ORDER BY</strong> 子句是用来基于一个或多个列按升序或降序顺序排列数据。</p>
@@ -2543,9 +2543,9 @@ James
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(六)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-liu/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/14/sqlite-jiao-cheng-liu/"/>
     <updated>2016-01-14T01:41:01+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-liu</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/14/sqlite-jiao-cheng-liu</id>
     <content type="html"><![CDATA[<h4>SQLite Delete 语句</h4>
 
 <p>SQLite 的 <strong>DELETE</strong> 查询用于删除表中已有的记录。可以使用带有 WHERE 子句的 DELETE 查询来删除选定行，否则所有的记录都会被删除。</p>
@@ -2942,9 +2942,9 @@ LIMIT [no of rows] OFFSET [row num]
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(五)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-wu/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/14/sqlite-jiao-cheng-wu/"/>
     <updated>2016-01-14T01:35:50+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/14/sqlite-jiao-cheng-wu</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/14/sqlite-jiao-cheng-wu</id>
     <content type="html"><![CDATA[<h4>SQL表达式</h4>
 
 <p>表达式是一个或多个值、运算符和计算值的SQL函数的组合。</p>
@@ -3284,9 +3284,9 @@ WHERE [condition];
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(四)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-si/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-si/"/>
     <updated>2016-01-13T23:37:18+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-si</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-si</id>
     <content type="html"><![CDATA[<h3>SQLite 运算符</h3>
 
 <p><strong>SQLite 运算符是什么？</strong></p>
@@ -3818,9 +3818,9 @@ sqlite&gt;  select  (60 &gt;&gt; 2);
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(三)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-san/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-san/"/>
     <updated>2016-01-13T23:22:37+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-san</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-san</id>
     <content type="html"><![CDATA[<h4>SQLite Insert 语句</h4>
 
 <p>SQLite 的 INSERT INTO 语句用于向数据库的某个表中添加新的数据行。</p>
@@ -4037,9 +4037,9 @@ COMPANY
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(二)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-er/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-er/"/>
     <updated>2016-01-13T23:21:34+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-er</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-er</id>
     <content type="html"><![CDATA[<h4>SQLite 数据类型</h4>
 
 <p>SQLite 数据类型是一个用来指定任何对象的数据类型的属性。SQLite 中的每一列，每个变量和表达式都有相关的数据类型。</p>
@@ -4440,9 +4440,9 @@ sqlite&gt;
   
   <entry>
     <title type="html"><![CDATA[SQLite_教程(一)]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-%5B%3F%5D/"/>
     <updated>2016-01-13T23:18:15+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/sqlite-jiao-cheng-[?]</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/sqlite-jiao-cheng-[?]</id>
     <content type="html"><![CDATA[<h4>简介：</h4>
 
 <p>SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。SQLite 源代码不受版权限制。
@@ -4857,9 +4857,9 @@ WHERE  CONDITION;
   
   <entry>
     <title type="html"><![CDATA[CocoaPods使用指南]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/cocoapodsshi-yong-zhi-nan/"/>
     <updated>2016-01-13T05:51:18+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/cocoapodsshi-yong-zhi-nan</id>
     <content type="html"><![CDATA[<p>CocoaPods是iOS最常用的第三方类库管理工具，绝大部分有名的开源类库
 支持CocoaPods.
 CocoaPods是用Ruby实现的，要使用它首先需要有Ruby的环境。幸亏是
@@ -4998,9 +4998,9 @@ OS X系统默认已经可以运行Ruby了，我么只需执行以下命令：</p
   
   <entry>
     <title type="html"><![CDATA[GET&amp;POST]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/get-and-post/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/get-and-post/"/>
     <updated>2016-01-13T05:48:10+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/get-and-post</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/get-and-post</id>
     <content type="html"><![CDATA[<blockquote><p>GET和POST是两种最常用的与服务器进行交互的HTTP方法 .</p></blockquote>
 
 <h3>GET</h3>
@@ -5098,9 +5098,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[HTTP POST and Multipart Forms]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/http-post-and-multipart-forms/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/http-post-and-multipart-forms/"/>
     <updated>2016-01-13T05:45:41+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/http-post-and-multipart-forms</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/http-post-and-multipart-forms</id>
     <content type="html"><![CDATA[<h4><code>HTTP POST</code>使用注意事项：</h4>
 
 <ul>
@@ -5245,9 +5245,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[工厂模式详解]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/gong-han-mo-shi-xiang-jie/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/gong-han-mo-shi-xiang-jie/"/>
     <updated>2016-01-13T05:39:21+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/gong-han-mo-shi-xiang-jie</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/gong-han-mo-shi-xiang-jie</id>
     <content type="html"><![CDATA[<h3>3种工厂模式</h3>
 
 <p>概述：工厂模式是个系列，分为简单工厂模式， 工厂方法模式， 抽象工厂模式，这三种模式也非常常用。这些模式最最经典的就例子就是设计计算器。
@@ -5830,9 +5830,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[多线程之NSThread]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/"/>
     <updated>2016-01-13T05:36:48+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsthread</id>
     <content type="html"><![CDATA[<h2>本文目录</h2>
 
 <ul>
@@ -6017,9 +6017,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[NSOperation and NSOperationQueue Tutorial in Swift]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
     <updated>2016-01-13T05:18:36+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
     <content type="html"><![CDATA[<ul>
 <li>译自 Written by <a href="http://www.raywenderlich.com/u/jrturton"> Richard Turton</a> — on October 7, 2014</li>
 <li>原文链接：<a href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift</a></li>
@@ -6928,9 +6928,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[多线程之NSOperation]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/"/>
     <updated>2016-01-13T05:14:59+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation</id>
     <content type="html"><![CDATA[<h3>本文目录</h3>
 
 <ul>
@@ -7301,9 +7301,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[iOS中的触摸事件和手势处理]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/"/>
     <updated>2016-01-13T05:05:09+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li</id>
     <content type="html"><![CDATA[<h3>iOS触摸事件分类</h3>
 
 <ul>
@@ -7674,9 +7674,9 @@ UITouchPhaseCancelled（触摸取消）*/
   
   <entry>
     <title type="html"><![CDATA[iOS里程碑事件]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/iosli-cheng-bei-shi-jian/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/iosli-cheng-bei-shi-jian/"/>
     <updated>2016-01-13T04:46:48+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/iosli-cheng-bei-shi-jian</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/iosli-cheng-bei-shi-jian</id>
     <content type="html"><![CDATA[<blockquote><p>记录iOS各种重要里程碑事件</p></blockquote>
 
 <h2>私有成员变量的实现</h2>

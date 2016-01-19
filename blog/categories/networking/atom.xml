@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Networking | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/networking/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/networking/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[NSURLSession 教程]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/15/nsurlsession/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/15/nsurlsession/"/>
     <updated>2016-01-15T18:15:01+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/15/nsurlsession</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/15/nsurlsession</id>
     <content type="html"><![CDATA[<p>本文翻译自 <a href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">http://www.raywenderlich.com/51127/nsurlsession-tutorial</a></p>
 
 <p>原作者： Charlie Fulton</p>
@@ -1125,9 +1125,9 @@ NSURLSessionDataTask *dataTask = [_session dataTaskWithURL:url
   
   <entry>
     <title type="html"><![CDATA[GET&amp;POST]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/get-and-post/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/get-and-post/"/>
     <updated>2016-01-13T05:48:10+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/get-and-post</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/get-and-post</id>
     <content type="html"><![CDATA[<blockquote><p>GET和POST是两种最常用的与服务器进行交互的HTTP方法 .</p></blockquote>
 
 <h3>GET</h3>
@@ -1216,9 +1216,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[HTTP POST and Multipart Forms]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/http-post-and-multipart-forms/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/http-post-and-multipart-forms/"/>
     <updated>2016-01-13T05:45:41+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/http-post-and-multipart-forms</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/http-post-and-multipart-forms</id>
     <content type="html"><![CDATA[<h4><code>HTTP POST</code>使用注意事项：</h4>
 
 <ul>
@@ -1324,9 +1324,9 @@ sendAsynchronousRequest : queue : completionHandler :
   
   <entry>
     <title type="html"><![CDATA[多线程之NSThread]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsthread/"/>
     <updated>2016-01-13T05:36:48+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsthread</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsthread</id>
     <content type="html"><![CDATA[<h2>本文目录</h2>
 
 <ul>
@@ -1473,9 +1473,9 @@ NSThread *thread = [[[NSThread alloc] initWithTarget:self selector:@selector(run
   
   <entry>
     <title type="html"><![CDATA[NSOperation and NSOperationQueue Tutorial in Swift]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
     <updated>2016-01-13T05:18:36+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
     <content type="html"><![CDATA[<ul>
 <li>译自 Written by <a href="http://www.raywenderlich.com/u/jrturton"> Richard Turton</a> — on October 7, 2014</li>
 <li>原文链接：<a href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift</a></li>

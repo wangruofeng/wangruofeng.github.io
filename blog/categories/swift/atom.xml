@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Swift | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/swift/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/swift/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[NSOperation and NSOperationQueue Tutorial in Swift]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift/"/>
     <updated>2016-01-13T05:18:36+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/nsoperation-and-nsoperationqueue-tutorial-in-swift</id>
     <content type="html"><![CDATA[<ul>
 <li>译自 Written by <a href="http://www.raywenderlich.com/u/jrturton"> Richard Turton</a> — on October 7, 2014</li>
 <li>原文链接：<a href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift</a></li>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Design_patterns | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/design-patterns/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/design-patterns/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[工厂模式详解]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/gong-han-mo-shi-xiang-jie/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/gong-han-mo-shi-xiang-jie/"/>
     <updated>2016-01-13T05:39:21+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/gong-han-mo-shi-xiang-jie</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/gong-han-mo-shi-xiang-jie</id>
     <content type="html"><![CDATA[<h3>3种工厂模式</h3>
 
 <p>概述：工厂模式是个系列，分为简单工厂模式， 工厂方法模式， 抽象工厂模式，这三种模式也非常常用。这些模式最最经典的就例子就是设计计算器。

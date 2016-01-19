@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Objective-c | 王若风的技术博客]]></title>
-  <link href="http://wangruofeng.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
-  <link href="http://wangruofeng.github.io/"/>
-  <updated>2016-01-20T00:52:48+08:00</updated>
-  <id>http://wangruofeng.github.io/</id>
+  <link href="http://blog.wangruofeng007.com/blog/categories/objective-c/atom.xml" rel="self"/>
+  <link href="http://blog.wangruofeng007.com/"/>
+  <updated>2016-01-20T00:56:27+08:00</updated>
+  <id>http://blog.wangruofeng007.com/</id>
   <author>
     <name><![CDATA[王若风]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[多线程之NSOperation]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation/"/>
     <updated>2016-01-13T05:14:59+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/duo-xian-cheng-zhi-nsoperation</id>
     <content type="html"><![CDATA[<h3>本文目录</h3>
 
 <ul>
@@ -282,9 +282,9 @@
   
   <entry>
     <title type="html"><![CDATA[优雅处理UIImage图片旋转]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan/"/>
     <updated>2016-01-13T04:38:49+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/13/you-ya-chu-li-uiimagetu-pian-xuan-zhuan</id>
     <content type="html"><![CDATA[<h2>UIImag构造方式</h2>
 
 <p>UIImag构造方式大致有4种方式
@@ -550,9 +550,9 @@
   
   <entry>
     <title type="html"><![CDATA[RunLoop详解]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/12/runloopxiang-jie/"/>
     <updated>2016-01-12T04:44:06+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/12/runloopxiang-jie</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/12/runloopxiang-jie</id>
     <content type="html"><![CDATA[<h2>NSRunLoop是什么？</h2>
 
 <p>在Cocoa中，每个线程(<code>NSThread</code>)对象中内部都有一个run loop（<code>NSRunLoop</code>）对象用来循环处理输入事件.</p>
@@ -724,9 +724,9 @@ self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self
   
   <entry>
     <title type="html"><![CDATA[iOS7 tintColor详解]]></title>
-    <link href="http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie/"/>
+    <link href="http://blog.wangruofeng007.com/blog/2016/01/12/ios7-tintcolorxiang-jie/"/>
     <updated>2016-01-12T04:41:39+08:00</updated>
-    <id>http://wangruofeng.github.io/blog/2016/01/12/ios7-tintcolorxiang-jie</id>
+    <id>http://blog.wangruofeng007.com/blog/2016/01/12/ios7-tintcolorxiang-jie</id>
     <content type="html"><![CDATA[<h3>为什么需要出现tintColor ？</h3>
 
 <blockquote><p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观
