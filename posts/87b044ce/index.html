@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="效率,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="VSCode Snippets 使用手册前言当我们为了减少模板代码，我们第一个很可能想到使用Code Snippets,很多IDE和文件编辑器已经给我们提供了一个预装的代码片段，当预装的代码片段不能瞒着我们的需求，我们可能会自己定制一些自己的专有代码代码片段，下面就为大家介绍如何在VSCode定制自己的代码片段以及一些小技巧。 如何添加方法一：通过控制台 打开VSCode,按下快捷键组合shift">
+<meta name="keywords" content="效率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode Snippets 使用手册">
+<meta property="og:url" content="https://blog.wangruofeng007.com/posts/87b044ce/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="VSCode Snippets 使用手册前言当我们为了减少模板代码，我们第一个很可能想到使用Code Snippets,很多IDE和文件编辑器已经给我们提供了一个预装的代码片段，当预装的代码片段不能瞒着我们的需求，我们可能会自己定制一些自己的专有代码代码片段，下面就为大家介绍如何在VSCode定制自己的代码片段以及一些小技巧。 如何添加方法一：通过控制台 打开VSCode,按下快捷键组合shift">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/configure_user_snippets.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/new_snippets.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/new_snippet_with_name.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/snippets_sample.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/todo_snippets.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/todo_snippets_auto_tip2.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/preffer_setting_code_snippets.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/todo_snippets_auto_tip.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/todo_snippets_auto_tip2.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/demo_snippets.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/snippets_variables.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/snippets_copywright.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/snippets_copywright_dart.png">
+<meta property="og:updated_time" content="2020-06-13T10:04:15.633Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VSCode Snippets 使用手册">
+<meta name="twitter:description" content="VSCode Snippets 使用手册前言当我们为了减少模板代码，我们第一个很可能想到使用Code Snippets,很多IDE和文件编辑器已经给我们提供了一个预装的代码片段，当预装的代码片段不能瞒着我们的需求，我们可能会自己定制一些自己的专有代码代码片段，下面就为大家介绍如何在VSCode定制自己的代码片段以及一些小技巧。 如何添加方法一：通过控制台 打开VSCode,按下快捷键组合shift">
+<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/vscode_snippets/configure_user_snippets.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.wangruofeng007.com/posts/87b044ce/">
+
+
+
+
+
+  <title>VSCode Snippets 使用手册 | 王若风的技术博客</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-72379345-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王若风的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">世界尽头の冷酷仙境</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/87b044ce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">VSCode Snippets 使用手册</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-13T16:09:53+08:00">
+                2020-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index">
+                    <span itemprop="name">dart</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/posts/87b044ce/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/87b044ce/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="VSCode-Snippets-使用手册"><a href="#VSCode-Snippets-使用手册" class="headerlink" title="VSCode Snippets 使用手册"></a>VSCode Snippets 使用手册</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当我们为了减少模板代码，我们第一个很可能想到使用<code>Code Snippets</code>,很多IDE和文件编辑器已经给我们提供了一个预装的代码片段，当预装的代码片段不能瞒着我们的需求，我们可能会自己定制一些自己的专有代码代码片段，下面就为大家介绍如何在VSCode定制自己的代码片段以及一些小技巧。</p>
+<h2 id="如何添加"><a href="#如何添加" class="headerlink" title="如何添加"></a>如何添加</h2><h3 id="方法一：通过控制台"><a href="#方法一：通过控制台" class="headerlink" title="方法一：通过控制台"></a>方法一：通过控制台</h3><ol>
+<li><p>打开VSCode,按下快捷键组合<code>shift+command+p</code>呼出控制台</p>
+</li>
+<li><p>在控制台输入： <code>Configure User Snippets</code>选择<img src="/images/vscode_snippets/configure_user_snippets.jpg" alt="configure_user_snippets"></p>
+</li>
+<li><p>输入<code>new</code>，找到新建代码片段命令，这里可以选择创建全局的或者为某个项目专属的代码片段,这里我们选择<code>New Global Snippets file...</code>。<img src="/images/vscode_snippets/new_snippets.jpg" alt="new_snippets"></p>
+</li>
+<li><p>给片段起一个易于理解的命名，回车<img src="/images/vscode_snippets/new_snippet_with_name.png" alt="new_snippet_with_name"></p>
+</li>
+<li><p>编辑代码片段的内容<img src="/images/vscode_snippets/snippets_sample.png" alt="snippets_sample"></p>
+<p>例如我们创建一个自己名字的TODO, 类似这样的风格：<code>// TODO(ruofeng): some comment</code></p>
+<p>最终版本如下：<img src="/images/vscode_snippets/todo_snippets.png" alt="todo_snippets"></p>
+<p>效果图</p>
+<p><img src="/images/vscode_snippets/todo_snippets_auto_tip2.png" alt="todo_snippets_auto_tip2"></p>
+</li>
+</ol>
+<h3 id="方法二：通过首选项"><a href="#方法二：通过首选项" class="headerlink" title="方法二：通过首选项"></a>方法二：通过首选项</h3><ol>
+<li>Code -&gt; Preferences-&gt;User Snippets</li>
+</ol>
+<p><img src="/images/vscode_snippets/preffer_setting_code_snippets.jpg" alt="preffer_setting_code_snippets"></p>
+<ol start="2">
+<li>后面的步骤和第一种的4，5一样，这里不再赘述</li>
+</ol>
+<h2 id="使用测试"><a href="#使用测试" class="headerlink" title="使用测试"></a>使用测试</h2><p>新建一个<code>.dart</code>结尾的文件,这里就叫<code>test.dart</code> ,输入todo，出现了我们刚才定义的代码片段</p>
+<p><img src="/images/vscode_snippets/todo_snippets_auto_tip.png" alt="todo_snippets_auto_tip"></p>
+<p>选择todo,出现我们刚才定义的代码片段</p>
+<p><img src="/images/vscode_snippets/todo_snippets_auto_tip2.png" alt="todo_snippets_auto_tip2"></p>
+<h2 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h2><ol>
+<li><p>变量， 格式 <code>$+num</code>, 例如： </p>
+<p><code>&quot;console.log(&#39;$1&#39;);&quot;</code></p>
+</li>
+<li><p>变量占位描述,格式<code>${num:desc}</code>,例如：</p>
+<p><code>&quot;${1:label}, ${2:another};&quot;</code></p>
+</li>
+<li><p>缩进，<code>\t</code>,注意缩进的对称性</p>
+<p><img src="/images/vscode_snippets/demo_snippets.png" alt="demo_snippets"></p>
+</li>
+</ol>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote>
+<p> 为了跟进环境动态定制一些片段，我们可以使用系统提供的一些环境变量，<a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables" target="_blank" rel="noopener">官方介绍</a></p>
+</blockquote>
+<p><img src="/images/vscode_snippets/snippets_variables.png" alt="snippets_variables"></p>
+<p>示例：</p>
+<p>我们来定义一个Xcode版本的OC默认风格代码片段</p>
+<p><img src="/images/vscode_snippets/snippets_copywright.png" alt="snippets_copywright"></p>
+<p>新建一个test.dart文件，在里面输入copywright，选择刚才我们的添加的代码片段，效果如下</p>
+<p><img src="/images/vscode_snippets/snippets_copywright_dart.png" alt="snippets_copywright_dart"></p>
+<h3 id="变量转换"><a href="#变量转换" class="headerlink" title="变量转换"></a>变量转换</h3><p>语法说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">any         ::= tabstop | placeholder | choice | variable | text</span><br><span class="line">tabstop     ::= &apos;$&apos; int</span><br><span class="line">                | &apos;$&#123;&apos; int &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; int  transform &apos;&#125;&apos;</span><br><span class="line">placeholder ::= &apos;$&#123;&apos; int &apos;:&apos; any &apos;&#125;&apos;</span><br><span class="line">choice      ::= &apos;$&#123;&apos; int &apos;|&apos; text (&apos;,&apos; text)* &apos;|&#125;&apos;</span><br><span class="line">variable    ::= &apos;$&apos; var | &apos;$&#123;&apos; var &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; var &apos;:&apos; any &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; var transform &apos;&#125;&apos;</span><br><span class="line">transform   ::= &apos;/&apos; regex &apos;/&apos; (format | text)+ &apos;/&apos; options</span><br><span class="line">format      ::= &apos;$&apos; int | &apos;$&#123;&apos; int &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; int &apos;:&apos; &apos;/upcase&apos; | &apos;/downcase&apos; | &apos;/capitalize&apos; &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; int &apos;:+&apos; if &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; int &apos;:?&apos; if &apos;:&apos; else &apos;&#125;&apos;</span><br><span class="line">                | &apos;$&#123;&apos; int &apos;:-&apos; else &apos;&#125;&apos; | &apos;$&#123;&apos; int &apos;:&apos; else &apos;&#125;&apos;</span><br><span class="line">regex       ::= JavaScript Regular Expression value (ctor-string)</span><br><span class="line">options     ::= JavaScript Regular Expression option (ctor-options)</span><br><span class="line">var         ::= [_a-zA-Z] [_a-zA-Z0-9]*</span><br><span class="line">int         ::= [0-9]+</span><br><span class="line">text        ::= .*</span><br></pre></td></tr></table></figure>
+<p>下面将实现读取文件名称截取掉文件的后缀效果： <code>foo.text</code> ==&gt; <code>foo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$&#123;TM_FILENAME/(.*)\\..+$/$1/&#125;</span><br><span class="line">  |           |         |  |</span><br><span class="line">  |           |         |  |-&gt; no options</span><br><span class="line">  |           |         |</span><br><span class="line">  |           |         |-&gt; references the contents of the first</span><br><span class="line">  |           |             capture group</span><br><span class="line">  |           |</span><br><span class="line">  |           |-&gt; regex to capture everything before</span><br><span class="line">  |               the final `.suffix`</span><br><span class="line">  |</span><br><span class="line">  |-&gt; resolves to the filename</span><br></pre></td></tr></table></figure>
+<p>Transform Example：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Example</th>
+<th style="text-align:left">Output</th>
+<th style="text-align:left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&quot;${TM_FILENAME/[\\.]/_/}&quot;</code></td>
+<td style="text-align:left"><code>example-123_456-TEST.js</code></td>
+<td style="text-align:left">Replace the first <code>.</code> with <code>_</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;${TM_FILENAME/[\\.-]/_/g}&quot;</code></td>
+<td style="text-align:left"><code>example_123_456_TEST_js</code></td>
+<td style="text-align:left">Replace each <code>.</code> or <code>-</code> with <code>_</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;${TM_FILENAME/(.*)/${1:/upcase}/}&quot;</code></td>
+<td style="text-align:left"><code>EXAMPLE-123.456-TEST.JS</code></td>
+<td style="text-align:left">Change to all uppercase</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;${TM_FILENAME/[^0-9^a-z]//gi}&quot;</code></td>
+<td style="text-align:left"><code>example123456TESTjs</code></td>
+<td style="text-align:left">Remove non-alphanumeric characters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Build-value-代码片段插件bvtf-的实现"><a href="#Build-value-代码片段插件bvtf-的实现" class="headerlink" title="Build value 代码片段插件bvtf 的实现"></a>Build value 代码片段插件<code>bvtf</code> 的实现</h3><p><code>bvtf</code>，是上面变量和变量转换的综合应用，实现了下面功能</p>
+<ol>
+<li>自动识别文件名称</li>
+<li>将文件名称去掉后缀，转换为大写驼峰法（pascalcase）</li>
+</ol>
+<p>源码获取步骤：</p>
+<ol>
+<li><p>去github官网下载它的源码，<a href="https://github.com/GiancarloCode/built-value-snippets" target="_blank" rel="noopener">built-value-snippets</a></p>
+</li>
+<li><p>在vscode-&gt;snippets-&gt;snippets.json 找到对应的源码，如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"Built Value Type File"</span>: &#123;</span><br><span class="line">        <span class="attr">"prefix"</span>: <span class="string">"bvtf"</span>,</span><br><span class="line">        <span class="attr">"body"</span>: [</span><br><span class="line">            <span class="string">"import 'package:built_collection/built_collection.dart';"</span>,</span><br><span class="line">            <span class="string">"import 'package:built_value/built_value.dart';"</span>,</span><br><span class="line">            <span class="string">""</span>,</span><br><span class="line">            <span class="string">"part '$TM_FILENAME_BASE.g.dart';"</span>,</span><br><span class="line">            <span class="string">""</span>,</span><br><span class="line">            <span class="string">"abstract class $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125; implements Built&lt;$&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;, $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;Builder&gt; &#123;"</span>,</span><br><span class="line">            <span class="string">"  $&#123;2&#125;"</span>,</span><br><span class="line">            <span class="string">""</span>,</span><br><span class="line">            <span class="string">"  $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;._();"</span>,</span><br><span class="line">            <span class="string">"  factory $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;([void Function($&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;Builder) updates]) = _$$&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;;"</span>,</span><br><span class="line">            <span class="string">"&#125;"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"description"</span>: <span class="string">"Built Value Type File whose name corresponds to the file name"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   核心的变量如下：</p>
+   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file name: home_page.dart =&gt; HomePage</span></span><br><span class="line"><span class="string">"$&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>   通过上面的学习我们几乎可能编写我们的日常需要各种代码片段</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
+<li><p><a href="https://github.com/GiancarloCode/built-value-snippets" target="_blank" rel="noopener">built-value-snippets</a></p>
+</li>
+<li><p><a href="https://marketplace.visualstudio.com/items?itemName=GiancarloCode.built-value-snippets" target="_blank" rel="noopener">Built Value Snippets VSCode 插件</a></p>
+</li>
+<li><p><a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables" target="_blank" rel="noopener">Snippets in Visual Studio Code</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/posts/87b044ce/" title="VSCode Snippets 使用手册">https://blog.wangruofeng007.com/posts/87b044ce/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/效率/" rel="tag"># 效率</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/4e467a57/" rel="next" title="用Typora的MarkDown绘制Diagrams(图解)">
+                <i class="fa fa-chevron-left"></i> 用Typora的MarkDown绘制Diagrams(图解)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/c5552f91/" rel="prev" title="Flutter ShapeBorder 使用手册">
+                Flutter ShapeBorder 使用手册 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王若风</p>
+              <p class="site-description motion-element" itemprop="description">王若风的技术博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangruofeng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wangruofeng007@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/oneruofeng" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/ace_freeman007" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VSCode-Snippets-使用手册"><span class="nav-number">1.</span> <span class="nav-text">VSCode Snippets 使用手册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何添加"><span class="nav-number">1.2.</span> <span class="nav-text">如何添加</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一：通过控制台"><span class="nav-number">1.2.1.</span> <span class="nav-text">方法一：通过控制台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二：通过首选项"><span class="nav-number">1.2.2.</span> <span class="nav-text">方法二：通过首选项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用测试"><span class="nav-number">1.3.</span> <span class="nav-text">使用测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用语法"><span class="nav-number">1.4.</span> <span class="nav-text">常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">1.4.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量转换"><span class="nav-number">1.4.2.</span> <span class="nav-text">变量转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-value-代码片段插件bvtf-的实现"><span class="nav-number">1.4.3.</span> <span class="nav-text">Build value 代码片段插件bvtf 的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">1.5.</span> <span class="nav-text">引用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div>
+  © 2015 ~ 
+    <span itemprop="copyrightYear">2019</span>
+        <span class="with-love" id="animate">
+          <i class="fa fa-heart"></i>
+        </span>
+        <span class="author" itemprop="copyrightHolder">王若风</span>
+      
+        
+    
+</div>
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://wangruofeng.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.wangruofeng007.com/posts/87b044ce/';
+          this.page.identifier = 'posts/87b044ce/';
+          this.page.title = 'VSCode Snippets 使用手册';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://wangruofeng.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
