@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="曾想自定义的View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在Xcode6终于让你可以轻松的做到。 你不用编译就能实时预览，现在配置自定义界面方便多了，IBInspectable和IBDesignable使它成为可能。 IBInspectableIBInspectable属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity inspector）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_01.jpg">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_02.jpg">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_03.jpg">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_04.jpg">
-<meta property="og:updated_time" content="2020-06-13T09:46:03.652Z">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_01.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_02.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_03.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_04.jpg">
+<meta property="og:updated_time" content="2020-07-26T09:52:15.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建自定义View在IB中实时渲染">
 <meta name="twitter:description" content="曾想自定义的View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在Xcode6终于让你可以轻松的做到。 你不用编译就能实时预览，现在配置自定义界面方便多了，IBInspectable和IBDesignable使它成为可能。 IBInspectableIBInspectable属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity inspector）">
-<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/ib_01.jpg">
+<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_01.jpg">
 
 
 
@@ -434,11 +434,11 @@
         <p>曾想自定义的View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在Xcode6终于让你可以轻松的做到。</p>
 <p>你不用编译就能实时预览，现在配置自定义界面方便多了，<code>IBInspectable</code>和<code>IBDesignable</code>使它成为可能。</p>
 <h3 id="IBInspectable"><a href="#IBInspectable" class="headerlink" title="IBInspectable"></a>IBInspectable</h3><p><code>IBInspectable</code>属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity inspector）中访问，这些属性在Interface Builder整合到Xcode。可以通过它来配置Nib，Xib，storyboard实例中的任何键值编码（key-value-coded）属性：</p>
-<p><img src="/images/ib_01.jpg" alt="runtime Attributes setting"></p>
+<p><img src="/images/ib_Inspectable/ib_01.jpg" alt="runtime Attributes setting"></p>
 <p>以前想实现，只能点+号手动添加例如想给<code>UIView</code>添加一个圆角半径，设置Key Path 为：layer.cornerRadius,type为Number ，Value为4，如果使用<code>IBInspectable</code>只需要在<code>@property</code> 声明后加上IBInspectable（或者swift 加上<code>@IBInspectable</code>），就可以在IB的观察面板中（inspector pannel）里直接编辑。其他交由Xcode自动完成，属性名字会自动分组，名称从驼峰（camel-）转换成 title-模式。</p>
-<p><img src="/images/ib_02.jpg" alt="inspector pannel"></p>
+<p><img src="/images/ib_Inspectable/ib_02.jpg" alt="inspector pannel"></p>
 <p>目前可检查属性支持</p>
-<p><img src="/images/ib_03.jpg" alt="supported  types"></p>
+<p><img src="/images/ib_Inspectable/ib_03.jpg" alt="supported  types"></p>
 <p>备注 :</p>
 <ol>
 <li><p>经本人亲测，除<code>NSNumber</code>,<code>NSRange</code>不会产生观察面板属性，<code>NSRange</code>不会在runtime Attributes 中自动添加，其他都会自动生成。</p>
@@ -450,7 +450,7 @@
 <p>标记一个自定义视图为<code>IBDesignable</code>，只需要在类名前面加上<code>IB_DESIGNABLE</code>（<code>Swift</code>里加上<code>@IBDesignable</code>）。你的初始化，布置和绘制方法都将用来在画布上渲染你的自定义视图:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">IB_DESIGNABLE</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CustomView</span> :<span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) IBInspectable <span class="built_in">UIColor</span> *borderColor;		</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) IBInspectable <span class="built_in">CGFloat</span> borderWidth;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p>实时效果：</p>
-<p><img src="/images/ib_04.jpg" alt="custom view"></p>
+<p><img src="/images/ib_Inspectable/ib_04.jpg" alt="custom view"></p>
 <p>有了这个功能，一个设计师或者开放人员可以轻松调整自定义的控件呈现。任何改变，都将立即呈现，有的想<code>Swift</code>里面的playground功能，实现：<strong>所见即所得</strong>。</p>
 <p>由于在 Interface Builder 中呈现自定义视图不会有应用程序的完整上下文，你可能需要生成模拟数据以便显示，例如一个默认用户头像图片或仿制的天气数据。有两种方法可以为这个特殊的上下文添加代码：</p>
 <ol>
@@ -618,7 +618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="前言一直在观察各种App的LoadingView，比较有代表性的是MBProgressVHUD，SVProgressHUD，这两个使用得非常广泛，大到QQ，支付宝，小到各种不知道名的App，长时间的迭代让它们的逻辑非常完善，同时也导致了有些累赘，如果把它们当一个产品来分析，可以看出，它们在不断地增加需求和使用场景，有没有一个非常简洁的HUD没有我们不需要的那些多余的逻辑只是负责显示指示和隐藏呢？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/loading_img_01.jpg">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/loading_img_02.jpg">
-<meta property="og:image" content="https://blog.wangruofeng007.com/images/loading_img_03.jpg">
-<meta property="og:updated_time" content="2020-06-13T09:46:03.653Z">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/loading_img/loading_img_01.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/loading_img/loading_img_02.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/loading_img/loading_img_03.jpg">
+<meta property="og:updated_time" content="2020-07-26T09:54:57.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速封装Airbnb风格Loadingview">
 <meta name="twitter:description" content="前言一直在观察各种App的LoadingView，比较有代表性的是MBProgressVHUD，SVProgressHUD，这两个使用得非常广泛，大到QQ，支付宝，小到各种不知道名的App，长时间的迭代让它们的逻辑非常完善，同时也导致了有些累赘，如果把它们当一个产品来分析，可以看出，它们在不断地增加需求和使用场景，有没有一个非常简洁的HUD没有我们不需要的那些多余的逻辑只是负责显示指示和隐藏呢？">
-<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/loading_img_01.jpg">
+<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/loading_img/loading_img_01.jpg">
 
 
 
@@ -432,9 +432,9 @@
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一直在观察各种App的<code>LoadingView</code>，比较有代表性的是<code>MBProgressVHUD</code>，<code>SVProgressHUD</code>，这两个使用得非常广泛，大到QQ，支付宝，小到各种不知道名的App，长时间的迭代让它们的逻辑非常完善，同时也导致了有些累赘，如果把它们当一个产品来分析，可以看出，它们在不断地增加需求和使用场景，有没有一个非常简洁的HUD没有我们不需要的那些多余的逻辑只是负责显示指示和隐藏呢？</p>
 <p>好像没有，所有今天动手准备自己封装一个<code>LoadingView</code>，灵感来自Airbnb，用过Airbnb的同学都知道，它的<code>LoadingView</code>很有风格,Airbnb是几张图片循环翻转切换，当然我不准备复制他们的idea，我准备做一个循环左右上下切换的<code>LoadingView</code>。</p>
-<p><img src="/images/loading_img_01.jpg" width="375" height="667"></p>
+<p><img src="/images/loading_img/loading_img_01.jpg" width="375" height="667"></p>
 <p>废话不多说，先来看一下，最终效果的原型图</p>
-<p><img src="/images/loading_img_02.jpg" alt="RFLoadingView"></p>
+<p><img src="/images/loading_img/loading_img_02.jpg" alt="RFLoadingView"></p>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>分析一下思路：</p>
 <ul>
 <li>四条虚线交叉形成的区域就是我们能够看到的图片</li>
@@ -465,7 +465,7 @@
 <p>需要非常注意的是，一定要写上终止动画的条件，不然会无限循环，影响性能</p>
 </blockquote>
 <h3 id="show和hide"><a href="#show和hide" class="headerlink" title="show和hide"></a>show和hide</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (void)showAnimated:(BOOL)animated</span><br><span class="line">&#123;</span><br><span class="line">    RFMainThreadAssert();</span><br><span class="line">    </span><br><span class="line">    self.alpha = 1;</span><br><span class="line">    </span><br><span class="line">    [UIView animateWithDuration:animated ? 0.3 : 0 animations:^&#123;</span><br><span class="line">        _centralView.alpha = 1;</span><br><span class="line">    &#125; completion:^(BOOL finished) &#123;</span><br><span class="line">        [self animatedImageFromTopToBottom];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)hideAnimated:(BOOL)animated</span><br><span class="line">&#123;</span><br><span class="line">    RFMainThreadAssert();</span><br><span class="line">    </span><br><span class="line">    [UIView animateWithDuration:animated ? 0.3 : 0 animations:^&#123;</span><br><span class="line">        self.alpha = 0;</span><br><span class="line">    &#125; completion:^(BOOL finished) &#123;</span><br><span class="line">        [self removeFromSuperview];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><img src="/images/loading_img_03.jpg" width="375" height="667"></p>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><img src="/images/loading_img/loading_img_03.jpg" width="375" height="667"></p>
 <ul>
 <li>Github Demo地址:<br><a href="https://github.com/wangruofeng/RFLoadingView" target="_blank" rel="noopener">RFLoadingViewDemo</a></li>
 </ul>
@@ -616,7 +616,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
