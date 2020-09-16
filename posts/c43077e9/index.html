@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_analyse_2.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_analyse_1.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_analyse_2.png">
-<meta property="og:updated_time" content="2020-09-16T18:58:16.698Z">
+<meta property="og:updated_time" content="2020-09-16T19:02:42.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter 开发Tips （第二期）">
 <meta name="twitter:image" content="https://blog.wangruofeng007.com/images/cover_img/ramon-salinero-vEE00Hx5d0Q-unsplash.jpg">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  874
+                  872
                 </span>
               
 
@@ -462,7 +462,7 @@
 </li>
 <li><p>通过rootBundle加载，但是path的格式为 <code>packages/&lt;#package_name#&gt;/&lt;#file_path#&gt;</code></p>
 <p>这里为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// json file in package,this is work</span><br><span class="line">Future&lt;String&gt; _loadFromPackageAsset() async &#123;</span><br><span class="line">  // 【importance】 packag json file need use this formate:</span><br><span class="line">  // `packages/$package/$assetName`</span><br><span class="line">  return rootBundle.loadString(&quot;packages/json_test_package/assets/test2.json&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// json file in package,this is work</span></span><br><span class="line">Future&lt;<span class="built_in">String</span>&gt; _loadFromPackageAsset() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">// 【importance】 packag json file need use this formate:</span></span><br><span class="line">  <span class="comment">// `packages/$package/$assetName`</span></span><br><span class="line">  <span class="keyword">return</span> rootBundle.loadString(<span class="string">"packages/json_test_package/assets/test2.json"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过<code>DefaultAssetBundle</code>也是一样可以</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This is work too.</span></span><br><span class="line">Future&lt;<span class="built_in">String</span>&gt; testLoadJsonFileByDefaultAssetBundle(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// 【importance】 packag json file need use this formate:</span></span><br><span class="line">  <span class="comment">// `packages/$package/$assetName`</span></span><br><span class="line">  <span class="keyword">return</span> DefaultAssetBundle.of(context)</span><br><span class="line">      .loadString(<span class="string">'packages/json_test_package/assets/test2.json'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
