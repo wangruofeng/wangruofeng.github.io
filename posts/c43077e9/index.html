@@ -87,8 +87,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/cover_img/ramon-salinero-vEE00Hx5d0Q-unsplash.jpg">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_attach.jpg">
-<meta property="og:image" content="https://blog.wangruofeng007.com/Users/klookuser/Library/Application%20Support/typora-user-images/image-20200917144141986.png">
-<meta property="og:image" content="https://blog.wangruofeng007.com/Users/klookuser/Library/Application%20Support/typora-user-images/image-20200917145538741.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_15.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_16.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_analyse_2.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_analyse_1.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_analyse_2.png">
@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_12.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_13.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_14.png">
-<meta property="og:updated_time" content="2020-09-17T07:50:03.398Z">
+<meta property="og:updated_time" content="2020-09-17T07:53:20.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter 开发Tips （第二期）">
 <meta name="twitter:image" content="https://blog.wangruofeng007.com/images/cover_img/ramon-salinero-vEE00Hx5d0Q-unsplash.jpg">
@@ -472,10 +472,10 @@
 </li>
 </ol>
 <p>但是对于package下面json文件上面的方法失效了，使用上面的方法加载将会报错，错误信息如下：</p>
-<p><img src="/Users/klookuser/Library/Application Support/typora-user-images/image-20200917144141986.png" alt="image-20200917144141986"></p>
+<p><img src="/images/flutter_tips_s2/flutter_tips_15.png" alt="image-20200917144141986"></p>
 <p>错误原因是资源路径不对，加载不到，因为rootBundle类没有提供package name的参数，我们只能把package name信息放在资源路径里面。</p>
 <h3 id="从package加载json"><a href="#从package加载json" class="headerlink" title="从package加载json"></a>从package加载json</h3><p>灵感来自<a href="https://pub.dev/packages/lottie库的`Lottie.asset" target="_blank" rel="noopener">https://pub.dev/packages/lottie库的`Lottie.asset</a>(“assetsPath”,package: “package_name”)`方法，因为lottie实现动画的原理也是加载一份json配置，不过这个方法支持指定package配置。</p>
-<p><img src="/Users/klookuser/Library/Application Support/typora-user-images/image-20200917145538741.png" alt="image-20200917145538741"></p>
+<p><img src="/images/flutter_tips_s2/flutter_tips_16.png" alt="image-20200917145538741"></p>
 <p>这里的keyName就是我们rootBundle类里面需要用的资源路径，包含带package的情况。</p>
 <p>正确的方式如下：</p>
 <ol>
