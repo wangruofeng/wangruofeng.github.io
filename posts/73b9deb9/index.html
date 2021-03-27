@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/best_practise/best_practise_01.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/best_practise/best_practise_02.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/best_practise/best_practise_03.png">
-<meta property="og:updated_time" content="2021-03-27T17:00:58.868Z">
+<meta property="og:updated_time" content="2021-03-27T17:06:55.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flutter最佳实践整理">
 <meta name="twitter:image" content="https://blog.wangruofeng007.com/images/cover_img/johannes-andersson-v5gGwubKzEA-unsplash.jpg">
@@ -443,7 +443,20 @@
 <p>下面是Example实现</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">extension TextOverflowUtil on String &#123;</span><br><span class="line">  <span class="comment">/// 将flutter系统默认的单词截断模式转换成字符截断模式</span></span><br><span class="line">  <span class="comment">/// 通过向文本中插入宽度为0的空格实现</span></span><br><span class="line">  <span class="keyword">static</span> String toCharacterBreakStr(String word) &#123;</span><br><span class="line">    <span class="keyword">if</span> (word == null || word.isEmpty) &#123;</span><br><span class="line">      <span class="keyword">return</span> word;</span><br><span class="line">    &#125;</span><br><span class="line">    String breakWord = '';</span><br><span class="line">    word.runes.forEach((element) &#123;</span><br><span class="line">      breakWord += String.fromCharCode(element);</span><br><span class="line">      breakWord += '\u200B';</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> breakWord;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="文本划线"><a href="#文本划线" class="headerlink" title="文本划线"></a>文本划线</h2><p>通过Text的decoration属性来实现划线</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">• TextDecoration.none        没有</span><br><span class="line">• TextDecoration.underline   下划线</span><br><span class="line">• TextDecoration.overline    上划线</span><br><span class="line">• TextDecoration.lineThrough 中间的线（删除线）</span><br><span class="line"></span><br><span class="line"><span class="comment">// 划线相关的属性设置</span></span><br><span class="line">• decorationColor   decoration划线的颜色</span><br><span class="line">• decorationStyle   decoration划线的样式</span><br><span class="line">	• TextDecorationStyle.solid   实线</span><br><span class="line">	• TextDecorationStyle.double  画两条线</span><br><span class="line">	• TextDecorationStyle.dotted  点线（一个点一个点的）</span><br><span class="line">	• TextDecorationStyle.dashed  虚线（一个长方形一个长方形的线）</span><br><span class="line">	• TextDecorationStyle.wavy    正玄曲</span><br></pre></td></tr></table></figure>
+<ul>
+<li>TextDecoration.none        没有</li>
+<li>TextDecoration.underline   下划线</li>
+<li>TextDecoration.overline    上划线</li>
+<li>TextDecoration.lineThrough 中间的线（删除线）</li>
+</ul>
+<p>// 划线相关的属性设置<br>decorationColor   decoration划线的颜色<br>decorationStyle   decoration划线的样式</p>
+<ul>
+<li>TextDecorationStyle.solid   实线</li>
+<li>TextDecorationStyle.double  画两条线</li>
+<li>TextDecorationStyle.dotted  点线（一个点一个点的）</li>
+<li>TextDecorationStyle.dashed  虚线（一个长方形一个长方形的线）</li>
+<li>TextDecorationStyle.wavy    正玄曲</li>
+</ul>
 <p>效果图如下</p>
 <p><img src="/images/best_practise/best_practise_01.png" alt="best_practise_01"></p>
 <h2 id="VS-Code实现保存时自动代码格式化"><a href="#VS-Code实现保存时自动代码格式化" class="headerlink" title="VS Code实现保存时自动代码格式化"></a>VS Code实现保存时自动代码格式化</h2><p>VS Code中代码格式化默认快捷键：【Shift】+【Alt】+ F</p>
