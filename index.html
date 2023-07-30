@@ -1,423 +1,258 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="王若风的技术博客">
-<meta name="keywords" content="iOS, 技术博客, Swift, OC">
+        <meta name="description" content="王若风的技术博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="王若风的技术博客">
 <meta property="og:url" content="https://blog.wangruofeng007.com/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="王若风的技术博客">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="技术博客, Flutter, iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王若风的技术博客">
-<meta name="twitter:description" content="王若风的技术博客">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="https://blog.wangruofeng007.com/">
-
-
-
-
-
-  <title>王若风的技术博客</title>
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-72379345-1', 'auto');
-  ga('send', 'pageview');
-</script>
+        <title>
+            王若风的技术博客
+        </title>
+        
 
 
 
 
 
-</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
-  
-  
-    
-  
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-  <div class="container sidebar-position-left 
-  page-home">
-    <div class="headband"></div>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+    </head>
 
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">王若风的技术博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">世界尽头の冷酷仙境</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
+
+
+
 
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
+    </div>
+  </div>
+
+</div>
+            </header>
+
             
-  <section id="posts" class="posts-expand">
-    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content index posts-expand">
+                            
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/73b9deb9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/73b9deb9/" itemprop="url">Flutter最佳实践整理</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/73b9deb9/" class="post-title-link" itemprop="url">Flutter最佳实践整理</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-28T12:10:21+08:00">
-                2021-03-28
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2021-03-28 12:10:21" itemprop="dateCreated datePublished" datetime="2021-03-28T12:10:21+08:00">2021-03-28</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/73b9deb9/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/73b9deb9/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-30 21:48:07" itemprop="dateModified" datetime="2023-07-30T21:48:07+08:00">2023-07-30</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -425,188 +260,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/johannes-andersson-v5gGwubKzEA-unsplash.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/73b9deb9/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/73b9deb9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/6854e1a5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/6854e1a5/" itemprop="url">Flutter精华资料收集</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/6854e1a5/" class="post-title-link" itemprop="url">Flutter精华资料收集</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-19T21:16:37+08:00">
-                2020-10-19
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-10-19 21:16:37" itemprop="dateCreated datePublished" datetime="2020-10-19T21:16:37+08:00">2020-10-19</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/6854e1a5/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/6854e1a5/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-30 21:48:07" itemprop="dateModified" datetime="2023-07-30T21:48:07+08:00">2023-07-30</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  655
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -614,188 +355,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/ray-hennessy-xUUZcpQlqpM-unsplash.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/6854e1a5/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/6854e1a5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/c43077e9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/c43077e9/" itemprop="url">Flutter 开发Tips （第二期）</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/c43077e9/" class="post-title-link" itemprop="url">Flutter 开发Tips （第二期）</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-17T02:51:21+08:00">
-                2020-09-17
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-09-17 02:51:21" itemprop="dateCreated datePublished" datetime="2020-09-17T02:51:21+08:00">2020-09-17</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/c43077e9/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/c43077e9/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-23 12:11:16" itemprop="dateModified" datetime="2020-09-23T12:11:16+08:00">2020-09-23</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.6k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -803,188 +450,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/ramon-salinero-vEE00Hx5d0Q-unsplash.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/c43077e9/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/c43077e9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/41b51ae0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/41b51ae0/" itemprop="url">Flutter 开发Tips （第一期）</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/41b51ae0/" class="post-title-link" itemprop="url">Flutter 开发Tips （第一期）</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-07T01:00:18+08:00">
-                2020-09-07
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-09-07 01:00:18" itemprop="dateCreated datePublished" datetime="2020-09-07T01:00:18+08:00">2020-09-07</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/41b51ae0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/41b51ae0/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-17 01:58:27" itemprop="dateModified" datetime="2020-09-17T01:58:27+08:00">2020-09-17</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -992,188 +545,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/markus-spiske-qjnAnF0jIGk-unsplash.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/41b51ae0/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/41b51ae0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/75ffb701/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/75ffb701/" itemprop="url">开发Flutter有哪些好用的VSCode插件</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/75ffb701/" class="post-title-link" itemprop="url">开发Flutter有哪些好用的VSCode插件</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-31T23:18:49+08:00">
-                2020-07-31
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-07-31 23:18:49" itemprop="dateCreated datePublished" datetime="2020-07-31T23:18:49+08:00">2020-07-31</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/75ffb701/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/75ffb701/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-01 00:51:59" itemprop="dateModified" datetime="2020-08-01T00:51:59+08:00">2020-08-01</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  570
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -1181,188 +640,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/pexels-nastyasensei-335393.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/75ffb701/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/75ffb701/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/e0efeb21/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/e0efeb21/" itemprop="url">Flutter中Key的作用</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/e0efeb21/" class="post-title-link" itemprop="url">Flutter中Key的作用</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-26T17:44:33+08:00">
-                2020-07-26
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-07-26 17:44:33" itemprop="dateCreated datePublished" datetime="2020-07-26T17:44:33+08:00">2020-07-26</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/e0efeb21/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/e0efeb21/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-27 01:02:20" itemprop="dateModified" datetime="2020-07-27T01:02:20+08:00">2020-07-27</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.2k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  10
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -1370,188 +735,88 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/img_2-people-sitting-with-view-of-yellow-flowers-during-daytime.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/e0efeb21/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/e0efeb21/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/6aaa3930/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/6aaa3930/" itemprop="url">Flutter factory 使用总结</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/6aaa3930/" class="post-title-link" itemprop="url">Flutter factory 使用总结</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
               
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-26T16:54:39+08:00">
-                2020-07-26
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-07-26 16:54:39 / 修改时间：17:59:43" itemprop="dateCreated datePublished" datetime="2020-07-26T16:54:39+08:00">2020-07-26</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/6aaa3930/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/6aaa3930/" itemprop="commentCount"></span>
-                </a>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  469
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -1559,188 +824,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
           <p><img src="/images/cover_img/img_photography-of-airplane-during-sunrise.jpg" alt="banner"></p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/6aaa3930/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+            <div class="post-button">
+              <a class="btn" href="/posts/6aaa3930/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
           <!--/noindex-->
         
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/c5552f91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/c5552f91/" itemprop="url">Flutter ShapeBorder 使用手册</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/c5552f91/" class="post-title-link" itemprop="url">Flutter ShapeBorder 使用手册</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-12T19:09:55+08:00">
-                2020-07-12
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-07-12 19:09:55" itemprop="dateCreated datePublished" datetime="2020-07-12T19:09:55+08:00">2020-07-12</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/c5552f91/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/c5552f91/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-26 16:58:49" itemprop="dateModified" datetime="2020-07-26T16:58:49+08:00">2020-07-26</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  932
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -1748,194 +919,198 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>ShapeBorder 用于设置形状和轮廓，比如圆形，矩形，圆角矩形等。常用于 Container 中。</p>
+<p>继承结构如下：</p>
+<ul>
+<li>ShapeBorder【abstract】<ul>
+<li>BeveledRectangleBorder</li>
+<li>BoxBorder【abstract】<ul>
+<li>Border</li>
+<li>BorderDirectional</li>
+</ul>
+</li>
+<li>CircleBorder</li>
+<li>ContinuousRectangleBorder</li>
+<li>RoundedRectangleBorder</li>
+<li>StadiumBorder</li>
+<li>InputBorder【abstract】<ul>
+<li>OutlineInputBorder</li>
+<li>UnderlineInputBorder</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>其中 ShapeBorder、BoxBorder、InputBorder 是抽象父类。InputBorder 通常用于输入框相关的。</p>
+<p>类的关系图</p>
+<p><img src="/images/flutter_shape_border/ShapeBorder%E5%AD%90%E7%B1%BB%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E5%9B%BE.png" alt="ShapeBorder子类继承关系图"></p>
+<h2 id="BeveledRectangleBorder"><a href="#BeveledRectangleBorder" class="headerlink" title="BeveledRectangleBorder"></a>BeveledRectangleBorder</h2><p>斜面圆角矩形</p>
+<p>继承关系:</p>
+<p> <code>BeveledRectangleBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Widget _beveledRectangleBorder() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">240</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: BeveledRectangleBorder(</span><br><span class="line">          borderRadius: BorderRadius.circular(<span class="number">20</span>),</span><br><span class="line">          side: BorderSide(</span><br><span class="line">            width: <span class="number">2</span>,</span><br><span class="line">            color: Colors.blue,</span><br><span class="line">            style: BorderStyle.solid,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-        
-          
-          简介ShapeBorder 用于设置形状和轮廓，比如圆形，矩形，圆角矩形等。常用于 Container 中。
-继承结构如下：
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/beveled_rectangle_border.png" alt="beveled_rectangle_border"></p>
+<h2 id="BoxBorder"><a href="#BoxBorder" class="headerlink" title="BoxBorder"></a>BoxBorder</h2><p>BoxBorder主要掌管边线方面的事，自身是abstract，不能直接用</p>
+<p>BoxBorder官方说明</p>
+<blockquote>
+<p> Base class for box borders that can paint as rectangles, circles, or rounded rectangles.</p>
+</blockquote>
+<h3 id="Border"><a href="#Border" class="headerlink" title="Border"></a>Border</h3><p>继承关系:</p>
+<p><code>Border &gt; BoxBorder &gt; ShapeBorder</code></p>
+<p>Border官方说明</p>
+<blockquote>
+<p>A border of a box, comprised of four sides: top, right, bottom, left.</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Widget _border() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      padding: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        color: Colors.orange,</span><br><span class="line">        shape: Border(</span><br><span class="line">          top: BorderSide(width: <span class="number">6.0</span>, color: Colors.black12),</span><br><span class="line">          left: BorderSide(width: <span class="number">6.0</span>, color: Colors.black12),</span><br><span class="line">          right: BorderSide(width: <span class="number">6.0</span>, color: Colors.black26),</span><br><span class="line">          bottom: BorderSide(width: <span class="number">6.0</span>, color: Colors.black26),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      child: Text(</span><br><span class="line">        <span class="string">&quot;Border&quot;</span>,</span><br><span class="line">        style: TextStyle(color: Colors.white, fontSize: <span class="number">20</span>),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-ShapeBorder【abstract】
-BeveledRectang
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/c5552f91/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p>效果图：</p>
+<p><img src="/images/flutter_shape_border/border.png" alt="border"></p>
+<h3 id="BorderDirectional"><a href="#BorderDirectional" class="headerlink" title="BorderDirectional"></a>BorderDirectional</h3><p>继承关系:</p>
+<p> <code>BorderDirectional &gt; BoxBorder &gt; ShapeBorder</code></p>
+<p><code>BorderDirectional</code> 通过 <code>top</code>,<code>bottom</code>,<code>start</code>,<code>end</code>分别控制上下左右的边线<br>边线对象<code>BorderSide</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Widget _borderDirectional() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">240</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: BorderDirectional(</span><br><span class="line">          start: BorderSide(color: Colors.black, width: <span class="number">15</span>),</span><br><span class="line">          end: BorderSide(color: Colors.black, width: <span class="number">15</span>),</span><br><span class="line">          top: BorderSide(</span><br><span class="line">            color: Colors.black,</span><br><span class="line">          ),</span><br><span class="line">          bottom: BorderSide(</span><br><span class="line">            color: Colors.black,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/border_directional_01.png" alt="border_directional_01"></p>
+<p>只设置左右的<code>BorderSide</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Widget _borderDirectional2() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">240</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: BorderDirectional(</span><br><span class="line">          start: BorderSide(color: Colors.black, width: <span class="number">15</span>),</span><br><span class="line">          end: BorderSide(color: Colors.black, width: <span class="number">15</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/border_directional_02.png" alt="border_directional_02"></p>
+<h2 id="CircleBorder"><a href="#CircleBorder" class="headerlink" title="CircleBorder"></a>CircleBorder</h2><p>圆形边框。</p>
+<p>继承关系:</p>
+<p> <code>CircleBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Widget _circleBorder1() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">120</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: CircleBorder(</span><br><span class="line">          side: BorderSide(),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/circle_border_01.jpg" alt="circle_border_01"></p>
+<p>上面的是使用默认参数的效果</p>
+<p><img src="/images/flutter_shape_border/circle_border_03.png" alt="circle_border_03"></p>
+<p>通过设置BorderSide来设置边框颜色和宽度，以及是否显示边框</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Widget _circleBorder2() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">120</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: CircleBorder(</span><br><span class="line">          side: BorderSide(</span><br><span class="line">            width: <span class="number">10</span>,</span><br><span class="line">            color: Colors.blue,</span><br><span class="line">            style: BorderStyle.solid,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/circle_border_02.jpg" alt="circle_border_02"></p>
+<h2 id="ContinuousRectangleBorder"><a href="#ContinuousRectangleBorder" class="headerlink" title="ContinuousRectangleBorder"></a>ContinuousRectangleBorder</h2><p>平滑过渡的矩形边框</p>
+<p>继承关系:</p>
+<p><code>ContinuousRectangleBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Widget _continuousRectangleBorder() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">240</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: ContinuousRectangleBorder(</span><br><span class="line">          borderRadius: BorderRadius.circular(<span class="number">40</span>),</span><br><span class="line">          side: BorderSide(</span><br><span class="line">            width: <span class="number">2</span>,</span><br><span class="line">            color: Colors.blue,</span><br><span class="line">            style: BorderStyle.solid,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/continuous_rectangle_border.png" alt="continuous_rectangle_border"></p>
+<h2 id="RoundedRectangleBorder"><a href="#RoundedRectangleBorder" class="headerlink" title="RoundedRectangleBorder"></a>RoundedRectangleBorder</h2><p>圆角矩形。</p>
+<p>继承关系:</p>
+<p><code>RoundedRectangleBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Widget _roundedRectangleBorder() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">240</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: RoundedRectangleBorder(</span><br><span class="line">          borderRadius: BorderRadius.circular(<span class="number">20</span>),</span><br><span class="line">          side: BorderSide(</span><br><span class="line">            width: <span class="number">2</span>,</span><br><span class="line">            color: Colors.blue,</span><br><span class="line">            style: BorderStyle.solid,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/rounded_rectangle_border_01.png" alt="rounded_rectangle_border_01"></p>
+<h2 id="StadiumBorder"><a href="#StadiumBorder" class="headerlink" title="StadiumBorder"></a>StadiumBorder</h2><p>体育场形状。即两边是半圆。</p>
+<p>继承关系:</p>
+<p><code>StadiumBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Widget _stadiumBorder() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      width: <span class="number">240</span>,</span><br><span class="line">      height: <span class="number">120</span>,</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        image: DecorationImage(</span><br><span class="line">          image: AssetImage(<span class="string">&#x27;lib/assets/img_flutter.png&#x27;</span>),</span><br><span class="line">          fit: BoxFit.cover,</span><br><span class="line">        ),</span><br><span class="line">        shape: StadiumBorder(</span><br><span class="line">          side: BorderSide(</span><br><span class="line">            width: <span class="number">2</span>,</span><br><span class="line">            color: Colors.blue,</span><br><span class="line">            style: BorderStyle.solid,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/stadiu_border_01.png" alt="stadiu_border_01"></p>
+<h2 id="InputBorder"><a href="#InputBorder" class="headerlink" title="InputBorder"></a>InputBorder</h2><p>继承关系:</p>
+<p> <code>InputBorder &gt; ShapeBorder</code></p>
+<p>官方说明：</p>
+<blockquote>
+<p>Defines the appearance of an [InputDecorator]’s border.</p>
+<p>An input decorator’s border is specified by [InputDecoration.border].</p>
+<p>The border is drawn relative to the input decorator’s “container” which</p>
+<p>is the optionally filled area above the decorator’s helper, error,and counter.</p>
+</blockquote>
+<p>常用的输入边框，有2个衍生子类<code>OutlineInputBorder</code> 和<code>UnderlineInputBorder</code></p>
+<h3 id="OutlineInputBorder"><a href="#OutlineInputBorder" class="headerlink" title="OutlineInputBorder"></a>OutlineInputBorder</h3><p>继承关系:</p>
+<p> <code>OutlineInputBorder &gt; InputBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Widget _outlineInputBorder() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      padding: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        color: Colors.orange,</span><br><span class="line">        shape: OutlineInputBorder(</span><br><span class="line">          borderSide: BorderSide(width: <span class="number">2.0</span>, color: Colors.purple),</span><br><span class="line">          borderRadius: BorderRadius.circular(<span class="number">20.0</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      child: Text(</span><br><span class="line">        <span class="string">&quot;OutlineInputBorder&quot;</span>,</span><br><span class="line">        style: TextStyle(color: Colors.white, fontSize: <span class="number">20</span>),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/outlineInput_borde.png" alt="outlineInput_borde"></p>
+<h3 id="UnderlineInputBorder"><a href="#UnderlineInputBorder" class="headerlink" title="UnderlineInputBorder"></a>UnderlineInputBorder</h3><p>继承关系:</p>
+<p><code>UnderlineInputBorder &gt; InputBorder &gt; ShapeBorder</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Widget _underlineInputBorder() &#123;</span><br><span class="line">  <span class="keyword">return</span> Center(</span><br><span class="line">    child: Container(</span><br><span class="line">      margin: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      padding: EdgeInsets.all(<span class="number">16</span>),</span><br><span class="line">      decoration: ShapeDecoration(</span><br><span class="line">        color: Colors.orange,</span><br><span class="line">        shape: UnderlineInputBorder(</span><br><span class="line">          borderSide: BorderSide(width: <span class="number">2.0</span>, color: Colors.purple),</span><br><span class="line">          borderRadius: BorderRadius.circular(<span class="number">20.0</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      child: Text(</span><br><span class="line">        <span class="string">&quot;UnderlineInputBorder&quot;</span>,</span><br><span class="line">        style: TextStyle(color: Colors.white, fontSize: <span class="number">20</span>),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>效果如下：</p>
+<p><img src="/images/flutter_shape_border/underlineInput_border.png" alt="underlineInput_border"></p>
+
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/87b044ce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/87b044ce/" itemprop="url">VSCode Snippets 使用手册</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/87b044ce/" class="post-title-link" itemprop="url">VSCode Snippets 使用手册</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
+              <span class="post-meta-item-text">发表于</span>
               
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-13T16:09:53+08:00">
-                2020-06-13
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/dart/" itemprop="url" rel="index">
-                    <span itemprop="name">dart</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2020-06-13 16:09:53 / 修改时间：18:04:15" itemprop="dateCreated datePublished" datetime="2020-06-13T16:09:53+08:00">2020-06-13</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/posts/87b044ce/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/87b044ce/" itemprop="commentCount"></span>
-                </a>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/dart/" itemprop="url" rel="index"><span itemprop="name">dart</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -1943,168 +1118,189 @@ BeveledRectang
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h1 id="VSCode-Snippets-使用手册"><a href="#VSCode-Snippets-使用手册" class="headerlink" title="VSCode Snippets 使用手册"></a>VSCode Snippets 使用手册</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当我们为了减少模板代码，我们第一个很可能想到使用<code>Code Snippets</code>,很多IDE和文件编辑器已经给我们提供了一个预装的代码片段，当预装的代码片段不能瞒着我们的需求，我们可能会自己定制一些自己的专有代码代码片段，下面就为大家介绍如何在VSCode定制自己的代码片段以及一些小技巧。</p>
+<h2 id="如何添加"><a href="#如何添加" class="headerlink" title="如何添加"></a>如何添加</h2><h3 id="方法一：通过控制台"><a href="#方法一：通过控制台" class="headerlink" title="方法一：通过控制台"></a>方法一：通过控制台</h3><ol>
+<li><p>打开VSCode,按下快捷键组合<code>shift+command+p</code>呼出控制台</p>
+</li>
+<li><p>在控制台输入： <code>Configure User Snippets</code>选择<img src="/images/vscode_snippets/configure_user_snippets.jpg" alt="configure_user_snippets"></p>
+</li>
+<li><p>输入<code>new</code>，找到新建代码片段命令，这里可以选择创建全局的或者为某个项目专属的代码片段,这里我们选择<code>New Global Snippets file...</code>。<img src="/images/vscode_snippets/new_snippets.jpg" alt="new_snippets"></p>
+</li>
+<li><p>给片段起一个易于理解的命名，回车<img src="/images/vscode_snippets/new_snippet_with_name.png" alt="new_snippet_with_name"></p>
+</li>
+<li><p>编辑代码片段的内容<img src="/images/vscode_snippets/snippets_sample.png" alt="snippets_sample"></p>
+<p>例如我们创建一个自己名字的TODO, 类似这样的风格：<code>// TODO(ruofeng): some comment</code></p>
+<p>最终版本如下：<img src="/images/vscode_snippets/todo_snippets.png" alt="todo_snippets"></p>
+<p>效果图</p>
+<p><img src="/images/vscode_snippets/todo_snippets_auto_tip2.png" alt="todo_snippets_auto_tip2"></p>
+</li>
+</ol>
+<h3 id="方法二：通过首选项"><a href="#方法二：通过首选项" class="headerlink" title="方法二：通过首选项"></a>方法二：通过首选项</h3><ol>
+<li>Code -&gt; Preferences-&gt;User Snippets</li>
+</ol>
+<p><img src="/images/vscode_snippets/preffer_setting_code_snippets.jpg" alt="preffer_setting_code_snippets"></p>
+<ol start="2">
+<li>后面的步骤和第一种的4，5一样，这里不再赘述</li>
+</ol>
+<h2 id="使用测试"><a href="#使用测试" class="headerlink" title="使用测试"></a>使用测试</h2><p>新建一个<code>.dart</code>结尾的文件,这里就叫<code>test.dart</code> ,输入todo，出现了我们刚才定义的代码片段</p>
+<p><img src="/images/vscode_snippets/todo_snippets_auto_tip.png" alt="todo_snippets_auto_tip"></p>
+<p>选择todo,出现我们刚才定义的代码片段</p>
+<p><img src="/images/vscode_snippets/todo_snippets_auto_tip2.png" alt="todo_snippets_auto_tip2"></p>
+<h2 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h2><ol>
+<li><p>变量， 格式 <code>$+num</code>, 例如： </p>
+<p><code>&quot;console.log(&#39;$1&#39;);&quot;</code></p>
+</li>
+<li><p>变量占位描述,格式<code>$&#123;num:desc&#125;</code>,例如：</p>
+<p><code>&quot;$&#123;1:label&#125;, $&#123;2:another&#125;;&quot;</code></p>
+</li>
+<li><p>缩进，<code>\t</code>,注意缩进的对称性</p>
+<p><img src="/images/vscode_snippets/demo_snippets.png" alt="demo_snippets"></p>
+</li>
+</ol>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote>
+<p> 为了跟进环境动态定制一些片段，我们可以使用系统提供的一些环境变量，<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables">官方介绍</a></p>
+</blockquote>
+<p><img src="/images/vscode_snippets/snippets_variables.png" alt="snippets_variables"></p>
+<p>示例：</p>
+<p>我们来定义一个Xcode版本的OC默认风格代码片段</p>
+<p><img src="/images/vscode_snippets/snippets_copywright.png" alt="snippets_copywright"></p>
+<p>新建一个test.dart文件，在里面输入copywright，选择刚才我们的添加的代码片段，效果如下</p>
+<p><img src="/images/vscode_snippets/snippets_copywright_dart.png" alt="snippets_copywright_dart"></p>
+<h3 id="变量转换"><a href="#变量转换" class="headerlink" title="变量转换"></a>变量转换</h3><p>语法说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">any         ::= tabstop | placeholder | choice | variable | text</span><br><span class="line">tabstop     ::= &#x27;$&#x27; int</span><br><span class="line">                | &#x27;$&#123;&#x27; int &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; int  transform &#x27;&#125;&#x27;</span><br><span class="line">placeholder ::= &#x27;$&#123;&#x27; int &#x27;:&#x27; any &#x27;&#125;&#x27;</span><br><span class="line">choice      ::= &#x27;$&#123;&#x27; int &#x27;|&#x27; text (&#x27;,&#x27; text)* &#x27;|&#125;&#x27;</span><br><span class="line">variable    ::= &#x27;$&#x27; var | &#x27;$&#123;&#x27; var &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; var &#x27;:&#x27; any &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; var transform &#x27;&#125;&#x27;</span><br><span class="line">transform   ::= &#x27;/&#x27; regex &#x27;/&#x27; (format | text)+ &#x27;/&#x27; options</span><br><span class="line">format      ::= &#x27;$&#x27; int | &#x27;$&#123;&#x27; int &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; int &#x27;:&#x27; &#x27;/upcase&#x27; | &#x27;/downcase&#x27; | &#x27;/capitalize&#x27; &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; int &#x27;:+&#x27; if &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; int &#x27;:?&#x27; if &#x27;:&#x27; else &#x27;&#125;&#x27;</span><br><span class="line">                | &#x27;$&#123;&#x27; int &#x27;:-&#x27; else &#x27;&#125;&#x27; | &#x27;$&#123;&#x27; int &#x27;:&#x27; else &#x27;&#125;&#x27;</span><br><span class="line">regex       ::= JavaScript Regular Expression value (ctor-string)</span><br><span class="line">options     ::= JavaScript Regular Expression option (ctor-options)</span><br><span class="line">var         ::= [_a-zA-Z] [_a-zA-Z0-9]*</span><br><span class="line">int         ::= [0-9]+</span><br><span class="line">text        ::= .*</span><br></pre></td></tr></table></figure>
 
-      
-        
-          
-          VSCode Snippets 使用手册前言当我们为了减少模板代码，我们第一个很可能想到使用Code Snippets,很多IDE和文件编辑器已经给我们提供了一个预装的代码片段，当预装的代码片段不能瞒
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/87b044ce/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p>下面将实现读取文件名称截取掉文件的后缀效果： <code>foo.text</code> &#x3D;&#x3D;&gt; <code>foo</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$&#123;TM_FILENAME/(.*)\\..+$/$1/&#125;</span><br><span class="line">  |           |         |  |</span><br><span class="line">  |           |         |  |-&gt; no options</span><br><span class="line">  |           |         |</span><br><span class="line">  |           |         |-&gt; references the contents of the first</span><br><span class="line">  |           |             capture group</span><br><span class="line">  |           |</span><br><span class="line">  |           |-&gt; regex to capture everything before</span><br><span class="line">  |               the final `.suffix`</span><br><span class="line">  |</span><br><span class="line">  |-&gt; resolves to the filename</span><br></pre></td></tr></table></figure>
+
+<p>Transform Example：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Example</th>
+<th align="left">Output</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>&quot;$&#123;TM_FILENAME/[\\.]/_/&#125;&quot;</code></td>
+<td align="left"><code>example-123_456-TEST.js</code></td>
+<td align="left">Replace the first <code>.</code> with <code>_</code></td>
+</tr>
+<tr>
+<td align="left"><code>&quot;$&#123;TM_FILENAME/[\\.-]/_/g&#125;&quot;</code></td>
+<td align="left"><code>example_123_456_TEST_js</code></td>
+<td align="left">Replace each <code>.</code> or <code>-</code> with <code>_</code></td>
+</tr>
+<tr>
+<td align="left"><code>&quot;$&#123;TM_FILENAME/(.*)/$&#123;1:/upcase&#125;/&#125;&quot;</code></td>
+<td align="left"><code>EXAMPLE-123.456-TEST.JS</code></td>
+<td align="left">Change to all uppercase</td>
+</tr>
+<tr>
+<td align="left"><code>&quot;$&#123;TM_FILENAME/[^0-9^a-z]//gi&#125;&quot;</code></td>
+<td align="left"><code>example123456TESTjs</code></td>
+<td align="left">Remove non-alphanumeric characters</td>
+</tr>
+</tbody></table>
+<h3 id="Build-value-代码片段插件bvtf-的实现"><a href="#Build-value-代码片段插件bvtf-的实现" class="headerlink" title="Build value 代码片段插件bvtf 的实现"></a>Build value 代码片段插件<code>bvtf</code> 的实现</h3><p><code>bvtf</code>，是上面变量和变量转换的综合应用，实现了下面功能</p>
+<ol>
+<li>自动识别文件名称</li>
+<li>将文件名称去掉后缀，转换为大写驼峰法（pascalcase）</li>
+</ol>
+<p>源码获取步骤：</p>
+<ol>
+<li><p>去github官网下载它的源码，<a target="_blank" rel="noopener" href="https://github.com/GiancarloCode/built-value-snippets">built-value-snippets</a></p>
+</li>
+<li><p>在vscode-&gt;snippets-&gt;snippets.json 找到对应的源码，如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;Built Value Type File&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bvtf&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;body&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;import &#x27;package:built_collection/built_collection.dart&#x27;;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;import &#x27;package:built_value/built_value.dart&#x27;;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;part &#x27;$TM_FILENAME_BASE.g.dart&#x27;;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;abstract class $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125; implements Built&lt;$&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;, $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;Builder&gt; &#123;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;  $&#123;2&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;  $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;._();&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;  factory $&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;([void Function($&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;Builder) updates]) = _$$&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Built Value Type File whose name corresponds to the file name&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>核心的变量如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file name: home_page.dart =&gt; HomePage</span></span><br><span class="line"><span class="string">&quot;$&#123;TM_FILENAME_BASE/(.*)$/$&#123;1:/pascalcase&#125;/&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过上面的学习我们几乎可能编写我们的日常需要各种代码片段</p>
+</li>
+</ol>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/GiancarloCode/built-value-snippets">built-value-snippets</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=GiancarloCode.built-value-snippets">Built Value Snippets VSCode 插件</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables">Snippets in Visual Studio Code</a></p>
+</li>
+</ul>
+
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/4e467a57/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/posts/4e467a57/" itemprop="url">用Typora的MarkDown绘制Diagrams(图解)</a></h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/4e467a57/" class="post-title-link" itemprop="url">用Typora的MarkDown绘制Diagrams(图解)</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-29T16:38:05+08:00">
-                2019-11-29
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <time title="创建时间：2019-11-29 16:38:05" itemprop="dateCreated datePublished" datetime="2019-11-29T16:38:05+08:00">2019-11-29</time>
+            </span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/4e467a57/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/4e467a57/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
               </span>
-            
-          
 
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  803
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -2112,262 +1308,257 @@ BeveledRectang
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近在研究软件设计领域常用各种图解，发现<a target="_blank" rel="noopener" href="https://typora.io/">Typora</a>d对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本<code>0.9.9.18.1(1088)</code>)支持以下几大类图解:</p>
+<ul>
+<li>Sequence</li>
+<li>Flowchart </li>
+<li>Mermaid <ul>
+<li>sequence  (时序图)</li>
+<li>flowchart   (流程图)</li>
+<li>gantt          (甘特图)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Sequence由<a target="_blank" rel="noopener" href="https://bramp.github.io/js-sequence-diagrams/">js-sequence</a>驱动</p>
+<p>Flowchart由<a target="_blank" rel="noopener" href="http://flowchart.js.org/">flowchart.js</a>驱动</p>
+<p>Mermaid由<a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid/#/">mermaid</a>驱动，支持sequence，flowchart，gantt</p>
+</blockquote>
+<h2 id="Sequence-–-时序图"><a href="#Sequence-–-时序图" class="headerlink" title="Sequence – 时序图"></a>Sequence – 时序图</h2><h3 id="UML时序图-sequence"><a href="#UML时序图-sequence" class="headerlink" title="UML时序图(sequence)"></a>UML时序图(sequence)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of  对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br></pre></td></tr></table></figure>
 
-      
-        
-          
-          简介最近在研究软件设计领域常用各种图解，发现Typorad对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本0.9.9.18.1(1088))支持以下
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/posts/4e467a57/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p><img src="/images/Diagrams/UML_sequence_01.png" alt="UML_sequence_01"></p>
+<h3 id="UML时序图复杂-sequence"><a href="#UML时序图复杂-sequence" class="headerlink" title="UML时序图复杂(sequence)"></a>UML时序图复杂(sequence)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Title: 标题：复杂使用</span><br><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of 对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象B-&gt;小三: 你好吗</span><br><span class="line">小三--&gt;&gt;对象A: 对象B找我了</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br><span class="line">Note over 小三,对象B: 我们是朋友</span><br><span class="line">participant C</span><br><span class="line">Note right of C: 没人陪我玩</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Diagrams/UML_sequence_02.png" alt="UML_sequence_02"></p>
+<h3 id="UML标准时序图-mermaid"><a href="#UML标准时序图-mermaid" class="headerlink" title="UML标准时序图(mermaid)"></a>UML标准时序图(mermaid)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头</span><br><span class="line">sequenceDiagram</span><br><span class="line">participant 张三</span><br><span class="line">participant 李四</span><br><span class="line">张三-&gt;王五: 王五你好吗？</span><br><span class="line">loop 健康检查</span><br><span class="line">王五-&gt;王五: 与疾病战斗</span><br><span class="line">end</span><br><span class="line">Note right of 王五: 合理 食物 &lt;br/&gt;看医生...</span><br><span class="line">李四--&gt;&gt;张三: 很好!</span><br><span class="line">王五-&gt;李四: 你怎么样?</span><br><span class="line">李四--&gt;王五: 很好!</span><br></pre></td></tr></table></figure>
+
+<p>语法说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Title: Here is a title</span><br><span class="line">A-&gt;B: Normal line</span><br><span class="line">B--&gt;C: Dashed line</span><br><span class="line">C-&gt;&gt;D: Open arrow</span><br><span class="line">D--&gt;&gt;A: Dashed open arrow</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/Diagrams/UML_mermaid.png" alt="UML_mermaid"></p>
+<h2 id="flowchart-–-流程图"><a href="#flowchart-–-流程图" class="headerlink" title="flowchart – 流程图"></a>flowchart – 流程图</h2><h3 id="横向流程图-mermaid"><a href="#横向流程图-mermaid" class="headerlink" title="横向流程图(mermaid)"></a>横向流程图(mermaid)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">B --&gt; C&#123;条件a&#125;</span><br><span class="line">C --&gt;|a=1| D[结果1]</span><br><span class="line">C --&gt;|a=2| E[结果2]</span><br><span class="line">F[横向流程图]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Diagrams/flowchart_mermaid_01.png" alt="flowchart_mermaid_01"></p>
+<h3 id="竖向流程图-mermaid"><a href="#竖向流程图-mermaid" class="headerlink" title="竖向流程图(mermaid)"></a>竖向流程图(mermaid)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">B --&gt; C&#123;条件a&#125;</span><br><span class="line">C --&gt;|a=1| D[结果1]</span><br><span class="line">C --&gt;|a=2| E[结果2]</span><br><span class="line">F[竖向流程图]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Diagrams/flowchart_mermaid_02.png" alt="flowchart_mermaid_02"></p>
+<h3 id="标准流程图-flow"><a href="#标准流程图-flow" class="headerlink" title="标准流程图(flow)"></a>标准流程图(flow)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Diagrams/flowchart_flow_01.png" alt="flowchart_flow_01"></p>
+<h3 id="标准流程图-横向-flow"><a href="#标准流程图-横向-flow" class="headerlink" title="标准流程图-横向(flow)"></a>标准流程图-横向(flow)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st(right)-&gt;op(right)-&gt;cond</span><br><span class="line">cond(yes)-&gt;io(bottom)-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Diagrams/flowchart_flow_02.png" alt="flowchart_flow_02"></p>
+<h2 id="甘特图样例-gantt"><a href="#甘特图样例-gantt" class="headerlink" title="甘特图样例 (gantt)"></a>甘特图样例 (gantt)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">%% 语法示例</span><br><span class="line">gantt</span><br><span class="line">dateFormat  YYYY-MM-DD</span><br><span class="line">title 软件开发甘特图</span><br><span class="line"></span><br><span class="line">section 设计</span><br><span class="line">需求:done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">原型:active,  des2, 2014-01-09, 3d</span><br><span class="line">UI设计: des3, after des2, 5d</span><br><span class="line">未来任务: des4, after des3, 5d</span><br><span class="line"></span><br><span class="line">section 开发</span><br><span class="line">学习准备理解需求 :crit, done, 2014-01-06,24h</span><br><span class="line">设计框架 :crit, done, after des2, 2d</span><br><span class="line">开发 :crit, active, 3d</span><br><span class="line">未来任务 :crit, 5d</span><br><span class="line">耍 :2d</span><br><span class="line"></span><br><span class="line">section 测试</span><br><span class="line">功能测试 :active, a1, after des3, 3d</span><br><span class="line">压力测试 :after a1  , 20h</span><br><span class="line">测试报告 : 48h</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/Diagrams/Gantt.png" alt="Gantt"></p>
+<h2 id="不错的画图工具网站"><a href="#不错的画图工具网站" class="headerlink" title="不错的画图工具网站"></a>不错的画图工具网站</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.processon.com/">https://www.processon.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.draw.io/">https://www.draw.io</a></li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://support.typora.io/Draw-Diagrams-With-Markdown/">Draw Diagrams With Markdown</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7ddbb7dc8fec">Typora画流程图、时序图(顺序图)、甘特图（转）</a></li>
+<li><a target="_blank" rel="noopener" href="http://mermaid-js.github.io/mermaid/#/">mermaid</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mermaidjs/mermaid-live-editor">mermaid-live-editor</a></li>
+</ul>
+
       
     </div>
-    
-    
-    
 
     
-
     
-
     
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
-  </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
 
-          </div>
-          
+                        </div>
+                        
 
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">王若风</p>
-              <p class="site-description motion-element" itemprop="description">王若风的技术博客</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">67</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/wangruofeng" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:wangruofeng007@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/oneruofeng" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/ace_freeman007" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div>
-  © 2015 ~ 
-    <span itemprop="copyrightYear">2019</span>
-        <span class="with-love" id="animate">
-          <i class="fa fa-heart"></i>
-        </span>
-        <span class="author" itemprop="copyrightHolder">王若风</span>
-      
-        
-    
-</div>
-
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">298k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
 
 
 
 
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
 
 
 
 
   
+<script src="/js/local-search.js"></script>
 
 
-  
 
 
 
@@ -2379,451 +1570,15 @@ BeveledRectang
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://wangruofeng.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
+    </body>
 </html>

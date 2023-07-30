@@ -1,92 +1,32 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="效率,Typora,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="简介最近在研究软件设计领域常用各种图解，发现Typorad对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本0.9.9.18.1(1088))支持以下几大类图解:  Sequence Flowchart  Mermaid  sequence  (时序图) flowchart   (流程图) gantt          (甘特图)     Sequ">
-<meta name="keywords" content="效率,Typora">
+        <meta name="description" content="简介最近在研究软件设计领域常用各种图解，发现Typorad对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本0.9.9.18.1(1088))支持以下几大类图解:  Sequence Flowchart  Mermaid  sequence  (时序图) flowchart   (流程图) gantt          (甘特图)     Sequ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用Typora的MarkDown绘制Diagrams(图解)">
 <meta property="og:url" content="https://blog.wangruofeng007.com/posts/4e467a57/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="简介最近在研究软件设计领域常用各种图解，发现Typorad对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本0.9.9.18.1(1088))支持以下几大类图解:  Sequence Flowchart  Mermaid  sequence  (时序图) flowchart   (流程图) gantt          (甘特图)     Sequ">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/Diagrams/UML_sequence_01.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/Diagrams/UML_sequence_02.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/Diagrams/UML_mermaid.png">
@@ -95,314 +35,227 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/Diagrams/flowchart_flow_01.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/Diagrams/flowchart_flow_02.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/Diagrams/Gantt.png">
-<meta property="og:updated_time" content="2020-06-13T09:46:03.658Z">
+<meta property="article:published_time" content="2019-11-29T08:38:05.000Z">
+<meta property="article:modified_time" content="2020-06-13T09:46:03.000Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="效率">
+<meta property="article:tag" content="Typora">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用Typora的MarkDown绘制Diagrams(图解)">
-<meta name="twitter:description" content="简介最近在研究软件设计领域常用各种图解，发现Typorad对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本0.9.9.18.1(1088))支持以下几大类图解:  Sequence Flowchart  Mermaid  sequence  (时序图) flowchart   (流程图) gantt          (甘特图)     Sequ">
 <meta name="twitter:image" content="https://blog.wangruofeng007.com/images/Diagrams/UML_sequence_01.png">
 
+<link rel="canonical" href="https://blog.wangruofeng007.com/posts/4e467a57/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="https://blog.wangruofeng007.com/posts/4e467a57/">
-
-
-
-
-
-  <title>用Typora的MarkDown绘制Diagrams(图解) | 王若风的技术博客</title>
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-72379345-1', 'auto');
-  ga('send', 'pageview');
-</script>
+        <title>
+            用Typora的MarkDown绘制Diagrams(图解) | 王若风的技术博客
+        </title>
+        
 
 
 
 
 
-</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
-  
-  
-    
-  
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+    </head>
 
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">王若风的技术博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">世界尽头の冷酷仙境</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
+
+
+
 
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
+    </div>
+  </div>
+
+</div>
+            </header>
+
             
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-  <div id="posts" class="posts-expand">
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/4e467a57/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">用Typora的MarkDown绘制Diagrams(图解)</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          用Typora的MarkDown绘制Diagrams(图解)
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-29T16:38:05+08:00">
-                2019-11-29
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <time title="创建时间：2019-11-29 16:38:05" itemprop="dateCreated datePublished" datetime="2019-11-29T16:38:05+08:00">2019-11-29</time>
+            </span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/4e467a57/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/4e467a57/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
               </span>
-            
-          
 
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  803
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -410,10 +263,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近在研究软件设计领域常用各种图解，发现<a href="https://typora.io" target="_blank" rel="noopener">Typora</a>d对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本<code>0.9.9.18.1(1088)</code>)支持以下几大类图解:</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近在研究软件设计领域常用各种图解，发现<a target="_blank" rel="noopener" href="https://typora.io/">Typora</a>d对MarkDown渲染diagrams的支持特别好，于是整理了一下，方便以后查阅使用，目前(测试版本<code>0.9.9.18.1(1088)</code>)支持以下几大类图解:</p>
 <ul>
 <li>Sequence</li>
 <li>Flowchart </li>
@@ -425,361 +275,259 @@
 </li>
 </ul>
 <blockquote>
-<p>Sequence由<a href="https://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="noopener">js-sequence</a>驱动</p>
-<p>Flowchart由<a href="http://flowchart.js.org/" target="_blank" rel="noopener">flowchart.js</a>驱动</p>
-<p>Mermaid由<a href="https://mermaid-js.github.io/mermaid/#/" target="_blank" rel="noopener">mermaid</a>驱动，支持sequence，flowchart，gantt</p>
+<p>Sequence由<a target="_blank" rel="noopener" href="https://bramp.github.io/js-sequence-diagrams/">js-sequence</a>驱动</p>
+<p>Flowchart由<a target="_blank" rel="noopener" href="http://flowchart.js.org/">flowchart.js</a>驱动</p>
+<p>Mermaid由<a target="_blank" rel="noopener" href="https://mermaid-js.github.io/mermaid/#/">mermaid</a>驱动，支持sequence，flowchart，gantt</p>
 </blockquote>
-<h2 id="Sequence-–-时序图"><a href="#Sequence-–-时序图" class="headerlink" title="Sequence – 时序图"></a>Sequence – 时序图</h2><h3 id="UML时序图-sequence"><a href="#UML时序图-sequence" class="headerlink" title="UML时序图(sequence)"></a>UML时序图(sequence)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of  对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br></pre></td></tr></table></figure>
+<h2 id="Sequence-–-时序图"><a href="#Sequence-–-时序图" class="headerlink" title="Sequence – 时序图"></a>Sequence – 时序图</h2><h3 id="UML时序图-sequence"><a href="#UML时序图-sequence" class="headerlink" title="UML时序图(sequence)"></a>UML时序图(sequence)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of  对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/UML_sequence_01.png" alt="UML_sequence_01"></p>
-<h3 id="UML时序图复杂-sequence"><a href="#UML时序图复杂-sequence" class="headerlink" title="UML时序图复杂(sequence)"></a>UML时序图复杂(sequence)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Title: 标题：复杂使用</span><br><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of 对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象B-&gt;小三: 你好吗</span><br><span class="line">小三--&gt;&gt;对象A: 对象B找我了</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br><span class="line">Note over 小三,对象B: 我们是朋友</span><br><span class="line">participant C</span><br><span class="line">Note right of C: 没人陪我玩</span><br></pre></td></tr></table></figure>
+<h3 id="UML时序图复杂-sequence"><a href="#UML时序图复杂-sequence" class="headerlink" title="UML时序图复杂(sequence)"></a>UML时序图复杂(sequence)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Title: 标题：复杂使用</span><br><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of 对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象B-&gt;小三: 你好吗</span><br><span class="line">小三--&gt;&gt;对象A: 对象B找我了</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br><span class="line">Note over 小三,对象B: 我们是朋友</span><br><span class="line">participant C</span><br><span class="line">Note right of C: 没人陪我玩</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/UML_sequence_02.png" alt="UML_sequence_02"></p>
-<h3 id="UML标准时序图-mermaid"><a href="#UML标准时序图-mermaid" class="headerlink" title="UML标准时序图(mermaid)"></a>UML标准时序图(mermaid)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头</span><br><span class="line">sequenceDiagram</span><br><span class="line">participant 张三</span><br><span class="line">participant 李四</span><br><span class="line">张三-&gt;王五: 王五你好吗？</span><br><span class="line">loop 健康检查</span><br><span class="line">王五-&gt;王五: 与疾病战斗</span><br><span class="line">end</span><br><span class="line">Note right of 王五: 合理 食物 &lt;br/&gt;看医生...</span><br><span class="line">李四--&gt;&gt;张三: 很好!</span><br><span class="line">王五-&gt;李四: 你怎么样?</span><br><span class="line">李四--&gt;王五: 很好!</span><br></pre></td></tr></table></figure>
-<p>语法说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Title: Here is a title</span><br><span class="line">A-&gt;B: Normal line</span><br><span class="line">B--&gt;C: Dashed line</span><br><span class="line">C-&gt;&gt;D: Open arrow</span><br><span class="line">D--&gt;&gt;A: Dashed open arrow</span><br></pre></td></tr></table></figure></p>
+<h3 id="UML标准时序图-mermaid"><a href="#UML标准时序图-mermaid" class="headerlink" title="UML标准时序图(mermaid)"></a>UML标准时序图(mermaid)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头</span><br><span class="line">sequenceDiagram</span><br><span class="line">participant 张三</span><br><span class="line">participant 李四</span><br><span class="line">张三-&gt;王五: 王五你好吗？</span><br><span class="line">loop 健康检查</span><br><span class="line">王五-&gt;王五: 与疾病战斗</span><br><span class="line">end</span><br><span class="line">Note right of 王五: 合理 食物 &lt;br/&gt;看医生...</span><br><span class="line">李四--&gt;&gt;张三: 很好!</span><br><span class="line">王五-&gt;李四: 你怎么样?</span><br><span class="line">李四--&gt;王五: 很好!</span><br></pre></td></tr></table></figure>
+
+<p>语法说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Title: Here is a title</span><br><span class="line">A-&gt;B: Normal line</span><br><span class="line">B--&gt;C: Dashed line</span><br><span class="line">C-&gt;&gt;D: Open arrow</span><br><span class="line">D--&gt;&gt;A: Dashed open arrow</span><br></pre></td></tr></table></figure>
+
+
 <p><img src="/images/Diagrams/UML_mermaid.png" alt="UML_mermaid"></p>
-<h2 id="flowchart-–-流程图"><a href="#flowchart-–-流程图" class="headerlink" title="flowchart – 流程图"></a>flowchart – 流程图</h2><h3 id="横向流程图-mermaid"><a href="#横向流程图-mermaid" class="headerlink" title="横向流程图(mermaid)"></a>横向流程图(mermaid)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">B --&gt; C&#123;条件a&#125;</span><br><span class="line">C --&gt;|a=1| D[结果1]</span><br><span class="line">C --&gt;|a=2| E[结果2]</span><br><span class="line">F[横向流程图]</span><br></pre></td></tr></table></figure>
+<h2 id="flowchart-–-流程图"><a href="#flowchart-–-流程图" class="headerlink" title="flowchart – 流程图"></a>flowchart – 流程图</h2><h3 id="横向流程图-mermaid"><a href="#横向流程图-mermaid" class="headerlink" title="横向流程图(mermaid)"></a>横向流程图(mermaid)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">B --&gt; C&#123;条件a&#125;</span><br><span class="line">C --&gt;|a=1| D[结果1]</span><br><span class="line">C --&gt;|a=2| E[结果2]</span><br><span class="line">F[横向流程图]</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/flowchart_mermaid_01.png" alt="flowchart_mermaid_01"></p>
-<h3 id="竖向流程图-mermaid"><a href="#竖向流程图-mermaid" class="headerlink" title="竖向流程图(mermaid)"></a>竖向流程图(mermaid)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">B --&gt; C&#123;条件a&#125;</span><br><span class="line">C --&gt;|a=1| D[结果1]</span><br><span class="line">C --&gt;|a=2| E[结果2]</span><br><span class="line">F[竖向流程图]</span><br></pre></td></tr></table></figure>
+<h3 id="竖向流程图-mermaid"><a href="#竖向流程图-mermaid" class="headerlink" title="竖向流程图(mermaid)"></a>竖向流程图(mermaid)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">B --&gt; C&#123;条件a&#125;</span><br><span class="line">C --&gt;|a=1| D[结果1]</span><br><span class="line">C --&gt;|a=2| E[结果2]</span><br><span class="line">F[竖向流程图]</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/flowchart_mermaid_02.png" alt="flowchart_mermaid_02"></p>
-<h3 id="标准流程图-flow"><a href="#标准流程图-flow" class="headerlink" title="标准流程图(flow)"></a>标准流程图(flow)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+<h3 id="标准流程图-flow"><a href="#标准流程图-flow" class="headerlink" title="标准流程图(flow)"></a>标准流程图(flow)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/flowchart_flow_01.png" alt="flowchart_flow_01"></p>
-<h3 id="标准流程图-横向-flow"><a href="#标准流程图-横向-flow" class="headerlink" title="标准流程图-横向(flow)"></a>标准流程图-横向(flow)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st(right)-&gt;op(right)-&gt;cond</span><br><span class="line">cond(yes)-&gt;io(bottom)-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+<h3 id="标准流程图-横向-flow"><a href="#标准流程图-横向-flow" class="headerlink" title="标准流程图-横向(flow)"></a>标准流程图-横向(flow)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st(right)-&gt;op(right)-&gt;cond</span><br><span class="line">cond(yes)-&gt;io(bottom)-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/flowchart_flow_02.png" alt="flowchart_flow_02"></p>
-<h2 id="甘特图样例-gantt"><a href="#甘特图样例-gantt" class="headerlink" title="甘特图样例 (gantt)"></a>甘特图样例 (gantt)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">%% 语法示例</span><br><span class="line">gantt</span><br><span class="line">dateFormat  YYYY-MM-DD</span><br><span class="line">title 软件开发甘特图</span><br><span class="line"></span><br><span class="line">section 设计</span><br><span class="line">需求:done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">原型:active,  des2, 2014-01-09, 3d</span><br><span class="line">UI设计: des3, after des2, 5d</span><br><span class="line">未来任务: des4, after des3, 5d</span><br><span class="line"></span><br><span class="line">section 开发</span><br><span class="line">学习准备理解需求 :crit, done, 2014-01-06,24h</span><br><span class="line">设计框架 :crit, done, after des2, 2d</span><br><span class="line">开发 :crit, active, 3d</span><br><span class="line">未来任务 :crit, 5d</span><br><span class="line">耍 :2d</span><br><span class="line"></span><br><span class="line">section 测试</span><br><span class="line">功能测试 :active, a1, after des3, 3d</span><br><span class="line">压力测试 :after a1  , 20h</span><br><span class="line">测试报告 : 48h</span><br></pre></td></tr></table></figure>
+<h2 id="甘特图样例-gantt"><a href="#甘特图样例-gantt" class="headerlink" title="甘特图样例 (gantt)"></a>甘特图样例 (gantt)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">%% 语法示例</span><br><span class="line">gantt</span><br><span class="line">dateFormat  YYYY-MM-DD</span><br><span class="line">title 软件开发甘特图</span><br><span class="line"></span><br><span class="line">section 设计</span><br><span class="line">需求:done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">原型:active,  des2, 2014-01-09, 3d</span><br><span class="line">UI设计: des3, after des2, 5d</span><br><span class="line">未来任务: des4, after des3, 5d</span><br><span class="line"></span><br><span class="line">section 开发</span><br><span class="line">学习准备理解需求 :crit, done, 2014-01-06,24h</span><br><span class="line">设计框架 :crit, done, after des2, 2d</span><br><span class="line">开发 :crit, active, 3d</span><br><span class="line">未来任务 :crit, 5d</span><br><span class="line">耍 :2d</span><br><span class="line"></span><br><span class="line">section 测试</span><br><span class="line">功能测试 :active, a1, after des3, 3d</span><br><span class="line">压力测试 :after a1  , 20h</span><br><span class="line">测试报告 : 48h</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/Diagrams/Gantt.png" alt="Gantt"></p>
 <h2 id="不错的画图工具网站"><a href="#不错的画图工具网站" class="headerlink" title="不错的画图工具网站"></a>不错的画图工具网站</h2><ul>
-<li><a href="https://www.processon.com" target="_blank" rel="noopener">https://www.processon.com</a></li>
-<li><a href="https://www.draw.io" target="_blank" rel="noopener">https://www.draw.io</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.processon.com/">https://www.processon.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.draw.io/">https://www.draw.io</a></li>
 </ul>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="http://support.typora.io/Draw-Diagrams-With-Markdown/" target="_blank" rel="noopener">Draw Diagrams With Markdown</a></li>
-<li><a href="https://www.jianshu.com/p/7ddbb7dc8fec" target="_blank" rel="noopener">Typora画流程图、时序图(顺序图)、甘特图（转）</a></li>
-<li><a href="http://mermaid-js.github.io/mermaid/#/" target="_blank" rel="noopener">mermaid</a></li>
-<li><a href="https://github.com/mermaidjs/mermaid-live-editor" target="_blank" rel="noopener">mermaid-live-editor</a></li>
+<li><a target="_blank" rel="noopener" href="http://support.typora.io/Draw-Diagrams-With-Markdown/">Draw Diagrams With Markdown</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7ddbb7dc8fec">Typora画流程图、时序图(顺序图)、甘特图（转）</a></li>
+<li><a target="_blank" rel="noopener" href="http://mermaid-js.github.io/mermaid/#/">mermaid</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mermaidjs/mermaid-live-editor">mermaid-live-editor</a></li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    王若风
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://blog.wangruofeng007.com/posts/4e467a57/" title="用Typora的MarkDown绘制Diagrams(图解)">https://blog.wangruofeng007.com/posts/4e467a57/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/效率/" rel="tag"># 效率</a>
-          
-            <a href="/tags/Typora/" rel="tag"># Typora</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/posts/69b7e198/" rel="next" title="[转]Objective-C Runtime 大佬系列文章整理">
-                <i class="fa fa-chevron-left"></i> [转]Objective-C Runtime 大佬系列文章整理
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%88%E7%8E%87/" rel="tag"># 效率</a>
+              <a href="/tags/Typora/" rel="tag"># Typora</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/87b044ce/" rel="prev" title="VSCode Snippets 使用手册">
-                VSCode Snippets 使用手册 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/69b7e198/" rel="prev" title="[转]Objective-C Runtime 大佬系列文章整理">
+      <i class="fa fa-chevron-left"></i> [转]Objective-C Runtime 大佬系列文章整理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/87b044ce/" rel="next" title="VSCode Snippets 使用手册">
+      VSCode Snippets 使用手册 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+                        </div>
+                        
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">王若风</p>
-              <p class="site-description motion-element" itemprop="description">王若风的技术博客</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">67</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/wangruofeng" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:wangruofeng007@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/oneruofeng" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/ace_freeman007" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence-–-时序图"><span class="nav-number">2.</span> <span class="nav-text">Sequence – 时序图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML时序图-sequence"><span class="nav-number">2.1.</span> <span class="nav-text">UML时序图(sequence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML时序图复杂-sequence"><span class="nav-number">2.2.</span> <span class="nav-text">UML时序图复杂(sequence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML标准时序图-mermaid"><span class="nav-number">2.3.</span> <span class="nav-text">UML标准时序图(mermaid)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flowchart-–-流程图"><span class="nav-number">3.</span> <span class="nav-text">flowchart – 流程图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#横向流程图-mermaid"><span class="nav-number">3.1.</span> <span class="nav-text">横向流程图(mermaid)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#竖向流程图-mermaid"><span class="nav-number">3.2.</span> <span class="nav-text">竖向流程图(mermaid)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准流程图-flow"><span class="nav-number">3.3.</span> <span class="nav-text">标准流程图(flow)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准流程图-横向-flow"><span class="nav-number">3.4.</span> <span class="nav-text">标准流程图-横向(flow)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#甘特图样例-gantt"><span class="nav-number">4.</span> <span class="nav-text">甘特图样例 (gantt)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不错的画图工具网站"><span class="nav-number">5.</span> <span class="nav-text">不错的画图工具网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div>
-  © 2015 ~ 
-    <span itemprop="copyrightYear">2019</span>
-        <span class="with-love" id="animate">
-          <i class="fa fa-heart"></i>
-        </span>
-        <span class="author" itemprop="copyrightHolder">王若风</span>
-      
-        
-    
-</div>
-
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence-%E2%80%93-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">Sequence – 时序图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML%E6%97%B6%E5%BA%8F%E5%9B%BE-sequence"><span class="nav-number">2.1.</span> <span class="nav-text">UML时序图(sequence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML%E6%97%B6%E5%BA%8F%E5%9B%BE%E5%A4%8D%E6%9D%82-sequence"><span class="nav-number">2.2.</span> <span class="nav-text">UML时序图复杂(sequence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML%E6%A0%87%E5%87%86%E6%97%B6%E5%BA%8F%E5%9B%BE-mermaid"><span class="nav-number">2.3.</span> <span class="nav-text">UML标准时序图(mermaid)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flowchart-%E2%80%93-%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">flowchart – 流程图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E6%B5%81%E7%A8%8B%E5%9B%BE-mermaid"><span class="nav-number">3.1.</span> <span class="nav-text">横向流程图(mermaid)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%96%E5%90%91%E6%B5%81%E7%A8%8B%E5%9B%BE-mermaid"><span class="nav-number">3.2.</span> <span class="nav-text">竖向流程图(mermaid)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%B5%81%E7%A8%8B%E5%9B%BE-flow"><span class="nav-number">3.3.</span> <span class="nav-text">标准流程图(flow)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%B5%81%E7%A8%8B%E5%9B%BE-%E6%A8%AA%E5%90%91-flow"><span class="nav-number">3.4.</span> <span class="nav-text">标准流程图-横向(flow)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%98%E7%89%B9%E5%9B%BE%E6%A0%B7%E4%BE%8B-gantt"><span class="nav-number">4.</span> <span class="nav-text">甘特图样例 (gantt)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E9%94%99%E7%9A%84%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7%E7%BD%91%E7%AB%99"><span class="nav-number">5.</span> <span class="nav-text">不错的画图工具网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">298k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
 
 
 
 
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
 
 
 
 
   
+<script src="/js/local-search.js"></script>
 
 
-  
 
 
 
@@ -791,467 +539,15 @@
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://wangruofeng.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://blog.wangruofeng007.com/posts/4e467a57/';
-          this.page.identifier = 'posts/4e467a57/';
-          this.page.title = '用Typora的MarkDown绘制Diagrams(图解)';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://wangruofeng.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
+    </body>
 </html>

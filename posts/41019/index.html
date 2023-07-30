@@ -1,426 +1,267 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Favorite,技巧,翻译,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="翻译自NSHipster的UIActivity​View​Controller  一直非常好奇代码和数据之间的联系。 某些编程语言，例如Lisp，Io和Mathematica他们是同型性(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危">
-<meta name="keywords" content="Favorite,技巧,翻译">
+        <meta name="description" content="翻译自NSHipster的UIActivity​View​Controller  一直非常好奇代码和数据之间的联系。 某些编程语言，例如Lisp，Io和Mathematica他们是同型性(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UIActivity​View​Controller 详解">
 <meta property="og:url" content="https://blog.wangruofeng007.com/posts/41019/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="翻译自NSHipster的UIActivity​View​Controller  一直非常好奇代码和数据之间的联系。 某些编程语言，例如Lisp，Io和Mathematica他们是同型性(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://nshipster.s3.amazonaws.com/uiactivityviewcontroller.png">
 <meta property="og:image" content="http://nshipster.s3.amazonaws.com/jony-ive-unstache.png">
 <meta property="og:image" content="http://nshipster.s3.amazonaws.com/jony-ive-mustache.png">
 <meta property="og:image" content="https://raw.github.com/intentkit/IntentKit/master/example.gif">
-<meta property="og:updated_time" content="2020-06-13T09:46:03.655Z">
+<meta property="article:published_time" content="2017-02-23T15:23:12.000Z">
+<meta property="article:modified_time" content="2020-06-13T09:46:03.000Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Favorite">
+<meta property="article:tag" content="技巧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UIActivity​View​Controller 详解">
-<meta name="twitter:description" content="翻译自NSHipster的UIActivity​View​Controller  一直非常好奇代码和数据之间的联系。 某些编程语言，例如Lisp，Io和Mathematica他们是同型性(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危">
 <meta name="twitter:image" content="http://nshipster.s3.amazonaws.com/uiactivityviewcontroller.png">
 
+<link rel="canonical" href="https://blog.wangruofeng007.com/posts/41019/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="https://blog.wangruofeng007.com/posts/41019/">
-
-
-
-
-
-  <title>UIActivity​View​Controller 详解 | 王若风的技术博客</title>
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-72379345-1', 'auto');
-  ga('send', 'pageview');
-</script>
+        <title>
+            UIActivity​View​Controller 详解 | 王若风的技术博客
+        </title>
+        
 
 
 
 
 
-</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
-  
-  
-    
-  
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+    </head>
 
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">王若风的技术博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">世界尽头の冷酷仙境</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
+
+
+
 
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
+    </div>
+  </div>
+
+</div>
+            </header>
+
             
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-  <div id="posts" class="posts-expand">
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/41019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">UIActivity​View​Controller 详解</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          UIActivity​View​Controller 详解
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-23T23:23:12+08:00">
-                2017-02-23
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2017-02-23 23:23:12" itemprop="dateCreated datePublished" datetime="2017-02-23T23:23:12+08:00">2017-02-23</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/41019/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/41019/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2.1k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -428,26 +269,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <blockquote>
-<p>翻译自NSHipster的<a href="http://nshipster.com/uiactivityviewcontroller/" target="_blank" rel="noopener">UIActivity​View​Controller</a></p>
+<p>翻译自NSHipster的<a target="_blank" rel="noopener" href="http://nshipster.com/uiactivityviewcontroller/">UIActivity​View​Controller</a></p>
 </blockquote>
 <p>一直非常好奇代码和数据之间的联系。</p>
-<p>某些编程语言，例如<a href="http://en.wikipedia.org/wiki/Lisp_programming_language" target="_blank" rel="noopener">Lisp</a>，<a href="http://en.wikipedia.org/wiki/Io_%28programming_language%29" target="_blank" rel="noopener">Io</a>和<a href="http://en.wikipedia.org/wiki/Mathematica" target="_blank" rel="noopener">Mathematica</a>他们是<a href="http://en.wikipedia.org/wiki/Homoiconicity" target="_blank" rel="noopener">同型性</a>(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危险方法。</p>
+<p>某些编程语言，例如<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Lisp_programming_language">Lisp</a>，<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Io_%28programming_language%29">Io</a>和<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Mathematica">Mathematica</a>他们是<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Homoiconicity">同型性</a>(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危险方法。</p>
 <p>当数据出现太大和呈现一些东西过于笨重除了使用二进制流的问题时代码和数据之间的不安被推向到了一个全新的高度。自从第一个操作系统出现开始，怎样编码，解码，解释二进制代表的图片，文档，和媒体一直是一个问题。</p>
-<p>在OS X上的核心服务框架和iOS上提供标识功能和通过文件拓展和<a href="http://en.wikipedia.org/wiki/Internet_media_type" target="_blank" rel="noopener">MIMIE type</a>–根据<a href="http://en.wikipedia.org/wiki/Uniform_Type_Identifier" target="_blank" rel="noopener">通用数据标示</a>，给数据类型的分类核心服务框架。UTIs提供了一种可拓展，阶梯分层系统，这给开发者在处理大量不同的文件类型提供了巨大的灵活性。例如，一个Ruby的源文件(.rb)被归类为：Ruby Source Code &gt; Source Code &gt; Text &gt; Content &gt; Data；一个QuickTime电影文件(.mov)被归类为 Video &gt; Movie &gt; Audiovisual Content &gt; Content &gt; Data。</p>
+<p>在OS X上的核心服务框架和iOS上提供标识功能和通过文件拓展和<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Internet_media_type">MIMIE type</a>–根据<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Uniform_Type_Identifier">通用数据标示</a>，给数据类型的分类核心服务框架。UTIs提供了一种可拓展，阶梯分层系统，这给开发者在处理大量不同的文件类型提供了巨大的灵活性。例如，一个Ruby的源文件(.rb)被归类为：Ruby Source Code &gt; Source Code &gt; Text &gt; Content &gt; Data；一个QuickTime电影文件(.mov)被归类为 Video &gt; Movie &gt; Audiovisual Content &gt; Content &gt; Data。</p>
 <p>UTIs表现得非常好在桌面的抽象文件系统中。然而，在一个移动范例中这就崩溃得很快，因为文件和目录是对用户隐藏的。还有，随着云服务和社交媒体扮演着越来越重要的角色在远程实体通过本地文件。因此，UTIs和URLs之间很紧张。</p>
 <p>我们非常清楚我们需要一些别的东西。<code>UIActivityViewController</code>能否成为我们正在急切寻找的解决方案呢?</p>
 <hr>
 <p><code>UIActivityViewController</code>，在iOS6中被引入，提供了一套分享和在应用内执行数据操作的统一服务界面。</p>
 <p>考虑到可操作的数据集合，一个<code>UIActivityViewController</code>实例通过如下方式创建：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *string = ...;</span><br><span class="line"><span class="built_in">NSURL</span> *URL = ...;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIActivityViewController</span> *activityViewController = [[<span class="built_in">UIActivityViewController</span> alloc] initWithActivityItems:@[string, URL]</span><br><span class="line">                                    applicationActivities:<span class="literal">nil</span>];</span><br><span class="line">[navigationController presentViewController:activityViewController</span><br><span class="line">                                   animated:<span class="literal">YES</span></span><br><span class="line">                                 completion:^&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
 <p>这将在屏幕底部呈现如下界面：</p>
 <p><img src="http://nshipster.s3.amazonaws.com/uiactivityviewcontroller.png" alt="activity sharing img"></p>
 <p>默认情况下，<code>UIActivityViewController</code>将会显示所有支持的可用服务类型，但是某些活动类型也可以排除：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activityViewController.excludedActivityTypes = @[<span class="built_in">UIActivityTypePostToFacebook</span>];</span><br></pre></td></tr></table></figure>
+
 <p>活动类型被划分“动作”(action)和“分享”(share)类型：</p>
 <h3 id="UIActivityCategoryAction"><a href="#UIActivityCategoryAction" class="headerlink" title="UIActivityCategoryAction"></a>UIActivityCategoryAction</h3><ul>
 <li>UIActivityTypePrint</li>
@@ -473,7 +313,7 @@
 <thead>
 <tr>
 <th>Activity Type</th>
-<th style="text-align:center">String</th>
+<th align="center">String</th>
 <th>Attributed String</th>
 <th>URL</th>
 <th>Data</th>
@@ -482,10 +322,9 @@
 <th>Other</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Post To Facebook</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓</td>
 <td></td>
@@ -495,7 +334,7 @@
 </tr>
 <tr>
 <td>Post To Twitter</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓</td>
 <td></td>
@@ -505,7 +344,7 @@
 </tr>
 <tr>
 <td>Post To Weibo</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓</td>
 <td></td>
@@ -515,17 +354,17 @@
 </tr>
 <tr>
 <td>Message</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓*</td>
 <td>✓*</td>
 <td></td>
 <td>✓</td>
-<td>sms:// NSURL</td>
+<td>sms:&#x2F;&#x2F; NSURL</td>
 </tr>
 <tr>
 <td>Mail</td>
-<td style="text-align:center">✓+</td>
+<td align="center">✓+</td>
 <td>✓+</td>
 <td>✓+</td>
 <td></td>
@@ -535,7 +374,7 @@
 </tr>
 <tr>
 <td>Print</td>
-<td style="text-align:center"></td>
+<td align="center"></td>
 <td></td>
 <td></td>
 <td>✓+</td>
@@ -545,7 +384,7 @@
 </tr>
 <tr>
 <td>Copy To Pasteboard</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td></td>
 <td>✓</td>
 <td></td>
@@ -555,7 +394,7 @@
 </tr>
 <tr>
 <td>Assign To Contact</td>
-<td style="text-align:center"></td>
+<td align="center"></td>
 <td></td>
 <td></td>
 <td></td>
@@ -565,7 +404,7 @@
 </tr>
 <tr>
 <td>Save To Camera Roll</td>
-<td style="text-align:center"></td>
+<td align="center"></td>
 <td></td>
 <td>✓</td>
 <td></td>
@@ -575,7 +414,7 @@
 </tr>
 <tr>
 <td>Add To Reading List</td>
-<td style="text-align:center"></td>
+<td align="center"></td>
 <td></td>
 <td>✓</td>
 <td></td>
@@ -585,7 +424,7 @@
 </tr>
 <tr>
 <td>Post To Flickr</td>
-<td style="text-align:center"></td>
+<td align="center"></td>
 <td></td>
 <td>✓</td>
 <td>✓</td>
@@ -595,7 +434,7 @@
 </tr>
 <tr>
 <td>Post To Vimeo</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓</td>
 <td>✓</td>
@@ -605,7 +444,7 @@
 </tr>
 <tr>
 <td>Post To Tencent Weibo</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓</td>
 <td></td>
@@ -615,16 +454,16 @@
 </tr>
 <tr>
 <td>AirDrop</td>
-<td style="text-align:center">✓</td>
+<td align="center">✓</td>
 <td>✓</td>
 <td>✓</td>
 <td></td>
 <td>✓</td>
 <td>✓</td>
+<td></td>
 </tr>
-</tbody>
-</table>
-<h3 id="UIActivityItemSource-amp-UIActivityItemProvider"><a href="#UIActivityItemSource-amp-UIActivityItemProvider" class="headerlink" title="UIActivityItemSource &amp; UIActivityItemProvider"></a>UIActivityItemSource &amp; UIActivityItemProvider</h3><p>当必要时和一个粘贴板项目能用来提供的数据类似，为了避免过度的内测开销或处理时间，活动类型可以是一种自定义类型。</p>
+</tbody></table>
+<h3 id="UIActivityItemSource-UIActivityItemProvider"><a href="#UIActivityItemSource-UIActivityItemProvider" class="headerlink" title="UIActivityItemSource &amp; UIActivityItemProvider"></a>UIActivityItemSource &amp; UIActivityItemProvider</h3><p>当必要时和一个粘贴板项目能用来提供的数据类似，为了避免过度的内测开销或处理时间，活动类型可以是一种自定义类型。</p>
 <p>任何遵循<code>&lt;UIActivityItemSource&gt;</code>协议的对象，包括内构<code>UIActivityItemProvider</code>类，可以用来动态提供不同类型的数据根据活动的类型。</p>
 <h4 id="UIActivityItemSource"><a href="#UIActivityItemSource" class="headerlink" title="UIActivityItemSource"></a>UIActivityItemSource</h4><p>获取数据项目：</p>
 <ul>
@@ -638,39 +477,53 @@
 <li>activityViewController:thumbnailImageForActivityType:suggestedSize:</li>
 </ul>
 <p>下面是一个例子，根据是否分享到FaceBook或者Twitter来展示自定义一条消息是怎样使用的:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)activityViewController:(<span class="built_in">UIActivityViewController</span> *)activityViewController</span><br><span class="line">         itemForActivityType:(<span class="built_in">NSString</span> *)activityType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([activityType isEqualToString:<span class="built_in">UIActivityTypePostToFacebook</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@"Like this!"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([activityType isEqualToString:<span class="built_in">UIActivityTypePostToTwitter</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@"Retweet this!"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">id</span>)activityViewController:(<span class="built_in">UIActivityViewController</span> *)activityViewController</span><br><span class="line">         itemForActivityType:(<span class="built_in">NSString</span> *)activityType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([activityType isEqualToString:<span class="built_in">UIActivityTypePostToFacebook</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;Like this!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([activityType isEqualToString:<span class="built_in">UIActivityTypePostToTwitter</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;Retweet this!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="创建一个自定义UIActivity"><a href="#创建一个自定义UIActivity" class="headerlink" title="创建一个自定义UIActivity"></a>创建一个自定义UIActivity</h3><p>除了上述的系统提供的活动，你也可以创建你自己的活动。</p>
-<p>例如，让我们创建一个自定义活动类型，它能使一个URL中的图片添加上胡须通过使用<a href="http://mustache.me/" target="_blank" rel="noopener">mustache.me</a>。</p>
+<p>例如，让我们创建一个自定义活动类型，它能使一个URL中的图片添加上胡须通过使用<a target="_blank" rel="noopener" href="http://mustache.me/">mustache.me</a>。</p>
 <p>Before:</p>
 <p><img src="http://nshipster.s3.amazonaws.com/jony-ive-unstache.png" alt="Before"></p>
 <p>After:</p>
 <p><img src="http://nshipster.s3.amazonaws.com/jony-ive-mustache.png" alt="After"></p>
-<p>首先，我们定义一个<a href="http://en.wikipedia.org/wiki/Reverse_domain_name_notation" target="_blank" rel="noopener">反向域名解析的标识符</a>给活动类型：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> HIPMustachifyActivityType = <span class="string">@"com.nshipster.activity.Mustachify"</span>;</span><br></pre></td></tr></table></figure>
+<p>首先，我们定义一个<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Reverse_domain_name_notation">反向域名解析的标识符</a>给活动类型：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> HIPMustachifyActivityType = <span class="string">@&quot;com.nshipster.activity.Mustachify&quot;</span>;</span><br></pre></td></tr></table></figure>
+
 <p>然后指定它的分类为<code>UIActivityCategoryAction</code>并且提供一个本地化标题和iOS版本相应的图片：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - UIActivity</span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIActivityCategory</span>)activityCategory &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIActivityCategoryAction</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)activityType &#123;</span><br><span class="line">    <span class="keyword">return</span> HIPMustachifyActivityType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)activityTitle &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@"Mustachify"</span>, <span class="literal">nil</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIImage</span> *)activityImage &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">NSFoundationVersionNumber</span> &gt; <span class="built_in">NSFoundationVersionNumber_iOS_6_1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MustachifyUIActivity7"</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MustachifyUIActivity"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - UIActivity</span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIActivityCategory</span>)activityCategory &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIActivityCategoryAction</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)activityType &#123;</span><br><span class="line">    <span class="keyword">return</span> HIPMustachifyActivityType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)activityTitle &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;Mustachify&quot;</span>, <span class="literal">nil</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIImage</span> *)activityImage &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">NSFoundationVersionNumber</span> &gt; <span class="built_in">NSFoundationVersionNumber_iOS_6_1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;MustachifyUIActivity7&quot;</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;MustachifyUIActivity&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>下一步，我们创建一个辅助函数，<code>HIPMatchingURLsInActivityItems</code>，通过它返回一个支持类型的图片URL的数组。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSArray</span> * HIPMatchingURLsInActivityItems(<span class="built_in">NSArray</span> *activityItems) &#123;</span><br><span class="line">    <span class="keyword">return</span> [activityItems filteredArrayUsingPredicate:[<span class="built_in">NSPredicate</span> predicateWithBlock:</span><br><span class="line">    ^<span class="built_in">BOOL</span>(<span class="keyword">id</span> item, __unused <span class="built_in">NSDictionary</span> *bindings) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([item isKindOfClass:[<span class="built_in">NSURL</span> <span class="keyword">class</span>]] &amp;&amp;</span><br><span class="line">            ![(<span class="built_in">NSURL</span> *)item isFileURL]) &#123;</span><br><span class="line">            <span class="keyword">return</span> [[(<span class="built_in">NSURL</span> *)item pathExtension] caseInsensitiveCompare:<span class="string">@"jpg"</span>] == <span class="built_in">NSOrderedSame</span> ||</span><br><span class="line">            [[(<span class="built_in">NSURL</span> *)item pathExtension] caseInsensitiveCompare:<span class="string">@"png"</span>] == <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSArray</span> * HIPMatchingURLsInActivityItems(<span class="built_in">NSArray</span> *activityItems) &#123;</span><br><span class="line">    <span class="keyword">return</span> [activityItems filteredArrayUsingPredicate:[<span class="built_in">NSPredicate</span> predicateWithBlock:</span><br><span class="line">    ^<span class="type">BOOL</span>(<span class="type">id</span> item, __unused <span class="built_in">NSDictionary</span> *bindings) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([item isKindOfClass:[<span class="built_in">NSURL</span> <span class="keyword">class</span>]] &amp;&amp;</span><br><span class="line">            ![(<span class="built_in">NSURL</span> *)item isFileURL]) &#123;</span><br><span class="line">            <span class="keyword">return</span> [[(<span class="built_in">NSURL</span> *)item pathExtension] caseInsensitiveCompare:<span class="string">@&quot;jpg&quot;</span>] == <span class="built_in">NSOrderedSame</span> ||</span><br><span class="line">            [[(<span class="built_in">NSURL</span> *)item pathExtension] caseInsensitiveCompare:<span class="string">@&quot;png&quot;</span>] == <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这个函数让后被用在<code>-canPerformWithActivityItems:</code>和<code>prepareWithActivityItems:</code>来获取小胡子的第一张PNG或JPEG图片的URL，假如有的话。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)canPerformWithActivityItems:(<span class="built_in">NSArray</span> *)activityItems &#123;</span><br><span class="line">    <span class="keyword">return</span> [HIPMatchingURLsInActivityItems(activityItems) count] &gt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)prepareWithActivityItems:(<span class="built_in">NSArray</span> *)activityItems &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> HIPMustachifyMeURLFormatString = <span class="string">@"http://mustachify.me/%d?src=%@"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imageURL = [<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:HIPMustachifyMeURLFormatString, <span class="keyword">self</span>.mustacheType, [HIPMatchingURLsInActivityItems(activityItems) firstObject]]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">BOOL</span>)canPerformWithActivityItems:(<span class="built_in">NSArray</span> *)activityItems &#123;</span><br><span class="line">    <span class="keyword">return</span> [HIPMatchingURLsInActivityItems(activityItems) count] &gt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)prepareWithActivityItems:(<span class="built_in">NSArray</span> *)activityItems &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> HIPMustachifyMeURLFormatString = <span class="string">@&quot;http://mustachify.me/%d?src=%@&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imageURL = [<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:HIPMustachifyMeURLFormatString, <span class="keyword">self</span>.mustacheType, [HIPMatchingURLsInActivityItems(activityItems) firstObject]]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>我们的网站服务提供了各种胡须选项，它被定义在一个枚举中：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, HIPMustacheType) &#123;</span><br><span class="line">    HIPMustacheTypeEnglish,</span><br><span class="line">    HIPMustacheTypeHorseshoe,</span><br><span class="line">    HIPMustacheTypeImperial,</span><br><span class="line">    HIPMustacheTypeChevron,</span><br><span class="line">    HIPMustacheTypeNatural,</span><br><span class="line">    HIPMustacheTypeHandlebar,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>最终，我们提供了一个<code>UIViewController</code>来显示图片。在这个例子中，一个简单的<code>UIWebView</code>控制器就够用了。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HIPMustachifyWebViewController</span> : <span class="title">UIViewController</span> &lt;<span class="title">UIWebViewDelegate</span>&gt;</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIWebView</span> *webView;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)activityViewController &#123;</span><br><span class="line">    HIPMustachifyWebViewController *webViewController = [[HIPMustachifyWebViewController alloc] init];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:<span class="keyword">self</span>.imageURL];</span><br><span class="line">    [webViewController.webView loadRequest:request];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> webViewController;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>为了使用我们加了新胡须的活动，我们简单把它传递到<code>UIActivityViewController</code>构造器中：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HIPMustachifyActivity *mustacheActivity = [[HIPMustachifyActivity alloc] init];</span><br><span class="line"><span class="built_in">UIActivityViewController</span> *activityViewController =</span><br><span class="line">  [[<span class="built_in">UIActivityViewController</span> alloc] initWithActivityItems:@[imageURL]</span><br><span class="line">                                    applicationActivities:@[mustacheActivity]];</span><br></pre></td></tr></table></figure>
+
 <h3 id="手动执行动作"><a href="#手动执行动作" class="headerlink" title="手动执行动作"></a>手动执行动作</h3><p>现在是一个提醒的好时机，当<code>UIActivityViewController</code>允许用户执行他们选择的动作，分享也能通过手动执行，当场景出现时。</p>
 <p>所有为了完整性，下面是怎样手动执行这些动作示例：</p>
-<h4 id="Open-URL"><a href="#Open-URL" class="headerlink" title="Open URL"></a>Open URL</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://nshipster.com"</span>];</span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:URL];</span><br></pre></td></tr></table></figure>
-<p>系统支持的URL协议包括：<code>mailto:</code>，<code>tel:</code>，<code>sms:</code>和<code>maps:</code>。</p>
-<h4 id="添加到Safari阅读列表"><a href="#添加到Safari阅读列表" class="headerlink" title="添加到Safari阅读列表"></a>添加到Safari阅读列表</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> SafariServices;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://nshipster.com/uiactivityviewcontroller"</span>];</span><br><span class="line">[[SSReadingList defaultReadingList] addReadingListItemWithURL:URL</span><br><span class="line">                                                        title:<span class="string">@"NSHipster"</span></span><br><span class="line">                                                  previewText:<span class="string">@"..."</span></span><br><span class="line">                                                        error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
-<h4 id="保存到相册"><a href="#保存到相册" class="headerlink" title="保存到相册"></a>保存到相册</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImage</span> *image = ...;</span><br><span class="line"><span class="keyword">id</span> completionTarget = <span class="keyword">self</span>;</span><br><span class="line">SEL completionSelector = <span class="keyword">@selector</span>(didWriteToSavedPhotosAlbum);</span><br><span class="line"><span class="keyword">void</span> *contextInfo = <span class="literal">NULL</span>;</span><br><span class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(image, completionTarget, completionSelector, contextInfo);</span><br></pre></td></tr></table></figure>
-<h4 id="发送-SMS"><a href="#发送-SMS" class="headerlink" title="发送 SMS"></a>发送 SMS</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> MessageUI;</span><br><span class="line"></span><br><span class="line">MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];</span><br><span class="line">messageComposeViewController.messageComposeDelegate = <span class="keyword">self</span>;</span><br><span class="line">messageComposeViewController.recipients = @[<span class="string">@"mattt@nshipster•com"</span>];</span><br><span class="line">messageComposeViewController.body = <span class="string">@"Lorem ipsum dolor sit amet"</span>;</span><br><span class="line">[navigationController presentViewController:messageComposeViewController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<h4 id="发送-Email"><a href="#发送-Email" class="headerlink" title="发送 Email"></a>发送 Email</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> MessageUI;</span><br><span class="line"></span><br><span class="line">MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];</span><br><span class="line">mailComposeViewController.mailComposeDelegate = <span class="keyword">self</span>;</span><br><span class="line">[mailComposeViewController setToRecipients:@[<span class="string">@"mattt@nshipster•com"</span>]];</span><br><span class="line">[mailComposeViewController setSubject:<span class="string">@"Hello"</span>];</span><br><span class="line">[mailComposeViewController setMessageBody:<span class="string">@"Lorem ipsum dolor sit amet"</span> isHTML:<span class="literal">NO</span>];</span><br><span class="line">[navigationController presentViewController:mailComposeViewController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<h4 id="发送-Tweet"><a href="#发送-Tweet" class="headerlink" title="发送 Tweet"></a>发送 Tweet</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> Social;</span><br><span class="line"></span><br><span class="line">SLComposeViewController *tweetComposeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];</span><br><span class="line">[tweetComposeViewController setInitialText:<span class="string">@"Lorem ipsum dolor sit amet."</span>];</span><br><span class="line">[<span class="keyword">self</span>.navigationController presentViewController:tweetComposeViewController</span><br><span class="line">                                        animated:<span class="literal">YES</span></span><br><span class="line">                                      completion:^&#123;</span><br><span class="line">                                          <span class="comment">// ...</span></span><br><span class="line">                                      &#125;];</span><br></pre></td></tr></table></figure>
-<h3 id="IntentKit"><a href="#IntentKit" class="headerlink" title="IntentKit"></a>IntentKit</h3><p>当所有的这些都是印象深刻和非常有用，它在iOS中的活动范例特别缺乏，当和在Android中的丰富的<a href="http://developer.android.com/guide/components/intents-filters.html" target="_blank" rel="noopener">Intents Model</a>相比。</p>
+<h4 id="Open-URL"><a href="#Open-URL" class="headerlink" title="Open URL"></a>Open URL</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@&quot;http://nshipster.com&quot;</span>];</span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:URL];</span><br></pre></td></tr></table></figure>
+<p>系统支持的URL协议包括：<code>mailto:</code>，<code> tel:</code>，<code>sms:</code>和<code>maps:</code>。</p>
+<h4 id="添加到Safari阅读列表"><a href="#添加到Safari阅读列表" class="headerlink" title="添加到Safari阅读列表"></a>添加到Safari阅读列表</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> SafariServices;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@&quot;http://nshipster.com/uiactivityviewcontroller&quot;</span>];</span><br><span class="line">[[SSReadingList defaultReadingList] addReadingListItemWithURL:URL</span><br><span class="line">                                                        title:<span class="string">@&quot;NSHipster&quot;</span></span><br><span class="line">                                                  previewText:<span class="string">@&quot;...&quot;</span></span><br><span class="line">                                                        error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="保存到相册"><a href="#保存到相册" class="headerlink" title="保存到相册"></a>保存到相册</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImage</span> *image = ...;</span><br><span class="line"><span class="type">id</span> completionTarget = <span class="keyword">self</span>;</span><br><span class="line">SEL completionSelector = <span class="keyword">@selector</span>(didWriteToSavedPhotosAlbum);</span><br><span class="line"><span class="type">void</span> *contextInfo = <span class="literal">NULL</span>;</span><br><span class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(image, completionTarget, completionSelector, contextInfo);</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送-SMS"><a href="#发送-SMS" class="headerlink" title="发送 SMS"></a>发送 SMS</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> MessageUI;</span><br><span class="line"></span><br><span class="line">MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];</span><br><span class="line">messageComposeViewController.messageComposeDelegate = <span class="keyword">self</span>;</span><br><span class="line">messageComposeViewController.recipients = @[<span class="string">@&quot;mattt@nshipster•com&quot;</span>];</span><br><span class="line">messageComposeViewController.body = <span class="string">@&quot;Lorem ipsum dolor sit amet&quot;</span>;</span><br><span class="line">[navigationController presentViewController:messageComposeViewController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送-Email"><a href="#发送-Email" class="headerlink" title="发送 Email"></a>发送 Email</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> MessageUI;</span><br><span class="line"></span><br><span class="line">MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];</span><br><span class="line">mailComposeViewController.mailComposeDelegate = <span class="keyword">self</span>;</span><br><span class="line">[mailComposeViewController setToRecipients:@[<span class="string">@&quot;mattt@nshipster•com&quot;</span>]];</span><br><span class="line">[mailComposeViewController setSubject:<span class="string">@&quot;Hello&quot;</span>];</span><br><span class="line">[mailComposeViewController setMessageBody:<span class="string">@&quot;Lorem ipsum dolor sit amet&quot;</span> isHTML:<span class="literal">NO</span>];</span><br><span class="line">[navigationController presentViewController:mailComposeViewController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送-Tweet"><a href="#发送-Tweet" class="headerlink" title="发送 Tweet"></a>发送 Tweet</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> Social;</span><br><span class="line"></span><br><span class="line">SLComposeViewController *tweetComposeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];</span><br><span class="line">[tweetComposeViewController setInitialText:<span class="string">@&quot;Lorem ipsum dolor sit amet.&quot;</span>];</span><br><span class="line">[<span class="keyword">self</span>.navigationController presentViewController:tweetComposeViewController</span><br><span class="line">                                        animated:<span class="literal">YES</span></span><br><span class="line">                                      completion:^&#123;</span><br><span class="line">                                          <span class="comment">// ...</span></span><br><span class="line">                                      &#125;];</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="IntentKit"><a href="#IntentKit" class="headerlink" title="IntentKit"></a>IntentKit</h3><p>当所有的这些都是印象深刻和非常有用，它在iOS中的活动范例特别缺乏，当和在Android中的丰富的<a target="_blank" rel="noopener" href="http://developer.android.com/guide/components/intents-filters.html">Intents Model</a>相比。</p>
 <p>在Android中，apps能够注册不同的intents，来指示它们能够用在Maps，或者充当一个浏览器，能够被涉及到相关活动的默认app选中，比如指引方向，或者一个书签的URL。</p>
-<p>然而iOS缺乏来支持这些的可拓展的基础架构，有一个叫<a href="https://github.com/intentkit/IntentKit" target="_blank" rel="noopener">IntentKit</a>第三方库，作者<a href="https://github.com/lazerwalker" target="_blank" rel="noopener">@lazerwalker</a>(因<a href="http://goshdarnblocksyntax.com/" target="_blank" rel="noopener">f*ingblocksyntax.com</a>成名)，这是一个有趣的例子关于我们怎样缩小这方面的差距。</p>
+<p>然而iOS缺乏来支持这些的可拓展的基础架构，有一个叫<a target="_blank" rel="noopener" href="https://github.com/intentkit/IntentKit">IntentKit</a>第三方库，作者<a target="_blank" rel="noopener" href="https://github.com/lazerwalker">@lazerwalker</a>(因<a target="_blank" rel="noopener" href="http://goshdarnblocksyntax.com/">f*ingblocksyntax.com</a>成名)，这是一个有趣的例子关于我们怎样缩小这方面的差距。</p>
 <p><img src="https://raw.github.com/intentkit/IntentKit/master/example.gif" alt="IntentKit demo"></p>
 <p>通常，一个开发者可能已经做了很多第一步的工作，来决定是否某个app是否安装，然后怎样构造一个URL来支持某个特殊的活动。</p>
 <p>IntentKit加强了连结到大多数流行的Web，Maps,Mail,Twitter,Facebook,和Google+客户的的逻辑，以和<code>UIActivityViewController</code>相似的UI。</p>
@@ -679,331 +532,217 @@
 <p>在iOS长期生存能力作为一个平台取决于像<code>UIActivityViewController</code>类型的分享机制存上在很大的争论。正如俗语所言：“资讯应该免费”。任何阻碍方式统一的东西，最终都会失去一些没有的东西。</p>
 <p>将来的景象是公共的远程视图控制器APIs带给我希望，对于将来在iOS平台上的分享功能。然而现在我们做的和UIActivityViewController相比糟糕得多。</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    王若风
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://blog.wangruofeng007.com/posts/41019/" title="UIActivity​View​Controller 详解">https://blog.wangruofeng007.com/posts/41019/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Favorite/" rel="tag"># Favorite</a>
-          
-            <a href="/tags/技巧/" rel="tag"># 技巧</a>
-          
-            <a href="/tags/翻译/" rel="tag"># 翻译</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/posts/52771/" rel="next" title="2016个人年度总结">
-                <i class="fa fa-chevron-left"></i> 2016个人年度总结
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+              <a href="/tags/Favorite/" rel="tag"># Favorite</a>
+              <a href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag"># 技巧</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/33636/" rel="prev" title="VFL深入浅出">
-                VFL深入浅出 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/52771/" rel="prev" title="2016个人年度总结">
+      <i class="fa fa-chevron-left"></i> 2016个人年度总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/33636/" rel="next" title="VFL深入浅出">
+      VFL深入浅出 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+                        </div>
+                        
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">王若风</p>
-              <p class="site-description motion-element" itemprop="description">王若风的技术博客</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">67</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/wangruofeng" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:wangruofeng007@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/oneruofeng" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/ace_freeman007" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityCategoryAction"><span class="nav-number">1.</span> <span class="nav-text">UIActivityCategoryAction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityCategoryShare"><span class="nav-number">2.</span> <span class="nav-text">UIActivityCategoryShare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityItemSource-amp-UIActivityItemProvider"><span class="nav-number">3.</span> <span class="nav-text">UIActivityItemSource &amp; UIActivityItemProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UIActivityItemSource"><span class="nav-number">3.1.</span> <span class="nav-text">UIActivityItemSource</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个自定义UIActivity"><span class="nav-number">4.</span> <span class="nav-text">创建一个自定义UIActivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动执行动作"><span class="nav-number">5.</span> <span class="nav-text">手动执行动作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Open-URL"><span class="nav-number">5.1.</span> <span class="nav-text">Open URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加到Safari阅读列表"><span class="nav-number">5.2.</span> <span class="nav-text">添加到Safari阅读列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存到相册"><span class="nav-number">5.3.</span> <span class="nav-text">保存到相册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送-SMS"><span class="nav-number">5.4.</span> <span class="nav-text">发送 SMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送-Email"><span class="nav-number">5.5.</span> <span class="nav-text">发送 Email</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送-Tweet"><span class="nav-number">5.6.</span> <span class="nav-text">发送 Tweet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentKit"><span class="nav-number">6.</span> <span class="nav-text">IntentKit</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div>
-  © 2015 ~ 
-    <span itemprop="copyrightYear">2019</span>
-        <span class="with-love" id="animate">
-          <i class="fa fa-heart"></i>
-        </span>
-        <span class="author" itemprop="copyrightHolder">王若风</span>
-      
-        
-    
-</div>
-
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityCategoryAction"><span class="nav-number">1.</span> <span class="nav-text">UIActivityCategoryAction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityCategoryShare"><span class="nav-number">2.</span> <span class="nav-text">UIActivityCategoryShare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityItemSource-UIActivityItemProvider"><span class="nav-number">3.</span> <span class="nav-text">UIActivityItemSource &amp; UIActivityItemProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UIActivityItemSource"><span class="nav-number">3.1.</span> <span class="nav-text">UIActivityItemSource</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89UIActivity"><span class="nav-number">4.</span> <span class="nav-text">创建一个自定义UIActivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E6%89%A7%E8%A1%8C%E5%8A%A8%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">手动执行动作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Open-URL"><span class="nav-number">5.1.</span> <span class="nav-text">Open URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%B0Safari%E9%98%85%E8%AF%BB%E5%88%97%E8%A1%A8"><span class="nav-number">5.2.</span> <span class="nav-text">添加到Safari阅读列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%88%B0%E7%9B%B8%E5%86%8C"><span class="nav-number">5.3.</span> <span class="nav-text">保存到相册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81-SMS"><span class="nav-number">5.4.</span> <span class="nav-text">发送 SMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81-Email"><span class="nav-number">5.5.</span> <span class="nav-text">发送 Email</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81-Tweet"><span class="nav-number">5.6.</span> <span class="nav-text">发送 Tweet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentKit"><span class="nav-number">6.</span> <span class="nav-text">IntentKit</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">298k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
 
 
 
 
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
 
 
 
 
   
+<script src="/js/local-search.js"></script>
 
 
-  
 
 
 
@@ -1015,467 +754,15 @@
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://wangruofeng.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://blog.wangruofeng007.com/posts/41019/';
-          this.page.identifier = 'posts/41019/';
-          this.page.title = 'UIActivity​View​Controller 详解';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://wangruofeng.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
+    </body>
 </html>

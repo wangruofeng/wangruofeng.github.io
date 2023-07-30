@@ -1,421 +1,262 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Favorite,效率,翻译,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Toll-Free Bridged Types在Core Foundation框架和Foundation框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做Toll-Free Bridged数据类型。这意味着你能像参数一样使用相同的数据结构对一个Core Foundation的函数进行调用，或者像Objective-C的消息接受模式一样执行。例如，NSLocale（查看NSLocal">
-<meta name="keywords" content="Favorite,效率,翻译">
+        <meta name="description" content="Toll-Free Bridged Types在Core Foundation框架和Foundation 框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做Toll-Free Bridged数据类型。这意味着你能像参数一样使用相同的数据结构对一个Core Foundation的函数进行调用，或者像Objective-C的消息接受模式一样执行。例如，NSLocale（查看NSLoca">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS无缝桥接【翻译Apple官方文档】">
 <meta property="og:url" content="https://blog.wangruofeng007.com/posts/38845/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="Toll-Free Bridged Types在Core Foundation框架和Foundation框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做Toll-Free Bridged数据类型。这意味着你能像参数一样使用相同的数据结构对一个Core Foundation的函数进行调用，或者像Objective-C的消息接受模式一样执行。例如，NSLocale（查看NSLocal">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-13T09:46:03.654Z">
+<meta property="og:description" content="Toll-Free Bridged Types在Core Foundation框架和Foundation 框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做Toll-Free Bridged数据类型。这意味着你能像参数一样使用相同的数据结构对一个Core Foundation的函数进行调用，或者像Objective-C的消息接受模式一样执行。例如，NSLocale（查看NSLoca">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-11-17T15:52:46.000Z">
+<meta property="article:modified_time" content="2020-06-13T09:46:03.000Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Favorite">
+<meta property="article:tag" content="效率">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS无缝桥接【翻译Apple官方文档】">
-<meta name="twitter:description" content="Toll-Free Bridged Types在Core Foundation框架和Foundation框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做Toll-Free Bridged数据类型。这意味着你能像参数一样使用相同的数据结构对一个Core Foundation的函数进行调用，或者像Objective-C的消息接受模式一样执行。例如，NSLocale（查看NSLocal">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/posts/38845/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="https://blog.wangruofeng007.com/posts/38845/">
-
-
-
-
-
-  <title>iOS无缝桥接【翻译Apple官方文档】 | 王若风的技术博客</title>
-  
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-72379345-1', 'auto');
-  ga('send', 'pageview');
-</script>
+        <title>
+            iOS无缝桥接【翻译Apple官方文档】 | 王若风的技术博客
+        </title>
+        
 
 
 
 
 
-</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
-  
-  
-    
-  
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+    </head>
 
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">王若风的技术博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">世界尽头の冷酷仙境</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
+
+
+
 
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
+    </div>
+  </div>
+
+</div>
+            </header>
+
             
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-  <div id="posts" class="posts-expand">
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/38845/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="王若风的技术博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">iOS无缝桥接【翻译Apple官方文档】</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          iOS无缝桥接【翻译Apple官方文档】
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-17T23:52:46+08:00">
-                2016-11-17
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2016-11-17 23:52:46" itemprop="dateCreated datePublished" datetime="2016-11-17T23:52:46+08:00">2016-11-17</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/posts/38845/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/38845/" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
               </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
                 </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.1k
-                </span>
-              
+            </span>
 
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
-    
 
     
     
@@ -423,490 +264,373 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <h3 id="Toll-Free-Bridged-Types"><a href="#Toll-Free-Bridged-Types" class="headerlink" title="Toll-Free Bridged Types"></a>Toll-Free Bridged Types</h3><p>在<code>Core Foundation</code>框架和<code>Foundation</code>框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做<code>Toll-Free Bridged</code>数据类型。这意味着你能像参数一样使用相同的数据结构对一个<code>Core Foundation</code>的函数进行调用，或者像<code>Objective-C</code>的消息接受模式一样执行。例如，<code>NSLocale</code>（查看<a href="https://developer.apple.com/reference/foundation/nslocale" target="_blank" rel="noopener">NSLocale Class Reference</a>）可以与在<code>Core Foundation</code>中对应的<code>CFLocale</code>（查看<a href="https://developer.apple.com/reference/corefoundation/1666963-cflocale" target="_blank" rel="noopener">CFLocale Reference</a>）之间互相转换。</p>
+        <h3 id="Toll-Free-Bridged-Types"><a href="#Toll-Free-Bridged-Types" class="headerlink" title="Toll-Free Bridged Types"></a>Toll-Free Bridged Types</h3><p>在<code>Core Foundation</code>框架和<code>Foundation </code>框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做<code>Toll-Free Bridged</code>数据类型。这意味着你能像参数一样使用相同的数据结构对一个<code>Core Foundation</code>的函数进行调用，或者像<code>Objective-C</code>的消息接受模式一样执行。例如，<code>NSLocale</code>（查看<a target="_blank" rel="noopener" href="https://developer.apple.com/reference/foundation/nslocale">NSLocale Class Reference</a>）可以与在<code>Core Foundation</code>中对应的<code>CFLocale </code>（查看<a target="_blank" rel="noopener" href="https://developer.apple.com/reference/corefoundation/1666963-cflocale">CFLocale Reference</a>）之间互相转换。</p>
 <p>不是所有数据类型都是<code>Toll-Free Bridged</code>,即使它们的名字可能让你认为它们是。例如，<code>NSRunLoop</code>是没有对应的桥接类型<code>CFRunLoop</code>,<code>NSBundle</code>也没有对应的桥接类型<code>CFBundle</code>，<code>NSDateFormatter</code>同样没有对应的桥接类型<code>CFDateFormatter</code>。</p>
 <p>文章末尾表1提供了一份支持无缝桥接的数据类型的列表。</p>
 <blockquote>
 <p><strong>注意</strong>：假如你使用一个自定义回调在一个<code>Core Foundation</code>框架的集合中，包含一个<code>NULL</code>回调，当使用<code>Objective-C</code>的方式接入它，它的内存管理方式是未定义的。</p>
 </blockquote>
-<h3 id="类型转换和对象语义周期声明"><a href="#类型转换和对象语义周期声明" class="headerlink" title="类型转换和对象语义周期声明"></a>类型转换和对象语义周期声明</h3><p>通过无缝桥接技术，在一个你以<code>NSLocale *</code>做为一个参数的方法的例子中，你能传递一个<code>CFLocaleRef</code>结构体，并且当你看到有一个<code>CFLocaleRef</code>参数的函数中，你能够传递一个<code>NSLocale</code>实例对象。当然你也必须提供给编译器相关的一些其它信息:第一，你必须转换一种类型成其它；第二，你可能必须指明对象的语义生命周期。</p>
-<p>编译器理解<code>Objective-C</code>的方法并且返回<code>Core Foundation</code>数据类型，下面是<code>Cocoa</code>命名转换的历史（查看<a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i" target="_blank" rel="noopener">Advanced Memory Management Programming Guide</a>）。例如，编译器知道，在<code>iOS</code>中，通过<code>UIColor</code>的<code>CGColor</code>方法返回的<code>CGColor</code>并不应该被持有。你必须使用恰当的类型转换，像下面例子演示的那样：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *colors = [<span class="built_in">NSMutableArray</span> arrayWithObject:(<span class="keyword">id</span>)[[<span class="built_in">UIColor</span> darkGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">[colors addObject:(<span class="keyword">id</span>)[[<span class="built_in">UIColor</span> lightGrayColor] <span class="built_in">CGColor</span>]];</span><br></pre></td></tr></table></figure>
-<p>编译器并不会自动管理<code>Core Foundation</code>对象的生命周期。你必须告诉编译器对象的语义所属关系通过使用一种转换（定义在<strong>objc/runtime.h</strong>）或者<code>Core Foundation</code>风格的宏（定义在 <strong>NSObject.h</strong>）：</p>
+<h3 id="类型转换和对象语义周期声明"><a href="#类型转换和对象语义周期声明" class="headerlink" title="类型转换和对象语义周期声明"></a>类型转换和对象语义周期声明</h3><p>通过无缝桥接技术，在一个你以<code>NSLocale *</code>做为一个参数的方法的例子中，你能传递一个<code>CFLocaleRef</code>结构体，并且当你看到有一个<code>CFLocaleRef </code>参数的函数中，你能够传递一个<code>NSLocale</code>实例对象。当然你也必须提供给编译器相关的一些其它信息:第一，你必须转换一种类型成其它；第二，你可能必须指明对象的语义生命周期。</p>
+<p>编译器理解<code>Objective-C</code>的方法并且返回<code>Core Foundation</code>数据类型，下面是<code>Cocoa</code>命名转换的历史（查看<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i">Advanced Memory Management Programming Guide</a>）。例如，编译器知道，在<code>iOS</code>中，通过<code>UIColor </code>的<code>CGColor</code>方法返回的<code>CGColor</code>并不应该被持有。你必须使用恰当的类型转换，像下面例子演示的那样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *colors = [<span class="built_in">NSMutableArray</span> arrayWithObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> darkGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">[colors addObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> lightGrayColor] <span class="built_in">CGColor</span>]];</span><br></pre></td></tr></table></figure>
+
+<p>编译器并不会自动管理<code>Core Foundation</code>对象的生命周期。你必须告诉编译器对象的语义所属关系通过使用一种转换（定义在<strong>objc&#x2F;runtime.h</strong>）或者<code>Core Foundation</code>风格的宏（定义在 <strong>NSObject.h</strong>）：</p>
 <ul>
 <li><code>__bridge</code>关键字表示转换指针在<code>Objective-C</code>和<code>Core Foundation</code>之间而不会转换所属关系。</li>
-<li><code>__bridge_retained</code>关键字或者<code>CFBridgingRetain</code>表示转换指针在<code>Objective-C</code>和<code>Core Foundation</code>之间并且把所属权交给你。你负责调用<code>CFRelease</code>或者相关的函数来交出对象的所属权。</li>
+<li><code>__bridge_retained </code>关键字或者<code>CFBridgingRetain </code>表示转换指针在<code>Objective-C</code>和<code>Core Foundation</code>之间并且把所属权交给你。你负责调用<code>CFRelease</code>或者相关的函数来交出对象的所属权。</li>
 <li><code>__bridge_transfer</code>关键字或者<code>CFBridgingRelease</code>表示转换一个非<code>Objective-C</code>的指针到<code>Objective-C</code>并且转换所属权给<strong>ARC</strong>。<strong>ARC</strong>负责交出对象的所属权。</li>
 </ul>
 <p>下面是一些例子：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLocale</span> *gbNSLocale = [[<span class="built_in">NSLocale</span> alloc] initWithLocaleIdentifier:<span class="string">@"en_GB"</span>];</span><br><span class="line"><span class="built_in">CFLocaleRef</span> gbCFLocale = (__bridge <span class="built_in">CFLocaleRef</span>)gbNSLocale;</span><br><span class="line"><span class="built_in">CFStringRef</span> cfIdentifier = <span class="built_in">CFLocaleGetIdentifier</span>(gbCFLocale);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"cfIdentifier: %@"</span>, (__bridge <span class="built_in">NSString</span> *)cfIdentifier);</span><br><span class="line"><span class="comment">// Logs: "cfIdentifier: en_GB"</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">CFLocaleRef</span> myCFLocale = <span class="built_in">CFLocaleCopyCurrent</span>();</span><br><span class="line"><span class="built_in">NSLocale</span> *myNSLocale = (<span class="built_in">NSLocale</span> *)<span class="built_in">CFBridgingRelease</span>(myCFLocale);</span><br><span class="line"><span class="built_in">NSString</span> *nsIdentifier = [myNSLocale localeIdentifier];</span><br><span class="line"><span class="built_in">CFShow</span>((<span class="built_in">CFStringRef</span>)[<span class="string">@"nsIdentifier: "</span> stringByAppendingString:nsIdentifier]);</span><br><span class="line"><span class="comment">// Logs identifier for current locale</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLocale</span> *gbNSLocale = [[<span class="built_in">NSLocale</span> alloc] initWithLocaleIdentifier:<span class="string">@&quot;en_GB&quot;</span>];</span><br><span class="line"><span class="built_in">CFLocaleRef</span> gbCFLocale = (__bridge <span class="built_in">CFLocaleRef</span>)gbNSLocale;</span><br><span class="line"><span class="built_in">CFStringRef</span> cfIdentifier = <span class="built_in">CFLocaleGetIdentifier</span>(gbCFLocale);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;cfIdentifier: %@&quot;</span>, (__bridge <span class="built_in">NSString</span> *)cfIdentifier);</span><br><span class="line"><span class="comment">// Logs: &quot;cfIdentifier: en_GB&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">CFLocaleRef</span> myCFLocale = <span class="built_in">CFLocaleCopyCurrent</span>();</span><br><span class="line"><span class="built_in">NSLocale</span> *myNSLocale = (<span class="built_in">NSLocale</span> *)<span class="built_in">CFBridgingRelease</span>(myCFLocale);</span><br><span class="line"><span class="built_in">NSString</span> *nsIdentifier = [myNSLocale localeIdentifier];</span><br><span class="line"><span class="built_in">CFShow</span>((<span class="built_in">CFStringRef</span>)[<span class="string">@&quot;nsIdentifier: &quot;</span> stringByAppendingString:nsIdentifier]);</span><br><span class="line"><span class="comment">// Logs identifier for current locale</span></span><br></pre></td></tr></table></figure>
+
 <p>下面的例子显示了使用口述的<code>Core Foundation</code>内存管理规则来管理<code>Core Foundation</code>内存：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceGray</span>();</span><br><span class="line">    <span class="built_in">CGFloat</span> locations[<span class="number">2</span>] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *colors = [<span class="built_in">NSMutableArray</span> arrayWithObject:(<span class="keyword">id</span>)[[<span class="built_in">UIColor</span> darkGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">    [colors addObject:(<span class="keyword">id</span>)[[<span class="built_in">UIColor</span> lightGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">    <span class="built_in">CGGradientRef</span> gradient = <span class="built_in">CGGradientCreateWithColors</span>(colorSpace, (__bridge <span class="built_in">CFArrayRef</span>)colors, locations);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);  <span class="comment">// Release owned Core Foundation object.</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">CGPoint</span> startPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    <span class="built_in">CGPoint</span> endPoint = <span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(<span class="keyword">self</span>.bounds), <span class="built_in">CGRectGetMaxY</span>(<span class="keyword">self</span>.bounds));</span><br><span class="line">    <span class="built_in">CGContextDrawLinearGradient</span>(ctx, gradient, startPoint, endPoint,</span><br><span class="line">                                kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);</span><br><span class="line">    <span class="built_in">CGGradientRelease</span>(gradient);  <span class="comment">// Release owned Core Foundation object.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceGray</span>();</span><br><span class="line">    <span class="built_in">CGFloat</span> locations[<span class="number">2</span>] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *colors = [<span class="built_in">NSMutableArray</span> arrayWithObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> darkGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">    [colors addObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> lightGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">    <span class="built_in">CGGradientRef</span> gradient = <span class="built_in">CGGradientCreateWithColors</span>(colorSpace, (__bridge <span class="built_in">CFArrayRef</span>)colors, locations);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);  <span class="comment">// Release owned Core Foundation object.</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">CGPoint</span> startPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    <span class="built_in">CGPoint</span> endPoint = <span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(<span class="keyword">self</span>.bounds), <span class="built_in">CGRectGetMaxY</span>(<span class="keyword">self</span>.bounds));</span><br><span class="line">    <span class="built_in">CGContextDrawLinearGradient</span>(ctx, gradient, startPoint, endPoint,</span><br><span class="line">                                kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);</span><br><span class="line">    <span class="built_in">CGGradientRelease</span>(gradient);  <span class="comment">// Release owned Core Foundation object.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="无缝桥接类型"><a href="#无缝桥接类型" class="headerlink" title="无缝桥接类型"></a>无缝桥接类型</h3><p>表1提供了一个在<code>Core Foundation</code>和<code>Foundation</code>中可以交替转换数据类型列表。对每一对桥接类型，表也列举出了这些无缝桥接类型在<code>OS X</code>中的可用版本。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Core Foundation 类型</th>
-<th style="text-align:left">Foundation 类型</th>
-<th style="text-align:center">可用性</th>
+<th align="left">Core Foundation 类型</th>
+<th align="left">Foundation 类型</th>
+<th align="center">可用性</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">CFArrayRef</td>
-<td style="text-align:left">NSArray</td>
-<td style="text-align:center">OS X v10.0</td>
+<tbody><tr>
+<td align="left">CFArrayRef</td>
+<td align="left">NSArray</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFAttributedStringRef</td>
-<td style="text-align:left">NSAttributedString</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFAttributedStringRef</td>
+<td align="left">NSAttributedString</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFCalendarRef</td>
-<td style="text-align:left">NSCalendar</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFCalendarRef</td>
+<td align="left">NSCalendar</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFCharacterSetRef</td>
-<td style="text-align:left">NSCharacterSet</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFCharacterSetRef</td>
+<td align="left">NSCharacterSet</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFDataRef</td>
-<td style="text-align:left">NSData</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFDataRef</td>
+<td align="left">NSData</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFDateRef</td>
-<td style="text-align:left">NSDate</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFDateRef</td>
+<td align="left">NSDate</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFDictionaryRef</td>
-<td style="text-align:left">NSDictionary</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFDictionaryRef</td>
+<td align="left">NSDictionary</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFErrorRef</td>
-<td style="text-align:left">NSError</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFErrorRef</td>
+<td align="left">NSError</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFLocaleRef</td>
-<td style="text-align:left">NSLocale</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFLocaleRef</td>
+<td align="left">NSLocale</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableArrayRef</td>
-<td style="text-align:left">NSMutableArray</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFMutableArrayRef</td>
+<td align="left">NSMutableArray</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableAttributedStringRef</td>
-<td style="text-align:left">NSMutableAttributedString</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFMutableAttributedStringRef</td>
+<td align="left">NSMutableAttributedString</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableCharacterSetRef</td>
-<td style="text-align:left">NSMutableCharacterSet</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFMutableCharacterSetRef</td>
+<td align="left">NSMutableCharacterSet</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableDataRef</td>
-<td style="text-align:left">NSMutableData</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFMutableDataRef</td>
+<td align="left">NSMutableData</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableDictionaryRef</td>
-<td style="text-align:left">NSMutableDict</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFMutableDictionaryRef</td>
+<td align="left">NSMutableDict</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableSetRef</td>
-<td style="text-align:left">NSMutableSet</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFMutableSetRef</td>
+<td align="left">NSMutableSet</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFMutableStringRef</td>
-<td style="text-align:left">NSMutableString</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFMutableStringRef</td>
+<td align="left">NSMutableString</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFNumberRef</td>
-<td style="text-align:left">NSNumber</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFNumberRef</td>
+<td align="left">NSNumber</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFReadStreamRef</td>
-<td style="text-align:left">NSInputStream</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFReadStreamRef</td>
+<td align="left">NSInputStream</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFRunLoopTimerRef</td>
-<td style="text-align:left">NSTimer</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFRunLoopTimerRef</td>
+<td align="left">NSTimer</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFSetRef</td>
-<td style="text-align:left">NSSet</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFSetRef</td>
+<td align="left">NSSet</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFStringRef</td>
-<td style="text-align:left">NSString</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFStringRef</td>
+<td align="left">NSString</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFTimeZoneRef</td>
-<td style="text-align:left">NSTimeZone</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFTimeZoneRef</td>
+<td align="left">NSTimeZone</td>
+<td align="center">OS X v10.4</td>
 </tr>
 <tr>
-<td style="text-align:left">CFURLRef</td>
-<td style="text-align:left">NSURL</td>
-<td style="text-align:center">OS X v10.0</td>
+<td align="left">CFURLRef</td>
+<td align="left">NSURL</td>
+<td align="center">OS X v10.0</td>
 </tr>
 <tr>
-<td style="text-align:left">CFWriteStreamRef</td>
-<td style="text-align:left">NSOutputStream</td>
-<td style="text-align:center">OS X v10.4</td>
+<td align="left">CFWriteStreamRef</td>
+<td align="left">NSOutputStream</td>
+<td align="center">OS X v10.4</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>表1</p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li><a href="https://developer.apple.com/library/content/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html" target="_blank" rel="noopener">Toll-Free Bridged Types</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html">Toll-Free Bridged Types</a></li>
 </ul>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    王若风
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://blog.wangruofeng007.com/posts/38845/" title="iOS无缝桥接【翻译Apple官方文档】">https://blog.wangruofeng007.com/posts/38845/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Favorite/" rel="tag"># Favorite</a>
-          
-            <a href="/tags/效率/" rel="tag"># 效率</a>
-          
-            <a href="/tags/翻译/" rel="tag"># 翻译</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/posts/5474/" rel="next" title="block备忘录">
-                <i class="fa fa-chevron-left"></i> block备忘录
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+              <a href="/tags/Favorite/" rel="tag"># Favorite</a>
+              <a href="/tags/%E6%95%88%E7%8E%87/" rel="tag"># 效率</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/posts/26597/" rel="prev" title="动画切换Image最佳实践">
-                动画切换Image最佳实践 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5474/" rel="prev" title="block备忘录">
+      <i class="fa fa-chevron-left"></i> block备忘录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/26597/" rel="next" title="动画切换Image最佳实践">
+      动画切换Image最佳实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
+  
   
 
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+                        </div>
+                        
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">王若风</p>
-              <p class="site-description motion-element" itemprop="description">王若风的技术博客</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">67</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/wangruofeng" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:wangruofeng007@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/oneruofeng" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/ace_freeman007" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Toll-Free-Bridged-Types"><span class="nav-number">1.</span> <span class="nav-text">Toll-Free Bridged Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换和对象语义周期声明"><span class="nav-number">2.</span> <span class="nav-text">类型转换和对象语义周期声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无缝桥接类型"><span class="nav-number">3.</span> <span class="nav-text">无缝桥接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div>
-  © 2015 ~ 
-    <span itemprop="copyrightYear">2019</span>
-        <span class="with-love" id="animate">
-          <i class="fa fa-heart"></i>
-        </span>
-        <span class="author" itemprop="copyrightHolder">王若风</span>
-      
-        
-    
-</div>
-
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Toll-Free-Bridged-Types"><span class="nav-number">1.</span> <span class="nav-text">Toll-Free Bridged Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%92%8C%E5%AF%B9%E8%B1%A1%E8%AF%AD%E4%B9%89%E5%91%A8%E6%9C%9F%E5%A3%B0%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">类型转换和对象语义周期声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%BC%9D%E6%A1%A5%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">无缝桥接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">298k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
 
 
 
 
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
 
 
 
 
   
+<script src="/js/local-search.js"></script>
 
 
-  
 
 
 
@@ -918,467 +642,15 @@
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
 
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
+            
 
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://wangruofeng.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://blog.wangruofeng007.com/posts/38845/';
-          this.page.identifier = 'posts/38845/';
-          this.page.title = 'iOS无缝桥接【翻译Apple官方文档】';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://wangruofeng.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
+    </body>
 </html>
