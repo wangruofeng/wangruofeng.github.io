@@ -1,3 +1,4 @@
+https://blog.wangruofeng007.com/posts/c2525105/
 https://blog.wangruofeng007.com/posts/73b9deb9/
 https://blog.wangruofeng007.com/posts/6aaa3930/
 https://blog.wangruofeng007.com/posts/e0efeb21/
@@ -96,6 +97,7 @@ https://blog.wangruofeng007.com/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/
 https://blog.wangruofeng007.com/tags/flutter/
 https://blog.wangruofeng007.com/tags/Runtime/
 https://blog.wangruofeng007.com/tags/Typora/
+https://blog.wangruofeng007.com/tags/ChatGPT-OpenAI-AIGC/
 https://blog.wangruofeng007.com/categories/iOS/
 https://blog.wangruofeng007.com/categories/Animation/
 https://blog.wangruofeng007.com/categories/Efficiency/

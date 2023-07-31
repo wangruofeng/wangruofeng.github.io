@@ -193,6 +193,372 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/26795/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/26795/" class="post-title-link" itemprop="url">SQLite_教程(一)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 23:18:15" itemprop="dateCreated datePublished" datetime="2016-01-13T23:18:15+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h4><p>SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。SQLite 源代码不受版权限制。<br>本教程将告诉您如何使用 SQLite 编程，并让你迅速上手。</p>
+<h4 id="什么是-SQLite？"><a href="#什么是-SQLite？" class="headerlink" title="什么是 SQLite？"></a>什么是 SQLite？</h4><p>SQLite是一个进程内的库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。它是一个零配置的数据库，这意味着与其他数据库一样，您不需要在系统中配置。<br>就像其他数据库，SQLite 引擎不是一个独立的进程，可以按应用程序需求进行静态或动态连接。SQLite 直接访问其存储文件</p>
+<h4 id="为什么要用-SQLite？"><a href="#为什么要用-SQLite？" class="headerlink" title="为什么要用 SQLite？"></a>为什么要用 SQLite？</h4><ul>
+<li>不需要一个单独的服务器进程或操作的系统（无服务器的）。</li>
+<li>SQLite 不需要配置，这意味着不需要安装或管理。</li>
+<li>一个完整的 SQLite 数据库是存储在一个单一的跨平台的磁盘文件。</li>
+<li>SQLite 是非常小的，是轻量级的，完全配置时小于 400KiB，省略可选功能配置时小于250KiB。</li>
+<li>SQLite 是自给自足的，这意味着不需要任何外部的依赖。</li>
+<li>SQLite 事务是完全兼容 ACID 的，允许从多个进程或线程安全访问。</li>
+<li>SQLite 支持 SQL92（SQL2）标准的大多数查询语言的功能。</li>
+<li>SQLite 使用 ANSI-C 编写的，并提供了简单和易于使用的 API。</li>
+<li>SQLite 可在 UNIX（Linux, Mac OS-X, Android, iOS）和 Windows（Win32, WinCE, WinRT）中运行。</li>
+</ul>
+<h4 id="SQLite-命令"><a href="#SQLite-命令" class="headerlink" title="SQLite 命令"></a>SQLite 命令</h4><p>与关系数据库进行交互的标准 SQLite 命令类似于 SQL。命令包括 CREATE、SELECT、INSERT、UPDATE、DELETE 和 DROP。这些命令基于它们的操作性质可分为以下几种：</p>
+<h4 id="DDL-数据定义语言"><a href="#DDL-数据定义语言" class="headerlink" title="DDL - 数据定义语言"></a>DDL - 数据定义语言</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CREATE</td>
+<td>创建一个新的表，一个表的视图，或者数据库中的其他对象。</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>修改数据库中的某个已有的数据库对象，比如一个表。</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>删除整个表，或者表的视图，或者数据库中的其他对象。</td>
+</tr>
+</tbody></table>
+<h4 id="DML-数据操作语言"><a href="#DML-数据操作语言" class="headerlink" title="DML - 数据操作语言"></a>DML - 数据操作语言</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>INSERT</td>
+<td>创建一条记录。</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>修改记录。</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>删除记录。</td>
+</tr>
+</tbody></table>
+<h4 id="DQL-数据查询语言"><a href="#DQL-数据查询语言" class="headerlink" title="DQL - 数据查询语言"></a>DQL - 数据查询语言</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SELECT</td>
+<td>从一个或多个表中检索某些记录。</td>
+</tr>
+</tbody></table>
+<h4 id="在-Mac-OS-X-上安装-SQLite"><a href="#在-Mac-OS-X-上安装-SQLite" class="headerlink" title="在 Mac OS X 上安装 SQLite"></a>在 Mac OS X 上安装 SQLite</h4><p>最新版本的 Mac OS X 会预安装 SQLite，但是如果没有可用的安装，只需按照如下步骤进行：<br>请访问 <a target="_blank" rel="noopener" href="http://www.sqlite.org/download.html">SQLite 下载页面</a>，从源代码区下载 sqlite-autoconf-*.tar.gz。<br>步骤如下：</p>
+<pre><code>$tar xvfz sqlite-autoconf-3071502.tar.gz
+$cd sqlite-autoconf-3071502
+$./configure --prefix=/usr/local
+$make
+$make install
+</code></pre>
+<p>上述步骤将在 Mac OS X 机器上安装 SQLite，您可以使用下列命令进行验证：</p>
+<pre><code>$sqlite3
+SQLite version 3.7.15.2 2013-01-09 11:53:05
+Enter &quot;.help&quot; for instructions
+Enter SQL statements terminated with a &quot;;&quot;
+sqlite&gt;
+</code></pre>
+<p>最后，在 SQLite 命令提示符下，使用 SQLite 命令做练习。</p>
+<h4 id="SQLite语法"><a href="#SQLite语法" class="headerlink" title="SQLite语法"></a>SQLite语法</h4><p><strong>大小写敏感性</strong></p>
+<p>有个重要的点值得注意，SQLite 是不区分大小写的，但也有一些命令是大小写敏感的，比如 GLOB 和 glob 在 SQLite 的语句中有不同的含义。</p>
+<p><strong>注释</strong></p>
+<p>SQLite 注释是附加的注释，可以在 SQLite 代码中添加注释以增加其可读性，他们可以出现在任何空白处，包括在表达式内和其他 SQL 语句的中间，但它们不能嵌套。<br>SQL 注释以两个连续的 “-“ 字符（ASCII 0x2d）开始，并扩展至下一个换行符（ASCII 0x0a）或直到输入结束，以先到者为准。<br>您也可以使用 C 风格的注释，以 “&#x2F;*“ 开始，并扩展至下一个 “*&#x2F;“ 字符对或直到输入结束，以先到者为准。SQLite的注释可以跨越多行。</p>
+<h4 id="SQLite-语句"><a href="#SQLite-语句" class="headerlink" title="SQLite 语句"></a>SQLite 语句</h4><p>所有的 SQLite 语句可以以任何关键字开始，如 SELECT、INSERT、UPDATE、DELETE、ALTER、DROP 等，所有的语句以分号（;）结束。</p>
+<p>SQLite ANALYZE 语句：</p>
+<pre><code>ANALYZE;
+or
+ANALYZE database_name;
+or
+ANALYZE database_name.table_name;
+</code></pre>
+<p>SQLite AND&#x2F;OR 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  CONDITION-1 &#123;AND|OR&#125; CONDITION-2;
+</code></pre>
+<p>SQLite ALTER TABLE 语句：</p>
+<pre><code>ALTER TABLE table_name ADD COLUMN column_def...;
+SQLite ALTER TABLE 语句（Rename）：
+ALTER TABLE table_name RENAME TO new_table_name;
+</code></pre>
+<p>SQLite ATTACH DATABASE 语句：</p>
+<pre><code>ATTACH DATABASE &#39;DatabaseName&#39; As &#39;Alias-Name&#39;;
+SQLite BEGIN TRANSACTION 语句：
+BEGIN;
+or
+BEGIN EXCLUSIVE TRANSACTION;
+</code></pre>
+<p>SQLite BETWEEN 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name BETWEEN val-1 AND val-2;
+</code></pre>
+<p>SQLite COMMIT 语句：</p>
+<pre><code>COMMIT;
+</code></pre>
+<p>SQLite CREATE INDEX 语句：</p>
+<pre><code>CREATE INDEX index_name
+ON table_name ( column_name COLLATE NOCASE );
+</code></pre>
+<p>SQLite CREATE UNIQUE INDEX 语句：</p>
+<pre><code>CREATE UNIQUE INDEX index_name
+ON table_name ( column1, column2,...columnN);
+</code></pre>
+<p>SQLite CREATE TABLE 语句：</p>
+<pre><code>CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+   PRIMARY KEY( one or more columns )
+);
+</code></pre>
+<p>SQLite CREATE TRIGGER 语句：</p>
+<pre><code>CREATE TRIGGER database_name.trigger_name
+BEFORE INSERT ON table_name FOR EACH ROW
+BEGIN
+   stmt1;
+   stmt2;
+   ....
+END;
+</code></pre>
+<p>SQLite CREATE VIEW 语句：</p>
+<pre><code>CREATE VIEW database_name.view_name  AS
+SELECT statement....;
+</code></pre>
+<p>SQLite CREATE VIRTUAL TABLE 语句：</p>
+<pre><code>CREATE VIRTUAL TABLE database_name.table_name USING weblog( access.log );
+or
+CREATE VIRTUAL TABLE database_name.table_name USING fts3( );
+</code></pre>
+<p>SQLite COMMIT TRANSACTION 语句：</p>
+<pre><code>COMMIT;
+SQLite COUNT 子句：
+SELECT COUNT(column_name)
+FROM   table_name
+WHERE  CONDITION;
+</code></pre>
+<p>SQLite DELETE 语句：</p>
+<pre><code>DELETE FROM table_name
+WHERE  &#123;CONDITION&#125;;
+</code></pre>
+<p>SQLite DETACH DATABASE 语句：</p>
+<pre><code>DETACH DATABASE &#39;Alias-Name&#39;;
+</code></pre>
+<p>SQLite DISTINCT 子句：</p>
+<pre><code>SELECT DISTINCT column1, column2....columnN
+FROM   table_name;
+</code></pre>
+<p>SQLite DROP INDEX 语句：</p>
+<pre><code>DROP INDEX database_name.index_name;
+</code></pre>
+<p>SQLite DROP TABLE 语句：</p>
+<pre><code>DROP TABLE database_name.table_name;
+</code></pre>
+<p>SQLite DROP VIEW 语句：</p>
+<pre><code>DROP INDEX database_name.view_name;
+</code></pre>
+<p>SQLite DROP TRIGGER 语句：</p>
+<pre><code>DROP INDEX database_name.trigger_name;
+</code></pre>
+<p>SQLite EXISTS 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name EXISTS (SELECT * FROM   table_name );
+</code></pre>
+<p>SQLite EXPLAIN 语句：</p>
+<pre><code>EXPLAIN INSERT statement...;
+or
+EXPLAIN QUERY PLAN SELECT statement...;
+</code></pre>
+<p>SQLite GLOB 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name GLOB &#123; PATTERN &#125;;
+</code></pre>
+<p>SQLite GROUP BY 子句：</p>
+<pre><code>SELECT SUM(column_name)
+FROM   table_name
+WHERE  CONDITION
+GROUP BY column_name;
+</code></pre>
+<p>SQLite HAVING 子句：</p>
+<pre><code>SELECT SUM(column_name)
+FROM   table_name
+WHERE  CONDITION
+GROUP BY column_name
+HAVING (arithematic function condition);
+</code></pre>
+<p>SQLite INSERT INTO 语句：</p>
+<pre><code>INSERT INTO table_name( column1, column2....columnN)
+VALUES ( value1, value2....valueN);
+</code></pre>
+<p>SQLite IN 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name IN (val-1, val-2,...val-N);
+</code></pre>
+<p>SQLite Like 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name LIKE &#123; PATTERN &#125;;
+</code></pre>
+<p>SQLite NOT IN 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name NOT IN (val-1, val-2,...val-N);
+</code></pre>
+<p>SQLite ORDER BY 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  CONDITION
+ORDER BY column_name &#123;ASC|DESC&#125;;
+</code></pre>
+<p>SQLite PRAGMA 语句：</p>
+<pre><code>PRAGMA pragma_name;
+
+For example:
+
+PRAGMA page_size;
+PRAGMA cache_size = 1024;
+PRAGMA table_info(table_name);
+</code></pre>
+<p>SQLite RELEASE SAVEPOINT 语句：</p>
+<pre><code>RELEASE savepoint_name;
+</code></pre>
+<p>SQLite REINDEX 语句：</p>
+<pre><code>REINDEX collation_name;
+REINDEX database_name.index_name;
+REINDEX database_name.table_name;
+</code></pre>
+<p>SQLite ROLLBACK 语句：</p>
+<pre><code>ROLLBACK;
+or
+ROLLBACK TO SAVEPOINT savepoint_name;
+</code></pre>
+<p>SQLite SAVEPOINT 语句：</p>
+<pre><code>SAVEPOINT savepoint_name;
+SQLite SELECT 语句：
+SELECT column1, column2....columnN
+FROM   table_name;
+</code></pre>
+<p>SQLite UPDATE 语句：</p>
+<pre><code>UPDATE table_name
+SET column1 = value1, column2 = value2....columnN=valueN
+[ WHERE  CONDITION ];
+</code></pre>
+<p>SQLite VACUUM 语句：</p>
+<pre><code>VACUUM;
+</code></pre>
+<p>SQLite WHERE 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  CONDITION;
+</code></pre>
+<p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite教程</a><br>转载请注明出处。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/36895/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1992,146 +2358,6 @@ sendAsynchronousRequest : queue : completionHandler :
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/17352/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/17352/" class="post-title-link" itemprop="url">优雅处理UIImage图片旋转</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-13 04:38:49" itemprop="dateCreated datePublished" datetime="2016-01-13T04:38:49+08:00">2016-01-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="UIImag构造方式"><a href="#UIImag构造方式" class="headerlink" title="UIImag构造方式"></a>UIImag构造方式</h2><p>UIImag构造方式大致有4种方式</p>
-<ul>
-<li>从本地bundle中加载 <code>imageNamed:</code>，传入一个bundle的文件名即可</li>
-<li>从本地一个文件路径读取 <code>imageWithContentsOfFile:</code>，需要传一个文件的文件路径path</li>
-<li>通过二进制数据<code>NSData</code>来创建<code>imageWithData:</code></li>
-<li>通过一个<code>CoreGraphics</code>的<code>CGImageRef</code>来创建，<code>initWithCGImage:</code></li>
-<li>通过一个<code>CoreImage</code>的<code>CIImage</code>来创建<code>initWithCIImage</code></li>
-</ul>
-<p>通过查阅Apple官网文档我们发现有2个这样的方法，今天就来一探究竟</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCIImage:(<span class="built_in">CIImage</span> *)ciImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCIImage:(<span class="built_in">CIImage</span> *)ciImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0);</span><br></pre></td></tr></table></figure>
-
-<p>2个类方法2个实例方法都是类似，这里以<code>CGImageRef</code>为例</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>新建的Xcode工程选择single Application</p>
-</li>
-<li><p>在storyboard中拖一个<code>UIImageView</code>设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置<code>UIImageView</code>的<code>contentMode</code>为<code>Aspect Fit</code>方便查看以免变形</p>
-</li>
-<li><p>在<code>UIImageView</code>下发放一个<code>UIButton</code>控件方便后面好对图片进行旋转操作</p>
-</li>
-<li><p>在viewController中建立一个<code>UIImageView</code>引用,拉出一个rotate按钮的<code>IBAction</code></p>
-<p> 现在大概界面大概这样<br> <img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezhnagzyhpj20x7105doj.jpg" alt="UIImageOrientation效果图"></p>
-</li>
-<li><p>下面我们实现<br><code>- (IBAction)rotateImage:(id)sender &#123;&#125;</code>这个方法</p>
-<blockquote>
-<p>在这里我们想通过点击按钮实现图片旋转<br> 为了方便使用我们使用Category的方式实现<br> 新建一个UIImage的分类取名叫Rotate</p>
-</blockquote>
-<blockquote>
-<p>这里需要传一张要处理的图片和一个待处理成的图片方向</p>
-</blockquote>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage</span><br><span class="line">         orientation:(<span class="built_in">UIImageOrientation</span>)orientation;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">    + (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage orientation:(<span class="built_in">UIImageOrientation</span>)orientation&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *newImage = [<span class="built_in">UIImage</span> imageWithCGImage:oldImage.CGImage scale:<span class="number">1</span> orientation:orientation];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *orientationStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">switch</span> (orientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUp&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDown&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeft&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRight&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUpMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDownMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeftMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRightMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;current orientation: %@&quot;</span>,orientationStr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在button点击事件触发时的这样使用</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)rotateImage:(<span class="type">id</span>)sender &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *oldImage = <span class="keyword">self</span>.imgView.image;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *rotatedImage = [<span class="built_in">UIImage</span> rotateImage:oldImage orientation:<span class="built_in">UIImageOrientationLeft</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imgView.image = rotatedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>点击按钮测试发现第一次没问题，但是重逢点击无效<br>原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过<br><code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，<br>如果是就直接返回不做处理，如果不是再作旋转处理，<br>也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
-<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？<br>在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，<br>再把UIImage通过<code>drawInRect </code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片<br>下面是具体实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)fixedRotation&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.imageOrientation == <span class="built_in">UIImageOrientationUp</span>) <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">    <span class="built_in">CGAffineTransform</span> transform = <span class="built_in">CGAffineTransformIdentity</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="number">0</span>, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, -M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.height, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Now we draw the underlying CGImage into a new context, applying the transform</span></span><br><span class="line">    <span class="comment">// calculated above.</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height,</span><br><span class="line">                                             <span class="built_in">CGImageGetBitsPerComponent</span>(<span class="keyword">self</span>.CGImage), <span class="number">0</span>,</span><br><span class="line">                                             <span class="built_in">CGImageGetColorSpace</span>(<span class="keyword">self</span>.CGImage),</span><br><span class="line">                                             <span class="built_in">CGImageGetBitmapInfo</span>(<span class="keyword">self</span>.CGImage));</span><br><span class="line">    <span class="built_in">CGContextConcatCTM</span>(ctx, transform);</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            <span class="comment">// Grr...</span></span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.height,<span class="keyword">self</span>.size.width), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.width,<span class="keyword">self</span>.size.height), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// And now we just create a new UIImage from the drawing context</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> cgimg = <span class="built_in">CGBitmapContextCreateImage</span>(ctx);</span><br><span class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageWithCGImage:cgimg];</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(ctx);</span><br><span class="line">    <span class="built_in">CGImageRelease</span>(cgimg);</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在再优化一下原来<code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage orientation:(<span class="built_in">UIImageOrientation</span>)orientation&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *newImage = [<span class="built_in">UIImage</span> imageWithCGImage:oldImage.CGImage scale:<span class="number">1</span> orientation:orientation];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//fix original Image with gived orientation.</span></span><br><span class="line">    <span class="built_in">UIImage</span> *fixedRotationImage = [newImage fixedRotation];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *orientationStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">switch</span> (orientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUp&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDown&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeft&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRight&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUpMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDownMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeftMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRightMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;current orientation: %@&quot;</span>,orientationStr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fixedRotationImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p> 现在再测试一下，well，It‘s OK。</p>
-<p> have fun!!!</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://www.galloway.me.uk/2012/01/uiimageorientation-exif-orientation-sample-images/">UIImageOrientation &#x2F; EXIF orientation sample images</a></li>
-<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/#//apple_ref/c/tdef/UIImageOrientation">Apple-UIImage Class Reference</a></li>
-<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/8915630/ios-uiimageview-how-to-handle-uiimage-image-orientation">ios-uiimageview-how-to-handle-uiimage-image-orientation</a></li>
-</ul>
-<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2201,7 +2427,7 @@ sendAsynchronousRequest : queue : completionHandler :
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2214,7 +2440,7 @@ sendAsynchronousRequest : queue : completionHandler :
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2264,12 +2490,12 @@ sendAsynchronousRequest : queue : completionHandler :
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">298k</span>
+    <span title="站点总字数">299k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:31</span>
+    <span title="站点阅读时长">4:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
