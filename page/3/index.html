@@ -193,6 +193,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/33636/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/33636/" class="post-title-link" itemprop="url">VFL深入浅出</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-02 21:19:49" itemprop="dateCreated datePublished" datetime="2017-03-02T21:19:49+08:00">2017-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>给视图对象快速创建约束，可以使用比较冷门的VFL(Visual Format Language),本质是是基于自动布局(AutoLayout)。</p>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>以一种直观的方式，为视图创建约束</p>
+<h3 id="怎样解决"><a href="#怎样解决" class="headerlink" title="怎样解决"></a>怎样解决</h3><p>核心方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span>&lt;__kindof <span class="built_in">NSLayoutConstraint</span> *&gt; *)constraintsWithVisualFormat:(<span class="built_in">NSString</span> *)format</span><br><span class="line">                                                                options:(<span class="built_in">NSLayoutFormatOptions</span>)opts</span><br><span class="line">                                                                metrics:(<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="type">id</span>&gt; *)metrics</span><br><span class="line">                                                                  views:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="type">id</span>&gt; *)views;</span><br></pre></td></tr></table></figure>
+
+<p>Example:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSLayoutConstraint</span> constraintsWithVisualFormat:<span class="string">@&quot;|-[button1]-[button2]-[textField(&gt;=20)]-|&quot;</span></span><br><span class="line">                                        options:<span class="number">0</span></span><br><span class="line">                                        metrics:metrics</span><br><span class="line">                                          views:views]</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<ul>
+<li>format:指定约束的格式。更多信息，在<a href="file:///Users/wangruofeng/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.iOS.docset/Contents/Resources/Documents/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853">Auto Layout Guide</a>查看<a href="file:///Users/wangruofeng/Library/Developer/Shared/Documentation/DocSets/com.apple.adc.documentation.iOS.docset/Contents/Resources/Documents/documentation/UserExperience/Conceptual/AutolayoutPG/LayoutUsingStackViews.html#//apple_ref/doc/uid/TP40010853-CH3">Visual Format Language</a>。</li>
+<li>opts:描述在视觉格式化字符串中的布局属性和方向</li>
+<li>metrics:将出现在视觉格式化字符串的常量字典。字典的Keys必须是在出现在视觉格式化字符串的字符串类型，对应的values必须是NSNumber对象。</li>
+<li>views:出现的视觉格式化字符串的字典view，所有的Keys必须是使用在视觉格式化字符串的字符串类型，对应的values必须是view对象。</li>
+</ul>
+<p>返回值：</p>
+<p>一个约束组合的数组，像视觉格式化字符串描述的一样表述了在提供的视图和它们的父视图之间的关系。所有的约束以在视觉格式化字符串被指定的约束顺序一致。</p>
+<h3 id="效率和可维护性"><a href="#效率和可维护性" class="headerlink" title="效率和可维护性"></a>效率和可维护性</h3><p>需要对VFL理解比较全面和深入，有一定的学习成本，维护起来比较困难，但是如果理解的比较深刻，对于简单的布局效率非常高，比直接创建约束要直观。</p>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
+<li>每条约束格式字符串分水平(<code>H</code>，可省略)和垂直方向(<code>V</code>)。</li>
+<li><code>|</code> 代表父视图。</li>
+<li><code>-</code> 代表标准间距，两个子视图直接的值是8，与父视图之间的值是16。</li>
+<li><code>[view]</code> 每个视图必须用[]包裹起来，否则语法错误。</li>
+<li><code>[view(&gt;=44)]</code> 可以为每个视图设置一些属性或者关系，写一个紧跟view后的括号集合，支持宽高，优先级，和其它视图之间的关系。</li>
+<li><code>[view@20]</code> 可以设置视图的约束的优先级，以@开头，取值范围(0 1000]。</li>
+<li><code>[view1]-20-[view2]</code> 可以指定view之间的水平或者垂直间距，写在一对 <code>-</code> 即可。</li>
+<li><code>[view1][view2]</code> 如果 <code>-</code> 省略则他们之间的距离为0。</li>
+<li><code>[flexibleButton(&gt;=70,&lt;=100)]</code> 多个条件之间用<code>,</code>连接并且之间不能有空格。</li>
+</ul>
+<h3 id="其它方案"><a href="#其它方案" class="headerlink" title="其它方案"></a>其它方案</h3><ol>
+<li>使用<code>NSLayoutConstraint</code>的类方法创建(iOS96.0及以上可用)</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)constraintWithItem:(<span class="type">id</span>)view1</span><br><span class="line">                        attribute:(<span class="built_in">NSLayoutAttribute</span>)attr1</span><br><span class="line">                        relatedBy:(<span class="built_in">NSLayoutRelation</span>)relation</span><br><span class="line">                           toItem:(<span class="keyword">nullable</span> <span class="type">id</span>)view2</span><br><span class="line">                        attribute:(<span class="built_in">NSLayoutAttribute</span>)attr2</span><br><span class="line">                       multiplier:(<span class="built_in">CGFloat</span>)multiplier</span><br><span class="line">                         constant:(<span class="built_in">CGFloat</span>)c;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用<code>NSLayoutAnchor</code>的工厂方法创建(iOS9.0及以上可用)</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSLayoutConstraint</span> *)constraintEqualToAnchor:(<span class="built_in">NSLayoutAnchor</span>&lt;AnchorType&gt; *)anchor;</span><br><span class="line">- (<span class="built_in">NSLayoutConstraint</span> *)constraintGreaterThanOrEqualToAnchor:(<span class="built_in">NSLayoutAnchor</span>&lt;AnchorType&gt; *)anchor;</span><br><span class="line">- (<span class="built_in">NSLayoutConstraint</span> *)constraintLessThanOrEqualToAnchor:(<span class="built_in">NSLayoutAnchor</span>&lt;AnchorType&gt; *)anchor;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSLayoutConstraint</span> *)constraintEqualToAnchor:(<span class="built_in">NSLayoutAnchor</span>&lt;AnchorType&gt; *)anchor constant:(<span class="built_in">CGFloat</span>)c;</span><br><span class="line">- (<span class="built_in">NSLayoutConstraint</span> *)constraintGreaterThanOrEqualToAnchor:(<span class="built_in">NSLayoutAnchor</span>&lt;AnchorType&gt; *)anchor constant:(<span class="built_in">CGFloat</span>)c;</span><br><span class="line">- (<span class="built_in">NSLayoutConstraint</span> *)constraintLessThanOrEqualToAnchor:(<span class="built_in">NSLayoutAnchor</span>&lt;AnchorType&gt; *)anchor constant:(<span class="built_in">CGFloat</span>)c;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用注意事项"><a href="#使用注意事项" class="headerlink" title="使用注意事项"></a>使用注意事项</h3><ul>
+<li><p>使用时，必须把view的<code>translatesAutoresizingMaskIntoConstraints</code>属性设置为<code>NO</code>，否则约束可能更预期不一致。这是一个历史遗留的问题，由于在<code>AutoLayout</code>诞生以前一直使用<code>Autoresizing</code>来控制布局.</p>
+</li>
+<li><p>重写<code>updateConstraints()</code>方法，在里面计算约束，然后调用<code>setNeedsUpdateConstraints()</code>触发更新约束。</p>
+</li>
+<li><p>系统计算布局顺序: </p>
+<ul>
+<li>updateConstraints()</li>
+<li>layoutSubviews()</li>
+<li>drawRect(_:)</li>
+</ul>
+</li>
+</ul>
+<p>系统计算布局顺序参考</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2016/05/LayoutCycle-1.png" alt="LayoutCycle"></p>
+<p>具体使用示例，查看下面的Demo，样品工程</p>
+<hr>
+<p>Demo地址：<a target="_blank" rel="noopener" href="https://github.com/wangruofeng/VFLDemo">VFLDemo</a></p>
+<p>参考链接</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.raywenderlich.com/125718/coding-auto-layout">coding-auto-layout</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html#//apple_ref/doc/uid/TP40010853-CH27-SW1">Visual Format Language</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/41019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2437,167 +2585,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/posts/46660/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/46660/" class="post-title-link" itemprop="url">如何利用LLDB来Debug</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-04-15 10:58:26" itemprop="dateCreated datePublished" datetime="2016-04-15T10:58:26+08:00">2016-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-13 17:46:03" itemprop="dateModified" datetime="2020-06-13T17:46:03+08:00">2020-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>鉴于现在调试的频繁性和重要性，此文记录了一些基本的<code>LLDB</code>调试命令，方便日后查阅。</p>
-<h3 id="常用命令-p、po、call、print"><a href="#常用命令-p、po、call、print" class="headerlink" title="常用命令 p、po、call、print"></a>常用命令 p、po、call、print</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p         -- (&#x27;expression --&#x27;)  Evaluate an expression (ObjC++ or Swift) in</span><br><span class="line">             the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br><span class="line">po        -- (&#x27;expression -O  -- &#x27;)  Evaluate an expression (ObjC++ or Swift)</span><br><span class="line">             in the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br><span class="line">print     -- (&#x27;expression --&#x27;)  Evaluate an expression (ObjC++ or Swift) in</span><br><span class="line">             the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br><span class="line">call      -- (&#x27;expression --&#x27;)  Evaluate an expression (ObjC++ or Swift) in</span><br><span class="line">             the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br></pre></td></tr></table></figure>
-
-<p>从官方的描述来看，<code>p</code>、<code>print</code>、<code>call</code>是一样的，但是<code>po</code>就不太一样了，输入一样但是输出不一样。<code>po</code>的输出的是具体对象的内容。</p>
-<p>如果想要按照特定的格式来打印，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(lldb) p/s self.title</span><br><span class="line">(__NSCFString *) $0 = @&quot;目的地&quot;</span><br><span class="line">(lldb) p self.title</span><br><span class="line">(__NSCFString *) $1 = 0x00007fe0c0d4d230 @&quot;目的地&quot;</span><br><span class="line">(lldb) p/x self.title</span><br><span class="line">(__NSCFString *) $2 = 0x00007fe0c0d4d230 @&quot;目的地&quot;</span><br><span class="line">(lldb) p/t self.title</span><br><span class="line">(__NSCFString *) $3 = 0b0000000000000000011111111110000011000000110101001101001000110000 @&quot;目的地&quot;</span><br><span class="line">(lldb) p/a self.title</span><br><span class="line">(__NSCFString *) $4 = 0x00007fe0c0d4d230 -&gt; 0x000000010d2fd2c8 (void *)0x000000010d2fd278: __NSCFString @&quot;目的地&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="打印输出格式化"><a href="#打印输出格式化" class="headerlink" title="打印输出格式化"></a>打印输出格式化</h3><table>
-<thead>
-<tr>
-<th>name</th>
-<th align="left">description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>x</td>
-<td align="left">Regard the bits of the value as an integer, and print the integer in hexadecimal.</td>
-</tr>
-<tr>
-<td>d</td>
-<td align="left">Print as integer in signed decimal.</td>
-</tr>
-<tr>
-<td>u</td>
-<td align="left">Print as integer in unsigned decimal.</td>
-</tr>
-<tr>
-<td>o</td>
-<td align="left">Print as integer in octal.</td>
-</tr>
-<tr>
-<td>t</td>
-<td align="left">Print as integer in binary. The letter ‘t’ stands for “two”.</td>
-</tr>
-<tr>
-<td>a</td>
-<td align="left">Print as an address, both absolute in hexadecimal and as an offset from the nearest preceding symbol. You can use this format used to discover where (in what function) an unknown address is located:(gdb) p&#x2F;a 0x54320  $3 &#x3D; 0x54320 &lt;_initialize_vx+396&gt;</td>
-</tr>
-<tr>
-<td>c</td>
-<td align="left">Regard as an integer and print it as a character constant. This prints both the numerical value and its character representation. The character representation is replaced with the octal escape ‘\nnn’ for characters outside the 7-bit ascii range.Without this format, gdb displays char, unsigned char, and signed char data as character constants. Single-byte members of vectors are displayed as integer data.</td>
-</tr>
-<tr>
-<td>f</td>
-<td align="left">Regard the bits of the value as a floating point number and print using typical floating point syntax.</td>
-</tr>
-<tr>
-<td>s</td>
-<td align="left">Regard as a string, if possible. With this format, pointers to single-byte data are displayed as null-terminated strings and arrays of single-byte data are displayed as fixed-length strings. Other values are displayed in their natural types.Without this format, gdb displays pointers to and arrays of char, unsigned char, and signed char as strings. Single-byte members of a vector are displayed as an integer array.</td>
-</tr>
-<tr>
-<td>z</td>
-<td align="left">Like ‘x’ formatting, the value is treated as an integer and printed as hexadecimal, but leading zeros are printed to pad the value to the size of the integer type.</td>
-</tr>
-<tr>
-<td>r</td>
-<td align="left">Print using the ‘raw’ formatting. By default, gdb will use a Python-based pretty-printer, if one is available (see Pretty Printing). This typically results in a higher-level display of the value’s contents. The ‘r’ format bypasses any Python pretty-printer which might exist.</td>
-</tr>
-</tbody></table>
-<hr>
-<p>格式： <code>p/x $pc</code></p>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/onlinedocs/gdb/Output-Formats.html">打印输出格式化</a></p>
-<h3 id="lldb声明变量"><a href="#lldb声明变量" class="headerlink" title="lldb声明变量"></a>lldb声明变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e NSString *$str = @&quot;http://www.baidu.com&quot;</span><br><span class="line">(lldb) po $str</span><br><span class="line">http://www.baidu.com</span><br></pre></td></tr></table></figure>
-<p>我们使用<code>e</code>开头声明了变量</p>
-<h3 id="调用变量的API"><a href="#调用变量的API" class="headerlink" title="调用变量的API"></a>调用变量的API</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [self.title uppercaseString]</span><br></pre></td></tr></table></figure>
-
-<h3 id="强转返回值类型"><a href="#强转返回值类型" class="headerlink" title="强转返回值类型"></a>强转返回值类型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [self.title characterAtIndex:0]</span><br><span class="line">U+76ee u&#x27;目&#x27;</span><br><span class="line"></span><br><span class="line">(lldb) po (unsigned int)[self.title characterAtIndex:0]</span><br><span class="line">30446</span><br><span class="line"></span><br><span class="line">(lldb) po (char)[self.title characterAtIndex:0]</span><br><span class="line">&#x27;\xee&#x27;</span><br><span class="line"></span><br><span class="line">(lldb) po (NSString *)[self.title characterAtIndex:0]</span><br><span class="line">0x00000000000076ee</span><br><span class="line"></span><br><span class="line">(lldb) po (unichar)[self.title characterAtIndex:0]</span><br><span class="line">U+76ee u&#x27;目&#x27;</span><br></pre></td></tr></table></figure>
-
-<h3 id="添加断点"><a href="#添加断点" class="headerlink" title="添加断点"></a>添加断点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b 120</span><br><span class="line">b [KLNewDestinationVC setupUI]</span><br></pre></td></tr></table></figure>
-
-<p><code>b</code>命令后面加行号，或者指定某个对象调用的方法</p>
-<h3 id="设置断点触发条件"><a href="#设置断点触发条件" class="headerlink" title="设置断点触发条件"></a>设置断点触发条件</h3><p>右键断点处,在condition处编辑，如果设置了条件，只要当条件满足时，才会进入断点，也可以设置条件满足时发出声音和打印提示语。</p>
-<h3 id="常用打印视图层次结构"><a href="#常用打印视图层次结构" class="headerlink" title="常用打印视图层次结构"></a>常用打印视图层次结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [self.view recursiveDescription]</span><br></pre></td></tr></table></figure>
-<h3 id="临时刷新界面UI"><a href="#临时刷新界面UI" class="headerlink" title="临时刷新界面UI"></a>临时刷新界面UI</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e ((UIButton *)sender).backgroundColor = [UIColor redColor]</span><br><span class="line">(UICachedDeviceRGBColor *) $41 = 0x00007fdd10715b00</span><br><span class="line">(lldb) e (void)[CATransaction flush]</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2667,7 +2654,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2680,7 +2667,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2721,7 +2708,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -2730,12 +2717,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">299k</span>
+    <span title="站点总字数">301k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:32</span>
+    <span title="站点阅读时长">4:34</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
