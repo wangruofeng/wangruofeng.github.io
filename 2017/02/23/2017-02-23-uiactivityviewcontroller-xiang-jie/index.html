@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="翻译自NSHipster的UIActivity​View​Controller  一直非常好奇代码和数据之间的联系。 某些编程语言，例如Lisp，Io和Mathematica他们是同型性(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIActivity​View​Controller 详解">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2017/02/23/2017-02-23-uiactivityviewcontroller-xiang-jie/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="翻译自NSHipster的UIActivity​View​Controller  一直非常好奇代码和数据之间的联系。 某些编程语言，例如Lisp，Io和Mathematica他们是同型性(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://nshipster.s3.amazonaws.com/uiactivityviewcontroller.png">
+<meta property="og:image" content="http://nshipster.s3.amazonaws.com/jony-ive-unstache.png">
+<meta property="og:image" content="http://nshipster.s3.amazonaws.com/jony-ive-mustache.png">
+<meta property="og:image" content="https://raw.github.com/intentkit/IntentKit/master/example.gif">
+<meta property="article:published_time" content="2017-02-23T15:23:12.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.411Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Favorite">
+<meta property="article:tag" content="技巧">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nshipster.s3.amazonaws.com/uiactivityviewcontroller.png">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2017/02/23/2017-02-23-uiactivityviewcontroller-xiang-jie/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            UIActivity​View​Controller 详解 | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2017/02/23/2017-02-23-uiactivityviewcontroller-xiang-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UIActivity​View​Controller 详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-23 23:23:12" itemprop="dateCreated datePublished" datetime="2017-02-23T23:23:12+08:00">2017-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>翻译自NSHipster的<a target="_blank" rel="noopener" href="http://nshipster.com/uiactivityviewcontroller/">UIActivity​View​Controller</a></p>
+</blockquote>
+<p>一直非常好奇代码和数据之间的联系。</p>
+<p>某些编程语言，例如<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Lisp_programming_language">Lisp</a>，<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Io_%28programming_language%29">Io</a>和<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Mathematica">Mathematica</a>他们是<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Homoiconicity">同型性</a>(代码即数据)，那就意味着它们的代码是原始数据的呈现形式，它们本身在代码中也能够被维护。然而大多数其它语言，包括Objective-C，然而，在这两者之间有严格的边界，避免eval()和其它有动态引导加载的潜在危险方法。</p>
+<p>当数据出现太大和呈现一些东西过于笨重除了使用二进制流的问题时代码和数据之间的不安被推向到了一个全新的高度。自从第一个操作系统出现开始，怎样编码，解码，解释二进制代表的图片，文档，和媒体一直是一个问题。</p>
+<p>在OS X上的核心服务框架和iOS上提供标识功能和通过文件拓展和<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Internet_media_type">MIMIE type</a>–根据<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Uniform_Type_Identifier">通用数据标示</a>，给数据类型的分类核心服务框架。UTIs提供了一种可拓展，阶梯分层系统，这给开发者在处理大量不同的文件类型提供了巨大的灵活性。例如，一个Ruby的源文件(.rb)被归类为：Ruby Source Code &gt; Source Code &gt; Text &gt; Content &gt; Data；一个QuickTime电影文件(.mov)被归类为 Video &gt; Movie &gt; Audiovisual Content &gt; Content &gt; Data。</p>
+<p>UTIs表现得非常好在桌面的抽象文件系统中。然而，在一个移动范例中这就崩溃得很快，因为文件和目录是对用户隐藏的。还有，随着云服务和社交媒体扮演着越来越重要的角色在远程实体通过本地文件。因此，UTIs和URLs之间很紧张。</p>
+<p>我们非常清楚我们需要一些别的东西。<code>UIActivityViewController</code>能否成为我们正在急切寻找的解决方案呢?</p>
+<hr>
+<p><code>UIActivityViewController</code>，在iOS6中被引入，提供了一套分享和在应用内执行数据操作的统一服务界面。</p>
+<p>考虑到可操作的数据集合，一个<code>UIActivityViewController</code>实例通过如下方式创建：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *string = ...;</span><br><span class="line"><span class="built_in">NSURL</span> *URL = ...;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIActivityViewController</span> *activityViewController = [[<span class="built_in">UIActivityViewController</span> alloc] initWithActivityItems:@[string, URL]</span><br><span class="line">                                    applicationActivities:<span class="literal">nil</span>];</span><br><span class="line">[navigationController presentViewController:activityViewController</span><br><span class="line">                                   animated:<span class="literal">YES</span></span><br><span class="line">                                 completion:^&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<p>这将在屏幕底部呈现如下界面：</p>
+<p><img src="http://nshipster.s3.amazonaws.com/uiactivityviewcontroller.png" alt="activity sharing img"></p>
+<p>默认情况下，<code>UIActivityViewController</code>将会显示所有支持的可用服务类型，但是某些活动类型也可以排除：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activityViewController.excludedActivityTypes = @[<span class="built_in">UIActivityTypePostToFacebook</span>];</span><br></pre></td></tr></table></figure>
+
+<p>活动类型被划分“动作”(action)和“分享”(share)类型：</p>
+<h3 id="UIActivityCategoryAction"><a href="#UIActivityCategoryAction" class="headerlink" title="UIActivityCategoryAction"></a>UIActivityCategoryAction</h3><ul>
+<li>UIActivityTypePrint</li>
+<li>UIActivityTypeCopyToPasteboard</li>
+<li>UIActivityTypeAssignToContact</li>
+<li>UIActivityTypeSaveToCameraRoll</li>
+<li>UIActivityTypeAddToReadingList</li>
+<li>UIActivityTypeAirDrop</li>
+</ul>
+<h3 id="UIActivityCategoryShare"><a href="#UIActivityCategoryShare" class="headerlink" title="UIActivityCategoryShare"></a>UIActivityCategoryShare</h3><ul>
+<li>UIActivityTypeMessage</li>
+<li>UIActivityTypeMail</li>
+<li>UIActivityTypePostToFacebook</li>
+<li>UIActivityTypePostToTwitter</li>
+<li>UIActivityTypePostToFlickr</li>
+<li>UIActivityTypePostToVimeo</li>
+<li>UIActivityTypePostToTencentWeibo</li>
+<li>UIActivityTypePostToWeibo</li>
+</ul>
+<p>每种活动类型，支持一系列不同的数据类型。例如，一个<code>Tweet</code>可能由一个<code>NSString</code>并附带一个<code>image</code>和或者<code>URL</code>。</p>
+<p>不同活动类型支持的数据类型</p>
+<table>
+<thead>
+<tr>
+<th>Activity Type</th>
+<th align="center">String</th>
+<th>Attributed String</th>
+<th>URL</th>
+<th>Data</th>
+<th>Image</th>
+<th>Asset</th>
+<th>Other</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Post To Facebook</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Post To Twitter</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Post To Weibo</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>Message</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓*</td>
+<td>✓*</td>
+<td></td>
+<td>✓</td>
+<td>sms:&#x2F;&#x2F; NSURL</td>
+</tr>
+<tr>
+<td>Mail</td>
+<td align="center">✓+</td>
+<td>✓+</td>
+<td>✓+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Print</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td>✓+</td>
+<td>✓+</td>
+<td></td>
+<td>UIPrintPageRenderer, UIPrintFormatter, &amp; UIPrintInfo</td>
+</tr>
+<tr>
+<td>Copy To Pasteboard</td>
+<td align="center">✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>UIColor, NSDictionary</td>
+</tr>
+<tr>
+<td>Assign To Contact</td>
+<td align="center"></td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Save To Camera Roll</td>
+<td align="center"></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Add To Reading List</td>
+<td align="center"></td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Post To Flickr</td>
+<td align="center"></td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>Post To Vimeo</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>Post To Tencent Weibo</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>AirDrop</td>
+<td align="center">✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="UIActivityItemSource-UIActivityItemProvider"><a href="#UIActivityItemSource-UIActivityItemProvider" class="headerlink" title="UIActivityItemSource &amp; UIActivityItemProvider"></a>UIActivityItemSource &amp; UIActivityItemProvider</h3><p>当必要时和一个粘贴板项目能用来提供的数据类似，为了避免过度的内测开销或处理时间，活动类型可以是一种自定义类型。</p>
+<p>任何遵循<code>&lt;UIActivityItemSource&gt;</code>协议的对象，包括内构<code>UIActivityItemProvider</code>类，可以用来动态提供不同类型的数据根据活动的类型。</p>
+<h4 id="UIActivityItemSource"><a href="#UIActivityItemSource" class="headerlink" title="UIActivityItemSource"></a>UIActivityItemSource</h4><p>获取数据项目：</p>
+<ul>
+<li>activityViewControllerPlaceholderItem:</li>
+<li>activityViewController:itemForActivityType:</li>
+</ul>
+<p>提供数据项目信息：</p>
+<ul>
+<li>activityViewController:subjectForActivityType:</li>
+<li>activityViewController:dataTypeIdentifierForActivityType:</li>
+<li>activityViewController:thumbnailImageForActivityType:suggestedSize:</li>
+</ul>
+<p>下面是一个例子，根据是否分享到FaceBook或者Twitter来展示自定义一条消息是怎样使用的:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">id</span>)activityViewController:(<span class="built_in">UIActivityViewController</span> *)activityViewController</span><br><span class="line">         itemForActivityType:(<span class="built_in">NSString</span> *)activityType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([activityType isEqualToString:<span class="built_in">UIActivityTypePostToFacebook</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;Like this!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([activityType isEqualToString:<span class="built_in">UIActivityTypePostToTwitter</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;Retweet this!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建一个自定义UIActivity"><a href="#创建一个自定义UIActivity" class="headerlink" title="创建一个自定义UIActivity"></a>创建一个自定义UIActivity</h3><p>除了上述的系统提供的活动，你也可以创建你自己的活动。</p>
+<p>例如，让我们创建一个自定义活动类型，它能使一个URL中的图片添加上胡须通过使用<a target="_blank" rel="noopener" href="http://mustache.me/">mustache.me</a>。</p>
+<p>Before:</p>
+<p><img src="http://nshipster.s3.amazonaws.com/jony-ive-unstache.png" alt="Before"></p>
+<p>After:</p>
+<p><img src="http://nshipster.s3.amazonaws.com/jony-ive-mustache.png" alt="After"></p>
+<p>首先，我们定义一个<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Reverse_domain_name_notation">反向域名解析的标识符</a>给活动类型：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> HIPMustachifyActivityType = <span class="string">@&quot;com.nshipster.activity.Mustachify&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>然后指定它的分类为<code>UIActivityCategoryAction</code>并且提供一个本地化标题和iOS版本相应的图片：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - UIActivity</span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIActivityCategory</span>)activityCategory &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIActivityCategoryAction</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)activityType &#123;</span><br><span class="line">    <span class="keyword">return</span> HIPMustachifyActivityType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)activityTitle &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;Mustachify&quot;</span>, <span class="literal">nil</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIImage</span> *)activityImage &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">NSFoundationVersionNumber</span> &gt; <span class="built_in">NSFoundationVersionNumber_iOS_6_1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;MustachifyUIActivity7&quot;</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;MustachifyUIActivity&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下一步，我们创建一个辅助函数，<code>HIPMatchingURLsInActivityItems</code>，通过它返回一个支持类型的图片URL的数组。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSArray</span> * HIPMatchingURLsInActivityItems(<span class="built_in">NSArray</span> *activityItems) &#123;</span><br><span class="line">    <span class="keyword">return</span> [activityItems filteredArrayUsingPredicate:[<span class="built_in">NSPredicate</span> predicateWithBlock:</span><br><span class="line">    ^<span class="type">BOOL</span>(<span class="type">id</span> item, __unused <span class="built_in">NSDictionary</span> *bindings) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([item isKindOfClass:[<span class="built_in">NSURL</span> <span class="keyword">class</span>]] &amp;&amp;</span><br><span class="line">            ![(<span class="built_in">NSURL</span> *)item isFileURL]) &#123;</span><br><span class="line">            <span class="keyword">return</span> [[(<span class="built_in">NSURL</span> *)item pathExtension] caseInsensitiveCompare:<span class="string">@&quot;jpg&quot;</span>] == <span class="built_in">NSOrderedSame</span> ||</span><br><span class="line">            [[(<span class="built_in">NSURL</span> *)item pathExtension] caseInsensitiveCompare:<span class="string">@&quot;png&quot;</span>] == <span class="built_in">NSOrderedSame</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数让后被用在<code>-canPerformWithActivityItems:</code>和<code>prepareWithActivityItems:</code>来获取小胡子的第一张PNG或JPEG图片的URL，假如有的话。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">BOOL</span>)canPerformWithActivityItems:(<span class="built_in">NSArray</span> *)activityItems &#123;</span><br><span class="line">    <span class="keyword">return</span> [HIPMatchingURLsInActivityItems(activityItems) count] &gt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)prepareWithActivityItems:(<span class="built_in">NSArray</span> *)activityItems &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> HIPMustachifyMeURLFormatString = <span class="string">@&quot;http://mustachify.me/%d?src=%@&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imageURL = [<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:HIPMustachifyMeURLFormatString, <span class="keyword">self</span>.mustacheType, [HIPMatchingURLsInActivityItems(activityItems) firstObject]]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们的网站服务提供了各种胡须选项，它被定义在一个枚举中：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, HIPMustacheType) &#123;</span><br><span class="line">    HIPMustacheTypeEnglish,</span><br><span class="line">    HIPMustacheTypeHorseshoe,</span><br><span class="line">    HIPMustacheTypeImperial,</span><br><span class="line">    HIPMustacheTypeChevron,</span><br><span class="line">    HIPMustacheTypeNatural,</span><br><span class="line">    HIPMustacheTypeHandlebar,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>最终，我们提供了一个<code>UIViewController</code>来显示图片。在这个例子中，一个简单的<code>UIWebView</code>控制器就够用了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HIPMustachifyWebViewController</span> : <span class="title">UIViewController</span> &lt;<span class="title">UIWebViewDelegate</span>&gt;</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIWebView</span> *webView;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)activityViewController &#123;</span><br><span class="line">    HIPMustachifyWebViewController *webViewController = [[HIPMustachifyWebViewController alloc] init];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:<span class="keyword">self</span>.imageURL];</span><br><span class="line">    [webViewController.webView loadRequest:request];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> webViewController;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了使用我们加了新胡须的活动，我们简单把它传递到<code>UIActivityViewController</code>构造器中：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HIPMustachifyActivity *mustacheActivity = [[HIPMustachifyActivity alloc] init];</span><br><span class="line"><span class="built_in">UIActivityViewController</span> *activityViewController =</span><br><span class="line">  [[<span class="built_in">UIActivityViewController</span> alloc] initWithActivityItems:@[imageURL]</span><br><span class="line">                                    applicationActivities:@[mustacheActivity]];</span><br></pre></td></tr></table></figure>
+
+<h3 id="手动执行动作"><a href="#手动执行动作" class="headerlink" title="手动执行动作"></a>手动执行动作</h3><p>现在是一个提醒的好时机，当<code>UIActivityViewController</code>允许用户执行他们选择的动作，分享也能通过手动执行，当场景出现时。</p>
+<p>所有为了完整性，下面是怎样手动执行这些动作示例：</p>
+<h4 id="Open-URL"><a href="#Open-URL" class="headerlink" title="Open URL"></a>Open URL</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@&quot;http://nshipster.com&quot;</span>];</span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:URL];</span><br></pre></td></tr></table></figure>
+<p>系统支持的URL协议包括：<code>mailto:</code>，<code> tel:</code>，<code>sms:</code>和<code>maps:</code>。</p>
+<h4 id="添加到Safari阅读列表"><a href="#添加到Safari阅读列表" class="headerlink" title="添加到Safari阅读列表"></a>添加到Safari阅读列表</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> SafariServices;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@&quot;http://nshipster.com/uiactivityviewcontroller&quot;</span>];</span><br><span class="line">[[SSReadingList defaultReadingList] addReadingListItemWithURL:URL</span><br><span class="line">                                                        title:<span class="string">@&quot;NSHipster&quot;</span></span><br><span class="line">                                                  previewText:<span class="string">@&quot;...&quot;</span></span><br><span class="line">                                                        error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+
+<h4 id="保存到相册"><a href="#保存到相册" class="headerlink" title="保存到相册"></a>保存到相册</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImage</span> *image = ...;</span><br><span class="line"><span class="type">id</span> completionTarget = <span class="keyword">self</span>;</span><br><span class="line">SEL completionSelector = <span class="keyword">@selector</span>(didWriteToSavedPhotosAlbum);</span><br><span class="line"><span class="type">void</span> *contextInfo = <span class="literal">NULL</span>;</span><br><span class="line"><span class="built_in">UIImageWriteToSavedPhotosAlbum</span>(image, completionTarget, completionSelector, contextInfo);</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送-SMS"><a href="#发送-SMS" class="headerlink" title="发送 SMS"></a>发送 SMS</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> MessageUI;</span><br><span class="line"></span><br><span class="line">MFMessageComposeViewController *messageComposeViewController = [[MFMessageComposeViewController alloc] init];</span><br><span class="line">messageComposeViewController.messageComposeDelegate = <span class="keyword">self</span>;</span><br><span class="line">messageComposeViewController.recipients = @[<span class="string">@&quot;mattt@nshipster•com&quot;</span>];</span><br><span class="line">messageComposeViewController.body = <span class="string">@&quot;Lorem ipsum dolor sit amet&quot;</span>;</span><br><span class="line">[navigationController presentViewController:messageComposeViewController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送-Email"><a href="#发送-Email" class="headerlink" title="发送 Email"></a>发送 Email</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> MessageUI;</span><br><span class="line"></span><br><span class="line">MFMailComposeViewController *mailComposeViewController = [[MFMailComposeViewController alloc] init];</span><br><span class="line">mailComposeViewController.mailComposeDelegate = <span class="keyword">self</span>;</span><br><span class="line">[mailComposeViewController setToRecipients:@[<span class="string">@&quot;mattt@nshipster•com&quot;</span>]];</span><br><span class="line">[mailComposeViewController setSubject:<span class="string">@&quot;Hello&quot;</span>];</span><br><span class="line">[mailComposeViewController setMessageBody:<span class="string">@&quot;Lorem ipsum dolor sit amet&quot;</span> isHTML:<span class="literal">NO</span>];</span><br><span class="line">[navigationController presentViewController:mailComposeViewController animated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="发送-Tweet"><a href="#发送-Tweet" class="headerlink" title="发送 Tweet"></a>发送 Tweet</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> Social;</span><br><span class="line"></span><br><span class="line">SLComposeViewController *tweetComposeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];</span><br><span class="line">[tweetComposeViewController setInitialText:<span class="string">@&quot;Lorem ipsum dolor sit amet.&quot;</span>];</span><br><span class="line">[<span class="keyword">self</span>.navigationController presentViewController:tweetComposeViewController</span><br><span class="line">                                        animated:<span class="literal">YES</span></span><br><span class="line">                                      completion:^&#123;</span><br><span class="line">                                          <span class="comment">// ...</span></span><br><span class="line">                                      &#125;];</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="IntentKit"><a href="#IntentKit" class="headerlink" title="IntentKit"></a>IntentKit</h3><p>当所有的这些都是印象深刻和非常有用，它在iOS中的活动范例特别缺乏，当和在Android中的丰富的<a target="_blank" rel="noopener" href="http://developer.android.com/guide/components/intents-filters.html">Intents Model</a>相比。</p>
+<p>在Android中，apps能够注册不同的intents，来指示它们能够用在Maps，或者充当一个浏览器，能够被涉及到相关活动的默认app选中，比如指引方向，或者一个书签的URL。</p>
+<p>然而iOS缺乏来支持这些的可拓展的基础架构，有一个叫<a target="_blank" rel="noopener" href="https://github.com/intentkit/IntentKit">IntentKit</a>第三方库，作者<a target="_blank" rel="noopener" href="https://github.com/lazerwalker">@lazerwalker</a>(因<a target="_blank" rel="noopener" href="http://goshdarnblocksyntax.com/">f*ingblocksyntax.com</a>成名)，这是一个有趣的例子关于我们怎样缩小这方面的差距。</p>
+<p><img src="https://raw.github.com/intentkit/IntentKit/master/example.gif" alt="IntentKit demo"></p>
+<p>通常，一个开发者可能已经做了很多第一步的工作，来决定是否某个app是否安装，然后怎样构造一个URL来支持某个特殊的活动。</p>
+<p>IntentKit加强了连结到大多数流行的Web，Maps,Mail,Twitter,Facebook,和Google+客户的的逻辑，以和<code>UIActivityViewController</code>相似的UI。</p>
+<p>任何寻找提升他们的分享体验到下一个级别的人都应该仔细看看这个。</p>
+<p>–</p>
+<p>在iOS长期生存能力作为一个平台取决于像<code>UIActivityViewController</code>类型的分享机制存上在很大的争论。正如俗语所言：“资讯应该免费”。任何阻碍方式统一的东西，最终都会失去一些没有的东西。</p>
+<p>将来的景象是公共的远程视图控制器APIs带给我希望，对于将来在iOS平台上的分享功能。然而现在我们做的和UIActivityViewController相比糟糕得多。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2017/02/23/2017-02-23-uiactivityviewcontroller-xiang-jie/" title="UIActivity​View​Controller 详解">https://blog.wangruofeng007.com/2017/02/23/2017-02-23-uiactivityviewcontroller-xiang-jie/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+              <a href="/tags/Favorite/" rel="tag"># Favorite</a>
+              <a href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag"># 技巧</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/01/09/2017-01-10-2016ge-ren-nian-du-zong-jie/" rel="prev" title="2016个人年度总结">
+      <i class="fa fa-chevron-left"></i> 2016个人年度总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/03/02/2017-03-02-vflshen-ru-qian-chu/" rel="next" title="VFL深入浅出">
+      VFL深入浅出 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityCategoryAction"><span class="nav-number">1.</span> <span class="nav-text">UIActivityCategoryAction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityCategoryShare"><span class="nav-number">2.</span> <span class="nav-text">UIActivityCategoryShare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIActivityItemSource-UIActivityItemProvider"><span class="nav-number">3.</span> <span class="nav-text">UIActivityItemSource &amp; UIActivityItemProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UIActivityItemSource"><span class="nav-number">3.1.</span> <span class="nav-text">UIActivityItemSource</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89UIActivity"><span class="nav-number">4.</span> <span class="nav-text">创建一个自定义UIActivity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E6%89%A7%E8%A1%8C%E5%8A%A8%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">手动执行动作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Open-URL"><span class="nav-number">5.1.</span> <span class="nav-text">Open URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%B0Safari%E9%98%85%E8%AF%BB%E5%88%97%E8%A1%A8"><span class="nav-number">5.2.</span> <span class="nav-text">添加到Safari阅读列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%88%B0%E7%9B%B8%E5%86%8C"><span class="nav-number">5.3.</span> <span class="nav-text">保存到相册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81-SMS"><span class="nav-number">5.4.</span> <span class="nav-text">发送 SMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81-Email"><span class="nav-number">5.5.</span> <span class="nav-text">发送 Email</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E9%80%81-Tweet"><span class="nav-number">5.6.</span> <span class="nav-text">发送 Tweet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentKit"><span class="nav-number">6.</span> <span class="nav-text">IntentKit</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

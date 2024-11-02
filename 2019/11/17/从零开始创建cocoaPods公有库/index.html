@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="简介这篇文章记录了一个公共Pod库 RFSegmentView的创建过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始创建cocoaPods公有库">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2019/11/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%9B%E5%BB%BAcocoaPods%E5%85%AC%E6%9C%89%E5%BA%93/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="简介这篇文章记录了一个公共Pod库 RFSegmentView的创建过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/cocoapod_trunk_register.png">
+<meta property="article:published_time" content="2019-11-17T10:50:41.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.415Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="CocoaPods">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/cocoapod_trunk_register.png">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2019/11/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%9B%E5%BB%BAcocoaPods%E5%85%AC%E6%9C%89%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            从零开始创建cocoaPods公有库 | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2019/11/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%9B%E5%BB%BAcocoaPods%E5%85%AC%E6%9C%89%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从零开始创建cocoaPods公有库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-17 18:50:41" itemprop="dateCreated datePublished" datetime="2019-11-17T18:50:41+08:00">2019-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这篇文章记录了一个公共Pod库 <a target="_blank" rel="noopener" href="https://github.com/wangruofeng/RFSegmentView">RFSegmentView</a>的创建过程</p>
+<span id="more"></span>
+
+<h2 id="注册CocoaPods账号"><a href="#注册CocoaPods账号" class="headerlink" title="注册CocoaPods账号"></a>注册CocoaPods账号</h2><p>想要创建一个开源pod库, 首先我们需要注册CocoaPods, 这里使用trunk方式,  那么只需要在终端执行（这里默认你已经安装好CocoaPods环境）:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk register 邮箱地址 <span class="string">&#x27;用户名&#x27;</span> --verbose</span><br></pre></td></tr></table></figure>
+
+<p>这里我们一般使用github邮箱和用户名, 然后在你的邮箱中会收到确认邮件,下面是确认邮件的内容：</p>
+<p><img src="/images/cocoapod_trunk_register.png" alt="img"></p>
+<p> 在浏览器中点击链接确认即注册成功, 成功之后可以终端执行:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk me</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的命令查看注册信息，里面会展示该账号下的所有的Pod库，可以用此方式查看自己发布过的Pods</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  myBlog git:(master) ✗ pod trunk me</span><br><span class="line">  - Name:     wangruofeng</span><br><span class="line">  - Email:    wangruofeng007@gmail.com</span><br><span class="line">  - Since:    November 16th, 12:17</span><br><span class="line">  - Pods:</span><br><span class="line">    - RFSegmentView</span><br><span class="line">  - Sessions:</span><br><span class="line">    - November 16th, 12:17 - March 24th, 2020 04:54. IP: 119.123.133.39</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="创建共享库文件并上传到公有仓库"><a href="#创建共享库文件并上传到公有仓库" class="headerlink" title="创建共享库文件并上传到公有仓库"></a>创建共享库文件并上传到公有仓库</h2><p>共享库需要三个必不可少的部分:</p>
+<ol>
+<li><code>共享文件夹</code>(文件夹存放着你要共享的内容, 也就是其他人通过pod安装得到的文件, .podspec文件中的source_files需要指定此文件路径及文件类型);</li>
+<li><code>LICENSE文件</code>(默认一般选择MIT);</li>
+<li><code>库名.podspec</code>(本库的各项信息描述, 需要提交给CocoaPods, pod通过这个文件查找到你共享的库).</li>
+</ol>
+<p>如果没有 <code>podspec</code> 文件可以用下面的命令，初始化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib create 库名</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="编辑-podspec文件"><a href="#编辑-podspec文件" class="headerlink" title="编辑.podspec文件"></a>编辑.podspec文件</h2><p>以 <code>RFSegmentView.podspec</code> 为例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Pod::Spec</span>.new <span class="keyword">do</span> |<span class="params">spec</span>|</span><br><span class="line"></span><br><span class="line">  spec.name         = <span class="string">&quot;RFSegmentView&quot;</span></span><br><span class="line">  spec.version      = <span class="string">&quot;1.3.0&quot;</span></span><br><span class="line">  spec.summary      = <span class="string">&quot;Imitate iOS7 style segmented controls, simple, practical！&quot;</span></span><br><span class="line">  spec.homepage     = <span class="string">&quot;https://github.com/wangruofeng/RFSegmentView&quot;</span></span><br><span class="line">  spec.license      = &#123; <span class="symbol">:type</span> =&gt; <span class="string">&quot;MIT&quot;</span>, <span class="symbol">:file</span> =&gt; <span class="string">&quot;LICENSE.md&quot;</span> &#125;</span><br><span class="line">  spec.author       = &#123; <span class="string">&quot;wangruofeng&quot;</span> =&gt;<span class="string">&quot;wangruofeng007@gmail.com&quot;</span> &#125;</span><br><span class="line">  spec.platform     = <span class="symbol">:ios</span>, <span class="string">&quot;8.0&quot;</span></span><br><span class="line">  spec.source       = &#123; <span class="symbol">:git</span> =&gt; <span class="string">&#x27;https://github.com/wangruofeng/RFSegmentView.git&#x27;</span>, <span class="symbol">:tag</span> =&gt; spec.version.to_s&#125;</span><br><span class="line">  spec.source_files  = <span class="string">&quot;RFSegmentView/RFSegmentView.&#123;h,m&#125;&quot;</span></span><br><span class="line">  <span class="comment"># spec.exclude_files = &quot;Classes/Exclude&quot;</span></span><br><span class="line">  <span class="comment"># spec.public_header_files = &quot;Classes/**/*.h&quot;</span></span><br><span class="line"></span><br><span class="line">  spec.frameworks = <span class="string">&#x27;UIKit&#x27;</span>, <span class="string">&#x27;CoreGraphics&#x27;</span>, <span class="string">&#x27;Foundation&#x27;</span></span><br><span class="line">  spec.requires_arc = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># spec.dependency &quot;JSONKit&quot;, &quot;~&gt; 1.4&quot; 添加依赖库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>编写完成后, 我们需要验证.podspec文件的合法性, 这里需要终端cd到.podspec文件所在文件夹, 执行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint RFSegmentView.podspec</span><br></pre></td></tr></table></figure>
+
+<p>如有警告或者错误请重新检查你的编写正确性, 如果没有问题会出现</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">RFSegmentView (1.3.0)</span></span><br><span class="line">    </span><br><span class="line">RFSegmentView passed validation.</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="打tag，发布新版本"><a href="#打tag，发布新版本" class="headerlink" title="打tag，发布新版本"></a>打tag，发布新版本</h2><p>一切准备就绪后, 我们需要在你的git仓库里面存在一个与.podspec文件中一致的版本, 这里你可以在你的git仓库中的准备一个版本, 也可以在当前文件夹下使用终端命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag -m &#x27;first release&#x27; &#x27;1.3.0&#x27;</span><br><span class="line">git push --tag #推送tag到远端仓库</span><br></pre></td></tr></table></figure>
+
+<p>成功之后即可在你分支里面看到这个tag的版本.</p>
+<h2 id="发布库描述文件"><a href="#发布库描述文件" class="headerlink" title="发布库描述文件"></a>发布库描述文件</h2><p>下面我们需要发布自己的库描述文件podspec给cocoapods<br>同样在这个文件夹下, 终端执行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk push RFSegmentView.podspec</span><br></pre></td></tr></table></figure>
+
+<p>将你的库文件.podspec文件提交到公有的specs上面, 这一步做的操作是验证你的podspec文件是否合法+提交到specs中+将上传的podspec文件转成json格式文件,如果重复提交会出现下面的信息:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[!] Unable to accept duplicate entry for: RFSegmentView (1.3.0)</span><br></pre></td></tr></table></figure>
+
+<p>为了测试将RFSegmentView.podspec里面的spec.version修改成1.3.1,成功后会出现Congrats信息:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  RFSegmentView git:(master) pod trunk push RFSegmentView.podspec</span><br><span class="line">Updating spec repo `trunk`</span><br><span class="line">Validating podspec</span><br><span class="line"> -&gt; RFSegmentView (1.3.1)</span><br><span class="line">    - NOTE  | xcodebuild:  note: Using new build system</span><br><span class="line">    - NOTE  | [iOS] xcodebuild:  note: Planning build</span><br><span class="line">    - NOTE  | [iOS] xcodebuild:  note: Constructing build description</span><br><span class="line">    - NOTE  | [iOS] xcodebuild:  warning: Skipping code signing because the target does not have an Info.plist file and one is not being generated automatically. (in target &#x27;App&#x27; from project &#x27;App&#x27;)</span><br><span class="line"></span><br><span class="line">Updating spec repo `trunk`</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------</span><br><span class="line"> 🎉  Congrats</span><br><span class="line"></span><br><span class="line"> 🚀  RFSegmentView (1.3.1) successfully published</span><br><span class="line"> 📅  November 17th, 07:08</span><br><span class="line"> 🌎  https://cocoapods.org/pods/RFSegmentView</span><br><span class="line"> 👍  Tell your friends!</span><br><span class="line">--------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<h2 id="查找和使用新创建的库"><a href="#查找和使用新创建的库" class="headerlink" title="查找和使用新创建的库"></a>查找和使用新创建的库</h2><p>成功后需要等待的时间不定, 目前一般比较快, 一般使用pod setup和pod search查看是否已经可以使用, 如果</p>
+<p><code>pod search RFSegmentView</code> 一直搜索不到，尝试删除<code>pod setup</code>成功后生成的<code>~/Library/Caches/CocoaPods/search_index.json</code>文件, 该文是用来查找的索引文件, </p>
+<p>终端输入:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm ~/Library/Caches/CocoaPods/search_index.json</span><br></pre></td></tr></table></figure>
+
+<p>删除成功后再执行:<code>pod search 库名</code>, 等待输出：<code>Creating search index for spec repo &#39;master&#39;.. Done!</code>稍等片刻就会出现你想要的结果,如果还是没有结果需要等待pod同步，过一段时间再来尝试。</p>
+<h2 id="更新维护podspec"><a href="#更新维护podspec" class="headerlink" title="更新维护podspec"></a>更新维护podspec</h2><p>如果有错误或者需要迭代版本,修改工程文件后推送到远端仓库后, 需要修改podspec中的版本号, 并重新打tag上传, 再进行新一轮的验证和发布。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007947371"><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007947371">CocoaPods创建公有和私有Pod库方法总结</a></a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CocoaPods/Specs/">Podspecs</a></li>
+<li><a target="_blank" rel="noopener" href="https://guides.cocoapods.org/syntax/podspec.html">Podspec attributes</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2019/11/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%9B%E5%BB%BAcocoaPods%E5%85%AC%E6%9C%89%E5%BA%93/" title="从零开始创建cocoaPods公有库">https://blog.wangruofeng007.com/2019/11/17/从零开始创建cocoaPods公有库/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CocoaPods/" rel="tag"># CocoaPods</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/14/Pod%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="Pod常用命令">
+      <i class="fa fa-chevron-left"></i> Pod常用命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/18/%E8%BD%AC-Objective-C-Runtime-%E5%A4%A7%E4%BD%AC%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86/" rel="next" title="[转]Objective-C Runtime 大佬系列文章整理">
+      [转]Objective-C Runtime 大佬系列文章整理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8CCocoaPods%E8%B4%A6%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">注册CocoaPods账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB%E5%BA%93%E6%96%87%E4%BB%B6%E5%B9%B6%E4%B8%8A%E4%BC%A0%E5%88%B0%E5%85%AC%E6%9C%89%E4%BB%93%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">创建共享库文件并上传到公有仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91-podspec%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">编辑.podspec文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93tag%EF%BC%8C%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%88%E6%9C%AC"><span class="nav-number">5.</span> <span class="nav-text">打tag，发布新版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%BA%93%E6%8F%8F%E8%BF%B0%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">发布库描述文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%92%8C%E4%BD%BF%E7%94%A8%E6%96%B0%E5%88%9B%E5%BB%BA%E7%9A%84%E5%BA%93"><span class="nav-number">7.</span> <span class="nav-text">查找和使用新创建的库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%BB%B4%E6%8A%A4podspec"><span class="nav-number">8.</span> <span class="nav-text">更新维护podspec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

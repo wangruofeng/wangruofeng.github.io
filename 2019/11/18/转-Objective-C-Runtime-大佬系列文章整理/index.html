@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="简介此文转自kangzubin 收集的runtime大佬系列文章，特别鸣谢，方便后续查阅。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[转]Objective-C Runtime 大佬系列文章整理">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2019/11/18/%E8%BD%AC-Objective-C-Runtime-%E5%A4%A7%E4%BD%AC%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="简介此文转自kangzubin 收集的runtime大佬系列文章，特别鸣谢，方便后续查阅。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-17T16:41:40.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.416Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="Runtime">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2019/11/18/%E8%BD%AC-Objective-C-Runtime-%E5%A4%A7%E4%BD%AC%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            [转]Objective-C Runtime 大佬系列文章整理 | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2019/11/18/%E8%BD%AC-Objective-C-Runtime-%E5%A4%A7%E4%BD%AC%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [转]Objective-C Runtime 大佬系列文章整理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-18 00:41:40" itemprop="dateCreated datePublished" datetime="2019-11-18T00:41:40+08:00">2019-11-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>670</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>此文转自<a target="_blank" rel="noopener" href="https://kangzubin.com/objc-runtime-articles/">kangzubin 收集的runtime大佬系列文章</a>，特别鸣谢，方便后续查阅。</p>
+<span id="more"></span>
+
+<h2 id="kangzubin"><a href="#kangzubin" class="headerlink" title="kangzubin"></a>kangzubin</h2><p>最近重新温习了下 Objective-C Runtime 相关的知识，自己整理了两篇水文：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://kangzubin.com/objc1.0-class-object/">Objective-C 1.0 中类与对象的定义</a></li>
+<li><a target="_blank" rel="noopener" href="https://kangzubin.com/objc2.0-class-object/">Objective-C 2.0 中类与对象的定义</a></li>
+</ul>
+<p>然后在网上搜罗了一圈，发现很多大佬之前都写了一系列关于 Runtime 的文章，深入浅出，真是让人难以望其项背，收集如下，方便日后学习，欢迎补充。</p>
+<h2 id="Greg-Parker"><a href="#Greg-Parker" class="headerlink" title="Greg Parker"></a><a target="_blank" rel="noopener" href="http://www.sealiesoftware.com/blog/">Greg Parker</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html">Classes and metaclasses</a></li>
+</ul>
+<h2 id="Matt-Gallagher"><a href="#Matt-Gallagher" class="headerlink" title="Matt Gallagher"></a><a target="_blank" rel="noopener" href="https://www.cocoawithlove.com/">Matt Gallagher</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html">What is a meta-class in Objective-C?</a></li>
+</ul>
+<h2 id="南峰子"><a href="#南峰子" class="headerlink" title="南峰子"></a><a target="_blank" rel="noopener" href="https://southpeak.github.io/">南峰子</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://southpeak.github.io/2014/10/25/objective-c-runtime-1/">Objective-C Runtime 运行时之一：类与对象</a></li>
+<li><a target="_blank" rel="noopener" href="http://southpeak.github.io/2014/10/30/objective-c-runtime-2/">Objective-C Runtime 运行时之二：成员变量与属性</a></li>
+<li><a target="_blank" rel="noopener" href="http://southpeak.github.io/2014/11/03/objective-c-runtime-3/">Objective-C Runtime 运行时之三：方法与消息</a></li>
+<li><a target="_blank" rel="noopener" href="http://southpeak.github.io/2014/11/06/objective-c-runtime-4/">Objective-C Runtime 运行时之四：Method Swizzling</a></li>
+<li><a target="_blank" rel="noopener" href="http://southpeak.github.io/2014/11/08/objective-c-runtime-5/">Objective-C Runtime 运行时之五：协议与分类</a></li>
+<li><a target="_blank" rel="noopener" href="http://southpeak.github.io/2014/11/09/objective-c-runtime-6/">Objective-C Runtime 运行时之六：拾遗</a></li>
+</ul>
+<h2 id="halfrost"><a href="#halfrost" class="headerlink" title="halfrost"></a><a target="_blank" rel="noopener" href="https://halfrost.com/">halfrost</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://halfrost.com/objc_runtime_isa_class/">神经病院 Objective-C Runtime 入院第一天 —— isa 和 Class</a></li>
+<li><a target="_blank" rel="noopener" href="http://halfrost.com/objc_runtime_objc_msgsend/">神经病院 Objective-C Runtime 住院第二天 —— 消息发送与转发</a></li>
+<li><a target="_blank" rel="noopener" href="http://halfrost.com/how_to_use_runtime/">神经病院 Objective-C Runtime 出院第三天 —— 如何正确使用 Runtime</a></li>
+<li><a target="_blank" rel="noopener" href="http://halfrost.com/objc_life/">Objc 对象的今生今世</a></li>
+</ul>
+<h2 id="杨萧玉"><a href="#杨萧玉" class="headerlink" title="杨萧玉"></a><a target="_blank" rel="noopener" href="http://yulingtianxia.com/">杨萧玉</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/">Objective-C Runtime</a></li>
+<li><a target="_blank" rel="noopener" href="http://yulingtianxia.com/blog/2015/12/06/The-Principle-of-Refenrence-Counting/">Objective-C 引用计数原理</a></li>
+<li><a target="_blank" rel="noopener" href="http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/">Objective-C 消息发送与转发机制原理</a></li>
+</ul>
+<h2 id="雷纯锋"><a href="#雷纯锋" class="headerlink" title="雷纯锋"></a><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/">雷纯锋</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/04/25/objective-c-object-model/">Objective-C 对象模型</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/05/02/objective-c-plus-load-vs-plus-initialize/">Objective-C +load vs +initialize</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/05/18/objective-c-category-implementation-principle/">Objective-C Category 的实现原理</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/05/31/objective-c-autorelease-pool-implementation-principle/">Objective-C Autorelease Pool 的实现原理</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/06/14/objective-c-method-swizzling-best-practice/">Objective-C Method Swizzling 的最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/06/26/objective-c-associated-objects-implementation-principle/">Objective-C Associated Objects 的实现原理</a></li>
+</ul>
+<h2 id="draveness-analyze"><a href="#draveness-analyze" class="headerlink" title="draveness&#x2F;analyze"></a><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze">draveness&#x2F;analyze</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E4%BB%8E%20NSObject%20%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BA%86%E8%A7%A3%20isa.md">从 NSObject 的初始化了解 isa</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90%20ObjC%20%E4%B8%AD%E6%96%B9%E6%B3%95%E7%9A%84%E7%BB%93%E6%9E%84.md">深入解析 ObjC 中方法的结构</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E4%BB%8E%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9C%8B%20ObjC%20%E4%B8%AD%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%91%E9%80%81.md">从源代码看 ObjC 中消息的发送</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%20load%20%E6%96%B9%E6%B3%95%E4%B9%88%EF%BC%9F.md">你真的了解 load 方法么？</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E8%87%AA%E5%8A%A8%E9%87%8A%E6%94%BE%E6%B1%A0%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F.md">自动释放池的前世今生</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E9%BB%91%E7%AE%B1%E4%B8%AD%E7%9A%84%20retain%20%E5%92%8C%20release.md">黑箱中的 retain 和 release</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1%20AssociatedObject%20%E5%AE%8C%E5%85%A8%E8%A7%A3%E6%9E%90.md">关联对象 AssociatedObject 完全解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E6%87%92%E6%83%B0%E7%9A%84%20initialize%20%E6%96%B9%E6%B3%95.md">懒惰的 initialize 方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/draveness/analyze/blob/master/contents/objc/%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%EF%BC%88iOS%EF%BC%89.md">对象是如何初始化的（iOS）</a></li>
+</ul>
+<h2 id="CornBallast"><a href="#CornBallast" class="headerlink" title="CornBallast"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/a9008a597529">CornBallast</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/88d11bb12ba1">Runtime 深度解析以及实用技巧</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/37e1b71ad03a">Runtime 奇技淫巧__带你深入理解 Runtime 特有概念</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/38bbde2c5632">Runtime 奇技淫巧__不受限制的消息发送</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cb55dbb72c84">Runtime 奇技淫巧__获取类的实例变量以及属性并强势 与KVC、msgSend 混用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/13ab44c46904">Runtime 奇技淫巧__方法交换</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/48220940118f">Runtime 奇技淫巧__动态链接对象以及给分类添加属性</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5bdd6f7a68c">Runtime 奇技淫巧__动态添加方法，消息转发改善异常</a></li>
+</ul>
+<h2 id="唐巧"><a href="#唐巧" class="headerlink" title="唐巧"></a><a target="_blank" rel="noopener" href="https://blog.devtang.com/">唐巧</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.devtang.com/2013/10/15/objective-c-object-model/">Objective-C对象模型及应用</a></li>
+</ul>
+<h2 id="ibireme"><a href="#ibireme" class="headerlink" title="ibireme"></a><a target="_blank" rel="noopener" href="https://blog.ibireme.com/2013/11/25/objc-object/">ibireme</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.ibireme.com/2013/11/25/objc-object/">Objective-C 中的类和对象</a></li>
+</ul>
+<h2 id="sunnyxx"><a href="#sunnyxx" class="headerlink" title="sunnyxx"></a><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/">sunnyxx</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2014/08/24/objc-duck/">objc 与鸭子对象（上）</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2014/08/26/objc-duck-advanced/">objc 与鸭子对象（下）</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2014/11/06/runtime-nuts/">神经病院 objc runtime 入院考试</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2016/08/13/reunderstanding-runtime-0/">重识 Objective-C Runtime - Smalltalk 与 C 的融合</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2016/08/13/reunderstanding-runtime-1/">重识 Objective-C Runtime - 看透 Type 与 Value</a></li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>此外，在简书、掘金等技术博客平台，以及 Google 上搜索 <code>Objective-C Runtime</code> 关键词，也能找出成千上万相关的文章。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2019/11/18/%E8%BD%AC-Objective-C-Runtime-%E5%A4%A7%E4%BD%AC%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86/" title="[转]Objective-C Runtime 大佬系列文章整理">https://blog.wangruofeng007.com/2019/11/18/转-Objective-C-Runtime-大佬系列文章整理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Runtime/" rel="tag"># Runtime</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/17/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%9B%E5%BB%BAcocoaPods%E5%85%AC%E6%9C%89%E5%BA%93/" rel="prev" title="从零开始创建cocoaPods公有库">
+      <i class="fa fa-chevron-left"></i> 从零开始创建cocoaPods公有库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/29/%E7%94%A8Typora%E7%9A%84MarkDown%E7%BB%98%E5%88%B6Diagrams-%E5%9B%BE%E8%A7%A3/" rel="next" title="用Typora的MarkDown绘制Diagrams(图解)">
+      用Typora的MarkDown绘制Diagrams(图解) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kangzubin"><span class="nav-number">2.</span> <span class="nav-text">kangzubin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Greg-Parker"><span class="nav-number">3.</span> <span class="nav-text">Greg Parker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Matt-Gallagher"><span class="nav-number">4.</span> <span class="nav-text">Matt Gallagher</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%97%E5%B3%B0%E5%AD%90"><span class="nav-number">5.</span> <span class="nav-text">南峰子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#halfrost"><span class="nav-number">6.</span> <span class="nav-text">halfrost</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A8%E8%90%A7%E7%8E%89"><span class="nav-number">7.</span> <span class="nav-text">杨萧玉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B7%E7%BA%AF%E9%94%8B"><span class="nav-number">8.</span> <span class="nav-text">雷纯锋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#draveness-analyze"><span class="nav-number">9.</span> <span class="nav-text">draveness&#x2F;analyze</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CornBallast"><span class="nav-number">10.</span> <span class="nav-text">CornBallast</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%94%90%E5%B7%A7"><span class="nav-number">11.</span> <span class="nav-text">唐巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ibireme"><span class="nav-number">12.</span> <span class="nav-text">ibireme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sunnyxx"><span class="nav-number">13.</span> <span class="nav-text">sunnyxx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">14.</span> <span class="nav-text">其他</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

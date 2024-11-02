@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="排序是应用常见需求之一，如何正确优雅的实现一个排序，NSSortDescriptor或许是一个非常好的选择。 NSSortDescriptor由3个参数组成：  key(键):对于一个给定的集合，将对集合种的每个对象按照该键来进行排序 ascending(升序):指定集合按照升序(YES)还是降序(NO)进行排序 selector(方法子):排序时的比较函数，当对字符串进行排序时，应当加入loca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSortDescriptor正确的打开方式">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="排序是应用常见需求之一，如何正确优雅的实现一个排序，NSSortDescriptor或许是一个非常好的选择。 NSSortDescriptor由3个参数组成：  key(键):对于一个给定的集合，将对集合种的每个对象按照该键来进行排序 ascending(升序):指定集合按照升序(YES)还是降序(NO)进行排序 selector(方法子):排序时的比较函数，当对字符串进行排序时，应当加入loca">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-06T16:09:44.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.412Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="技巧">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            NSSortDescriptor正确的打开方式 | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NSSortDescriptor正确的打开方式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-07 00:09:44" itemprop="dateCreated datePublished" datetime="2017-06-07T00:09:44+08:00">2017-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>687</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>排序是应用常见需求之一，如何正确优雅的实现一个排序，<code>NSSortDescriptor</code>或许是一个非常好的选择。</p>
+<p><code>NSSortDescriptor</code>由3个参数组成：</p>
+<ul>
+<li><strong>key</strong>(键):对于一个给定的集合，将对集合种的每个对象按照该键来进行排序</li>
+<li><strong>ascending</strong>(升序):指定集合按照升序(YES)还是降序(NO)进行排序</li>
+<li><strong>selector</strong>(方法子):排序时的比较函数，当对字符串进行排序时，应当加入<code>localizedStandardCompare:</code>选择器，它将根据语言规则进行排序(例如大小写，变音符号等等的顺序)</li>
+</ul>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p><code>NSSortDescriptor</code>主要针对各种集合排序,<code>NSArray</code>,<code>NSMutableArray</code>,<code>NSSet</code>,<code>NSOrderedSet</code>,<code>NSMutableOrderedSet</code></p>
+<p>如果集合是可变的，则对集合本身排序例如</p>
+<ul>
+<li><code>NSMutableOrderedSet</code>的<code>sortUsingDescriptors:</code></li>
+<li><code>NSMutableArray</code>的<code>sortUsingDescriptors:</code></li>
+</ul>
+<p>如果集合是可变的，则返回一个排好序的新集合例如</p>
+<ul>
+<li><code>NSArray</code>的<code>sortedArrayUsingDescriptors:</code></li>
+<li><code>NSSet</code>的<code>sortedArrayUsingDescriptors:</code></li>
+<li><code>NSOrderedSet</code>的<code>sortedArrayUsingDescriptors:</code></li>
+</ul>
+<p>注意排序描述是一个数组，也就是排序可以支持按照多个描述综合排序。如果存在多个规则先满足前面的规则再满足后面的规则。例如两个元素按照第一天规则顺序一致，那么如果还存在第二天规则，它们将按照第二条规则继续排序，如果前面的规则已经区分出顺序后面的规则将失效。</p>
+<h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><p>为了更好的描述，假如我们有一个<code>Person</code>对象，它有**NSString * **类型的姓和名属性，以及一个<code>NSNumber</code>类型的年龄属性。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>  ) <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>  ) <span class="built_in">NSString</span> *lastName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSNumber</span> *age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>给定以下数据集：</p>
+<table>
+<thead>
+<tr>
+<th>index</th>
+<th align="center">0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>firstName</td>
+<td align="center">Alice</td>
+<td>Bod</td>
+<td>Charlie</td>
+<td>Quentin</td>
+<td></td>
+</tr>
+<tr>
+<td>lastName</td>
+<td align="center">Smith</td>
+<td>Jones</td>
+<td>Smith</td>
+<td></td>
+<td>Alberts</td>
+</tr>
+<tr>
+<td>age</td>
+<td align="center">24</td>
+<td>27</td>
+<td>33</td>
+<td>31</td>
+<td>19</td>
+</tr>
+</tbody></table>
+<p>使用不同的<code>NSSortDescriptor</code>的不同组合来将它们排序：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *firstNames = @[<span class="string">@&quot;Alice&quot;</span>, <span class="string">@&quot;Bod&quot;</span>, <span class="string">@&quot;Charlie&quot;</span>, <span class="string">@&quot;Quentin&quot;</span>, <span class="string">@&quot;&quot;</span>];</span><br><span class="line"><span class="built_in">NSArray</span> *lastNames = @[<span class="string">@&quot;Smith&quot;</span>, <span class="string">@&quot;Jones&quot;</span>, <span class="string">@&quot;Smith&quot;</span>, <span class="string">@&quot;&quot;</span>, <span class="string">@&quot;Alberts&quot;</span>];</span><br><span class="line"><span class="built_in">NSArray</span> *ages = @[@<span class="number">24</span>, @<span class="number">27</span>, @<span class="number">33</span>, @<span class="number">31</span>, @<span class="number">12</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSMutableArray</span> *people = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">[firstNames enumerateObjectsUsingBlock:^(<span class="type">id</span>  _Nonnull obj, <span class="built_in">NSUInteger</span> idx, <span class="type">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">    Person *person = [[Person alloc] init];</span><br><span class="line">    person.firstName = [firstNames objectAtIndex:idx];</span><br><span class="line">    person.lastName = [lastNames objectAtIndex:idx];</span><br><span class="line">    person.age = [ages objectAtIndex:idx];</span><br><span class="line">    </span><br><span class="line">    [people addObject:person];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSSortDescriptor</span> *firstNameSortDescriptor = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@&quot;firstName&quot;</span> ascending:<span class="literal">YES</span> selector:<span class="keyword">@selector</span>(localizedStandardCompare:)];</span><br><span class="line"><span class="built_in">NSSortDescriptor</span> *lastNameSortDescriptor = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@&quot;lastName&quot;</span> ascending:<span class="literal">YES</span> selector:<span class="keyword">@selector</span>(localizedStandardCompare:)];</span><br><span class="line"><span class="built_in">NSSortDescriptor</span> *ageSortDescriptor = [<span class="built_in">NSSortDescriptor</span> sortDescriptorWithKey:<span class="string">@&quot;age&quot;</span> ascending:<span class="literal">NO</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;By age: %@&quot;</span>,[people sortedArrayUsingDescriptors:@[ageSortDescriptor]]);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 2017-06-06 23:15:02.101 NSSort​Descriptor_Demo[9103:1255482] By age: (</span></span><br><span class="line"><span class="comment"> &quot;Charlie Smith 33&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Quentin  31&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Bod Jones 27&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Alice Smith 24&quot;,</span></span><br><span class="line"><span class="comment"> &quot; Alberts 12&quot;</span></span><br><span class="line"><span class="comment"> )</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;By first name: %@&quot;</span>,[people sortedArrayUsingDescriptors:@[firstNameSortDescriptor]]);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 2017-06-06 23:15:02.102 NSSort​Descriptor_Demo[9103:1255482] By first name: (</span></span><br><span class="line"><span class="comment"> &quot; Alberts 12&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Alice Smith 24&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Bod Jones 27&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Charlie Smith 33&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Quentin  31&quot;</span></span><br><span class="line"><span class="comment"> )</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;By last name, first name: %@&quot;</span>,[people sortedArrayUsingDescriptors:@[lastNameSortDescriptor ,firstNameSortDescriptor]]);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 2017-06-06 23:15:02.102 NSSort​Descriptor_Demo[9103:1255482] By last name, first name: (</span></span><br><span class="line"><span class="comment"> &quot;Quentin  31&quot;,</span></span><br><span class="line"><span class="comment"> &quot; Alberts 12&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Bod Jones 27&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Alice Smith 24&quot;,</span></span><br><span class="line"><span class="comment"> &quot;Charlie Smith 33&quot;</span></span><br><span class="line"><span class="comment"> )</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>空字符是排在普通字符之前的</li>
+<li>基本数据类型需要包装成<code>NSNumber</code>对象来排序</li>
+<li>字符串类型排序需要加入<code>localizedStandardCompare:</code>选择器</li>
+</ul>
+<p>参考链接</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/nssortdescriptor/">NSSort​Descriptor – NSHipster</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/" title="NSSortDescriptor正确的打开方式">https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag"># 技巧</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/" rel="prev" title="从OC到Swift你要知道的事">
+      <i class="fa fa-chevron-left"></i> 从OC到Swift你要知道的事
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/14/2017-10-14-nsnumberzhuan-nsstringdiu-jing-wen-ti/" rel="next" title="NSNumber转NSString丢精问题">
+      NSNumber转NSString丢精问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">如何使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

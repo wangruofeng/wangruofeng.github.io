@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="枚举概述Swift中枚举和结构体也上升到对象的位置，但是却不具备完整的对象特征，比如说他们不能继承。 在OC中枚举本质其实是整数类型，只是给他们取了一些意义直观的名称而已，而Swift完全摆脱以前的思想的束缚编的更自由，拥有了以下特征。  类型更广，不限于整形，可以是Character，String，Float，Double等，这些叫做原始值 可以拥有自己的静态成员变量来储存一些常量 可以拥有自己">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从OC到Swift你要知道的事">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="枚举概述Swift中枚举和结构体也上升到对象的位置，但是却不具备完整的对象特征，比如说他们不能继承。 在OC中枚举本质其实是整数类型，只是给他们取了一些意义直观的名称而已，而Swift完全摆脱以前的思想的束缚编的更自由，拥有了以下特征。  类型更广，不限于整形，可以是Character，String，Float，Double等，这些叫做原始值 可以拥有自己的静态成员变量来储存一些常量 可以拥有自己">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-03-10T15:04:24.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.412Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="技巧">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            从OC到Swift你要知道的事 | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从OC到Swift你要知道的事
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-10 23:04:24" itemprop="dateCreated datePublished" datetime="2017-03-10T23:04:24+08:00">2017-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>Swift中枚举和结构体也上升到对象的位置，但是却不具备完整的对象特征，比如说他们不能继承。</p>
+<p>在OC中枚举本质其实是整数类型，只是给他们取了一些意义直观的名称而已，而Swift完全摆脱以前的思想的束缚编的更自由，拥有了以下特征。</p>
+<ul>
+<li>类型更广，不限于整形，可以是<code>Character</code>，<code>String</code>，<code>Float</code>，<code>Double</code>等，这些叫做原始值</li>
+<li>可以拥有自己的静态成员变量来储存一些常量</li>
+<li>可以拥有自己的方法和变量</li>
+<li><code>case</code>条件匹配可以定义参数，可以使用<code>where</code>来过滤</li>
+<li>通过<code>rawValue</code>可以拿到枚举的原始值</li>
+</ul>
+<h4 id="原始值"><a href="#原始值" class="headerlink" title="原始值"></a>原始值</h4><p>如果提供了原始值，就可以在case声明成员时提供默认值，这样跟OC的枚举在结构上一些类似</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> WeekDays : Int &#123;</span><br><span class="line">    <span class="keyword">case</span> Monday    = <span class="number">0</span></span><br><span class="line">    <span class="keyword">case</span> Tuesday   = <span class="number">1</span></span><br><span class="line">    <span class="keyword">case</span> Wednesday = <span class="number">2</span></span><br><span class="line">    <span class="keyword">case</span> Thursday  = <span class="number">3</span></span><br><span class="line">    <span class="keyword">case</span> Friday    = <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.声明一个枚举值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> monday <span class="operator">=</span> <span class="type">WeekDays</span>.<span class="type">Monday</span></span><br></pre></td></tr></table></figure>
+
+<p>2.获取原始值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rawVlaue <span class="operator">=</span> <span class="type">WeekDays</span>.<span class="type">Tuesday</span>.rawValue</span><br></pre></td></tr></table></figure>
+<p>3.通过原始值构造某个枚举变量</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wednesday <span class="operator">=</span> <span class="type">WeekDays</span>.<span class="keyword">init</span>(rawValue: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="相关值"><a href="#相关值" class="headerlink" title="相关值"></a>相关值</h4><p>和C的联合体有点类似</p>
+<p>1.声明</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Figure &#123;</span><br><span class="line">    <span class="keyword">case</span> Rectangle(Int, Int)</span><br><span class="line">    <span class="keyword">case</span> Circle(Int)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.使用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">printFigure</span>(<span class="params">figure</span>: <span class="type">Figure</span>) &#123;</span><br><span class="line">    <span class="keyword">switch</span> figure &#123;</span><br><span class="line">    <span class="keyword">case</span> .<span class="type">Rectangle</span>(<span class="keyword">let</span> width, <span class="keyword">let</span> height):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;width:<span class="subst">\(width)</span>, height:<span class="subst">\(height)</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> .<span class="type">Circle</span>(<span class="keyword">let</span> radius):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;the circle&#x27;s radius is:<span class="subst">\(radius)</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> figure <span class="operator">=</span> <span class="type">Figure</span>.<span class="type">Rectangle</span>(<span class="number">1024</span>, <span class="number">768</span>)</span><br><span class="line">printFigure(figure)</span><br><span class="line"></span><br><span class="line">figure <span class="operator">=</span> .<span class="type">Circle</span>(<span class="number">600</span>)</span><br><span class="line">printFigure(figure)</span><br></pre></td></tr></table></figure>
+<h3 id="OC与Swift中Options枚举的不同定义"><a href="#OC与Swift中Options枚举的不同定义" class="headerlink" title="OC与Swift中Options枚举的不同定义"></a>OC与Swift中Options枚举的不同定义</h3><h5 id="OC版本NS-OPTIONS"><a href="#OC版本NS-OPTIONS" class="headerlink" title="OC版本NS_OPTIONS"></a>OC版本NS_OPTIONS</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, <span class="built_in">NSVolumeEnumerationOptions</span>) &#123;</span><br><span class="line">    <span class="comment">/* The mounted volume enumeration will skip hidden volumes.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">NSVolumeEnumerationSkipHiddenVolumes</span> = <span class="number">1</span>UL &lt;&lt; <span class="number">1</span>,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* The mounted volume enumeration will produce file reference URLs rather than path-based URLs.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">NSVolumeEnumerationProduceFileReferenceURLs</span> = <span class="number">1</span>UL &lt;&lt; <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Swift版本OPTIONS"><a href="#Swift版本OPTIONS" class="headerlink" title="Swift版本OPTIONS"></a>Swift版本OPTIONS</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">NSVolumeEnumerationOptions</span> : <span class="title class_ inherited__">OptionSetType</span> &#123;</span><br><span class="line">    <span class="keyword">init</span>(<span class="params">rawValue</span> <span class="params">rawValue</span>: <span class="type">UInt</span>)</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">SkipHiddenVolumes</span>: <span class="type">NSVolumeEnumerationOptions</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> <span class="type">ProduceFileReferenceURLs</span>: <span class="type">NSVolumeEnumerationOptions</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.3</span>,</span><br><span class="line">                           delay: <span class="number">0.0</span>,</span><br><span class="line">                           options: [.<span class="type">CurveEaseIn</span>, .<span class="type">AllowUserInteraction</span>],</span><br><span class="line">                           animations: &#123;&#125;,</span><br><span class="line">                           completion: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>Swift中加强了结构体的能力，可以定义和使用属性，方法，下标，构造器等，但是不能被继承，没有强制类型抓换，使用析构器和引用计数等能力</p>
+<p>通常使用结构体来充当数据模型，常量可以使用静态关键词<code>static</code>标示</p>
+<h3 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h3><h4 id="Swift中解决循环强引用的方式"><a href="#Swift中解决循环强引用的方式" class="headerlink" title="Swift中解决循环强引用的方式"></a>Swift中解决循环强引用的方式</h4><ul>
+<li>弱引用 – <code>weak</code></li>
+<li>无主引用 – <code>unowned</code></li>
+</ul>
+<h4 id="解决闭包中循环引用"><a href="#解决闭包中循环引用" class="headerlink" title="解决闭包中循环引用"></a>解决闭包中循环引用</h4><p>[unowned 捕获对象]或者<br>[weak 捕获对象]</p>
+<p>使用实例</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">    let name: String</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 写法1</span></span><br><span class="line"><span class="comment">//    lazy var printName: () -&gt;() = &#123;</span></span><br><span class="line"><span class="comment">//        [weak self] in if let strongSelf = self &#123;</span></span><br><span class="line"><span class="comment">//            print(&quot;The name is \(strongSelf.name)&quot;)</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 写法2</span></span><br><span class="line">    lazy var printName: () -&gt;() = &#123;</span><br><span class="line">        [unowned <span class="keyword">self</span>] <span class="keyword">in</span> print(<span class="string">&quot;The name is \(self.name)&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    init(personName: String) &#123;</span><br><span class="line">        name = personName</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    deinit &#123;</span><br><span class="line">        print(<span class="string">&quot;Person deinit \(self.name)&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var xiaoMing: Person? = Person(personName: <span class="string">&quot;xiaoMing&quot;</span>)</span><br><span class="line">xiaoMing!.printName</span><br><span class="line">xiaoMing = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="二者的区别"><a href="#二者的区别" class="headerlink" title="二者的区别"></a>二者的区别</h5><p>如果我们可以确定在整个过程中 self 不会被释放的话，我们可以将上面的 weak 改为 unowned，这样就不再需要 strongSelf 的判断。但是如果在过程中 self 被释放了而 printName 这个闭包没有被释放的话 (比如 生成 Person 后，某个外部变量持有了 printName，随后这个 Persone 对象被释放了，但是 printName 已然存在并可能被调用)，使用 unowned 将造成崩溃。在这里我们需要根据实际的需求来决定是使用 weak 还是 unowned。</p>
+<h3 id="OC和Swift中常用数据类型"><a href="#OC和Swift中常用数据类型" class="headerlink" title="OC和Swift中常用数据类型"></a>OC和Swift中常用数据类型</h3><h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><ul>
+<li>OC： NSString， NSMutableString</li>
+<li>Swift： String</li>
+</ul>
+<p>NSString和String的关系：在Swift中，使用字符串可以使用Foundatio中的NSString和Swift中的String。</p>
+<p>Swift在底层能够将String与NSString无缝地桥接起来，String可以调用NSString的全部API。</p>
+<h4 id="数组类"><a href="#数组类" class="headerlink" title="数组类"></a>数组类</h4><ul>
+<li>OC： NSArray, NSMutableArray</li>
+<li>Swift： Array [AnyObject]</li>
+</ul>
+<p>NSArray和Array的关系：Swift能在底层将他们自动桥接起来，一个NSArray对象桥接后的结果是[AnyObject]。</p>
+<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><ul>
+<li>OC： NSDictionary， NSMutableDictionary</li>
+<li>Swift： Dictionary [Object: AnyObject]</li>
+</ul>
+<p>NSDictionary和Dictionary的关系： 底层自动桥接，一个NSDictionary对象桥接后的结果是[Object: AnyObject]。</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>类的转换使用 <code>as</code><br>数据类型加括号 <code>Int()</code></p>
+<p>OC使用 <code>（新的类型）原来的变量</code></p>
+<h3 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h3><p><code>is</code>关键词</p>
+<p>相当于OC的<code>isKindofClass:</code></p>
+<h3 id="辅助命令"><a href="#辅助命令" class="headerlink" title="辅助命令"></a>辅助命令</h3><ul>
+<li>#file –&gt; _<em>FILE</em>_</li>
+<li>#line –&gt; _<em>LINE</em>_</li>
+<li>#function –&gt; _<em>func</em>_  或者 _<em>FUNCTION</em>_</li>
+</ul>
+<h3 id="退出程序"><a href="#退出程序" class="headerlink" title="退出程序"></a>退出程序</h3><ul>
+<li>C: exit（0）</li>
+<li>Swift: fatalError() 或者 fatalError(message: String)</li>
+</ul>
+<h3 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h3><ul>
+<li>OC: <code>NSAssert</code></li>
+<li>Swift: <code>assert()</code></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/" title="从OC到Swift你要知道的事">https://blog.wangruofeng007.com/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag"># 技巧</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/10/2017-03-10-layer-animations-tips/" rel="prev" title="Layer Animations Tips">
+      <i class="fa fa-chevron-left"></i> Layer Animations Tips
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/" rel="next" title="NSSortDescriptor正确的打开方式">
+      NSSortDescriptor正确的打开方式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.</span> <span class="nav-text">枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC"><span class="nav-number">1.2.</span> <span class="nav-text">原始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%80%BC"><span class="nav-number">1.3.</span> <span class="nav-text">相关值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OC%E4%B8%8ESwift%E4%B8%ADOptions%E6%9E%9A%E4%B8%BE%E7%9A%84%E4%B8%8D%E5%90%8C%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">OC与Swift中Options枚举的不同定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OC%E7%89%88%E6%9C%ACNS-OPTIONS"><span class="nav-number">2.0.1.</span> <span class="nav-text">OC版本NS_OPTIONS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Swift%E7%89%88%E6%9C%ACOPTIONS"><span class="nav-number">2.0.2.</span> <span class="nav-text">Swift版本OPTIONS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.0.3.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">3.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">循环引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Swift%E4%B8%AD%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E5%BC%BA%E5%BC%95%E7%94%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">Swift中解决循环强引用的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%97%AD%E5%8C%85%E4%B8%AD%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">解决闭包中循环引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E8%80%85%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.1.</span> <span class="nav-text">二者的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OC%E5%92%8CSwift%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">OC和Swift中常用数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">5.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%B1%BB"><span class="nav-number">5.2.</span> <span class="nav-text">数组类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E5%85%B8"><span class="nav-number">5.3.</span> <span class="nav-text">字典</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">6.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD"><span class="nav-number">7.</span> <span class="nav-text">类型判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">辅助命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F"><span class="nav-number">9.</span> <span class="nav-text">退出程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E8%A8%80"><span class="nav-number">10.</span> <span class="nav-text">断言</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

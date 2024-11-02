@@ -1,0 +1,2598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="王若风的技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="王若风的技术博客">
+<meta property="og:url" content="https://blog.wangruofeng007.com/page/4/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="王若风的技术博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="技术博客, Flutter, iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/page/4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content index posts-expand">
+                            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/15/2016-04-15-iosdi-san-fang-ku-hui-zong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/15/2016-04-15-iosdi-san-fang-ku-hui-zong/" class="post-title-link" itemprop="url">iOS第三方库汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-15 17:23:38" itemprop="dateCreated datePublished" datetime="2016-04-15T17:23:38+08:00">2016-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">资料收集</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>此文用于总结，本人使用过或者收藏过的<code>Github</code>第三方类库，以便日后查阅，也便他人借鉴。</p>
+<p>资料整理中不定期更新。。。</p>
+<h3 id="开源项目"><a href="#开源项目" class="headerlink" title="开源项目"></a>开源项目</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/thedillonb/CodeHub">CodeHub</a><blockquote>
+<p> browse and maintain your GitHub repositories on any iOS device!</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dkhamsing/open-source-ios-apps">Open-Source iOS Apps</a><blockquote>
+<p>开源iOS apps列表</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="APP相关"><a href="#APP相关" class="headerlink" title="APP相关"></a>APP相关</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/nicklockwood/iVersion">iVersion</a><blockquote>
+<p>提示版本更新</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Raizlabs/BonMot">BonMot</a><blockquote>
+<p>字体相关的库，设置字体样式</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/PrideChung/FontAwesomeKit">FontAwesomeKit</a><blockquote>
+<p>FontAwesomeKit 提供一些简单的助手类用来帮助在iOS上使用<a target="_blank" rel="noopener" href="https://github.com/FortAwesome/Font-Awesome">FontAwesome</a></p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/FortAwesome/Font-Awesome">Font-Awesome</a><blockquote>
+<p>The iconic font and CSS toolkit	</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/leverdeterre/JMHoledView">JMHoledView</a><blockquote>
+<p>首次启动APP的新手指引</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="自动布局"><a href="#自动布局" class="headerlink" title="自动布局"></a>自动布局</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/cloudkite/Masonry">Masonry</a><blockquote>
+<p>最优雅的自动布局解决方案，支持链式编程</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/PureLayout/PureLayout">PureLayout</a><blockquote>
+<p>又一强大的自动布局解决方案</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a><blockquote>
+<p>地球人都在用</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/robbiehanson/CocoaAsyncSocket">CocoaAsyncSocket</a><blockquote>
+<p>封装最完善的Socket类库</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/RxSwiftCommunity/RxAlamofire">RxAlamofire</a><blockquote>
+<p>封装Alamofire</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="基础工具类以及Category"><a href="#基础工具类以及Category" class="headerlink" title="基础工具类以及Category"></a>基础工具类以及Category</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/soffes/sstoolkit">sstoolkit</a><blockquote>
+<p>一个不错的工具包，提供各种比如编码、加密、字符串处理等等东西</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/FabrizioBrancati/BFKit-Swift">BFKit Swift版本</a><blockquote>
+<p>国外的一个大神写的很好用的分类，比较齐全</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ibireme/YYKit">YYKit</a><blockquote>
+<p><strong>ibireme</strong>用心之作</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://zwaldowski.github.io/BlocksKit">BlocksKit</a><blockquote>
+<p>为基础类提供Block支持，很好用</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MatthewYork/DateTools">DateTools</a><blockquote>
+<p>非常强大的日期处理工具</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Grouper/FlatUIKit">FlatUIKit</a><blockquote>
+<p>扩展Foundation基本UI主件，扁平化风格</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/shaojiankui/iOS-Categories">iOS-Categories</a><blockquote>
+<p>iOS Objective-C Category, a collection of useful Objective-C Categories extending iOS Frameworks such as Foundation,UIKit,CoreData,QuartzCore,CoreLocation,MapKit Etc.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kimziv/PinYin4Objc">PinYin4Objc</a><blockquote>
+<p>拼音解析</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mattconnolly/ZipArchive">ZipArchive</a><blockquote>
+<p>解压缩</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ViccAlexander/Chameleon">Chameleon</a><blockquote>
+<p>扁平颜色框架，可以创建非常漂亮的颜色</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ChenYilong/CYLTabBarController">CYLTabBarController</a><blockquote>
+<p>低耦合集成TabBarController</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cwRichardKim/RKNotificationHub">RKNotificationHub</a><blockquote>
+<p>在右上方显示通知小角标</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fpt-software/Material-Controls-For-iOS">Material-Controls-For-iOS</a><blockquote>
+<p>Google风格的控件</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/YYKit">YYKit</a><blockquote>
+<p>A collection of iOS components.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="弹框"><a href="#弹框" class="headerlink" title="弹框"></a>弹框</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/12207480/TYAlertController">TYAlertController</a><blockquote>
+<p>各种风格的弹框，满足你的各种需求</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/UncleJoke/JKPopMenuView">JKPopMenuView</a><blockquote>
+<p>简单的弹出菜单</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/adad184/MMPopupView">MMPopupView</a><blockquote>
+<p>精简的弹框，非常漂亮，和喜欢</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/martinjuhasz/MJPopupViewController">MJPopupViewController</a><blockquote>
+<p>A UIViewController Category to display a ViewController as a popup with different transition effects.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/questbeat/QBPopupMenu.git">QBPopupMenu</a><blockquote>
+<p>自定义popup menu，外观和iOS7上的<code>UIMenuController</code>类似</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cezarywojcik/CWStatusBarNotification">CWStatusBarNotification</a><blockquote>
+<p>状态栏通知</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/12207480/DOPDropDownMenu-Enhanced">DOPDropDownMenu</a><blockquote>
+<p>下拉列表菜单</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jmascia/KLCPopup">KLCPopup</a><blockquote>
+<p>非常漂亮的弹出控件</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/jhurray/JHChainableAnimations">JHChainableAnimations</a><blockquote>
+<p>链式动画编程，有点Masonry的味道</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="http://canvaspod.io/">Canvas</a><blockquote>
+<p>非常强大的动画框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ColinEberhardt/VCTransitionsLibrary">VCTransitionsLibrary</a><blockquote>
+<p>转场动画库</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nicklockwood/iCarousel">iCarousel</a><blockquote>
+<p>各种3D变换的动画，以前用过，炫酷得没朋友</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/devinross/tapkulibrary">tapkulibrary</a><blockquote>
+<p>Tapku remain home to the things like the calendar UIs, coverflow, and any legacy classes, ect.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AlexeyBelezeko/TBIconTransitionKit">TBIconTransitionKit</a><blockquote>
+<p>点击按钮过渡动画 + –&gt; x   - –&gt; + </p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MengTo/Spring">Spring</a><blockquote>
+<p>A library to simplify iOS animations in <code>Swift</code></p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sxyx2008/awesome-ios-animation">awesome-iOS-animation</a><blockquote>
+<p>iOS动画库整理收集</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/NghiaTranUIT/FeSpinner">FeSpinner</a><blockquote>
+<p>Rocket Loader Collection for iOS app,有一些非常有趣的loading动画</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/seedante/SDECollectionViewAlbumTransition">SDECollectionViewAlbumTransition</a><blockquote>
+<p>CollectionView相册自定义转场</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Raizlabs/RZTransitions">RZTransitions</a>  <blockquote>
+<p>A library of custom iOS View Controller Animations and Interactions.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/shu223/AnimatedTransitionGallery">AnimatedTransitionGallery</a><blockquote>
+<p>各种自定义转场动画收集，非常值得学习</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Yalantis/StarWars.iOS">StarWars.iOS</a><blockquote>
+<p>非常炫酷的<code>CAShapeLayer</code>动画，非常炫酷😘</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/YouXianMing/Animations">Animations</a><blockquote>
+<p>来自极客学院的<code>YouXianMing</code>的一些动画收集</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zoonooz/ZFDragableModalTransition">ZFDragableModalTransition</a><blockquote>
+<p>Custom animation transition for present modal view controller</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Gif引擎"><a href="#Gif引擎" class="headerlink" title="Gif引擎"></a>Gif引擎</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Flipboard/FLAnimatedImage">FLAnimatedImage</a><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/Flipboard">Flipboard</a>开源的<code>Gif</code>引擎</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/REN-LEI/RENCache">RENCache</a><blockquote>
+<p>简单的缓存解决方案</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rnapier/RNCachingURLProtocol">RNCachingURLProtocol</a><blockquote>
+<p>webView离线缓存库</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Haneke/HanekeSwift">HanekeSwift</a><blockquote>
+<p>Swift语言书写的轻量级图片缓存框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/path/FastImageCache">FastImageCache</a><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/path">Path</a>官方开源的图片缓存框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/onevcat/Kingfisher">Kingfisher</a><blockquote>
+<p>猫神用Swift实现图片下载缓存框架</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="文本相关"><a href="#文本相关" class="headerlink" title="文本相关"></a>文本相关</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/TTTAttributedLabel/TTTAttributedLabel">TTTAttributedLabel</a><blockquote>
+<p>非常强大的Label，支持属性，数据诊断和链接</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/slackhq/SlackTextViewController.git">SlackTextViewController</a><blockquote>
+<p><code>Slack</code>开源的drop-in UIViewController subclass with a growing text input view and other useful messaging features</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/honcheng/RTLabel">RTLabel</a><blockquote>
+<p>可以展示Html的Label</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/12207480/TYAttributedLabel">TYAttributedLabel</a><blockquote>
+<p>强大的属性文本控件(无需了解<code>CoreText</code>)，支持图文混排显示，支持添加链接，image和UIView控件，支持自定义排版显示</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cloverstudio/CSGrowingTextView">CSGrowingTextView</a><blockquote>
+<p>文本框会随着输入字数改变高度</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lexrus/LTMorphingLabel">LTMorphingLabel</a><blockquote>
+<p>效果非常炫的文本框</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/raulriera/TextFieldEffects">TextFieldEffects</a><blockquote>
+<p>动效非常不错的文本输入框</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/daiweilai/DDRichText">DDRichText</a><blockquote>
+<p>图文混排</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AirSars/BMLine">BMLine</a><blockquote>
+<p>为你的View增加线条</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/devxoul/UITextView-Placeholder">UITextView-Placeholder</a><blockquote>
+<p>A missing placeholder for UITextView.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="加载进度"><a href="#加载进度" class="headerlink" title="加载进度"></a>加载进度</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/danielamitay/DACircularProgress">DACircularProgress</a><blockquote>
+<p>各种圆形和圆环型进度指示</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ninjinkun/NJKWebViewProgress">NJKWebViewProgress</a><blockquote>
+<p>UIWebView progress interface</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jdg/MBProgressHUD">MBProgressHUD</a><blockquote>
+<p>这个不用讲，基本上都会用</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/SVProgressHUD/SVProgressHUD">SVProgressHUD</a><blockquote>
+<p>又一个进度指示</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/scalessec/Toast">Toast</a><blockquote>
+<p>和MBProgressHUD差不多</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LeoiOS/LCProgressHUD">LCProgressHUD</a><blockquote>
+<p>对MBProgressHUD的简单封装，非常实用</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/KrauseFx/TSMessages/">TSMessages</a><blockquote>
+<p>消息通知提醒框，非常好用</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pinterest/PINRemoteImage">PINRemoteImage</a><blockquote>
+<p><code>Pinterest</code>抓取远程图片类</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage</a><blockquote>
+<p>最广泛使用的图片缓存框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Alamofire/AlamofireImage">AlamofireImage</a><blockquote>
+<p>Swift版本的<code>SDWebImage</code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="键盘类"><a href="#键盘类" class="headerlink" title="键盘类"></a>键盘类</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/danielamitay/DAKeyboardControl">DAKeyboardControl</a><blockquote>
+<p>一个键盘管理框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hackiftekhar/IQKeyboardManager">IQKeyboardManager</a><blockquote>
+<p>全局键盘管理</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/michaeltyson/TPKeyboardAvoiding">TPKeyboardAvoiding</a><blockquote>
+<p>使用时设置scrollView的类为<code>TPKeyboardAvoidingScrollView</code>即可支持<code>xib</code></p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/datwelk/RDRStickyKeyboardView">RDRStickyKeyboardView</a><blockquote>
+<p>作者已经停止维护。。。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="抽屉"><a href="#抽屉" class="headerlink" title="抽屉"></a>抽屉</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ViewDeck/ViewDeck">ViewDeck</a><blockquote>
+<p>功能强大的抽屉效果</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mutualmobile/MMDrawerController">MMDrawerController</a><blockquote>
+<p>又一个抽屉</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/John-Lluch/SWRevealViewController">SWRevealViewController</a><blockquote>
+<p>A UIViewController subclass for revealing a rear (left and&#x2F;or right) view controller behind a front controller, inspired by the Facebook app, done right!</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/erichoracek/MSDynamicsDrawerViewController">MSDynamicsDrawerViewController</a><blockquote>
+<p>Container view controller that leverages UIKit Dynamics to provide a realistic drawer navigation paradigm.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pkluz/PKRevealController">PKRevealController</a><blockquote>
+<p>安装简便，高度定制且对手势识别良好</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="NavigationBar"><a href="#NavigationBar" class="headerlink" title="NavigationBar"></a>NavigationBar</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/andreamazz/AMScrollingNavbar">AMScrollingNavbar</a><blockquote>
+<p><code>Swift</code>语言编写上下滑动时动态隐藏标题栏</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ltebean/LTNavigationbar">LTNavigationbar</a><blockquote>
+<p>导航栏颜色动态改变</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JazysYu/JZNavigationExtension">JZNavigationExtension</a><blockquote>
+<p>Navigation的扩展，推荐</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="ScrollView相关"><a href="#ScrollView相关" class="headerlink" title="ScrollView相关"></a>ScrollView相关</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/nicklockwood/SwipeView">SwipeView</a><blockquote>
+<p>SwipeView is a class designed to simplify the implementation of horizontal, paged scrolling views on iOS. It is based on a UIScrollView, but adds convenient functionality such as a UITableView-style dataSource&#x2F;delegate interface for loading views dynamically, and efficient view loading, unloading and recycling.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CEWendel/SWTableViewCell">SWTableViewCell</a><blockquote>
+<p>自定义Cell侧滑动作</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MortimerGoro/MGSwipeTableCell">MGSwipeTableCell</a><blockquote>
+<p>自定义Cell侧滑动作，效果多样</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/chiahsien/CHTCollectionViewWaterfallLayout">CHTCollectionViewWaterfallLayout</a><blockquote>
+<p>瀑布流布局</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/12207480/TYSlidePageScrollView">TYSlidePageScrollView</a><blockquote>
+<p>An easy solution to page views or controllers with header and page tabbar,footer</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/XLPagerTabStrip">XLPagerTabStrip</a><blockquote>
+<p>Android PagerTabStrip for iOS. nice</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="MJ系列"><a href="#MJ系列" class="headerlink" title="MJ系列"></a>MJ系列</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/CoderMJLee/MJExtension">MJExtension</a><blockquote>
+<p>model &lt;–&gt; dic &lt;–&gt; json 框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a><blockquote>
+<p>刷新控件</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/realm/realm-cocoa">realm-cocoa</a><blockquote>
+<p>跨平台轻量级数据库解决方案,励志取代<code>Core Data</code> &amp; <code>SQLite</code></p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ccgus/fmdb">fmdb</a><blockquote>
+<p>对<code>sqlite</code>实现面向对象的封装</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="图标库"><a href="#图标库" class="headerlink" title="图标库"></a>图标库</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/kevinzhow/PNChart">PNChart</a><blockquote>
+<p>提供各种图标样式，性能还非常不错</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/danielgindi/Charts">Charts</a><blockquote>
+<p>Beautiful charts for iOS&#x2F;tvOS&#x2F;OSX! The Apple side of the crossplatform MPAndroidChart.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="图片处理以及展示相关"><a href="#图片处理以及展示相关" class="headerlink" title="图片处理以及展示相关"></a>图片处理以及展示相关</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/BradLarson/GPUImage">GPUImage</a><blockquote>
+<p>开源基于GPU的图片渲染引擎，带有很多款滤镜</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="http://github.com/nicklockwood/FXBlurView">FXBlurView</a><blockquote>
+<p>背景模糊</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ideaismobile/IDMPhotoBrowser">IDMPhotoBrowser</a><blockquote>
+<p>照片浏览器</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/arturgrigor/AGImagePickerController">AGImagePickerController</a><blockquote>
+<p>相册选择</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AwesomeDennis/DNImagePicker">DNImagePicker</a><blockquote>
+<p>仿照微信的照片选取器</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/johnil/JFImagePickerController">JFImagePickerController</a><blockquote>
+<p>又一个照片选取器</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kean/Nuke">Nuke</a><blockquote>
+<p>Image loading, processing, caching and preheating</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="日历选择"><a href="#日历选择" class="headerlink" title="日历选择"></a>日历选择</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/WenchaoD/FSCalendar">FSCalendar</a><blockquote>
+<p>iOS7+风格的日历控件，非常漂亮</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="音频-视频"><a href="#音频-视频" class="headerlink" title="音频&#x2F;视频"></a>音频&#x2F;视频</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/36Kr-Mobile/KRVideoPlayer">KRVideoPlayer</a><blockquote>
+<p>36氪开源的视频播放器</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/douban/DOUAudioStreamer">DOUAudioStreamer</a><blockquote>
+<p>豆瓣开源的音频播放器</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="内购-推广"><a href="#内购-推广" class="headerlink" title="内购&#x2F;推广"></a>内购&#x2F;推广</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/saturngod/IAPHelper">IAPHelper</a><blockquote>
+<p>in app purchases helper for iOS</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/danielamitay/DAAppsViewController">DAAppsViewController</a><blockquote>
+<p>应用推广界面，填写合作app的appleId即可</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JanC/TAPromotee.git">TAPromotee</a><blockquote>
+<p>交叉推广应用是你可以免费实现的最佳市场推广策略之一。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="存储相关"><a href="#存储相关" class="headerlink" title="存储相关"></a>存储相关</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/soffes/sskeychain">SSKeychain</a><blockquote>
+<p>钥匙串存储</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/PINCache">PINCache</a><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/pinterest">Pinterest</a>出品的非阻塞式异步缓存工具</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tumblr/TMCache">TMCache</a><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/tumblr">tumblr</a>出品的对象快速异步缓存，支持<code>iOS</code>和<code>OS X</code></p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/magicalpanda/MagicalRecord">MagicalRecord</a><blockquote>
+<p> 简化<code>Core Data</code>抓取数据的逻辑，推荐</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kishikawakatsumi/KeychainAccess">KeychainAccess</a><blockquote>
+<p>Simple Swift wrapper for Keychain that works on iOS and OS X</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kishikawakatsumi/UICKeyChainStore">UICKeyChainStore</a> <blockquote>
+<p><code>UICKeyChainStore</code>的简单封装</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="实用控件"><a href="#实用控件" class="headerlink" title="实用控件"></a>实用控件</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/hsousa/HCSStarRatingView">HCSStarRatingView</a><blockquote>
+<p>简单的评分控件</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LeoNatan/LNNotificationsUI">LNNotificationsUI</a><blockquote>
+<p>模仿iOS标准通知界面，可以以假乱真</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vikmeup/SCLAlertView-Swift">SCLAlertView-Swift</a><blockquote>
+<p>非常漂亮的动画<code>Alert View</code>，使用<code>Swift</code>书写</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dsxNiubility/Wonderful">Wonderful</a>    <blockquote>
+<p>跑马灯,彩色标签,渐变等。。。</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/johnil/VVeboTableViewDemo">VVeboTableViewDemo</a>    <blockquote>
+<p>VVebo剥离的TableView绘制</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nicklockwood/FXForms">FXForms</a><blockquote>
+<p>快速创建表单,设置页,用户数据任务,非常棒</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/samvermette/SVPullToRefresh">SVPullToRefresh</a><blockquote>
+<p>一行代码实现UIScrollView下拉刷新或者无限滚动</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mattt/Surge">Surge</a><blockquote>
+<p>利用<code>Accelerate</code>高性能数学计算框架</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kconner/KMCGeigerCounter">KMCGeigerCounter</a><blockquote>
+<p>显示当前动画的帧率</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/xing/XNGMarkdownParser">XNGMarkdownParser</a><blockquote>
+<p><code>Markdown</code>解析器，将<code>Markdown</code>格式的字符串解析成<code>NSAttributedString</code>格式的字符串</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mattt/TransformerKit">TransformerKit</a><blockquote>
+<p>封装了一些常用的<code>NSValueTransformer</code>类</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nst/RuntimeBrowser">RuntimeBrowser</a><blockquote>
+<p>Objective-C Runtime Browser, for Mac OS X and iOS</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nst/iOS-Runtime-Headers">iOS-Runtime-Headers</a> <blockquote>
+<p>iOS Objective-C headers as derived from runtime introspection</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tomaz/appledoc">appledoc</a><blockquote>
+<p>Objective-C代码，苹果风格文档生成器</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kristopherjohnson/Markingbird">Markingbird</a><blockquote>
+<p>Markdown processor written in Swift (translation of MarkdownSharp)</p>
+</blockquote>
+</li>
+</ul>
+<p>	</p>
+<h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/allenwong/30DaysofSwift">30DaysofSwift</a><blockquote>
+<p>allenwong自学Swift的30个工程 👍</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ipader/SwiftGuide">SwiftGuide</a><blockquote>
+<p>这份指南汇集了Swift语言主流学习资源，并以开发者的视角整理编排</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apple/swift-package-manager">swift-package-manager</a><blockquote>
+<p>Swift包管理工具</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Carthage/Carthage">Carthage</a><blockquote>
+<p>Swift依赖管理工具，类似OC的<code>CocoaPods</code></p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/raywenderlich/swift-style-guide">swift-style-guide</a><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/raywenderlich">raywenderlich.com</a>官方Swift编程风格规</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ReactiveX/RxSwift">RxSwift</a><blockquote>
+<p>Reactive Programming in Swift</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/FreeCodeCamp/FreeCodeCamp">FreeCodeCamp</a><blockquote>
+<p>The <a target="_blank" rel="noopener" href="https://freecodecamp.com/">https://FreeCodeCamp.com</a> open source codebase and curriculum. Learn to code and help nonprofits.   </p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jspahrsummers/libextobjc">libextobjc</a><blockquote>
+<p>拓展了一些<code>Cocoa</code>类库</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ChenYilong/ParseSourceCodeStudy">ParseSourceCodeStudy</a><blockquote>
+<p>Facebook开源的Parse源码分析【系列】</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spf13/hugo">hugo</a><blockquote>
+<p>使用<code>Google</code> <code>Go</code>语言书写的静态博客网站生成器</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CocoaPods/CocoaPods">CocoaPods</a><blockquote>
+<p>Cocoa包依赖管理工具</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/MDCSwipeToChoose">MDCSwipeToChoose</a><blockquote>
+<p>实现某App，左滑不喜欢，右滑喜欢的卡片堆叠功能</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/omz/Dash-Plugin-for-Xcode">Dash-Plugin-for-Xcode</a><blockquote>
+<p><code>Xcode</code>的一个插件，整合<code>Dash</code>，方便快速查阅文档</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lzyy/iOS-Developer-Interview-Questions">iOS 开发面试问题</a><blockquote>
+<p>汇总一些常见的iOS面试问题</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/robbiehanson/XMPPFramework">XMPPFramework</a><blockquote>
+<p><code>XMPP</code>即时通信协议框架	</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/marcuswestin/WebViewJavascriptBridge">WebViewJavascriptBridge</a><blockquote>
+<p><code>Objective-C</code>与<code>JavaScript</code>在<code>UIWebViews</code>&#x2F;<code>WKWebView</code>之间交互解决方案</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/objccn/articles">articles-1</a><blockquote>
+<p>Articles for objccn.io. objc.io的完整、准确、优雅的中文翻译版本</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/NSHipster/articles">articles</a><blockquote>
+<p>Weekly articles for NSHipster.com</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/onestraw/ebook">ebook</a>	<blockquote>
+<p>收集了一些coding相关的电子书</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nixzhu/dev-blog">dev-blog</a><blockquote>
+<p>nixzhu的一些 iOS &#x2F; Web 开发相关的翻译或原创博客文章</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/facebook/KVOController">KVOController</a><blockquote>
+<p>Simple, modern, thread-safe key-value observing for iOS and OS X.</p>
+</blockquote>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MxABC/LBXScan">LBXScan</a><blockquote>
+<p>二维码、扫码、扫一扫、ZXing和ios系统自带扫码封装，扫码界面效果封装</p>
+</blockquote>
+</li>
+</ul>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://blog.treney.com/index.php/archives/iOSShare.html">iOS学习资源汇总</a> – 鹏威の博客博客</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/15/2016-04-15-ru-he-li-yong-lldblai-debug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/15/2016-04-15-ru-he-li-yong-lldblai-debug/" class="post-title-link" itemprop="url">如何利用LLDB来Debug</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-15 10:58:26" itemprop="dateCreated datePublished" datetime="2016-04-15T10:58:26+08:00">2016-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>807</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>鉴于现在调试的频繁性和重要性，此文记录了一些基本的<code>LLDB</code>调试命令，方便日后查阅。</p>
+<h3 id="常用命令-p、po、call、print"><a href="#常用命令-p、po、call、print" class="headerlink" title="常用命令 p、po、call、print"></a>常用命令 p、po、call、print</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">p         -- (&#x27;expression --&#x27;)  Evaluate an expression (ObjC++ or Swift) in</span><br><span class="line">             the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br><span class="line">po        -- (&#x27;expression -O  -- &#x27;)  Evaluate an expression (ObjC++ or Swift)</span><br><span class="line">             in the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br><span class="line">print     -- (&#x27;expression --&#x27;)  Evaluate an expression (ObjC++ or Swift) in</span><br><span class="line">             the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br><span class="line">call      -- (&#x27;expression --&#x27;)  Evaluate an expression (ObjC++ or Swift) in</span><br><span class="line">             the current program context, using user defined variables and</span><br><span class="line">             variables currently in scope.</span><br></pre></td></tr></table></figure>
+
+<p>从官方的描述来看，<code>p</code>、<code>print</code>、<code>call</code>是一样的，但是<code>po</code>就不太一样了，输入一样但是输出不一样。<code>po</code>的输出的是具体对象的内容。</p>
+<p>如果想要按照特定的格式来打印，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(lldb) p/s self.title</span><br><span class="line">(__NSCFString *) $0 = @&quot;目的地&quot;</span><br><span class="line">(lldb) p self.title</span><br><span class="line">(__NSCFString *) $1 = 0x00007fe0c0d4d230 @&quot;目的地&quot;</span><br><span class="line">(lldb) p/x self.title</span><br><span class="line">(__NSCFString *) $2 = 0x00007fe0c0d4d230 @&quot;目的地&quot;</span><br><span class="line">(lldb) p/t self.title</span><br><span class="line">(__NSCFString *) $3 = 0b0000000000000000011111111110000011000000110101001101001000110000 @&quot;目的地&quot;</span><br><span class="line">(lldb) p/a self.title</span><br><span class="line">(__NSCFString *) $4 = 0x00007fe0c0d4d230 -&gt; 0x000000010d2fd2c8 (void *)0x000000010d2fd278: __NSCFString @&quot;目的地&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打印输出格式化"><a href="#打印输出格式化" class="headerlink" title="打印输出格式化"></a>打印输出格式化</h3><table>
+<thead>
+<tr>
+<th>name</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x</td>
+<td align="left">Regard the bits of the value as an integer, and print the integer in hexadecimal.</td>
+</tr>
+<tr>
+<td>d</td>
+<td align="left">Print as integer in signed decimal.</td>
+</tr>
+<tr>
+<td>u</td>
+<td align="left">Print as integer in unsigned decimal.</td>
+</tr>
+<tr>
+<td>o</td>
+<td align="left">Print as integer in octal.</td>
+</tr>
+<tr>
+<td>t</td>
+<td align="left">Print as integer in binary. The letter ‘t’ stands for “two”.</td>
+</tr>
+<tr>
+<td>a</td>
+<td align="left">Print as an address, both absolute in hexadecimal and as an offset from the nearest preceding symbol. You can use this format used to discover where (in what function) an unknown address is located:(gdb) p&#x2F;a 0x54320  $3 &#x3D; 0x54320 &lt;_initialize_vx+396&gt;</td>
+</tr>
+<tr>
+<td>c</td>
+<td align="left">Regard as an integer and print it as a character constant. This prints both the numerical value and its character representation. The character representation is replaced with the octal escape ‘\nnn’ for characters outside the 7-bit ascii range.Without this format, gdb displays char, unsigned char, and signed char data as character constants. Single-byte members of vectors are displayed as integer data.</td>
+</tr>
+<tr>
+<td>f</td>
+<td align="left">Regard the bits of the value as a floating point number and print using typical floating point syntax.</td>
+</tr>
+<tr>
+<td>s</td>
+<td align="left">Regard as a string, if possible. With this format, pointers to single-byte data are displayed as null-terminated strings and arrays of single-byte data are displayed as fixed-length strings. Other values are displayed in their natural types.Without this format, gdb displays pointers to and arrays of char, unsigned char, and signed char as strings. Single-byte members of a vector are displayed as an integer array.</td>
+</tr>
+<tr>
+<td>z</td>
+<td align="left">Like ‘x’ formatting, the value is treated as an integer and printed as hexadecimal, but leading zeros are printed to pad the value to the size of the integer type.</td>
+</tr>
+<tr>
+<td>r</td>
+<td align="left">Print using the ‘raw’ formatting. By default, gdb will use a Python-based pretty-printer, if one is available (see Pretty Printing). This typically results in a higher-level display of the value’s contents. The ‘r’ format bypasses any Python pretty-printer which might exist.</td>
+</tr>
+</tbody></table>
+<hr>
+<p>格式： <code>p/x $pc</code></p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://sourceware.org/gdb/onlinedocs/gdb/Output-Formats.html">打印输出格式化</a></p>
+<h3 id="lldb声明变量"><a href="#lldb声明变量" class="headerlink" title="lldb声明变量"></a>lldb声明变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e NSString *$str = @&quot;http://www.baidu.com&quot;</span><br><span class="line">(lldb) po $str</span><br><span class="line">http://www.baidu.com</span><br></pre></td></tr></table></figure>
+<p>我们使用<code>e</code>开头声明了变量</p>
+<h3 id="调用变量的API"><a href="#调用变量的API" class="headerlink" title="调用变量的API"></a>调用变量的API</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [self.title uppercaseString]</span><br></pre></td></tr></table></figure>
+
+<h3 id="强转返回值类型"><a href="#强转返回值类型" class="headerlink" title="强转返回值类型"></a>强转返回值类型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [self.title characterAtIndex:0]</span><br><span class="line">U+76ee u&#x27;目&#x27;</span><br><span class="line"></span><br><span class="line">(lldb) po (unsigned int)[self.title characterAtIndex:0]</span><br><span class="line">30446</span><br><span class="line"></span><br><span class="line">(lldb) po (char)[self.title characterAtIndex:0]</span><br><span class="line">&#x27;\xee&#x27;</span><br><span class="line"></span><br><span class="line">(lldb) po (NSString *)[self.title characterAtIndex:0]</span><br><span class="line">0x00000000000076ee</span><br><span class="line"></span><br><span class="line">(lldb) po (unichar)[self.title characterAtIndex:0]</span><br><span class="line">U+76ee u&#x27;目&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加断点"><a href="#添加断点" class="headerlink" title="添加断点"></a>添加断点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b 120</span><br><span class="line">b [KLNewDestinationVC setupUI]</span><br></pre></td></tr></table></figure>
+
+<p><code>b</code>命令后面加行号，或者指定某个对象调用的方法</p>
+<h3 id="设置断点触发条件"><a href="#设置断点触发条件" class="headerlink" title="设置断点触发条件"></a>设置断点触发条件</h3><p>右键断点处,在condition处编辑，如果设置了条件，只要当条件满足时，才会进入断点，也可以设置条件满足时发出声音和打印提示语。</p>
+<h3 id="常用打印视图层次结构"><a href="#常用打印视图层次结构" class="headerlink" title="常用打印视图层次结构"></a>常用打印视图层次结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [self.view recursiveDescription]</span><br></pre></td></tr></table></figure>
+<h3 id="临时刷新界面UI"><a href="#临时刷新界面UI" class="headerlink" title="临时刷新界面UI"></a>临时刷新界面UI</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) e ((UIButton *)sender).backgroundColor = [UIColor redColor]</span><br><span class="line">(UICachedDeviceRGBColor *) $41 = 0x00007fdd10715b00</span><br><span class="line">(lldb) e (void)[CATransaction flush]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/15/2016-04-15-shi-yong-facebookde-chisellai-diao-shi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/15/2016-04-15-shi-yong-facebookde-chisellai-diao-shi/" class="post-title-link" itemprop="url">使用facebook的chisel来调试</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-15 10:23:44" itemprop="dateCreated datePublished" datetime="2016-04-15T10:23:44+08:00">2016-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>775</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><a target="_blank" rel="noopener" href="https://github.com/facebook/chisel"><code>chisel</code></a>是<code>facebook</code>开源的调试框架，封装了很多方便的<code>LLDB</code>命令便于调试iOS App，今天介绍一下使用心得以及一些常用的命令，希望对你有写帮助。</p>
+<p><strong>测试环境</strong>：</p>
+<p>Xcode 7.3 and iOS 9.3 simulator.<br>OS:OSX 10.11.4</p>
+<p>pviews and presponder doesn’t work and no output.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/facebook/chisel/issues/149">Chisel issue on Xcode 7.3 #149</a></p>
+<p>作者正在努力修复中。。。</p>
+<p>Xcode7.2版本没有问题</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>brew update
+brew install chisel
+</code></pre>
+<h3 id="创建-lldbinit-假如不存在"><a href="#创建-lldbinit-假如不存在" class="headerlink" title="创建~/.lldbinit 假如不存在"></a>创建<code>~/.lldbinit</code> 假如不存在</h3><p>编辑内容: <strong>command script import &#x2F;usr&#x2F;local&#x2F;opt&#x2F;chisel&#x2F;libexec&#x2F;fblldb.py</strong></p>
+<h3 id="查看命令"><a href="#查看命令" class="headerlink" title="查看命令"></a>查看命令</h3><pre><code>（lldb）help
+</code></pre>
+<h3 id="查看具体怎样使用"><a href="#查看具体怎样使用" class="headerlink" title="查看具体怎样使用"></a>查看具体怎样使用</h3><pre><code>(lldb) help border
+</code></pre>
+<h3 id="常用命令说明"><a href="#常用命令说明" class="headerlink" title="常用命令说明"></a>常用命令说明</h3><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pviews</td>
+<td>Print the recursive view description for the key window.</td>
+</tr>
+<tr>
+<td>pvc</td>
+<td>Print the recursive view controller description for the key window.</td>
+</tr>
+<tr>
+<td>visualize</td>
+<td>Open a <code>UIImage</code>, <code>CGImageRef</code>, <code>UIView</code>, <code>CALayer</code>, <code>NSData</code> (of an image), <code>UIColor</code>, <code>CIColor</code>, or <code>CGColorRef</code> in Preview.app on your Mac.</td>
+</tr>
+<tr>
+<td>fv</td>
+<td>Find a view in the hierarchy whose class name matches the provided regex.</td>
+</tr>
+<tr>
+<td>fvc</td>
+<td>Find a view controller in the hierarchy whose class name matches the provided regex.</td>
+</tr>
+<tr>
+<td>show&#x2F;hide</td>
+<td>Show or hide the given view or layer. You don’t even have to continue the process to see the changes!</td>
+</tr>
+<tr>
+<td>mask&#x2F;unmask</td>
+<td>Overlay a view or layer with a transparent rectangle to visualize where it is.</td>
+</tr>
+<tr>
+<td>border&#x2F;unborder</td>
+<td>Add a border to a view or layer to visualize where it is.</td>
+</tr>
+<tr>
+<td>caflush</td>
+<td>Flush the render server (equivalent to a “repaint” if no animations are in-flight).</td>
+</tr>
+<tr>
+<td>bmessage</td>
+<td>Set a symbolic breakpoint on the method of a class or the method of an instance without worrying which class in the hierarchy actually implements the method.</td>
+</tr>
+<tr>
+<td>wivar</td>
+<td>Set a watchpoint on an instance variable of an object.</td>
+</tr>
+<tr>
+<td>presponder</td>
+<td>Print the responder chain starting from the given object.</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>Tips：直接点控制台上方第三个按钮呼出<code>LLDB</code>。</p>
+</blockquote>
+<h4 id="pviews-暂不可用"><a href="#pviews-暂不可用" class="headerlink" title="pviews(暂不可用)"></a>pviews(暂不可用)</h4><p>显示view的层级。</p>
+<h4 id="border-unborder"><a href="#border-unborder" class="headerlink" title="border&amp;unborder"></a>border&amp;unborder</h4><p><code>border</code>:给view或者layer添加边框颜色和边框的宽度。</p>
+<p>使用如下：</p>
+<pre><code>(lldb) border 0x7ffc017b2970 -c green -w 10
+</code></pre>
+<p>标示设置<code>0x7ffc017b2970</code>视图或者图层一个宽度为2的绿色边框。</p>
+<p><code>unborder</code>:去掉view或者layer的边框颜色和边框宽度。</p>
+<p>使用如下：</p>
+<pre><code>unborder 0x7ffc017b2970
+</code></pre>
+<h4 id="pinternals"><a href="#pinternals" class="headerlink" title="pinternals"></a>pinternals</h4><p>这个命令就是打印出来的一个控件（<code>id</code>）类型的内部结构。</p>
+<p>使用如下：</p>
+<pre><code>pinternals 0x7ffc017b2970
+</code></pre>
+<h4 id="presponder（暂不可用）"><a href="#presponder（暂不可用）" class="headerlink" title="presponder（暂不可用）"></a>presponder（暂不可用）</h4><p>打印出一个继承于<code>UIResponder</code>控件的消息传递链。</p>
+<h4 id="visualize"><a href="#visualize" class="headerlink" title="visualize"></a>visualize</h4><p>可以使用mac下的预览app打开我们的图片<code>UIImage</code>, <code>CGImageRef</code>格式的图片，甚至view和layer的图片。</p>
+<p>使用如下：</p>
+<pre><code>visualize 0x79ec3140//或者变量名，此地址是id类型的
+    
+</code></pre>
+<h4 id="pclass"><a href="#pclass" class="headerlink" title="pclass"></a>pclass</h4><p>pclass可以打印出一个对象的继承关系。</p>
+<p>使用如下：</p>
+<pre><code>pclass 0x7fcd15108800
+</code></pre>
+<h4 id="taplog"><a href="#taplog" class="headerlink" title="taplog"></a>taplog</h4><p>这个命令是模拟敲击一下屏幕，并且打印出你敲击屏幕时候事件接收的对象。</p>
+<h4 id="hide-show"><a href="#hide-show" class="headerlink" title="hide&amp;show"></a>hide&amp;show</h4><p>hide命令可以直接隐藏一个对象,移除当前遮挡的对象便于你观察后面的对象。show命令会让它再次显示出来。</p>
+<h4 id="bmessage"><a href="#bmessage" class="headerlink" title="bmessage"></a>bmessage</h4><p>这个命令就是<code>LLDB</code>添加一个断点，譬如<code>-viewWillAppear:</code>这个方法，在当前控制器中你没有实现它，但是你又想在调用它的时机触发中断。</p>
+<p>这个我就不解释了，需要补充一点的是<code>Objectiv-c</code>的方法是带<code>：</code>的。</p>
+<h4 id="pvc"><a href="#pvc" class="headerlink" title="pvc"></a>pvc</h4><p>打印出当前的控制器层级。</p>
+<h4 id="wivar"><a href="#wivar" class="headerlink" title="wivar"></a>wivar</h4><p>这个命令是加<code>watchPoint</code>。</p>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/f6ddf8c6485f">Chisel常用命令总结</a> – 简书</li>
+<li><a target="_blank" rel="noopener" href="http://objccn.io/issue-19-2/">与调试器共舞 - LLDB 的华尔兹</a> – objccn.io</li>
+<li><a target="_blank" rel="noopener" href="https://www.objc.io/issues/19-debugging/lldb-debugging/">Dancing in the Debugger — A Waltz with LLDB</a> – objc.io</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/14/2016-04-14-associated-objects-guan-lian-dui-xiang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/14/2016-04-14-associated-objects-guan-lian-dui-xiang/" class="post-title-link" itemprop="url">Associated Objects 关联对象</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-14 23:56:39" itemprop="dateCreated datePublished" datetime="2016-04-14T23:56:39+08:00">2016-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>896</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Associated-Objects-介绍"><a href="#Associated-Objects-介绍" class="headerlink" title="Associated Objects 介绍"></a>Associated Objects 介绍</h2><p><code>&lt;objc/runtime.h&gt;</code>中的函数号称是<strong>iOS</strong>中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。</p>
+<p>就像和魔鬼做交易一样常常让人怀着巨大的恐惧。</p>
+<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>对象关联（或称为关联引用）本来是<code>Objective-C 2.0</code>运行时的一个特性，起始于<code>OS X Snow Leopard</code>和<code>iOS4</code>。</p>
+<p>核心函数3个 – 允许将任何键值在允许时关联到对象上</p>
+<ul>
+<li>objc_setAssociatedObject</li>
+<li>objc_getAssociatedObject</li>
+<li>objc_removeAssociatedObjects</li>
+</ul>
+<p>这有什么用呢？这允许开发者对<strong>已经存在的类在扩展中添加自定义的属性</strong></p>
+<h2 id="实现的3种方式"><a href="#实现的3种方式" class="headerlink" title="实现的3种方式"></a>实现的3种方式</h2><ul>
+<li><code>static char</code></li>
+<li><code>selector</code></li>
+<li><code>_cmd_</code></li>
+</ul>
+<h3 id="使用-static-char-实现"><a href="#使用-static-char-实现" class="headerlink" title="使用 static char 实现"></a>使用 <code>static char</code> 实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="type">id</span> associatedObject;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><strong>NSObject+AssociatedObject.m</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="type">char</span> kAssociatedObjectKey;</span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>,&amp;kAssociatedObjectKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setAssociatedObject:(<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;kAssociatedObjectKey, associatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-selector-实现"><a href="#使用-selector-实现" class="headerlink" title="使用 selector 实现"></a>使用 <code>selector</code> 实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="type">id</span> associatedObject;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>NSObject+AssociatedObject.m</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(associatedObject));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setAssociatedObject:(<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(associatedObject), associatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-cmd-实现"><a href="#使用-cmd-实现" class="headerlink" title="使用 _cmd_ 实现"></a>使用 <code>_cmd_</code> 实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="type">id</span> associatedObject;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>NSObject+AssociatedObject.m</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, _cmd_);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setAssociatedObject:(<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(associatedObject), associatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关联对象的行为"><a href="#关联对象的行为" class="headerlink" title="关联对象的行为"></a>关联对象的行为</h2><p>属性根据枚举类型<code>objc_AssociationPolicy</code>来决定被关联在对象上的行为：</p>
+<table>
+<thead>
+<tr>
+<th>Behavior</th>
+<th>与之等效的@property</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OBJC_ASSOCIATION_ASSIGN</td>
+<td>@property (assign) 或@property (unsafe_unretained)</td>
+</tr>
+<tr>
+<td>OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
+<td>@property (nonatomic, strong)</td>
+</tr>
+<tr>
+<td>OBJC_ASSOCIATION_COPY_NONATOMIC</td>
+<td>@property (nonatomic, copy)</td>
+</tr>
+<tr>
+<td>OBJC_ASSOCIATION_RETAIN</td>
+<td>@property (atomic, strong)</td>
+</tr>
+<tr>
+<td>OBJC_ASSOCIATION_COPY</td>
+<td>@property (atomic, copy)</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p><code>OBJC_ASSOCIATION_ASSIGN</code>类型关联对象的弱引用不代表<strong>weak</strong>的弱引用，行为上更像<code>unsafe_unretained</code>属性。</p>
+</blockquote>
+<h2 id="对象销毁时间"><a href="#对象销毁时间" class="headerlink" title="对象销毁时间"></a>对象销毁时间</h2><p>被关联的对象在声明周期内比对象本身释放要晚很多，在对象调用<code>-dealloc</code>中的<code>object_dispose()</code>中释放。</p>
+<h2 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h2><p>你或许想要使用<code>objc_removeAssociatedObjects（）</code>来进行删除操作，但官方文档不建议手动调用这个函数。</p>
+<p>这个函数可能会把其他用户对其添加的属性也移除了，正确的方式是调用<code>objc_setAssociatedObject</code>方法，传入<code>nil</code>值来清楚一个关联。</p>
+<h2 id="优秀样例"><a href="#优秀样例" class="headerlink" title="优秀样例"></a>优秀样例</h2><ul>
+<li>添加私有属性用于更好地去实现细节。</li>
+<li>添加public属性来增强category的功能。</li>
+<li>创建一个用于KVO的关联观察者。</li>
+</ul>
+<h2 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h2><h3 id="UIImagePickerController-图片选择回调"><a href="#UIImagePickerController-图片选择回调" class="headerlink" title="UIImagePickerController 图片选择回调"></a>UIImagePickerController 图片选择回调</h3><p>关联一个block实现完成选择图片后的回调。</p>
+<h4 id="UIImagePickerController-RFBlocks-h"><a href="#UIImagePickerController-RFBlocks-h" class="headerlink" title="UIImagePickerController+RFBlocks.h"></a>UIImagePickerController+RFBlocks.h</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIImagePickerController</span> (<span class="title">RFBlocks</span>)&lt;<span class="title">UIImagePickerControllerDelegate</span>, <span class="title">UINavigationControllerDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">void</span>(^RFImagePickerFinishBlock)(<span class="built_in">NSDictionary</span> *info);</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) RFImagePickerFinishBlock rf_finishBlock;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIImagePickerController</span> *)rf_imagePickerWithFinishBlock:(RFImagePickerFinishBlock)finishBlock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="UIImagePickerController-RFBlocks-m"><a href="#UIImagePickerController-RFBlocks-m" class="headerlink" title="UIImagePickerController+RFBlocks.m"></a>UIImagePickerController+RFBlocks.m</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="type">char</span> kFinishBlockKey;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIImagePickerController</span> (<span class="title">RFBlocks</span>)</span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIImagePickerController</span> *)rf_imagePickerWithFinishBlock:(RFImagePickerFinishBlock)finishBlock</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIImagePickerController</span> *picker = [[<span class="built_in">UIImagePickerController</span> alloc] init];</span><br><span class="line">    picker.rf_finishBlock = finishBlock;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> picker;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (RFImagePickerFinishBlock)rf_finishBlock &#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;kFinishBlockKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setRf_finishBlock:(RFImagePickerFinishBlock)rf_finishBlock &#123;</span><br><span class="line">    <span class="keyword">self</span>.delegate = <span class="keyword">self</span>;</span><br><span class="line">    </span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;kFinishBlockKey, rf_finishBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - UIImagePickerControllerDelegate</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)imagePickerController:(<span class="built_in">UIImagePickerController</span> *)picker didFinishPickingMediaWithInfo:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="type">id</span>&gt; *)info</span><br><span class="line">&#123;</span><br><span class="line">    RFImagePickerFinishBlock block = <span class="keyword">self</span>.rf_finishBlock;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (block)  block(info);</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> dismissViewControllerAnimated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.rf_finishBlock = <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImagePickerController</span> *picker =  [<span class="built_in">UIImagePickerController</span> rf_imagePickerWithFinishBlock:^(<span class="built_in">NSDictionary</span> *info) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;finish picke image\n info:%@&quot;</span>,info);</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">UIImage</span> *img = info[<span class="string">@&quot;UIImagePickerControllerOriginalImage&quot;</span>];</span><br><span class="line">        weakSelf.view.layer.contents = (<span class="type">id</span>)img.CGImage;</span><br><span class="line">    &#125;];</span><br><span class="line">[<span class="keyword">self</span> presentViewController:picker animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImagePickerController</span> *picker = [[<span class="built_in">UIImagePickerController</span> alloc] init];</span><br><span class="line">    </span><br><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>)weakSelf = <span class="keyword">self</span>;</span><br><span class="line"></span><br><span class="line">picker.rf_finishBlock = ^(<span class="built_in">NSDictionary</span> *info) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;finish picke image\n info:%@&quot;</span>,info);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIImage</span> *img = info[<span class="string">@&quot;UIImagePickerControllerOriginalImage&quot;</span>];</span><br><span class="line">    weakSelf.view.layer.contentsGravity = kCAGravityResizeAspect;</span><br><span class="line">    weakSelf.view.layer.contents = (<span class="type">id</span>)img.CGImage;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> presentViewController:picker animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="UIButton-按钮事件回调"><a href="#UIButton-按钮事件回调" class="headerlink" title="UIButton 按钮事件回调"></a>UIButton 按钮事件回调</h3><p>关联一个按钮事件block，当触发按钮<code>UIControlEventTouchUpInside</code>事件时回调。</p>
+<h5 id="UIButton-RFBlcoks-h"><a href="#UIButton-RFBlcoks-h" class="headerlink" title="UIButton+RFBlcoks.h"></a>UIButton+RFBlcoks.h</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIButton</span> (<span class="title">RFBlcoks</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">void</span>(^RFButtonClickBlock)(<span class="built_in">UIButton</span> *button);</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) RFButtonClickBlock rf_buttonClickBlock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="UIButton-RFBlcoks-m"><a href="#UIButton-RFBlcoks-m" class="headerlink" title="UIButton+RFBlcoks.m"></a>UIButton+RFBlcoks.m</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="type">char</span> kButttonClickBlockKey;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIButton</span> (<span class="title">RFBlcoks</span>)</span></span><br><span class="line"></span><br><span class="line">- (RFButtonClickBlock)rf_buttonClickBlock</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;kButttonClickBlockKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setRf_buttonClickBlock:(RFButtonClickBlock)rf_buttonClickBlock</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;kButttonClickBlockKey, rf_buttonClickBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonClicked) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)buttonClicked</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.rf_buttonClickBlock) &#123;</span><br><span class="line">        <span class="keyword">self</span>.rf_buttonClickBlock(<span class="keyword">self</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.button.rf_buttonClickBlock = ^(UIButton *button)&#123;</span><br><span class="line">        NSLog(@&quot;%@ clicked&quot;,button);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>Demo地址：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/AssociatedObjectDemo">AssociatedObjectDemo</a></li>
+</ul>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/associated-objects/">Associated Objects</a> – NSHipster</li>
+<li><a target="_blank" rel="noopener" href="http://kingscocoa.com/tutorials/associated-objects/">Objective-C Associated Objects</a> – King’s Cocoa</li>
+<li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/06/26/objective-c-associated-objects-implementation-principle/">Objective-C Associated Objects 的实现原理</a>– 雷纯峰的技术博客</li>
+<li><a target="_blank" rel="noopener" href="http://www.sebastianrehnby.com/blog/2013/01/24/associated-objects-by-example/">Associated Objects by Example</a> – Sebastian Rehnby</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/14/2016-04-14-wan-zhuan-iosjian-qie-ban/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/14/2016-04-14-wan-zhuan-iosjian-qie-ban/" class="post-title-link" itemprop="url">玩转iOS剪切板</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-14 22:20:52" itemprop="dateCreated datePublished" datetime="2016-04-14T22:20:52+08:00">2016-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>779</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>移动应用风靡的今天，大家越来越觉得，一个App的处理事情的效率至关重要，包括一些细节处理，像<code>本地化</code>（<strong>localization</strong>）和<code>辅助功能</code>（<strong>accessibility</strong>）的支持是高品质的应用和其它应用区分开的两个特性，今天我们来聊聊一个增加用户体验和效率的功能–<code>编辑操作</code></p>
+<h3 id="编辑操作"><a href="#编辑操作" class="headerlink" title="编辑操作"></a>编辑操作</h3><h4 id="标准编辑动作"><a href="#标准编辑动作" class="headerlink" title="标准编辑动作"></a>标准编辑动作</h4><h5 id="处理复制，剪切，删除和粘贴命令"><a href="#处理复制，剪切，删除和粘贴命令" class="headerlink" title="处理复制，剪切，删除和粘贴命令"></a>处理复制，剪切，删除和粘贴命令</h5><ul>
+<li><code>复制</code>（**copy:**）</li>
+<li><code>剪切</code>（**cut:**）</li>
+<li><code>删除</code>（**delete:**）</li>
+<li><code>粘贴</code>（**paste:**）</li>
+</ul>
+<h5 id="处理选择命令"><a href="#处理选择命令" class="headerlink" title="处理选择命令"></a>处理选择命令</h5><ul>
+<li><code>选择</code>（**select:**）</li>
+<li><code>全选</code>（**selectAll:**）</li>
+</ul>
+<h5 id="富文本编辑命令"><a href="#富文本编辑命令" class="headerlink" title="富文本编辑命令"></a>富文本编辑命令</h5><ul>
+<li><code>加粗</code>（**toggleBoldface:**）</li>
+<li><code>斜体</code>（**toggleItalics:**）</li>
+<li><code>下划线</code>（**toggleUnderline:**）</li>
+</ul>
+<h5 id="改变书写方向命令"><a href="#改变书写方向命令" class="headerlink" title="改变书写方向命令"></a>改变书写方向命令</h5><ul>
+<li><code>书写方向左到右</code>（**makeTextWritingDirectionLeftToLeft:**）</li>
+<li><code>书写方向右到左</code>（**makeTextWritingDirectionRightToLeft:**）</li>
+</ul>
+<h5 id="改变文本尺寸命令"><a href="#改变文本尺寸命令" class="headerlink" title="改变文本尺寸命令"></a>改变文本尺寸命令</h5><ul>
+<li><code>变大</code>（**increaseSize:**）</li>
+<li><code>变小</code>（**decreaseSize:**）</li>
+</ul>
+<h3 id="实现label的复制粘贴功能"><a href="#实现label的复制粘贴功能" class="headerlink" title="实现label的复制粘贴功能"></a>实现label的复制粘贴功能</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RFLabel.h</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RFLabel</span> : <span class="title">UILabel</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// RFLabel.m</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RFLabel</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">BOOL</span>)canBecomeFirstResponder &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">BOOL</span>)canPerformAction:(SEL)action</span><br><span class="line">              withSender:(<span class="type">id</span>)sender</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (action == <span class="keyword">@selector</span>(<span class="keyword">copy</span>:) || action == <span class="keyword">@selector</span>(paste:));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - UIResponderStandardEditActions</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)<span class="keyword">copy</span>:(<span class="type">id</span>)sender &#123;</span><br><span class="line">    [[<span class="built_in">UIPasteboard</span> generalPasteboard] setString:<span class="keyword">self</span>.text];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)paste:(<span class="type">id</span>)sender &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *toBePastedString = [[<span class="built_in">UIPasteboard</span> generalPasteboard] string];</span><br><span class="line">    <span class="keyword">self</span>.text = toBePastedString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>在控制器中使用它：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;ViewController.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;RFLabel.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> RFLabel *topLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> RFLabel *bottomLabel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.topLabel.userInteractionEnabled = <span class="literal">YES</span>;</span><br><span class="line">    <span class="keyword">self</span>.bottomLabel.userInteractionEnabled = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIGestureRecognizer</span> *gestureRecognizer1 = [[<span class="built_in">UILongPressGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(handleLongPressGesture:)];</span><br><span class="line">    <span class="built_in">UIGestureRecognizer</span> *gestureRecognizer2 = [[<span class="built_in">UILongPressGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(handleLongPressGesture:)];</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span>.topLabel addGestureRecognizer:gestureRecognizer1];</span><br><span class="line">    [<span class="keyword">self</span>.bottomLabel addGestureRecognizer:gestureRecognizer2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)handleLongPressGesture:(<span class="built_in">UIGestureRecognizer</span> *)recognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (recognizer.state == <span class="built_in">UIGestureRecognizerStateRecognized</span>) &#123;</span><br><span class="line">        [recognizer.view becomeFirstResponder];</span><br><span class="line"></span><br><span class="line">        <span class="built_in">UIMenuController</span> *menuController = [<span class="built_in">UIMenuController</span> sharedMenuController];</span><br><span class="line">        [menuController setTargetRect:recognizer.view.frame inView:recognizer.view.superview];</span><br><span class="line">        [menuController setMenuVisible:<span class="literal">YES</span> animated:<span class="literal">YES</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>总结一下，为了能够支持复制粘贴一个label的文字，需要完成下面几步：</p>
+<ul>
+<li>必须继承 <code>UILabel</code>,在子类中实现<code>canBecomeFirstResponder</code>和<code>canPerformAction:withSender:</code>方法</li>
+<li>实现每个可以执行的操作，在方法中和<code>UIPasteboard</code>进行交互</li>
+<li>初始化label时，将label的<code>userInteractionEnabled</code>属性设置为<code>YES</code></li>
+<li>向label添加一个手势（或者手动在子类中实现<code>UIResponder</code>的方法，例如<code>touchesBegan:withEvent:</code>）</li>
+<li>响应手势识别事件，指明<code>UIMenuController</code>的位置，设置为可见</li>
+<li>最后，使label成为第一响应者</li>
+</ul>
+<h3 id="UIMenuController"><a href="#UIMenuController" class="headerlink" title="UIMenuController"></a>UIMenuController</h3><p><code>UIMenuController</code>负责展示编辑动作的菜单项。每个应用都持有自己的一个单例对象 sharedMenuController。<br>默认情况下，菜单控制器会展示<code>UIResponderStandardEditActions</code>这个非正式协议（即不需要对应实现的协议）中的方法，<br>假如<code>canPerformAction:withSender:</code>返回<code>YES</code>。</p>
+<h3 id="UIMenuItem"><a href="#UIMenuItem" class="headerlink" title="UIMenuItem"></a>UIMenuItem</h3><p>可以通过<code>UIMenuController</code>的<code>menuItems</code>属性添加自定义的命令，每一个都是<code>UIMenuItem</code>对象，只需要指定每个动作的<code>title</code>和<code>action</code></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title action:(SEL)action <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="UITableView-和-UICollectionView"><a href="#UITableView-和-UICollectionView" class="headerlink" title="UITableView 和 UICollectionView"></a>UITableView 和 UICollectionView</h3><p><code>UITableView</code>和<code>UICollectionView</code>可以在cell上调出编辑菜单,其实任何自定义的<code>UIView</code>都能实现，<code>UIViewController</code>的子类只是以不同的方式实现而已。为了让<code>UITableView</code>和<code>UICollectionView</code>也能实现，你需要使用一些额外的方法否则屏幕上不会显示任何东西。这些方法给予了你更多的控制在显示指定的上下文菜单基于你将要显示在<code>UITableView</code>和<code>UICollectionView</code>的内容。</p>
+<h4 id="UITableViewDelegate-方法"><a href="#UITableViewDelegate-方法" class="headerlink" title="UITableViewDelegate 方法"></a><strong>UITableViewDelegate</strong> 方法</h4><ul>
+<li>– tableView:shouldShowMenuForRowAtIndexPath:</li>
+<li>– tableView:canPerformAction:forRowAtIndexPath:withSender:</li>
+<li>– tableView:performAction:forRowAtIndexPath:withSender:</li>
+</ul>
+<h4 id="UICollectionViewDelegate-方法"><a href="#UICollectionViewDelegate-方法" class="headerlink" title="UICollectionViewDelegate 方法"></a><strong>UICollectionViewDelegate</strong> 方法</h4><ul>
+<li>– collectionView:shouldShowMenuForItemAtIndexPath:</li>
+<li>– collectionView:canPerformAction:forItemAtIndexPath:withSender:</li>
+<li>– collectionView:performAction:forItemAtIndexPath:withSender:</li>
+</ul>
+<h3 id="Bonus"><a href="#Bonus" class="headerlink" title="Bonus"></a>Bonus</h3><p>实现<code>UIImageView</code>图片的复制粘贴功能</p>
+<p>Demo地址：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/Menu_Controller_Demo">Menu_Controller_Demo</a></li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/uimenucontroller/">UIMenuController</a> – nshipster</li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/iPhone/Reference/UIMenuController_Class/">UIMenuController_Class</a> – UIMenuController Class Reference</li>
+<li><a target="_blank" rel="noopener" href="http://supereasyapps.com/blog/2014/4/17/show-the-uimenucontroller-and-display-custom-edit-menus-for-uiviewcontroller-uitableviewcontroller-and-uicollectionview-on-ios-7">Show the UIMenuController and Display Custom Edit Menus</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.captechconsulting.com/blogs/getting-started-with-uimenucontroller-in-ios-5">UITableViewCell on iOS 5</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jszumski/uimenucontroller-example">UITableViewController</a> – Demo</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/10/2016-04-10-chuang-jian-zi-ding-yi-viewzai-ibzhong-shi-shi-xuan-ran/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/10/2016-04-10-chuang-jian-zi-ding-yi-viewzai-ibzhong-shi-shi-xuan-ran/" class="post-title-link" itemprop="url">创建自定义View在IB中实时渲染</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-04-10 13:22:56" itemprop="dateCreated datePublished" datetime="2016-04-10T13:22:56+08:00">2016-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OC/" itemprop="url" rel="index"><span itemprop="name">OC</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>745</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>曾想自定义的View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在Xcode6终于让你可以轻松的做到。</p>
+<p>你不用编译就能实时预览，现在配置自定义界面方便多了，<code>IBInspectable</code>和<code>IBDesignable</code>使它成为可能。</p>
+<h3 id="IBInspectable"><a href="#IBInspectable" class="headerlink" title="IBInspectable"></a>IBInspectable</h3><p><code>IBInspectable</code>属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity inspector）中访问，这些属性在Interface Builder整合到Xcode。可以通过它来配置Nib，Xib，storyboard实例中的任何键值编码（key-value-coded）属性：</p>
+<p><img src="/images/ib_Inspectable/ib_01.jpg" alt="runtime Attributes setting"></p>
+<p>以前想实现，只能点+号手动添加例如想给<code>UIView</code>添加一个圆角半径，设置Key Path 为：layer.cornerRadius,type为Number ，Value为4，如果使用<code>IBInspectable</code>只需要在<code>@property</code> 声明后加上IBInspectable（或者swift 加上<code>@IBInspectable</code>），就可以在IB的观察面板中（inspector pannel）里直接编辑。其他交由Xcode自动完成，属性名字会自动分组，名称从驼峰（camel-）转换成 title-模式。</p>
+<p><img src="/images/ib_Inspectable/ib_02.jpg" alt="inspector pannel"></p>
+<p>目前可检查属性支持</p>
+<p><img src="/images/ib_Inspectable/ib_03.jpg" alt="supported  types"></p>
+<p>备注 :</p>
+<ol>
+<li><p>经本人亲测，除<code>NSNumber</code>,<code>NSRange</code>不会产生观察面板属性，<code>NSRange</code>不会在runtime Attributes 中自动添加，其他都会自动生成。</p>
+</li>
+<li><p>支持颜色类型<code>UIColor</code>但是不支持<code>CALayer</code>的<code>CGColor</code>，设置颜色时只需设置<code>UIColor</code>，不要要设置<code>CGColor</code>，系统会自动将UIColor转换，例如设置borderColor。</p>
+</li>
+</ol>
+<h3 id="IBDesignable"><a href="#IBDesignable" class="headerlink" title="IBDesignable"></a>IBDesignable</h3><p>当你应用到<code>UIView</code>或者<code>UIView</code>的子类中的时候，只需加上<code>IBDesignable</code>，就可以让IB在画布上实时渲染视图。当你更新属性后，视图会自动更新不需要重新运行程序。</p>
+<p>标记一个自定义视图为<code>IBDesignable</code>，只需要在类名前面加上<code>IB_DESIGNABLE</code>（<code>Swift</code>里加上<code>@IBDesignable</code>）。你的初始化，布置和绘制方法都将用来在画布上渲染你的自定义视图:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">IB_DESIGNABLE</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CustomView</span> :<span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) IBInspectable <span class="built_in">UIColor</span> *borderColor;		</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) IBInspectable <span class="built_in">CGFloat</span> borderWidth;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>实时效果：</p>
+<p><img src="/images/ib_Inspectable/ib_04.jpg" alt="custom view"></p>
+<p>有了这个功能，一个设计师或者开放人员可以轻松调整自定义的控件呈现。任何改变，都将立即呈现，有的想<code>Swift</code>里面的playground功能，实现：<strong>所见即所得</strong>。</p>
+<p>由于在 Interface Builder 中呈现自定义视图不会有应用程序的完整上下文，你可能需要生成模拟数据以便显示，例如一个默认用户头像图片或仿制的天气数据。有两种方法可以为这个特殊的上下文添加代码：</p>
+<ol>
+<li><p><code>prepareForInterfaceBuilder()</code> :此方法与你代码的其余部分一起编译，但只有当视图正在准备在Interface Builder显示时执行</p>
+</li>
+<li><p>TARGET_INTERFACE_BUILDER:#if TARGET_INTERFACE_BUILDER预处宏,在 <code>Objective-C</code> 或 <code>Swift</code> 下都是工作的，它会视情况编译正确代码</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> !TARGET_INTERFACE_BUILDE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// this code will run in the app it self</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#els</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// this code will execute only in IB</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+
+<p>参考资料:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/ibinspectable-ibdesignable/">IBInspectable-IBDesignable</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/recipes/xcode_help-IB_objects_media/Chapters/CreatingaLiveViewofaCustomObject.html">Apple 官方介绍</a></li>
+</ul>
+<p>Demo地址:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/xyzyzyxyz/IBInspectable_IBDesignable_Demo_1.0/tree/master">IBInspectable_IBDesignable_Demo</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" class="post-title-link" itemprop="url">Unix Shell常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-27 18:29:44" itemprop="dateCreated datePublished" datetime="2016-03-27T18:29:44+08:00">2016-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unix/" itemprop="url" rel="index"><span itemprop="name">Unix</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>333</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>输出文件内容到基本输出</p>
+<pre><code>cat filename
+</code></pre>
+<p>改变文件的权限</p>
+<pre><code>chmod 或
+change mode
+</code></pre>
+<p>当前的时间和日期</p>
+<pre><code>date
+</code></pre>
+<p>拷贝</p>
+<pre><code>copy
+</code></pre>
+<p>显示当前目录下所有文件以及文件夹</p>
+<pre><code>ls
+</code></pre>
+<p>显示dir文件夹下所有文件以及文件夹</p>
+<pre><code>ls dir
+</code></pre>
+<p>查看磁盘空间状况</p>
+<pre><code>du
+</code></pre>
+<p>查看当前进程状况</p>
+<pre><code>ps
+</code></pre>
+<p>你的用户名和终端类型</p>
+<pre><code>who
+</code></pre>
+<p>创建目录</p>
+<pre><code>mkdir  dir
+</code></pre>
+<p>删除目录</p>
+<pre><code>rmdir  dir
+</code></pre>
+<p>进入目录</p>
+<pre><code>cd     dir
+</code></pre>
+<p>删除文件</p>
+<pre><code>rm     file
+</code></pre>
+<p>显示文件</p>
+<pre><code>more file
+</code></pre>
+<p>显示指定文本</p>
+<pre><code>echo
+</code></pre>
+<p>改文件名、移动文件</p>
+<pre><code>mv  source target
+</code></pre>
+<p>显示目录路径命令</p>
+<pre><code>pwd
+</code></pre>
+<p>清屏</p>
+<pre><code>clear
+</code></pre>
+<p>退出输入命令</p>
+<pre><code>Ctrl + c   
+</code></pre>
+<p>改变文件或目录之最后修改时间</p>
+<pre><code>touch  name
+</code></pre>
+<p>删除目录</p>
+<pre><code> rmdir directory-name 或
+ rm -r directory-name
+</code></pre>
+<blockquote>
+<ul>
+<li>rmdir dir1 删除目录 dir1，但 dir1 下必须没有文件存在，否则无法删除。</li>
+<li>rm -r dir1 删除目录 dir1，及其下所有文件及子目录。</li>
+</ul>
+</blockquote>
+<p>删除文件</p>
+<pre><code>rm filename (filename 可为文件名，或文件名缩写符号。)
+</code></pre>
+<blockquote>
+<ul>
+<li>rm file1 删除文件名为 file1 之文件。</li>
+<li>rm file? 删除文件名中有五个字符，前四个字符为file 之所有文件。</li>
+<li>rm f* 删除文件名中，以 f 为字首之所有文件。</li>
+<li>rm -rf file 删除名为file的文件夹及其里面的内容</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/27/2016-03-27-gitchang-yong-ming-ling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/27/2016-03-27-gitchang-yong-ming-ling/" class="post-title-link" itemprop="url">git常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-27 17:08:45" itemprop="dateCreated datePublished" datetime="2016-03-27T17:08:45+08:00">2016-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>git常用命令</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/03/27/2016-03-27-gitchang-yong-ming-ling/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/03/2016-03-03-shi-yong-mantlegao-xiao-gou-jian-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/03/2016-03-03-shi-yong-mantlegao-xiao-gou-jian-model/" class="post-title-link" itemprop="url">使用Mantle高效构建Model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-03 01:05:21" itemprop="dateCreated datePublished" datetime="2016-03-03T01:05:21+08:00">2016-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>在iOS开发中，从服务器获取数据，然后解析成本地的模型是经常的要做事，而且重复次数特别多，每次增加一个网络请求或者增加一个模型都需要完成<code>JSON</code>到<code>Model</code>层的转换，手写通过字典<code>valueForKey:</code>直接解析已经更不上时代的步伐，学会利用工具提高自己的工作效率，今天就分享一下<code>Mantle</code>这个框架解析的心得。</p>
+<p><code>Mantle</code>解决的痛点：</p>
+<ul>
+<li>服务器经常更新（添加或者删除）字段，客服端需要在<code>Model</code>层初始化的时候修改取值字段，易出错，而且繁琐。</li>
+<li>实现自定义的<code>Model</code>的序列化，以便将数据保存到本地，也就是说实现<code>NSCoding</code>协议，在模型复制的情况下添加或者修改字段非常麻烦。</li>
+<li>自定义的<code>Model</code>的<code>Copy</code>,你必须手动实现<code>NSCopying</code>协议,而且没有办法反序列化成<code>JSON</code>。</li>
+</ul>
+<p><code>Mantle</code>很好的解决的以上痛点：</p>
+<ul>
+<li>实现了<code>NSCopying</code>协议。</li>
+<li>实现了<code>NSCoding</code>协议，可以通过<code>NSKeyedArchiver</code>将数据归档到本地。</li>
+<li>提供了<code>isEqual:</code>和<code>hash</code>的默认实现。</li>
+<li>可以在<code>Model</code>和<code>JSON</code>之间互相转换。</li>
+</ul>
+<p>以一个<code>CATProfile</code>模型类为例，演示这个框架怎样以一种非常简单的方式将一个<code>NSDictionary</code>对象映射成一个<code>Objective-C</code>,反之亦然。</p>
+<p>下面的<code>CATProfile</code>模型</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Objective Cat&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;birthday&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2013-09-12 13:29:36 +0100&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;website&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://objc.at&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;location&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;lat&quot;</span><span class="punctuation">:</span> <span class="string">&quot;48.2083&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;lon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;16.3731&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;relationship_status&quot;</span><span class="punctuation">:</span> <span class="string">&quot;single&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;awesome&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面我们创建一个<code>MTLModel</code>子类代表以上的<code>Json</code>对象。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// CATProfile.h</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">CATRelationshipStatus</span>) &#123;</span><br><span class="line">    <span class="built_in">CATRelationshipStatusSingle</span> = <span class="number">0</span>,</span><br><span class="line">    <span class="built_in">CATRelationshipStatusInRelationship</span>,</span><br><span class="line">    <span class="built_in">CATRelationshipStatusComplicated</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CATProfile</span> : <span class="title">MTLModel</span>&lt;<span class="title">MTLJSONSerializing</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSNumber</span> *profileId;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSDate</span> *birthday;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSURL</span> *website;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CLLocationCoordinate2D</span> locationCoordinate;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CATRelationshipStatus</span> relationshipStatus;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isAwesome) <span class="type">BOOL</span> awesome;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>CATProfile</code>类继承自<code>MTLModel</code>并且实现了<code>MTLJSONSerializing</code>，协议要求实现<code>+JSONKeyPathsByPropertyKey</code>方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// CATProfile.m</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSDictionary</span> *)JSONKeyPathsByPropertyKey &#123;</span><br><span class="line">    <span class="comment">// properties defined in header &lt; : &gt; key in JSON Dictionary</span></span><br><span class="line">    <span class="keyword">return</span> @&#123;</span><br><span class="line">             <span class="string">@&quot;profileId&quot;</span>:          <span class="string">@&quot;id&quot;</span>,</span><br><span class="line">             <span class="string">@&quot;websiteURL&quot;</span>:         <span class="string">@&quot;website&quot;</span>,</span><br><span class="line">             <span class="string">@&quot;locationCoordinate&quot;</span>: <span class="string">@&quot;location&quot;</span>,</span><br><span class="line">             <span class="string">@&quot;relationshipStatus&quot;</span>: <span class="string">@&quot;relationship_status&quot;</span>,</span><br><span class="line">            &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>+JSONKeyPathsByPropertyKey</code>方法返回一个在JSON数据中需要模型的属性匹配的值的字典，这能确保<code>Mantle</code>知道那个JSON键键使用来构成一个指定的模型接口。</p>
+<p>很明显除了这个列表中的<code>name</code>,<code>birthday</code>和<code>awesome</code>属性。假如一个属性在字典中被忽略，<code>Mantle</code>将自动在JSON中查找带有相同名称的接口。</p>
+<p><strong>NSValueTransformer</strong></p>
+<p><code>Mantle</code>还能够处理任意类型的转换，例如<code>NSString</code>he<code>NSNumber</code>默认支持。然而，它也需要一些帮助对于处理非任意的类型例如<code>NSURL</code>和<code>枚举</code>还有自定义的结构体像<code>CLLocationCoordinate2D</code>。</p>
+<p><code>Mantle</code>依赖<strong>Foundation</strong>框架下<code>NSValueTransformer</code>对象来实现在模型代表的JSON层和OC对象的实际接口之间的值的映射。</p>
+<p>创建一个自定义<strong>transformer</strong>给某个属性，我们需要实现一个叫做<code>+&lt;propertyName&gt;JSONTransformer</code>的类方法并且返回一个想要的<code>NSValueTransformer</code>对象。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mapping birthday to NSDate and vice-versa</span></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)birthdayJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">MTLValueTransformer</span> reversibleTransformerWithForwardBlock:^(<span class="built_in">NSString</span> *dateString) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="keyword">self</span>.dateFormatter dateFromString:dateString];</span><br><span class="line">    &#125; reverseBlock:^(<span class="built_in">NSDate</span> *date) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="keyword">self</span>.dateFormatter stringFromDate:date];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSDateFormatter</span> *)dateFormatter &#123;</span><br><span class="line">    <span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</span><br><span class="line">    dateFormatter.locale = [[<span class="built_in">NSLocale</span> alloc] initWithLocaleIdentifier:<span class="string">@&quot;en_US_POSIX&quot;</span>];</span><br><span class="line">    dateFormatter.dateFormat = <span class="string">@&quot;yyyy-MM-dd&#x27;T&#x27;HH:mm:ss.SSS&#x27;Z&#x27;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dateFormatter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Mantle</code>在<code>runtime</code>调用这个方法来决定怎样变换**birthday **属性，正向转换block从一个字符串对象到一个<code>NSDate</code>对象，反向转换block将<code>NSDate</code>对象转换回一个字符串对象，非常棒！</p>
+<p>下面列举了一些变换方法，对于所有的我们需要注意的非任意属性以供参考。</p>
+<h3 id="NSURL-↔︎-JSON-string"><a href="#NSURL-↔︎-JSON-string" class="headerlink" title="NSURL ↔︎ JSON string"></a>NSURL ↔︎ JSON string</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)websiteURLJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> valueTransformerForName:<span class="built_in">MTLURLValueTransformerName</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CLLocationCoordinate2D-↔︎-JSON-object"><a href="#CLLocationCoordinate2D-↔︎-JSON-object" class="headerlink" title="CLLocationCoordinate2D ↔︎ JSON object"></a>CLLocationCoordinate2D ↔︎ JSON object</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)locationCoordinateJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">MTLValueTransformer</span> reversibleTransformerWithForwardBlock:^(<span class="built_in">NSDictionary</span> *coordinateDict) &#123;</span><br><span class="line">        <span class="built_in">CLLocationDegrees</span> latitude = [coordinateDict[<span class="string">@&quot;lat&quot;</span>] doubleValue];</span><br><span class="line">        <span class="built_in">CLLocationDegrees</span> longitude = [coordinateDict[<span class="string">@&quot;lon&quot;</span>] doubleValue];</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">NSValue</span> valueWithMKCoordinate:<span class="built_in">CLLocationCoordinate2DMake</span>(latitude, longitude)];</span><br><span class="line">    &#125; reverseBlock:^(<span class="built_in">NSValue</span> *coordinateValue) &#123;</span><br><span class="line">        <span class="built_in">CLLocationCoordinate2D</span> coordinate = [coordinateValue <span class="built_in">MKCoordinateValue</span>];</span><br><span class="line">        <span class="keyword">return</span> @&#123;<span class="string">@&quot;lat&quot;</span>: @(coordinate.latitude), <span class="string">@&quot;lon&quot;</span>: @(coordinate.longitude)&#125;;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="enum-↔︎-JSON-string"><a href="#enum-↔︎-JSON-string" class="headerlink" title="enum ↔︎ JSON string"></a>enum ↔︎ JSON string</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)relationshipStatusJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> mtl_valueMappingTransformerWithDictionary:@&#123;</span><br><span class="line">        <span class="string">@&quot;single&quot;</span>: @(<span class="built_in">CATRelationshipStatusSingle</span>),</span><br><span class="line">        <span class="string">@&quot;relationship&quot;</span>: @(<span class="built_in">CATRelationshipStatusInRelationship</span>),</span><br><span class="line">        <span class="string">@&quot;complicated&quot;</span>: @(<span class="built_in">CATRelationshipStatusComplicated</span>)</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="BOOL-↔︎-JSON-boolean"><a href="#BOOL-↔︎-JSON-boolean" class="headerlink" title="BOOL ↔︎ JSON boolean"></a>BOOL ↔︎ JSON boolean</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)awesomeJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> valueTransformerForName:<span class="built_in">MTLBooleanValueTransformerName</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="从JSON创建模型对象"><a href="#从JSON创建模型对象" class="headerlink" title="从JSON创建模型对象"></a>从JSON创建模型对象</h3><p>一旦模型配置完成，就该获得JSON对象从API中，并且把它转换成我们模型的一个实例。首先，我们需要把JSON呈现转换成一个<code>NSDictionary</code>,它能够用来通过<code>Mantle</code>来创建我们的模型，很幸运的是iOS提供了一个非常棒的方法来处理它，就是通过<code>NSJSONSerialization</code>。</p>
+<p>那样以后，<code>MTLJSONAdapter</code>类就能利用<code>Mantle</code>做繁重的工作来创建我们的模型。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create NSDictionary from JSON data</span></span><br><span class="line"><span class="built_in">NSData</span> JSONData = ... <span class="comment">// the JSON response from the API</span></span><br><span class="line"><span class="built_in">NSDictionary</span> *JSONDict = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:JSONData options:<span class="number">0</span> error:<span class="literal">NULL</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// create model object from NSDictionary using MTLJSONSerialisation</span></span><br><span class="line"><span class="built_in">CATProfile</span> *profile = [<span class="built_in">MTLJSONAdapter</span> modelOfClass:<span class="built_in">CATProfile</span>.class fromJSONDictionary:JSONDict error:<span class="literal">NULL</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="从模型对象创建JSON"><a href="#从模型对象创建JSON" class="headerlink" title="从模型对象创建JSON"></a>从模型对象创建JSON</h3><p><code>MTLJSONAdapter</code>也有能力创建一个字典从我们的的模型类中，以便能直接编码回一个JSON字符串。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create NSDictionary from model class using MTLJSONSerialisation</span></span><br><span class="line"><span class="built_in">CATProfile</span> *profile = ...</span><br><span class="line"><span class="built_in">NSDictionary</span> *profileDict = [<span class="built_in">MTLJSONAdapter</span> JSONDictionaryFromModel:profile];</span><br><span class="line"></span><br><span class="line"><span class="comment">// convert NSDictionary to JSON data</span></span><br><span class="line"><span class="built_in">NSData</span> *JSONData = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:profileDict options:<span class="number">0</span> error:<span class="literal">NULL</span>];</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>假如当创建一个JSON呈现你的模型是在你的模型中有一个属性不应该包括，你应该返回<code>NSNull.null</code>,例如。在<code>+JSONKeyPathsByPropertyKey</code>的@{“name” : “NSNull.null”}。<code>Mantle</code>将安全的忽略这个属性。</p>
+</blockquote>
+<h3 id="映射数组和字典"><a href="#映射数组和字典" class="headerlink" title="映射数组和字典"></a>映射数组和字典</h3><p>大多数情况，模型和其他模型有关系，这些关系普遍通过JSON数组或者对象来呈现。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Objective Cat&quot;</span><span class="punctuation">,</span></span><br><span class="line">  ...<span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">&quot;owner&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">99</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Alexander Schuch&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;friends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Owly&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bird&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hedgy&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mammal&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Mantle</code>支持映射这些关系到新的模型，为了让<code>Mantle</code>知道怎样变换关系，我们可以使用下面提供的分类方法中的一个来返回<code>NSValueTransformer</code>。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)mtl_JSONDictionaryTransformerWithModelClass:(Class)modelClass;</span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)mtl_JSONArrayTransformerWithModelClass:(Class)modelClass;</span><br></pre></td></tr></table></figure>
+
+<p>当然<code>Mantle</code>需要知道这些官和他们的将要转换的<code>MTLModel</code>子类，就像和创建一个新的<code>MTLModel</code>子类并且实现将要映射到这些对象的<code>MTLJSONSerializing</code>协议一样简单。然后我们可以添加一些新的属性到我们<code>CATProfile</code>类中并且实现两个新的转换器。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CATProfile.h</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CATOwner</span> *owner;   <span class="comment">// CATOwner is a MTLModel subclass</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSArray</span> *friends;  <span class="comment">// Array of CATFriend objects</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CATProfile.m</span></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)ownerJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> mtl_JSONDictionaryTransformerWithModelClass:<span class="built_in">CATOwner</span>.class];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)friendsJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> mtl_JSONArrayTransformerWithModelClass:<span class="built_in">CATFriend</span>.class];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一些有用的补充"><a href="#一些有用的补充" class="headerlink" title="一些有用的补充"></a>一些有用的补充</h3><p>我们简单的聊了一下<code>NSValueTransformer</code>在前面,<code>NSValueTransformer</code>有一个非常棒的特征让通过名字全局注册一个变换器成为可能。假如你正在使用相同的变换器在你整个app中，确保子类化<code>NSValueTransformer</code>，注册你的自定义变换器一次并且在你随后的<code>MTLModels</code>中使用它。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// In CATProfile.m</span></span><br><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> kCATCustomValueTransformerName = <span class="string">@&quot;CATCustomValueTransformer&quot;</span>;</span><br><span class="line"></span><br><span class="line">+ (<span class="type">void</span>)initialize</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// Register NSValueTransformer</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">self</span> == <span class="built_in">CATProfile</span>.class) &#123;</span><br><span class="line">    <span class="built_in">CATCustomValueTransformer</span> *transformer = [<span class="built_in">CATCustomValueTransformer</span> new];</span><br><span class="line">    [<span class="built_in">NSValueTransformer</span> setValueTransformer:transformer forName:kCATCustomValueTransformerName];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Then use the custom transformer to translate properties using Mantle</span></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)whateverPropertyJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> valueTransformerForName:kCATCustomValueTransformerName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><code>Mantle</code>是一个非常棒的补充处理<code>JSON</code>APIs，然而，你也必须意识到假如你不得不处理非常复杂的数据或者不稳定的APIs它也是不合适的。</p>
+<p>参考资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.objc.at/mantle">Mantle-Cat</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MantleFramework/Mantle">Mantle Framework on Github</a></li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.com/nsvaluetransformer/">NSValueTransformer at NSHipster</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.dominikgruber.com/articles/2013/08/mantle-as-a-model-layer-for-ios-and-os-x-apps">Mantle as a Model Layer for iOS and OS X Apps</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/10/23/ios_model_framework_benchmark/">iOS JSON 模型转换库评测</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/31/2016-01-31-3chong-fang-shi-shi-xian-iosmo-hu-xiao-guo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/31/2016-01-31-3chong-fang-shi-shi-xian-iosmo-hu-xiao-guo/" class="post-title-link" itemprop="url">4种方式实现iOS模糊效果</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-31 23:12:52" itemprop="dateCreated datePublished" datetime="2016-01-31T23:12:52+08:00">2016-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>704</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>介绍iOS中以下四种方式实现：</p>
+<ul>
+<li><code>CoreImage</code>中的模糊滤镜</li>
+<li><code>UIImage + ImageEffects</code>的category模糊效果</li>
+<li>iOS8中<code>UIVisualEffectView</code>模糊效果</li>
+<li>iOS7以后通过<code>UIToolBar</code>实现模糊效果</li>
+</ul>
+<h3 id="CoreImage中的模糊滤镜实现"><a href="#CoreImage中的模糊滤镜实现" class="headerlink" title="CoreImage中的模糊滤镜实现"></a><code>CoreImage</code>中的模糊滤镜实现</h3><p><code>CoreImage</code>主要通过<code>CIFilter</code>这个类来实现。</p>
+<p>这个类支持的滤镜多达14类，每个类又细分多款滤镜：</p>
+<ol>
+<li>CICategoryBlur<ul>
+<li>CIBoxBlur</li>
+<li>CIDiscBlur</li>
+<li><strong>CIGaussianBlur</strong></li>
+<li>CIMaskedVariableBlur</li>
+<li>CIMedianFilter</li>
+<li>CIMotionBlur</li>
+<li>CINoiseReduction</li>
+<li>CIZoomBlur</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>CICategoryColorAdjustment<ul>
+<li>CIColorClamp</li>
+<li>CIColorControls</li>
+<li>CIColorMatrix</li>
+<li>CIColorPolynomial</li>
+<li>CIExposureAdjust</li>
+<li>CIGammaAdjust</li>
+<li>CIHueAdjust</li>
+<li>CILinearToSRGBToneCurve</li>
+<li>CISRGBToneCurveToLinear</li>
+<li>CITemperatureAndTint</li>
+<li>CIToneCurve</li>
+<li>CIVibrance</li>
+<li>CIWhitePointAdjust</li>
+</ul>
+</li>
+<li>CICategoryColorEffect</li>
+<li>CICategoryCompositeOperation</li>
+<li>CICategoryDistortionEffect</li>
+<li>CICategoryGenerator</li>
+<li>CICategoryGeometryAdjustment</li>
+<li>CICategoryGradient</li>
+<li>CICategoryHalftoneEffect</li>
+<li>CICategoryReduction</li>
+<li>CICategorySharpen</li>
+<li>CICategoryStylize</li>
+<li>CICategoryTileEffect</li>
+<li>CICategoryTransition</li>
+</ul>
+<p>我们这里使用的是高斯模糊，也就是<code>CIGaussianBlur</code>。</p>
+<p><strong>Sample Code：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UIImage *avatar = [UIImage imageNamed:@&quot;avatar&quot;];</span><br><span class="line"></span><br><span class="line">/********** CoreImage ************/</span><br><span class="line"></span><br><span class="line">// CIImage</span><br><span class="line">CIImage *ciImage = [[CIImage alloc] initWithImage:avatar];</span><br><span class="line"></span><br><span class="line">// CIFilter</span><br><span class="line">CIFilter *blurFilter = [CIFilter filterWithName:@&quot;CIGaussianBlur&quot;];</span><br><span class="line"></span><br><span class="line">// 设置模糊滤镜半径</span><br><span class="line">[blurFilter setValue:@(20) forKey:@&quot;inputRadius&quot;];</span><br><span class="line"></span><br><span class="line">// 将图片输入到滤镜</span><br><span class="line">[blurFilter setValue:ciImage forKey:kCIInputImageKey];</span><br><span class="line"></span><br><span class="line">// 将处理好的图片输出</span><br><span class="line">CIImage *outCiImage = [blurFilter valueForKey:kCIOutputImageKey];</span><br><span class="line"></span><br><span class="line">// 查询可以设置的参数和一些信息</span><br><span class="line">NSLog(@&quot;%@&quot;,[blurFilter attributes]);</span><br><span class="line"></span><br><span class="line">// CIContext</span><br><span class="line">CIContext *contex = [CIContext contextWithOptions:nil];</span><br><span class="line"></span><br><span class="line">// 获取CGImage句柄</span><br><span class="line">CGImageRef outCGImage = [contex createCGImage:outCiImage fromRect:[outCiImage extent]];</span><br><span class="line"></span><br><span class="line">// 最终获取到图片</span><br><span class="line">UIImage *blurImage = [UIImage imageWithCGImage:outCGImage];</span><br><span class="line"></span><br><span class="line">// 释放CGImage句柄</span><br><span class="line">CGImageRelease(outCGImage);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>此时<code>blurImage</code>图片就是经过滤镜处理后的图片，在放在<code>ImageView</code>上加载即可看到效果。</p>
+<p><img src="/images/img_blur.jpg" alt="avatar"></p>
+<h3 id="UIImage-ImageEffects的category模糊效果"><a href="#UIImage-ImageEffects的category模糊效果" class="headerlink" title="UIImage + ImageEffects的category模糊效果"></a><code>UIImage + ImageEffects</code>的category模糊效果</h3><p>使用Apple开源的一个图片处理分类来实现，这个使用起来只需一行代码，简洁明了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UIImage *blurImage = [sourceImage blurImage];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里封装了一个区域模糊效果的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (UIImage *)blurImageAtFrame:(CGRect)frame;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="iOS8中UIVisualEffectView模糊效果"><a href="#iOS8中UIVisualEffectView模糊效果" class="headerlink" title="iOS8中UIVisualEffectView模糊效果"></a>iOS8中<code>UIVisualEffectView</code>模糊效果</h3><p>这个效果只支持iOS8.0以上的版本，通过<code>UIVisualEffectView</code>来实现。</p>
+<p><strong>Sample Code：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 1.创建模糊view</span><br><span class="line">   UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];</span><br><span class="line">   </span><br><span class="line">   // 2.设置尺寸</span><br><span class="line">   effectView.frame = CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 200);</span><br><span class="line">   </span><br><span class="line">   // 3.添加到view当中</span><br><span class="line">   [self.view addSubview:effectView];</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+
+<p><strong>😊Bonus:</strong><br>实现iOS高版本通知中心炫酷的Label模糊效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 添加一个文本标签</span><br><span class="line">   UILabel *label = [[UILabel alloc] initWithFrame:effectView.bounds];</span><br><span class="line">   label.text = @&quot;www.blog.wangruofeng007&quot;;</span><br><span class="line">   label.textAlignment = NSTextAlignmentCenter;</span><br><span class="line">   label.font = [UIFont systemFontOfSize:30];</span><br><span class="line">   [effectView.contentView addSubview:label];</span><br><span class="line">   </span><br><span class="line">   /***************** 添加模糊效果 *****************/</span><br><span class="line">   </span><br><span class="line">   // 1.创建子模糊view</span><br><span class="line">   UIVisualEffectView *subEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIVibrancyEffect effectForBlurEffect:(UIBlurEffect *)effectView.effect]];</span><br><span class="line">   </span><br><span class="line">   // 2.设定尺寸</span><br><span class="line">   subEffectView.frame = effectView.bounds;</span><br><span class="line">   </span><br><span class="line">   // 3.将子模糊view添加到effectView的contenView才能生效</span><br><span class="line">   [effectView.contentView addSubview:subEffectView];</span><br><span class="line">   </span><br><span class="line">   // 4.添加要显示的view来达到特殊的效果</span><br><span class="line">   [subEffectView.contentView addSubview:label];</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<img src="https://github.com/wangruofeng/BlurEffectDemo/raw/master/sample.png" style="witdh:50%; height:50%">
+</img>
+
+<p>Demo地址：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/BlurEffectDemo">BlurEffectDemo 
+</a> – 本文效果Demo</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/UIVisualEffects_Objective-c">UIVisualEffects_Objective-c</a> – 详细介绍<code>UIVisualEffects</code>的使用</li>
+</ul>
+<h3 id="iOS7以后通过UIToolBar实现模糊效果"><a href="#iOS7以后通过UIToolBar实现模糊效果" class="headerlink" title="iOS7以后通过UIToolBar实现模糊效果"></a>iOS7以后通过<code>UIToolBar</code>实现模糊效果</h3><p>在iOS7以后，<code>UINavigationBar</code>和<code>UIToolBar</code>自带毛玻璃模糊效果，可以通过手动创建<code>UIToolBar</code>对象，然后添加到view中实现，UIToolBar区域就可以实现动态毛玻璃模糊效果。</p>
+<p>例如在一个状态栏后方添加一个模糊view,可以在控制器中这样实现，假设没有导航栏</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIToolbar *statusBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];</span><br><span class="line">[self.view addSubview:statusBar];</span><br></pre></td></tr></table></figure>
+
+<p>这个方法非常简单实用😊，快去试试吧。</p>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_tasks/ci_tasks.html">Core Image Programming Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html">Core Image Filter Reference</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/UIImageBlur">UIImageBlur</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

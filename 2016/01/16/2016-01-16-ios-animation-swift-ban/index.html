@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="简介此文主要记录我学习iOS的动画相关内容用Swift语言，记录下来以供参考，不定时更新。 目录结构 Section I: View 动画 View animation 弹簧动画 - Springs 转场动画 - Transitions 关键帧动画 - Keyframe   Section II: Auto Layout 动画 Section III: Layer 动画 Section IV:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Animation Swift 版">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2016/01/16/2016-01-16-ios-animation-swift-ban/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="简介此文主要记录我学习iOS的动画相关内容用Swift语言，记录下来以供参考，不定时更新。 目录结构 Section I: View 动画 View animation 弹簧动画 - Springs 转场动画 - Transitions 关键帧动画 - Keyframe   Section II: Auto Layout 动画 Section III: Layer 动画 Section IV:">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/64124373gw1f0g7yyn3ipj20co0c60tw.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/64124373gw1f0g87cuk9cj20zi034dh2.jpg">
+<meta property="article:published_time" content="2016-01-16T11:34:06.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.404Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="动画">
+<meta property="article:tag" content="iWatch OS2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2016/01/16/2016-01-16-ios-animation-swift-ban/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            iOS Animation Swift 版 | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/16/2016-01-16-ios-animation-swift-ban/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS Animation Swift 版
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-16 19:34:06" itemprop="dateCreated datePublished" datetime="2016-01-16T19:34:06+08:00">2016-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation"></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>此文主要记录我学习iOS的动画相关内容用<code>Swift</code>语言，记录下来以供参考，不定时更新。</p>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
+<li>Section I: View 动画<ul>
+<li>View animation</li>
+<li>弹簧动画 - Springs</li>
+<li>转场动画 - Transitions</li>
+<li>关键帧动画 - Keyframe</li>
+</ul>
+</li>
+<li>Section II: Auto Layout 动画</li>
+<li>Section III: Layer 动画</li>
+<li>Section IV: 3D 动画</li>
+<li>Section V: 未来类型的动画</li>
+<li>Section VI: View Controller 动画</li>
+<li>Section VII：第三方动画库</li>
+<li>Section VIII: Apple Watch 动画</li>
+</ul>
+<h4 id="Section-I-View-动画"><a href="#Section-I-View-动画" class="headerlink" title="Section I: View 动画"></a>Section I: View 动画</h4><h5 id="1-View-animation"><a href="#1-View-animation" class="headerlink" title="1.View animation"></a>1.View animation</h5><p>简介：view 的动画主要是通过UIView的类方法创建，动画内容一般<br>放在block里面，可以镶嵌使用，构成链式动画，主要有3个方法,三个访法只需会参数最多的那个就行，函数名<code>animateWithDuration(_:delay:options:animations:completion:)</code>，其他的使用起来都类似。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, animations animations: () -&gt; <span class="type">Void</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, animations animations: () -&gt; <span class="type">Void</span>, completion completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, delay delay: <span class="type">NSTimeInterval</span>, options options: <span class="type">UIViewAnimationOptions</span>, animations animations: () -&gt; <span class="type">Void</span>, completion completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.5</span>, delay: <span class="number">0</span>, options: [], animations: &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">  &#125;, completion: &#123;<span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>说明：<code>options</code>，动画选项，这个运行你设置一个动画选项集合，传<code>[]</code>表示不需要选项，单个时可以省略放括号例如<code>.Repeat</code>,多个用逗号连接<code>[.Repeat, .CurveEaseInOut]</code></p>
+</blockquote>
+<blockquote>
+<p><code>completion</code>闭包需要一个参数，不需要使用参数可以用<code>_</code>表示，不需要实现可以直接传<code>nil</code></p>
+</blockquote>
+<p>或者像下面这样写</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.5</span>, delay: <span class="number">0</span>, options: [], animations: &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">  <span class="comment">//do something</span></span><br><span class="line">  &#125;) &#123; (<span class="keyword">_</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">  <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-弹簧动画-Springs"><a href="#2-弹簧动画-Springs" class="headerlink" title="2.弹簧动画 - Springs"></a>2.弹簧动画 - Springs</h5><p>简介：弹簧动画是iOS 7.0新增的API，函数名<code>animateWithDuration(_:delay:usingSpringWithDamping:initialSpringVelocity:opti ons:animations:completion:)</code>，</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, delay delay: <span class="type">NSTimeInterval</span>, usingSpringWithDamping dampingRatio: <span class="type">CGFloat</span>, initialSpringVelocity velocity: <span class="type">CGFloat</span>, options options: <span class="type">UIViewAnimationOptions</span>, animations animations: () -&gt; <span class="type">Void</span>, completion completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.5</span>, delay: <span class="number">0.5</span>, usingSpringWithDamping: <span class="number">0.5</span>, initialSpringVelocity: <span class="number">0.0</span>, options: [], animations: &#123;</span><br><span class="line"><span class="comment">// do something</span></span><br><span class="line">&#125;, completion: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>说明：<code>usingSpringWithDamping</code>:设置弹簧的阻尼，范围（0.0-1.0），越接近0.0弹簧越有弹性，越接近1.0，效果越僵硬，你可以把当成弹簧的刚度来理解，<br><code>initialSpringVelocity</code>:设置弹簧初始化的速度，设置1.0表示用1秒在动画跨度上完成整个动画距离，值越大或者越小会导致动画有相应的大的或者较小的速度，可以当成弹簧的初始动量来理解。</p>
+</blockquote>
+<h5 id="3-转场动画-Transitions"><a href="#3-转场动画-Transitions" class="headerlink" title="3.转场动画 - Transitions"></a>3.转场动画 - Transitions</h5><p>简介：前两种创建的动画是基于可动画的接口例如，position，alpha，frame等等，Transitions是专门处理添加或者移除一个view的动画,系统有2个标准函数，一个是对单个view的处理，一个是处理2个view替换。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> transitionWithView(<span class="keyword">_</span> view: <span class="type">UIView</span>, duration duration: <span class="type">NSTimeInterval</span>, options options: <span class="type">UIViewAnimationOptions</span>, animations animations: (() -&gt; <span class="type">Void</span>)<span class="operator">?</span>, completion completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> transitionFromView(<span class="keyword">_</span> fromView: <span class="type">UIView</span>, toView toView: <span class="type">UIView</span>, duration duration: <span class="type">NSTimeInterval</span>, options options: <span class="type">UIViewAnimationOptions</span>, completion completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//add the new view via transition</span></span><br><span class="line"><span class="type">UIView</span>.transitionWithView(animationContainerView<span class="operator">!</span>, duration: <span class="number">0.33</span>,</span><br><span class="line">options: [.<span class="type">CurveEaseOut</span>, .<span class="type">TransitionFlipFromBottom</span>], animations: &#123;</span><br><span class="line"><span class="keyword">self</span>.animationContainerView<span class="operator">!</span>.addSubview(newView) &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//remove the view via transition</span></span><br><span class="line"><span class="type">UIView</span>.transitionWithView(animationContainerView<span class="operator">!</span>, duration: <span class="number">0.33</span>,</span><br><span class="line">options: [.<span class="type">CurveEaseOut</span>, .<span class="type">TransitionFlipFromBottom</span>], animations: &#123;</span><br><span class="line"><span class="keyword">self</span>.newView.removeFromSuperview() &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//hide the view via transition</span></span><br><span class="line"><span class="type">UIView</span>.transitionWithView(<span class="keyword">self</span>.newView, duration: <span class="number">0.33</span>, options: [.<span class="type">CurveEaseOut</span>, .<span class="type">TransitionFlipFromBottom</span>], animations: &#123;</span><br><span class="line"><span class="keyword">self</span>.newView.hidden <span class="operator">=</span> <span class="literal">true</span> &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//replace via transition</span></span><br><span class="line"><span class="type">UIView</span>.transitionFromView(<span class="keyword">self</span>.oldView<span class="operator">!</span>, toView: <span class="keyword">self</span>.newView<span class="operator">!</span>, duration: <span class="number">0.33</span>, options: [.<span class="type">TransitionFlipFromTop</span>],</span><br><span class="line">completion: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-关键帧动画-Keyframe"><a href="#4-关键帧动画-Keyframe" class="headerlink" title="4.关键帧动画 - Keyframe"></a>4.关键帧动画 - Keyframe</h5><p>简介：关键帧顾名思义就是设定关键的一些帧然后系统会根据一套算法计算中间的其他帧，这样改变的可动画属性时看看起来更加流畅自然，主要有两个函数,一个创建关键帧动画，一个设置具体每帧内容</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateKeyframesWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, delay delay: <span class="type">NSTimeInterval</span>, options options: <span class="type">UIViewKeyframeAnimationOptions</span>, animations animations: () -&gt; <span class="type">Void</span>, completion completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span>)</span><br><span class="line"><span class="operator">+</span> (void)addKeyframeWithRelativeStartTime:(double)frameStartTime relativeDuration:(double)frameDuration animations:(void (<span class="operator">^</span>)(void))animations</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">planeDepart</span>() &#123;</span><br><span class="line"></span><br><span class="line">  <span class="type">UIView</span>.animateKeyframesWithDuration(<span class="number">1.5</span>, delay: <span class="number">0.0</span>, options: [], animations: &#123;</span><br><span class="line">    <span class="comment">//add keyframes</span></span><br><span class="line"></span><br><span class="line">    <span class="type">UIView</span>.addKeyframeWithRelativeStartTime(<span class="number">0.0</span>, relativeDuration: <span class="number">0.25</span>, animations: &#123;</span><br><span class="line">      <span class="keyword">self</span>.planeImage.center.x <span class="operator">+=</span> <span class="number">100.0</span></span><br><span class="line">      <span class="keyword">self</span>.planeImage.center.y <span class="operator">-=</span> <span class="number">10.0</span></span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="type">UIView</span>.addKeyframeWithRelativeStartTime(<span class="number">0.1</span>, relativeDuration: <span class="number">0.4</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.planeImage.transform <span class="operator">=</span> <span class="type">CGAffineTransformMakeRotation</span>(<span class="type">CGFloat</span>(<span class="operator">-</span><span class="type">M_PI_4</span><span class="operator">/</span><span class="number">2</span>))</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="type">UIView</span>.addKeyframeWithRelativeStartTime(<span class="number">0.25</span>, relativeDuration: <span class="number">0.25</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.planeImage.center.x <span class="operator">+=</span> <span class="number">100.0</span></span><br><span class="line">        <span class="keyword">self</span>.planeImage.center.y <span class="operator">-=</span> <span class="number">60.0</span></span><br><span class="line">        <span class="keyword">self</span>.planeImage.alpha <span class="operator">=</span> <span class="number">0.0</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="type">UIView</span>.addKeyframeWithRelativeStartTime(<span class="number">0.51</span>, relativeDuration: <span class="number">0.01</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.planeImage.transform <span class="operator">=</span> <span class="type">CGAffineTransformIdentity</span></span><br><span class="line">        <span class="keyword">self</span>.planeImage.center <span class="operator">=</span> <span class="type">CGPoint</span>(x: <span class="number">0.0</span>, y: originalCenter.y)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="type">UIView</span>.addKeyframeWithRelativeStartTime(<span class="number">0.55</span>, relativeDuration: <span class="number">0.45</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.planeImage.alpha <span class="operator">=</span> <span class="number">1.0</span></span><br><span class="line">        <span class="keyword">self</span>.planeImage.center <span class="operator">=</span> originalCenter</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>说明：这是设计一个飞机沿一条路径起飞然后再归位的一段动画，<code>addKeyframeWithRelativeStartTime(_:relativeDuration:animations:)</code>,第一个参数相对开始时间，是相对于动画持续时间的百分比，例如0.1就是10%，0.25就是25%，如果整个动画持续2秒，0.1就是在2*0.1&#x3D;0.2秒的时候开始，后面的一个参数是相对持续时间，范围更第一参数类似也(0.0-1.0),只从相对开始时间起，往后推移的相对时间。</p>
+</blockquote>
+<h4 id="Section-II-Auto-Layout-动画"><a href="#Section-II-Auto-Layout-动画" class="headerlink" title="Section II: Auto Layout 动画"></a>Section II: Auto Layout 动画</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// change Constraint</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// init layout</span></span><br><span class="line">view.layoutIfNeeded()</span><br><span class="line"></span><br><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.8</span>, delay: <span class="number">0.0</span>,</span><br><span class="line">      usingSpringWithDamping: <span class="number">0.4</span>, initialSpringVelocity: <span class="number">0.0</span>,</span><br><span class="line">      options: [], animations: &#123;</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// do something change constraint</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// layout</span></span><br><span class="line">        <span class="keyword">self</span>.view.layoutIfNeeded()</span><br><span class="line">      &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<p>原理就是，修改约束,让添加一个动画，在动画<code>block</code>里面执行布局更新，<code>block</code>里面也可以添加修改约束代码，修改约束的本质是修改相关<code>View</code>的<code>frame</code>和<code>bounds</code>，由于修改<code>View</code>的这个属性是支持动画的，所以修改约束其实是间接修改<code>View</code>的这些属性，所有也是支持动画的，这个动画的强大的之处在于，可以实现一系列<code>View</code>相互协作的动画。</p>
+<h4 id="Section-VIII-Apple-Watch-动画"><a href="#Section-VIII-Apple-Watch-动画" class="headerlink" title="Section VIII: Apple Watch 动画"></a>Section VIII: Apple Watch 动画</h4><p>概述：在Apple Watch 中有两种技术来创建动画，一个是一次性创建一系列静态可动画的图片序列或者循环动画，另一种是对标签和其他项目通过改变尺寸，对齐，颜色，透明度进行布局和外观动画。</p>
+<p><strong>Animated Image Sequences</strong></p>
+<p><code>Animated Image Sequences</code>是由两个或者更多的独立图片组成的序列来随时间按序列显示。每张图片组成了动画的一个单独的帧，整个动画运行在一个循环中除了你在运行的时候修改了播放的行为。主要把它安装在你界面中的<code>image</code>，<code>group</code>,<code>button</code>等元素中。通过<code>WKImageAnimatable</code>协议来实现动画，也就是说凡是遵循这个协议的对象都支持动画，<code>WatchKit</code>中遵循这个协议的对象有：<code>WKInterfaceGroup</code>，<code>WKInterfaceImage</code></p>
+<p>你可以控制<code>image</code>和<code>group</code>元素<code>Animated Image Sequences</code>的播放的速度，方向，帧率,否则界面元素将会无限循环显示一个完整的动画。</p>
+<blockquote>
+<p>Notes:</p>
+</blockquote>
+<ol>
+<li><code>Animated Image Sequences</code>可以正向播放动画也可以反向执行动画在运行的时候，你不应该提供一套一样的图片以反向的方式，你应该使用这个技术来降低App的尺寸。</li>
+<li>如果你是从<code>storyboard</code>创建序列图片对象，可以通过<code>func startAnimating()</code>方法开始执行动画，通过<code>func stopAnimating()</code>来停止动画的执行。</li>
+</ol>
+<p>实例：</p>
+<p>实现<code>WKInterfaceGroup</code>加载进度动画</p>
+<p>1.在<code>Watch</code>里面的<code>Interface.storyboard</code>里面拖拽一个<code>WKInterfaceGroup</code>命名为<code>backgroundGroup</code><br>2.创建一个<code>WKInterfaceButton</code>按钮来触发这个动画事件,在控制器里面实现下面的代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@IBAction</span> <span class="keyword">func</span> <span class="title function_">checkInButtonTapped</span>() &#123;</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">let</span> duration <span class="operator">=</span> <span class="number">0.35</span></span><br><span class="line">    <span class="keyword">let</span> delay <span class="operator">=</span> dispatch_time(<span class="type">DISPATCH_TIME_NOW</span>, <span class="type">Int64</span>((duration <span class="operator">+</span> <span class="number">0.15</span>) <span class="operator">*</span> <span class="type">Double</span>(<span class="type">NSEC_PER_SEC</span>)))</span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    backgroundGroup.setBackgroundImageNamed(<span class="string">&quot;Progress&quot;</span>)</span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    backgroundGroup.startAnimatingWithImagesInRange(<span class="type">NSRange</span>(location: <span class="number">0</span>, length: <span class="number">10</span>), duration: duration, repeatCount: <span class="number">1</span>)</span><br><span class="line">    <span class="comment">// 4</span></span><br><span class="line">    dispatch_after(delay, dispatch_get_main_queue()) &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">      <span class="comment">// 5</span></span><br><span class="line">      dosomething</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参数说明：<code>imageRange</code>,将要执行动画的图片范围，<code>0</code>表示第一张图片，<code>1</code>表示第二张图片，以此类推；<code>duration</code>,单位秒，表示动画执行单个循环的时间，<code>正值</code>表示从第一帧到最后一帧执行，<code>负值</code>表示以相反的顺序执行动画，以第一帧结束；<code>repeatCount</code>,动画的重复次数，设置<code>0</code>表示无限循环。</p>
+</blockquote>
+<p>3.将素材文件拖入<code>Watch</code>的<code>Asset.xcassets</code>的文件里面，以<code>Progress</code>开始命名后面接一串连续的数字，效果应该像下面这样。</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1f0g7yyn3ipj20co0c60tw.jpg" alt="iWatchProgress"></p>
+<p>4.然后在模拟器上运行就OK了。</p>
+<p><strong>Layout and Appearance Animations</strong></p>
+<p>你可以动画改变所有界面元素的布局和外观。动画改变布局让你修改元素的尺寸或者动态的改变布局的方向。你可以移动在屏幕上的元素或者让它们的内容重新对齐。你也可以动画改变元素的外观，包括改变他们的<code>backgroud color</code>或者<code>opactiy</code>。这些类型的动画让你创建动态的界面用来响应用户的交互并且提供一个更好的反馈。</p>
+<p>所有的<code>layout- and appearance-based animations</code>在动画开始和结束都以<code>easing</code>的曲线方式自动构建 。你不能关闭或者自定义缓动曲线。相当于<code>UIView</code>的动画选项里面的<code>easeInOut</code>。</p>
+<p>可动画属性：</p>
+<ul>
+<li>Opacity</li>
+<li>Height</li>
+<li>Width</li>
+<li>Group Insets</li>
+<li>Alignment</li>
+<li>Background Color</li>
+<li>Tint Color</li>
+</ul>
+<p>核心代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, animations animations: () -&gt; <span class="type">Void</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>说明:这个方法在<code>WKInterfaceController</code>中，目前发现只有这一个动画API，你可以在这个闭包里面执行相应的动画操作，实现跟<code>UIView</code>的block动画类似。</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f0g87cuk9cj20zi034dh2.jpg" alt="iWatchAnimation"></p>
+<p>实例：</p>
+<blockquote>
+<p>在界面已经出现的时候对<code>planeImage</code>进行着色动画,改变<code>separator</code>的颜色</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> planeImage: <span class="type">WKInterfaceImage</span>!</span><br><span class="line"><span class="keyword">var</span> separator: <span class="type">WKInterfaceSeparator</span>!</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">didAppear</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>.didAppear()</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">      animateWithDuration(<span class="number">0.35</span>, animations: &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 2</span></span><br><span class="line">        <span class="keyword">let</span> color <span class="operator">=</span> <span class="type">UIColor</span>(red: <span class="number">90</span><span class="regexp">/255, green: 200/</span><span class="number">255</span>, blue: <span class="number">250</span><span class="operator">/</span><span class="number">255</span>, alpha: <span class="number">1</span>)</span><br><span class="line">        planeImage.setTintColor(color)</span><br><span class="line">        separator.setColor(color)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/">Apple Human-interface-guidelines</a> – Apple</li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/index.html#//apple_ref/doc/uid/TP40014969-CH8-SW1">Apple WatchKit Programming Guide</a> – Apple</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ipader/SwiftGuide/blob/master/Apple%20Watch/README.md">Apple Watch</a> – SwiftGuide</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ipader/SwiftGuide">Swift Guide</a> – SwiftGuide</li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2016/01/16/2016-01-16-ios-animation-swift-ban/" title="iOS Animation Swift 版">https://blog.wangruofeng007.com/2016/01/16/2016-01-16-ios-animation-swift-ban/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E7%94%BB/" rel="tag"># 动画</a>
+              <a href="/tags/iWatch-OS2/" rel="tag"># iWatch OS2</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/15/2016-01-15-nsurlsession/" rel="prev" title="NSURLSession 教程">
+      <i class="fa fa-chevron-left"></i> NSURLSession 教程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/18/2016-01-18-tableviewxing-neng-you-hua/" rel="next" title="TableView性能优化">
+      TableView性能优化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Section-I-View-%E5%8A%A8%E7%94%BB"><span class="nav-number">2.1.</span> <span class="nav-text">Section I: View 动画</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-View-animation"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.View animation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%BC%B9%E7%B0%A7%E5%8A%A8%E7%94%BB-Springs"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.弹簧动画 - Springs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB-Transitions"><span class="nav-number">2.1.3.</span> <span class="nav-text">3.转场动画 - Transitions</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-%E5%85%B3%E9%94%AE%E5%B8%A7%E5%8A%A8%E7%94%BB-Keyframe"><span class="nav-number">2.1.4.</span> <span class="nav-text">4.关键帧动画 - Keyframe</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Section-II-Auto-Layout-%E5%8A%A8%E7%94%BB"><span class="nav-number">2.2.</span> <span class="nav-text">Section II: Auto Layout 动画</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Section-VIII-Apple-Watch-%E5%8A%A8%E7%94%BB"><span class="nav-number">2.3.</span> <span class="nav-text">Section VIII: Apple Watch 动画</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

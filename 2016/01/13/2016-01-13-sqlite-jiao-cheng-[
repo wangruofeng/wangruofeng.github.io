@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="简介：SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。SQLite 源代码不受版权限制。本教程将告诉您如何使用 SQLite 编程，并让你迅速上手。 什么是 SQLite？SQLite是一个进程内的库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。它是一个零配置的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLite_教程(一)">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-sqlite-jiao-cheng-[">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="简介：SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。SQLite 源代码不受版权限制。本教程将告诉您如何使用 SQLite 编程，并让你迅速上手。 什么是 SQLite？SQLite是一个进程内的库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。它是一个零配置的数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-01-13T15:18:15.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.401Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="技术博客, Flutter, iOS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-sqlite-jiao-cheng-[">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            SQLite_教程(一) | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-sqlite-jiao-cheng-[?%5D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQLite_教程(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 23:18:15" itemprop="dateCreated datePublished" datetime="2016-01-13T23:18:15+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h4><p>SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。SQLite 源代码不受版权限制。<br>本教程将告诉您如何使用 SQLite 编程，并让你迅速上手。</p>
+<h4 id="什么是-SQLite？"><a href="#什么是-SQLite？" class="headerlink" title="什么是 SQLite？"></a>什么是 SQLite？</h4><p>SQLite是一个进程内的库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。它是一个零配置的数据库，这意味着与其他数据库一样，您不需要在系统中配置。<br>就像其他数据库，SQLite 引擎不是一个独立的进程，可以按应用程序需求进行静态或动态连接。SQLite 直接访问其存储文件</p>
+<h4 id="为什么要用-SQLite？"><a href="#为什么要用-SQLite？" class="headerlink" title="为什么要用 SQLite？"></a>为什么要用 SQLite？</h4><ul>
+<li>不需要一个单独的服务器进程或操作的系统（无服务器的）。</li>
+<li>SQLite 不需要配置，这意味着不需要安装或管理。</li>
+<li>一个完整的 SQLite 数据库是存储在一个单一的跨平台的磁盘文件。</li>
+<li>SQLite 是非常小的，是轻量级的，完全配置时小于 400KiB，省略可选功能配置时小于250KiB。</li>
+<li>SQLite 是自给自足的，这意味着不需要任何外部的依赖。</li>
+<li>SQLite 事务是完全兼容 ACID 的，允许从多个进程或线程安全访问。</li>
+<li>SQLite 支持 SQL92（SQL2）标准的大多数查询语言的功能。</li>
+<li>SQLite 使用 ANSI-C 编写的，并提供了简单和易于使用的 API。</li>
+<li>SQLite 可在 UNIX（Linux, Mac OS-X, Android, iOS）和 Windows（Win32, WinCE, WinRT）中运行。</li>
+</ul>
+<h4 id="SQLite-命令"><a href="#SQLite-命令" class="headerlink" title="SQLite 命令"></a>SQLite 命令</h4><p>与关系数据库进行交互的标准 SQLite 命令类似于 SQL。命令包括 CREATE、SELECT、INSERT、UPDATE、DELETE 和 DROP。这些命令基于它们的操作性质可分为以下几种：</p>
+<h4 id="DDL-数据定义语言"><a href="#DDL-数据定义语言" class="headerlink" title="DDL - 数据定义语言"></a>DDL - 数据定义语言</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CREATE</td>
+<td>创建一个新的表，一个表的视图，或者数据库中的其他对象。</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>修改数据库中的某个已有的数据库对象，比如一个表。</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>删除整个表，或者表的视图，或者数据库中的其他对象。</td>
+</tr>
+</tbody></table>
+<h4 id="DML-数据操作语言"><a href="#DML-数据操作语言" class="headerlink" title="DML - 数据操作语言"></a>DML - 数据操作语言</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>INSERT</td>
+<td>创建一条记录。</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>修改记录。</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>删除记录。</td>
+</tr>
+</tbody></table>
+<h4 id="DQL-数据查询语言"><a href="#DQL-数据查询语言" class="headerlink" title="DQL - 数据查询语言"></a>DQL - 数据查询语言</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SELECT</td>
+<td>从一个或多个表中检索某些记录。</td>
+</tr>
+</tbody></table>
+<h4 id="在-Mac-OS-X-上安装-SQLite"><a href="#在-Mac-OS-X-上安装-SQLite" class="headerlink" title="在 Mac OS X 上安装 SQLite"></a>在 Mac OS X 上安装 SQLite</h4><p>最新版本的 Mac OS X 会预安装 SQLite，但是如果没有可用的安装，只需按照如下步骤进行：<br>请访问 <a target="_blank" rel="noopener" href="http://www.sqlite.org/download.html">SQLite 下载页面</a>，从源代码区下载 sqlite-autoconf-*.tar.gz。<br>步骤如下：</p>
+<pre><code>$tar xvfz sqlite-autoconf-3071502.tar.gz
+$cd sqlite-autoconf-3071502
+$./configure --prefix=/usr/local
+$make
+$make install
+</code></pre>
+<p>上述步骤将在 Mac OS X 机器上安装 SQLite，您可以使用下列命令进行验证：</p>
+<pre><code>$sqlite3
+SQLite version 3.7.15.2 2013-01-09 11:53:05
+Enter &quot;.help&quot; for instructions
+Enter SQL statements terminated with a &quot;;&quot;
+sqlite&gt;
+</code></pre>
+<p>最后，在 SQLite 命令提示符下，使用 SQLite 命令做练习。</p>
+<h4 id="SQLite语法"><a href="#SQLite语法" class="headerlink" title="SQLite语法"></a>SQLite语法</h4><p><strong>大小写敏感性</strong></p>
+<p>有个重要的点值得注意，SQLite 是不区分大小写的，但也有一些命令是大小写敏感的，比如 GLOB 和 glob 在 SQLite 的语句中有不同的含义。</p>
+<p><strong>注释</strong></p>
+<p>SQLite 注释是附加的注释，可以在 SQLite 代码中添加注释以增加其可读性，他们可以出现在任何空白处，包括在表达式内和其他 SQL 语句的中间，但它们不能嵌套。<br>SQL 注释以两个连续的 “-“ 字符（ASCII 0x2d）开始，并扩展至下一个换行符（ASCII 0x0a）或直到输入结束，以先到者为准。<br>您也可以使用 C 风格的注释，以 “&#x2F;*“ 开始，并扩展至下一个 “*&#x2F;“ 字符对或直到输入结束，以先到者为准。SQLite的注释可以跨越多行。</p>
+<h4 id="SQLite-语句"><a href="#SQLite-语句" class="headerlink" title="SQLite 语句"></a>SQLite 语句</h4><p>所有的 SQLite 语句可以以任何关键字开始，如 SELECT、INSERT、UPDATE、DELETE、ALTER、DROP 等，所有的语句以分号（;）结束。</p>
+<p>SQLite ANALYZE 语句：</p>
+<pre><code>ANALYZE;
+or
+ANALYZE database_name;
+or
+ANALYZE database_name.table_name;
+</code></pre>
+<p>SQLite AND&#x2F;OR 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  CONDITION-1 &#123;AND|OR&#125; CONDITION-2;
+</code></pre>
+<p>SQLite ALTER TABLE 语句：</p>
+<pre><code>ALTER TABLE table_name ADD COLUMN column_def...;
+SQLite ALTER TABLE 语句（Rename）：
+ALTER TABLE table_name RENAME TO new_table_name;
+</code></pre>
+<p>SQLite ATTACH DATABASE 语句：</p>
+<pre><code>ATTACH DATABASE &#39;DatabaseName&#39; As &#39;Alias-Name&#39;;
+SQLite BEGIN TRANSACTION 语句：
+BEGIN;
+or
+BEGIN EXCLUSIVE TRANSACTION;
+</code></pre>
+<p>SQLite BETWEEN 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name BETWEEN val-1 AND val-2;
+</code></pre>
+<p>SQLite COMMIT 语句：</p>
+<pre><code>COMMIT;
+</code></pre>
+<p>SQLite CREATE INDEX 语句：</p>
+<pre><code>CREATE INDEX index_name
+ON table_name ( column_name COLLATE NOCASE );
+</code></pre>
+<p>SQLite CREATE UNIQUE INDEX 语句：</p>
+<pre><code>CREATE UNIQUE INDEX index_name
+ON table_name ( column1, column2,...columnN);
+</code></pre>
+<p>SQLite CREATE TABLE 语句：</p>
+<pre><code>CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+   PRIMARY KEY( one or more columns )
+);
+</code></pre>
+<p>SQLite CREATE TRIGGER 语句：</p>
+<pre><code>CREATE TRIGGER database_name.trigger_name
+BEFORE INSERT ON table_name FOR EACH ROW
+BEGIN
+   stmt1;
+   stmt2;
+   ....
+END;
+</code></pre>
+<p>SQLite CREATE VIEW 语句：</p>
+<pre><code>CREATE VIEW database_name.view_name  AS
+SELECT statement....;
+</code></pre>
+<p>SQLite CREATE VIRTUAL TABLE 语句：</p>
+<pre><code>CREATE VIRTUAL TABLE database_name.table_name USING weblog( access.log );
+or
+CREATE VIRTUAL TABLE database_name.table_name USING fts3( );
+</code></pre>
+<p>SQLite COMMIT TRANSACTION 语句：</p>
+<pre><code>COMMIT;
+SQLite COUNT 子句：
+SELECT COUNT(column_name)
+FROM   table_name
+WHERE  CONDITION;
+</code></pre>
+<p>SQLite DELETE 语句：</p>
+<pre><code>DELETE FROM table_name
+WHERE  &#123;CONDITION&#125;;
+</code></pre>
+<p>SQLite DETACH DATABASE 语句：</p>
+<pre><code>DETACH DATABASE &#39;Alias-Name&#39;;
+</code></pre>
+<p>SQLite DISTINCT 子句：</p>
+<pre><code>SELECT DISTINCT column1, column2....columnN
+FROM   table_name;
+</code></pre>
+<p>SQLite DROP INDEX 语句：</p>
+<pre><code>DROP INDEX database_name.index_name;
+</code></pre>
+<p>SQLite DROP TABLE 语句：</p>
+<pre><code>DROP TABLE database_name.table_name;
+</code></pre>
+<p>SQLite DROP VIEW 语句：</p>
+<pre><code>DROP INDEX database_name.view_name;
+</code></pre>
+<p>SQLite DROP TRIGGER 语句：</p>
+<pre><code>DROP INDEX database_name.trigger_name;
+</code></pre>
+<p>SQLite EXISTS 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name EXISTS (SELECT * FROM   table_name );
+</code></pre>
+<p>SQLite EXPLAIN 语句：</p>
+<pre><code>EXPLAIN INSERT statement...;
+or
+EXPLAIN QUERY PLAN SELECT statement...;
+</code></pre>
+<p>SQLite GLOB 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name GLOB &#123; PATTERN &#125;;
+</code></pre>
+<p>SQLite GROUP BY 子句：</p>
+<pre><code>SELECT SUM(column_name)
+FROM   table_name
+WHERE  CONDITION
+GROUP BY column_name;
+</code></pre>
+<p>SQLite HAVING 子句：</p>
+<pre><code>SELECT SUM(column_name)
+FROM   table_name
+WHERE  CONDITION
+GROUP BY column_name
+HAVING (arithematic function condition);
+</code></pre>
+<p>SQLite INSERT INTO 语句：</p>
+<pre><code>INSERT INTO table_name( column1, column2....columnN)
+VALUES ( value1, value2....valueN);
+</code></pre>
+<p>SQLite IN 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name IN (val-1, val-2,...val-N);
+</code></pre>
+<p>SQLite Like 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name LIKE &#123; PATTERN &#125;;
+</code></pre>
+<p>SQLite NOT IN 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  column_name NOT IN (val-1, val-2,...val-N);
+</code></pre>
+<p>SQLite ORDER BY 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  CONDITION
+ORDER BY column_name &#123;ASC|DESC&#125;;
+</code></pre>
+<p>SQLite PRAGMA 语句：</p>
+<pre><code>PRAGMA pragma_name;
+
+For example:
+
+PRAGMA page_size;
+PRAGMA cache_size = 1024;
+PRAGMA table_info(table_name);
+</code></pre>
+<p>SQLite RELEASE SAVEPOINT 语句：</p>
+<pre><code>RELEASE savepoint_name;
+</code></pre>
+<p>SQLite REINDEX 语句：</p>
+<pre><code>REINDEX collation_name;
+REINDEX database_name.index_name;
+REINDEX database_name.table_name;
+</code></pre>
+<p>SQLite ROLLBACK 语句：</p>
+<pre><code>ROLLBACK;
+or
+ROLLBACK TO SAVEPOINT savepoint_name;
+</code></pre>
+<p>SQLite SAVEPOINT 语句：</p>
+<pre><code>SAVEPOINT savepoint_name;
+SQLite SELECT 语句：
+SELECT column1, column2....columnN
+FROM   table_name;
+</code></pre>
+<p>SQLite UPDATE 语句：</p>
+<pre><code>UPDATE table_name
+SET column1 = value1, column2 = value2....columnN=valueN
+[ WHERE  CONDITION ];
+</code></pre>
+<p>SQLite VACUUM 语句：</p>
+<pre><code>VACUUM;
+</code></pre>
+<p>SQLite WHERE 子句：</p>
+<pre><code>SELECT column1, column2....columnN
+FROM   table_name
+WHERE  CONDITION;
+</code></pre>
+<p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite教程</a><br>转载请注明出处。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-sqlite-jiao-cheng-[?%5D/" title="SQLite_教程(一)">https://blog.wangruofeng007.com/2016/01/13/2016-01-13-sqlite-jiao-cheng-[?]/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/13/2016-01-13-cocoapodsshi-yong-zhi-nan/" rel="prev" title="CocoaPods使用指南">
+      <i class="fa fa-chevron-left"></i> CocoaPods使用指南
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/13/2016-01-13-sqlite-jiao-cheng-er/" rel="next" title="SQLite_教程(二)">
+      SQLite_教程(二) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">简介：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-SQLite%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么是 SQLite？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-SQLite%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么要用 SQLite？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQLite-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">SQLite 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDL-%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="nav-number">5.</span> <span class="nav-text">DDL - 数据定义语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DML-%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E8%AF%AD%E8%A8%80"><span class="nav-number">6.</span> <span class="nav-text">DML - 数据操作语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DQL-%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="nav-number">7.</span> <span class="nav-text">DQL - 数据查询语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-Mac-OS-X-%E4%B8%8A%E5%AE%89%E8%A3%85-SQLite"><span class="nav-number">8.</span> <span class="nav-text">在 Mac OS X 上安装 SQLite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQLite%E8%AF%AD%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">SQLite语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQLite-%E8%AF%AD%E5%8F%A5"><span class="nav-number">10.</span> <span class="nav-text">SQLite 语句</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>

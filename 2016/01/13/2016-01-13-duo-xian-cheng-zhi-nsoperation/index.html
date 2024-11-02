@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="本文目录  前言 NSInvocationOperation NSBlokcOperation NSOperation的其他用法 自定义NSOperation 参考资料  前言1.虽然NSThread也可以实现多线程编程，但是需要我们去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销。我们也可以配合使用NSOperation和NSOperationQueue实现多线程编程，实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程之NSOperation">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsoperation/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="本文目录  前言 NSInvocationOperation NSBlokcOperation NSOperation的其他用法 自定义NSOperation 参考资料  前言1.虽然NSThread也可以实现多线程编程，但是需要我们去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销。我们也可以配合使用NSOperation和NSOperationQueue实现多线程编程，实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://images.cnitblog.com/blog/497279/201304/19122046-b40c752b60a5413290b569f5377ef7f3.png">
+<meta property="article:published_time" content="2016-01-12T21:14:59.000Z">
+<meta property="article:modified_time" content="2024-11-02T03:36:52.395Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://images.cnitblog.com/blog/497279/201304/19122046-b40c752b60a5413290b569f5377ef7f3.png">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsoperation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            多线程之NSOperation | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsoperation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多线程之NSOperation
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 05:14:59" itemprop="dateCreated datePublished" datetime="2016-01-13T05:14:59+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文目录</p>
+<ul>
+<li>前言</li>
+<li>NSInvocationOperation</li>
+<li>NSBlokcOperation</li>
+<li>NSOperation的其他用法</li>
+<li>自定义NSOperation</li>
+<li>参考资料</li>
+</ul>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1.虽然<code>NSThread</code>也可以实现多线程编程，但是需要我们去管理线程的生命周期，还要考虑线程同步、加锁问题，造成一些性能上的开销。我们也可以配合使用<code>NSOperation</code>和<code>NSOperationQueue</code>实现多线程编程，实现步骤大致是这样的</p>
+<ul>
+<li>先将需要执行的操作封装到一个NSOperation对象中</li>
+<li>然后将NSOperation对象添加到NSOperationQueue中</li>
+<li>系统会自动将<code>NSOperation</code>中封装的操作放到一条新线程中执行在此过程中，我们根本不用考虑线程的生命周期、同步、加锁等问题下面列举一个应用场景，比如微博的粉丝列表：</li>
+</ul>
+<p><img src="http://images.cnitblog.com/blog/497279/201304/19122046-b40c752b60a5413290b569f5377ef7f3.png" alt="微博的粉丝列表"></p>
+<p>每一行的头像肯定要从新浪服务器下载图片后才能显示的，而且是需要异步下载。这时候你就可以把每一行的图片下载操作封装到一个<code>NSOperation</code>对象中，上面有6行，所以要创建6个<code>NSOperation</code>对象，然后添加到<code>NSOperationQueue</code>中，分别下载不同的图片，下载完毕后，回到对应的行将图片显示出来。</p>
+<p>2 .默认情况下，<code>NSOperation</code>并不具备封装操作的能力，必须使用它的子类，使用NSOperation子类的方式有3种：</p>
+<ul>
+<li>NSInvocationOperation</li>
+<li>NSBlockOperation</li>
+<li>自定义子类继承NSOperation，实现内部相应的方法</li>
+</ul>
+<p>这讲先介绍如何用<code>NSOperation</code>封装一个操作，后面再结合<code>NSOperationQueue</code>来使用。</p>
+<h2 id="NSInvocationOperation"><a href="#NSInvocationOperation" class="headerlink" title="NSInvocationOperation"></a>NSInvocationOperation</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSInvocationOperation</span> *operation = [[<span class="built_in">NSInvocationOperation</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(run:) object:<span class="string">@&quot;mj&quot;</span>];</span><br><span class="line">[operation start];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第1行初始化了一个<code>NSInvocationOperation</code>对象，它是基于一个对象和selector来创建操作</li>
+<li>第2行调用了start方法，紧接着会马上执行封装好的操作，也就是会调用self的run:方法，并且将@”mj”作为方法参数</li>
+<li>这里要注意：默认情况下，调用了start方法后并不会开一条新线程去执行操作，而是在当前线程同步执行操作。只有将operation放到一个NSOperationQueue中，才会异步执行操作。</li>
+</ul>
+<h2 id="NSBlockOperation"><a href="#NSBlockOperation" class="headerlink" title="NSBlockOperation"></a>NSBlockOperation</h2><h3 id="a-同步执行一个操作"><a href="#a-同步执行一个操作" class="headerlink" title="a.同步执行一个操作"></a>a.同步执行一个操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSBlockOperation</span> *operation = [<span class="built_in">NSBlockOperation</span> blockOperationWithBlock:^()&#123;</span><br><span class="line">         <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了一个新的操作&quot;</span>);</span><br><span class="line"> &#125;];</span><br><span class="line">  <span class="comment">// 开始执行任务</span></span><br><span class="line">[operation start];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第1行初始化了一个NSBlockOperation对象，它是用一个Block来封装需要执行的操作</li>
+<li>第2行调用了start方法，紧接着会马上执行Block中的内容</li>
+<li>这里还是在当前线程同步执行操作，并没有异步执行</li>
+</ul>
+<h3 id="b-并发执行多个操作"><a href="#b-并发执行多个操作" class="headerlink" title="b.并发执行多个操作"></a>b.并发执行多个操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSBlockOperation</span> *operation = [<span class="built_in">NSBlockOperation</span> blockOperationWithBlock:^()&#123;</span><br><span class="line">　　<span class="built_in">NSLog</span>(<span class="string">@&quot;执行第1次操作，线程：%@&quot;</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[operation addExecutionBlock:^() &#123;</span><br><span class="line">　　<span class="built_in">NSLog</span>(<span class="string">@&quot;又执行了1个新的操作，线程：%@&quot;</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[operation addExecutionBlock:^() &#123;</span><br><span class="line">　　<span class="built_in">NSLog</span>(<span class="string">@&quot;又执行了1个新的操作，线程：%@&quot;</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[operation addExecutionBlock:^() &#123;</span><br><span class="line">　　<span class="built_in">NSLog</span>(<span class="string">@&quot;又执行了1个新的操作，线程：%@&quot;</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开始执行任务</span></span><br><span class="line">[operation start];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第1行初始化了一个NSBlockOperation对象</p>
+</li>
+<li><p>分别在第5、9、13行通过addExecutionBlock:方法添加了新的操作，包括第1行的操作，一共封装了4个操作</p>
+</li>
+<li><p>在第18行调用start方法后，就会并发地执行这4个操作，也就是会在不同线程中执行</p>
+<pre><code>  1 2013-02-02 21:38:46.102 thread[4602:c07] 又执行了1个新的操作，线程：&lt;NSThread: 0x7121d50&gt;&#123;name = (null), num = 1&#125;
+  2 2013-02-02 21:38:46.102 thread[4602:3f03] 又执行了1个新的操作，线程：&lt;NSThread: 0x742e1d0&gt;&#123;name = (null), num = 5&#125;
+  3 2013-02-02 21:38:46.102 thread[4602:1b03] 执行第1次操作，线程：&lt;NSThread: 0x742de50&gt;&#123;name = (null), num = 3&#125;
+  4 2013-02-02 21:38:46.102 thread[4602:1303] 又执行了1个新的操作，线程：&lt;NSThread: 0x7157bf0&gt;&#123;name = (null), num = 4&#125;
+</code></pre>
+</li>
+</ul>
+<p>可以看出，每个操作所在线程的num值都不一样，说明是不同线程</p>
+<h2 id="NSOperation的其他用法"><a href="#NSOperation的其他用法" class="headerlink" title="NSOperation的其他用法"></a>NSOperation的其他用法</h2><h3 id="a-取消操作"><a href="#a-取消操作" class="headerlink" title="a.取消操作"></a>a.取消操作</h3><p>operation开始执行之后, 默认会一直执行操作直到完成，我们也可以调用cancel方法中途取消操作</p>
+<pre><code>[operation cancel];
+</code></pre>
+<h3 id="b-在操作完成后做一些事情"><a href="#b-在操作完成后做一些事情" class="headerlink" title="b.在操作完成后做一些事情"></a>b.在操作完成后做一些事情</h3><p>如果想在一个NSOperation执行完毕后做一些事情，就调用NSOperation的setCompletionBlock方法来设置想做的事情</p>
+<pre><code>operation.completionBlock = ^() &#123;
+    NSLog(@&quot;执行完毕&quot;);
+&#125;;
+</code></pre>
+<p>当operation封装的操作执行完毕后，就会回调Block里面的内容</p>
+<h2 id="自定义NSOperation"><a href="#自定义NSOperation" class="headerlink" title="自定义NSOperation"></a>自定义NSOperation</h2><p>如果<code>NSInvocationOperation</code>和<code>NSBlockOperation</code>不能满足需求，我们可以直接新建子类继承NSOperation，并添加任何需要执行的操作。如果只是简单地自定义NSOperation，只需要重载<code>-(void)main</code>这个方法，在这个方法里面添加需要执行的操作。</p>
+<p>下面写个子类DownloadOperation来下载图片</p>
+<h3 id="a-继承NSOperation，重写main方法"><a href="#a-继承NSOperation，重写main方法" class="headerlink" title="a.继承NSOperation，重写main方法"></a>a.继承NSOperation，重写main方法</h3><p><em>DownloadOperation.h</em></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">DownloadOperationDelegate</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">DownloadOperation</span> : <span class="title">NSOperation</span></span></span><br><span class="line"><span class="comment">// 图片的url路径</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *imageUrl;</span><br><span class="line"><span class="comment">// 代理</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="type">id</span>&lt;DownloadOperationDelegate&gt; delegate;</span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)initWithUrl:(<span class="built_in">NSString</span> *)url delegate:(<span class="type">id</span>&lt;DownloadOperationDelegate&gt;)delegate;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 图片下载的协议</span></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">DownloadOperationDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line">- (<span class="type">void</span>)downloadFinishWithImage:(<span class="built_in">UIImage</span> *)image;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p><em>DownloadOperation.m</em></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;DownloadOperation.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">DownloadOperation</span></span></span><br><span class="line"><span class="keyword">@synthesize</span> delegate = _delegate;</span><br><span class="line"><span class="keyword">@synthesize</span> imageUrl = _imageUrl;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">- (<span class="type">id</span>)initWithUrl:(<span class="built_in">NSString</span> *)url delegate:(<span class="type">id</span>&lt;DownloadOperationDelegate&gt;)delegate &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="variable language_">super</span> init]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.imageUrl = url;</span><br><span class="line">        <span class="keyword">self</span>.delegate = delegate;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 释放内存</span></span><br><span class="line">- (<span class="type">void</span>)dealloc &#123;</span><br><span class="line">    [<span class="variable language_">super</span> dealloc];</span><br><span class="line">    [_imageUrl release];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行主任务</span></span><br><span class="line">- (<span class="type">void</span>)main &#123;</span><br><span class="line">    <span class="comment">// 新建一个自动释放池，如果是异步执行操作，那么将无法访问到主线程的自动释放池</span></span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="comment">// ....</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在第22行重载了main方法，等会就把下载图片的代码写到这个方法中</li>
+<li>如果这个DownloadOperation是在异步线程中执行操作，也就是说main方法在异步线程调用，那么将无法访问主线程的自动释放池，所以在第24行创建了一个属于当前线程的自动释放池</li>
+</ul>
+<h3 id="b-正确响应取消事件"><a href="#b-正确响应取消事件" class="headerlink" title="b.正确响应取消事件"></a>b.正确响应取消事件</h3><ul>
+<li>默认情况下，一个NSOperation开始执行之后，会一直执行任务到结束，就比如上面的DownloadOperation，默认会执行完main方法中的所有代码</li>
+<li>NSOperation提供了一个cancel方法，可以取消当前的操作。</li>
+<li>如果是自定义NSOperation的话，需要手动处理这个取消事件。比如，一旦调用了cancel方法，应该马上终止main方法的执行，并及时回收一些资源。</li>
+<li>处理取消事件的具体做法是：在<code>main</code>方法中定期地调用<code>isCancelled</code>方法检测操作是否已经被取消，也就是说是否调用了<code>cancel</code>方法，如果返回YES，表示已取消，则立即让main方法返回。</li>
+<li>以下地方可能需要调用<code>isCancelled</code>方法:<ol>
+<li>在执行任何实际的工作之前，也就是在main方法的开头。因为取消可能发生在任何时候，甚至在operation执行之前。</li>
+<li>执行了一段耗时的操作之后也需要检测操作是否已经被取消</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)main &#123;</span><br><span class="line">    <span class="comment">// 新建一个自动释放池，如果是异步执行操作，那么将无法访问到主线程的自动释放池</span></span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.isCancelled) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取图片数据</span></span><br><span class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:<span class="keyword">self</span>.imageUrl];</span><br><span class="line">        <span class="built_in">NSData</span> *imageData = [<span class="built_in">NSData</span> dataWithContentsOfURL:url];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.isCancelled) &#123;</span><br><span class="line">            url = <span class="literal">nil</span>;</span><br><span class="line">            imageData = <span class="literal">nil</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化图片</span></span><br><span class="line">        <span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageWithData:imageData];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.isCancelled) &#123;</span><br><span class="line">            image = <span class="literal">nil</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(downloadFinishWithImage:)]) &#123;</span><br><span class="line">            <span class="comment">// 把图片数据传回到主线程</span></span><br><span class="line">            [(<span class="built_in">NSObject</span> *)<span class="keyword">self</span>.delegate performSelectorOnMainThread:<span class="keyword">@selector</span>(downloadFinishWithImage:) withObject:image waitUntilDone:<span class="literal">NO</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在第4行main方法的开头就先判断operation有没有被取消。如果被取消了，那就没有必要往下执行了</li>
+<li>经过第8行下载图片后，在第10行也需要判断操作有没有被取消</li>
+<li>总之，执行了一段比较耗时的操作之后，都需要判断操作有没有被取消</li>
+<li>图片下载完毕后，在第26行将图片数据传递给了代理(delegate)对象</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>NSHipster 的<a target="_blank" rel="noopener" href="http://nshipster.com/nsoperation/">NSOperation</a></li>
+<li>雷纯锋的博客的<a target="_blank" rel="noopener" href="http://www.leichunfeng.com/blog/2015/07/29/ios-concurrency-programming-operation-queues/">《iOS 并发编程之 Operation Queues》</a></li>
+<li>objc的并发编程指南<a target="_blank" rel="noopener" href="http://www.objc.io/issue-2/">《Concurrent Programming》</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/10373331/nsoperation-vs-grand-central-dispatch">StackOverflow: NSOperation vs. Grand Central Dispatch</a></li>
+<li><a target="_blank" rel="noopener" href="http://eschatologist.net/blog/?p=232">Blog: When to use NSOperation vs. GCD</a></li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsoperation/" title="多线程之NSOperation">https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsoperation/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/01/13/2016-01-13-ioszhong-de-hong-mo-shi-jian-he-shou-shi-chu-li/" rel="prev" title="iOS中的触摸事件和手势处理">
+      <i class="fa fa-chevron-left"></i> iOS中的触摸事件和手势处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/01/13/2016-01-13-nsoperation-and-nsoperationqueue-tutorial-in-swift/" rel="next" title="NSOperation and NSOperationQueue Tutorial in Swift">
+      NSOperation and NSOperationQueue Tutorial in Swift <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSInvocationOperation"><span class="nav-number">2.</span> <span class="nav-text">NSInvocationOperation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSBlockOperation"><span class="nav-number">3.</span> <span class="nav-text">NSBlockOperation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E5%90%8C%E6%AD%A5%E6%89%A7%E8%A1%8C%E4%B8%80%E4%B8%AA%E6%93%8D%E4%BD%9C"><span class="nav-number">3.1.</span> <span class="nav-text">a.同步执行一个操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">b.并发执行多个操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSOperation%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">NSOperation的其他用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E5%8F%96%E6%B6%88%E6%93%8D%E4%BD%9C"><span class="nav-number">4.1.</span> <span class="nav-text">a.取消操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E5%9C%A8%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%88%90%E5%90%8E%E5%81%9A%E4%B8%80%E4%BA%9B%E4%BA%8B%E6%83%85"><span class="nav-number">4.2.</span> <span class="nav-text">b.在操作完成后做一些事情</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89NSOperation"><span class="nav-number">5.</span> <span class="nav-text">自定义NSOperation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E7%BB%A7%E6%89%BFNSOperation%EF%BC%8C%E9%87%8D%E5%86%99main%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">a.继承NSOperation，重写main方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E6%AD%A3%E7%A1%AE%E5%93%8D%E5%BA%94%E5%8F%96%E6%B6%88%E4%BA%8B%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">b.正确响应取消事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">99k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>
