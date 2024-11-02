@@ -1220,7 +1220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:41:13" itemprop="dateModified" datetime="2024-11-02T19:41:13+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 22:35:42" itemprop="dateModified" datetime="2024-11-02T22:35:42+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1309,7 +1309,7 @@
 <p>开始构建app迎战下一个章节，将充当被<code>Byte Club</code>组织邀请。</p>
 <p>主要到这个教程是假设你对基本的网络有基本的了解在先前的版本iOS。它非常有用假如你已经使用过诸如<code>NSURLConnection</code>或者<code>NSURLSession</code>在过去。假如在iOS方面你是网络方面的新手，在继续这个课程之前你应该查询我们的iOS学徒系列作为最初的开发者。</p>
 <h4 id="现在开始吧"><a href="#现在开始吧" class="headerlink" title="现在开始吧"></a>现在开始吧</h4><p><code>Byte Club</code>是iOS 开发者专有的组织，一起来加入挑战你的编程吧。由于每个成员都是远程工作，在这个挑战中有一个是跨越世界，成员通过分享他们“战场”的全景照片也能找到它的乐趣。</p>
-<p>例如，下面是Ray的办公场所的全景照片：<br><img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezzf1ygxi8j20go03njs2.jpg" alt="Ray&#39;s office setup"></p>
+<p>例如，下面是Ray的办公场所的全景照片：<br><img src="/images/nsurlsession/nsurlsession_01.jpg" alt="Ray&#39;s office setup"></p>
 <blockquote>
 <p>注意：你可能想创建你自己办公室的全景照片–它很有趣，在这个课程的后续中我们将会处理。</p>
 </blockquote>
@@ -1323,10 +1323,10 @@
 <h4 id="开始的工程概述"><a href="#开始的工程概述" class="headerlink" title="开始的工程概述"></a>开始的工程概述</h4><p>首先，下载<a target="_blank" rel="noopener" href="http://cdn1.raywenderlich.com/downloads/ByteClub_Starter.zip">教程开始的工程</a>。</p>
 <p>开始的工程包含了为你预先准备好的UI，所以你只需把精力集中在这个教程中app的网络部分。开始的工程也包含一些处理<code>Dropbox</code>授权的代码,在后面你将学到更多。</p>
 <p>在Xcode中打开工程让后在你设备或者模拟器上运行，你应该看到像下面这样：</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/64124373gw1ezzf1vk3t1j205b09edg2.jpg" alt="networking2"></p>
+<p><img src="/images/nsurlsession/nsurlsession_02.jpg" alt="networking2"></p>
 <p>然而你还并不能登录它-你不得不先配置app，你将做一点。</p>
 <p>下一步打开<code>Main.storyboard</code>纵览一下整个app的设计：</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezzf1x56zfj20go0a9q3e.jpg" alt="networking2"></p>
+<p><img src="/images/nsurlsession/nsurlsession_03.jpg" alt="networking2"></p>
 <p>这是一个最基本的使用2个标签的的TabBarController app：一个是为了挑战编程，另<br>一个是为了放全景照片。这里也有预先让用户登录到app中的一步。你将要配置登录在你创建完<code>Dropbox</code>平台下的App后。</p>
 <p>感到很轻松浏览一下App剩余的部分并且找到到目前为止相似的地方。你将会注意到除了授权组件，这里没有检索挑战编程或者全景照片的网络代码-那就是你的工作！</p>
 <h4 id="创建一个新的Dropbox平台App"><a href="#创建一个新的Dropbox平台App" class="headerlink" title="创建一个新的Dropbox平台App"></a>创建一个新的<code>Dropbox</code>平台App</h4><p>为了开始你的新的<code>Dropbox</code> App,打开 Dropbox App 位于<a target="_blank" rel="noopener" href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>的控制台</p>
@@ -1351,10 +1351,10 @@
 </li>
 </ul>
 <p>最终，为你的App准备一个名字，选择什么并没有关系只有它是唯一的。假如你选择了一个别人已经在使用的名字<code>Dropbox </code>将会告诉你。你的屏幕应该看起来像下面这样：</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezzf38fs1nj20go0epdhp.jpg" alt="networking3">    </p>
+<p><img src="/images/nsurlsession/nsurlsession_04.jpg" alt="networking3">    </p>
 <p>点击<code>Create App</code>，你将开始上路了！</p>
 <p>下一个屏幕你将看到显示到屏幕中的包含 <strong>App key</strong> 和 <strong>App secret</strong> :</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzfuk4ucmj208z08rglt.jpg" alt="networking5"></p>
+<p><img src="/images/nsurlsession/nsurlsession_05.jpg" alt="networking5"></p>
 <p>先不要关闭这个屏幕，你将需要需要下一步的<code>App Key</code>和<code>App Secret</code>。</p>
 <p>打开<code>Dropbox.m</code>文件找到下面这些行：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">warning</span> INSERT YOUR OWN API KEY and SECRET HERE</span></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *apiKey = <span class="string">@&quot;YOUR_KEY&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *appSecret = <span class="string">@&quot;YOUR_SECRET&quot;</span>;</span><br></pre></td></tr></table></figure>
@@ -1367,7 +1367,7 @@
 <p>改变字符串的值，设置成你创建的Dropbox文件夹的名字，让后删除 #warning pragma.</p>
 <p>为了把这个app分发给其他用户，给他们接入<code>access tokens</code>,你将需要为你的Dropbox 平台 App打开<code>Enable additional users</code>设置。</p>
 <p>去在<a target="_blank" rel="noopener" href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>Dropbox app的控制台。点击你app 名称。然后点击<code>Enable Additional Users</code>按钮。将出现一个状态对话框表明你已经增加了你的用户限制。点击Okay关闭对话框。你的App 页面将像下面这样显示：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzg9htvs2j20go056jrj.jpg" alt="networking5"></p>
+<p><img src="/images/nsurlsession/nsurlsession_06.jpg" alt="networking5"></p>
 <blockquote>
 <p>注意：你可能注意到当你正在开发你的app的时候，你可以接入多达100个用户。当你准备发布app销售的时候，你必须申请生产状态，你可以通过点击<code>Apply for production</code>按钮来发送给<code>Dropbox</code>一些额外的信息。</p>
 </blockquote>
@@ -1376,7 +1376,7 @@
 </blockquote>
 <h4 id="Dropbox-授权-概览"><a href="#Dropbox-授权-概览" class="headerlink" title="Dropbox 授权: 概览"></a>Dropbox 授权: 概览</h4><p>假如你曾经使用过第三方<code>twitter</code>客服端app，像<code>TweetBot</code>,你将会熟悉<code>OAuth</code>授权处理步骤从一个用户的角度。<code>OAuth</code>授权接入过程对你app来说是完全一样的。</p>
 <p>构建运行你的app，按照步骤登录。你将看到一个有2个标签的空白屏幕，一个是Notes，一个是PanoPhotos，如下图显示：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzglpqm1aj209f0fa0t7.jpg" alt="networking7"></p>
+<p><img src="/images/nsurlsession/nsurlsession_07.jpg" alt="networking7"></p>
 <p><code>OAuth</code>授权发生在3和高级的步骤：</p>
 <ol>
 <li>获取用来处理剩下的授权一个OAuth请求 token。这是请求token。</li>
@@ -1387,7 +1387,7 @@
 <p>注意：为了保证这个教程的简洁，我们不打算进行更详细的讲解关于这里Dropbox授权工作。然而，假如你想了解更多点击整个教程的完全版本，它是<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?page_id=48020">iOS 7 by Tutorials.</a>的一部分。</p>
 </blockquote>
 <h4 id="NSURLSession-的一系列类"><a href="#NSURLSession-的一系列类" class="headerlink" title="NSURLSession 的一系列类"></a>NSURLSession 的一系列类</h4><p>Apple已经把<code>NSURLSession</code>描述成一个新类和一系列旧类的组合。这些新的工具是为了处理 上传，下载，处理授权已经处理在HTTP协议里面的任何事情。</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzgzutn43j20go0dwgn3.jpg" alt="networking12"></p>
+<p><img src="/images/nsurlsession/nsurlsession_08.jpg" alt="networking12"></p>
 <p>一个<code>NSURLSession</code>用一个带可选代理的<code>NSURLSessionConfiguration</code>构造。在你创建会话以后，你应该能够满足你的网络需要通过创建<code>NSURLSessionTask</code>的任务。</p>
 <h4 id="NSURLSessionConfiguration"><a href="#NSURLSessionConfiguration" class="headerlink" title="NSURLSessionConfiguration"></a>NSURLSessionConfiguration</h4><p>这里有三种方式创建<code>NSURLSessionConfiguration</code>:</p>
 <ul>
@@ -1446,7 +1446,7 @@
 
 <p>正如你所见，<code>NSURLSessionTask</code>是一匹通过网络来干活的真实的驮马。</p>
 <h4 id="NSURLSessionTask"><a href="#NSURLSessionTask" class="headerlink" title="NSURLSessionTask"></a>NSURLSessionTask</h4><p>目前为止你已经知道<code>NSURLSessionDataTask</code>和<code>NSURLSessionDownloadTask</code>怎样使用了。这两个的任务是来自他们共同的基类<code>NSURLSessionTask</code>，你可以在这类看到：</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/64124373gw1ezzij54674j20go0d53zc.jpg" alt="networking13"></p>
+<p><img src="/images/nsurlsession/nsurlsession_09.jpg" alt="networking13"></p>
 <p><code>NSURLSessionTask</code>在你的会话中是任务的基类；他们只能通过一个会话创建并且它们是下面子类中的一个。</p>
 <h4 id="NSURLSessionDataTask"><a href="#NSURLSessionDataTask" class="headerlink" title="NSURLSessionDataTask"></a>NSURLSessionDataTask</h4><p>这个任务发起HTTP GET请求来从服服务器拉取数据。数据被返回以NSData的形式返回。你应该在随后将其把这个数据转换成正确的数据类型比如<code>XML</code>,<code>JSON</code>,UIImage，plist等等。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURLSessionDataTask</span> *jsonData = [session dataTaskWithURL:yourNSURL</span><br><span class="line">      completionHandler:^(<span class="built_in">NSData</span>  *data,</span><br><span class="line">                          <span class="built_in">NSURLResponse</span>  *response,</span><br><span class="line">                          <span class="built_in">NSError</span>  *error) &#123;</span><br><span class="line">        <span class="comment">// handle NSData</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
@@ -1486,7 +1486,7 @@
 </ol>
 <p>会话现在准备好创建在你app中你所需要的任何网络任务。</p>
 <h5 id="GET-Notes-through-the-Dropbox-API"><a href="#GET-Notes-through-the-Dropbox-API" class="headerlink" title="GET Notes through the Dropbox API"></a>GET Notes through the Dropbox API</h5><p>为了模拟一条笔记被另一个用户添加，添加任何你在设置在你的Dropbox根目录下的文件夹中选择的文本文件。例如位于Dropbox文件夹下 <strong>byteclub</strong> 下面显示的 <strong>test.txt</strong>：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezzkkwyf6ej20go03tglw.jpg" alt="networking14"></p>
+<p><img src="/images/nsurlsession/nsurlsession_10.jpg" alt="networking14"></p>
 <p>等待直到<code>Dropbox</code>确认它已经同步完你的文件，让后继续下面代码。</p>
 <p>添加下面的代码到空的<code>notesOnDropBox</code>方法中在<code>NotesViewController.m</code>:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIApplication</span> sharedApplication].networkActivityIndicatorVisible = <span class="literal">YES</span>;</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">NSURL</span> *url = [Dropbox appRootURL];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="built_in">NSURLSessionDataTask</span> *dataTask =</span><br><span class="line">[<span class="keyword">self</span>.session dataTaskWithURL:url</span><br><span class="line">            completionHandler:^(<span class="built_in">NSData</span>  *data,</span><br><span class="line">                                <span class="built_in">NSURLResponse</span>  *response,</span><br><span class="line">                                <span class="built_in">NSError</span>  *error) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!error) &#123;            </span><br><span class="line">        <span class="comment">// TODO 1: More coming here!</span></span><br><span class="line">    &#125;                </span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3  </span></span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure>
@@ -1536,11 +1536,11 @@
 <p>既然你的表视图数据源已经更新了，你需要重载表的数据。无论何时你正在处理异步网络请求时，你必须保证更新UIKit在主线程。</p>
 <p>机敏的读者将会注意到在上述代码中没有错误处理；假如你感觉你像一个哭丧女（大多数Byte Club 都是！）添加一些代码在这里（在随后的代码块中你将添加），代码在错误和警告用户的时候将重试。</p>
 <p>构建运行你的app；你应该看你添加到你的<code>Dropbox</code>文件夹的文件是否显示在列表中，就像下面例子一样显示：</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezzmc48hezj20aa0gojs1.jpg" alt="networking16"></p>
+<p><img src="/images/nsurlsession/nsurlsession_11.jpg" alt="networking16"></p>
 <p>事情本来是小事，当时这证明了你正确的调用了Dropbox API。</p>
 <p>下一步是发布比较然后向其他俱乐部成员发起挑战，再一次使用Dropbox API 就当你是传送机构。</p>
 <h5 id="POST-Notes-through-the-Dropbox-API"><a href="#POST-Notes-through-the-Dropbox-API" class="headerlink" title="POST Notes through the Dropbox API"></a>POST Notes through the Dropbox API</h5><p>轻点右上角的 + 号，你将看到笔记add&#x2F;edit屏幕出现，就像下面演示的一样：</p>
-<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezzmc5whzij20a90gojru.jpg" alt="networking17"></p>
+<p><img src="/images/nsurlsession/nsurlsession_12.jpg" alt="networking17"></p>
 <p>开始的app已经安装了DBFile 模型对象到NoteDetailsViewController在<code>prepareForSegue:sender:</code>方法中：</p>
 <p>加入你瞥一眼这个方法，你将看到<code>NoteViewController</code>被设置成<code>NoteDetailsViewController</code>的代理。这种方法，<code>NoteDetailsViewController</code>能够通知<code>NoteViewController</code>当用户完成编辑一篇笔记或者取消编辑一篇笔记时。</p>
 <p>打开<code>NotesViewController.m </code>,添加下面这行到<code>prepareForSegue:sender:</code>中，就在<code>showNote.delegate = self</code>行的后面；</p>
@@ -1564,9 +1564,9 @@
 <li>再次提到，所有的任务以暂停的状态被创建，所以你必须调用恢复来启动他们。</li>
 </ol>
 <p>构建然后运行你的App，点击笔记标签上的+号。在<code>challenge name</code>字段上输入你的名字，输入一些文本在<code>note</code>字段想Ray发布一份挑战书，和下面的例子相似：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f008ujjji0j20aa0godgy.jpg" alt="networking17"></p>
+<p><img src="/images/nsurlsession/nsurlsession_13.jpg" alt="networking17"></p>
 <p>当你清点<code>Done</code>时，<code>NoteViewController</code>将返回并且给你列出新的笔记像下面显示的那样：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f008ukjg7bj20aa0go3z4.jpg" alt="networking18"><br>)</p>
+<p><img src="/images/nsurlsession/nsurlsession_14.jpg" alt="networking18"></p>
 <p>你已经正式的给Ray下发挑战书；然而，他有朋友在非常高的位置所有你最好尽力完成这场比赛。</p>
 <p>但是这里有一条非常重要的消息遗漏了。你能告诉我是什么么？</p>
 <p>轻点笔记包含的挑战；<code>NoteDetailsViewController</code>自己呈现，当时笔记的内容确实空白的。</p>
@@ -1583,13 +1583,13 @@
 <li>一旦这个任务被初始化，调用恢复。这里有写不一样的方法和以前的相比，当恢复被直接调用时在任务还没有指派时。</li>
 </ol>
 <p>构建运行你的App，在列表中对你的挑战轻点，内容将直接正确的显示在view中，像下面这样：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f008ulhco4j20a90got9d.jpg" alt="networking19"></p>
+<p><img src="/images/nsurlsession/nsurlsession_15.jpg" alt="networking19"></p>
 <p>你可以扮演Ray然后通过向笔记中输入文本响应这个挑战；文件将很快更新当你轻点<code>Done</code>。</p>
 <h4 id="使用NSURLSessionTask代理发送照片"><a href="#使用NSURLSessionTask代理发送照片" class="headerlink" title="使用NSURLSessionTask代理发送照片"></a>使用<code>NSURLSessionTask</code>代理发送照片</h4><p>你已经看到怎样使用<code>NSURLSession</code>异步便利构造方法。但是假如你想把注意力集中在文件传输上，例如上传一个大文件并且显示一个进度条怎么样？</p>
 <p>对于这种异步的，耗时任务类型你需要实现<code>NSURLSessionTaskDelegate</code>协议方。通过实现这个方法，你能够检索回调当一个任务接收到数据和完成接收数据时。</p>
 <p>你可能已经注意到<code>PanoPhotos</code>标签是空的当你启动App的时候。然而，<code>Byte Club</code>组织的创办成员已经慷慨的提供了一些他们自己的全景照片，你可以用它来填充你的app。</p>
 <p>下载这些 我们为你放在一起的<a target="_blank" rel="noopener" href="http://cdn4.raywenderlich.com/downloads/ByteClub_photos.zip">全景照片</a>。解压文件，拷贝到你的app在Dropbox目录下的照片目录。你文件夹的内容应该和下面一样：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f00a5m7rhhj20go06ddhi.jpg" alt="networking20"></p>
+<p><img src="/images/nsurlsession/nsurlsession_16.jpg" alt="networking20"></p>
 <p>Dropbox和核心API可以提供照片的缩略图；使用一个 UITableView cell这听起来想一件非常完美的事。</p>
 <p>打开<code> PhotosViewController.m</code>然后在<code>“GO GET THUMBNAILS</code>注释后面添加下面的代码到<code>tableView:cellForRowAtIndexPath: </code></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIApplication</span> sharedApplication].networkActivityIndicatorVisible = <span class="literal">YES</span>;</span><br><span class="line"><span class="built_in">NSURLSessionDataTask</span> *dataTask = [_session dataTaskWithURL:url</span><br><span class="line">  completionHandler:^(<span class="built_in">NSData</span>  *data, <span class="built_in">NSURLResponse</span>  *response,</span><br><span class="line">  <span class="built_in">NSError</span>  *error) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!error) &#123;</span><br><span class="line">      <span class="built_in">UIImage</span>  *image = [[<span class="built_in">UIImage</span> alloc] initWithData:data];</span><br><span class="line">      photo.thumbNail = image;</span><br><span class="line">      <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [<span class="built_in">UIApplication</span> sharedApplication].networkActivityIndicatorVisible = <span class="literal">NO</span>;</span><br><span class="line">        cell.thumbnailImage.image = photo.thumbNail;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// HANDLE ERROR //</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure>
@@ -1601,7 +1601,7 @@
 <p>这个和你早期载入挑战笔记时写的代码很像。这次，API调用来查找在<code>photos</code>目录的内容，并且只会以.jpg拓展的文件。</p>
 <p>既然<code>_photoThumbnails</code>数组已经填充好了，缩略图将出现在表视图中并且异步更新。</p>
 <p>构建运行你的app，然后切换到<code>PanoPhotos</code>标签；缩略图将载入并且像下面这样出现：</p>
-<p>！<a target="_blank" rel="noopener" href="http://ww2.sinaimg.cn/mw690/64124373gw1f00ahhaw20j20a90go0uz.jpg">networking21</a></p>
+<p><img src="/images/nsurlsession/nsurlsession_19.jpg" alt="networking21"></p>
 <p>照片看起来非常的棒–只是请当心Matthijs家撕裂代码的猫🐱！</p>
 <h4 id="上传一张全景照片"><a href="#上传一张全景照片" class="headerlink" title="上传一张全景照片"></a>上传一张全景照片</h4><p>你的app能够下载相片，如果它也能上传照片并且显示上传进度的话就非常棒了。</p>
 <p>为了跟踪上传的进度，<code>PhotosViewController</code>必须成为<code>NSURLSessionDelegate</code>和<code>NSURLSessionTaskDelegate</code>协议的代理，以便你能收到进度回调。</p>
@@ -1638,7 +1638,7 @@
 <li>刷新<code>PhotosViewController</code>以便包含你刚刚上传的照片，由于demo app是不能进行任何本地储存的上传<br>。在一个真正的app中，你应该把图片在本地进行储存和缓存。</li>
 </ol>
 <p>构建运行你的app，导航到<code>PanoPhotos</code>标签，点击照相图标选择一张照片。</p>
-<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1f00bn13wq4j20di09ojs2.jpg" alt="networking22"></p>
+<p><img src="/images/nsurlsession/nsurlsession_17.jpg" alt="networking22"></p>
 <blockquote>
 <p>注意：假如你说使用模拟器测试app，很显然你不能用你的Mac拍照，所有仅仅是拷贝一张全景照片<br>给模拟器然后上传。这样做，可以确保没有其他的Xcode工程现在连接到这个模拟器，在Xcode中选择 <strong>Xcode   Open Developer Tool   iOS Simulator</strong>。</p>
 </blockquote>
@@ -1646,7 +1646,7 @@
 <p>从Finder中拖拽一张全景照片带模拟器中，在模拟器中图片将会在Safari中打开。长按图片然后保存图片到图库中。</p>
 </blockquote>
 <p>在选择一张图片后上传，uploadView显示在屏幕的中央，并且带有上传进度，乡下面这一样显示：</p>
-<p>！<a target="_blank" rel="noopener" href="http://ww1.sinaimg.cn/mw690/64124373gw1f00bn4hmqwj209e0gomzu.jpg">networking23</a></p>
+<p><img src="/images/nsurlsession/nsurlsession_18.jpg" alt="networking23"></p>
 <p>你可能注意到一张图片上传需要花一些时间由于上传任务设置了<code>better quality</code>缩放因子。对于那些A类性格的人，你应该提供一个取消函数假如上传花费太长的时间。</p>
 <p>取消按钮在<code>uploadView</code>已经被封装起来在故事板中，所有你只需实现清楚逻辑来杀死下载操作就行。</p>
 <p>用下面的代码替换<code> PhotosViewController.m</code>的<code>cancelUpload: </code>：</p>
