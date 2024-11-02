@@ -2161,7 +2161,7 @@ WHERE  CONDITION;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:27:05" itemprop="dateModified" datetime="2024-11-02T19:27:05+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:53:13" itemprop="dateModified" datetime="2024-11-02T21:53:13+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2198,33 +2198,31 @@ WHERE  CONDITION;
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>GET和POST是两种最常用的与服务器进行交互的HTTP方法 .</p>
-</blockquote>
+          <p>GET和POST是两种最常用的与服务器进行交互的HTTP方法。</p>
 <h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><ul>
-<li>GET的语义是获取指定的URL资源, 将数据按照 variable &#x3D; value 的形式, 添加到action所指向的URL后面, 并且两者使用 ‘ ? ‘连接, 各变量之间使用 ‘ &amp; ‘连接 .</li>
-<li>对用户来说不安全, 因为在传输过程中, 数据被放在请求的URL中.</li>
-<li>传输的数据量小, 这主要是因为受URL长度限制.</li>
+<li>GET的语义是获取指定的URL资源, 将数据按照 variable &#x3D; value 的形式, 添加到action所指向的URL后面, 并且两者使用 ‘ ? ‘连接, 各变量之间使用 ‘ &amp; ‘连接。</li>
+<li>对用户来说不安全, 因为在传输过程中, 数据被放在请求的URL中。</li>
+<li>传输的数据量小, 这主要是因为受URL长度限制。</li>
 </ul>
 <h3 id="URL长度限制"><a href="#URL长度限制" class="headerlink" title="URL长度限制"></a>URL长度限制</h3><p> 在http协议中，其实并没有对url长度作出限制，往往url的最大长度和用户浏览器和Web服务器有关，不一样的浏览器，能接受的最大长度往往是不一样的，当然，不一样的Web服务器能够处理的最大长度的URL的能力也是不一样的。</p>
-<pre><code>IE浏览器对URL的最大限制为2083个字符，如果超过这个数字，提交按钮没有任何反应。
+<pre><code>IE浏览器对URL的最大限制为2083个字符，如果超过这个数字，提交按钮没有任何反应；
 
-Firefox浏览器URL的长度限制为65,536个字符 ;
+Firefox浏览器URL的长度限制为65,536个字符；
 
-Apache(Server)能够接受的最大URL长度为8192个字符 ;
+Apache(Server)能够接受的最大URL长度为8192个字符；
 
 如果浏览器的编码为UTF8的话，一个汉字最终编码后的字符长度为9个字符。
 </code></pre>
 <p>GET请求示例</p>
-<p><img src="http://static.oschina.net/uploads/space/2014/0602/164040_3SOT_1774273.png" alt="GetRequest"></p>
+<p><img src="/images/post_get/requst_01.webp" alt="GetRequest"></p>
 <h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><ul>
-<li>POST语义是向指定URL的资源添加数据.</li>
-<li>将数据放在数据体中, 按照变量和值相对应的方式, 传递到action所指向的URL.</li>
-<li>所有数据对用户来说不可见.</li>
-<li>可以传输大量数据, 上传文件只能使用POST.</li>
+<li>POST语义是向指定URL的资源添加数据。</li>
+<li>将数据放在数据体中, 按照变量和值相对应的方式, 传递到action所指向的URL。</li>
+<li>所有数据对用户来说不可见。</li>
+<li>可以传输大量数据, 上传文件只能使用POST。</li>
 </ul>
 <p>POST请求示例</p>
-<p><img src="http://static.oschina.net/uploads/space/2014/0602/164119_VRKY_1774273.png" alt="PostRequest"></p>
+<p><img src="/images/post_get/requst_02.webp" alt="GetRequest"></p>
 <h3 id="在浏览器中判断GET-POST请求"><a href="#在浏览器中判断GET-POST请求" class="headerlink" title="在浏览器中判断GET&amp;POST请求"></a>在浏览器中判断GET&amp;POST请求</h3><p>因为POST请求会向服务器发送数据体, 因此刷新页面时会出现提示窗口. 而GET请求不会向服务器发送数据体, 因此没有提示 .</p>
 <p>从请求本质来看, GET请求要比POST更安全, 效率也会更高 .(对服务器而言)</p>
 <h3 id="iOS网络发送网络请求的步骤"><a href="#iOS网络发送网络请求的步骤" class="headerlink" title="iOS网络发送网络请求的步骤"></a>iOS网络发送网络请求的步骤</h3><ol>
@@ -2297,7 +2295,7 @@ sendAsynchronousRequest : queue : completionHandler :
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:27:47" itemprop="dateModified" datetime="2024-11-02T19:27:47+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:45:39" itemprop="dateModified" datetime="2024-11-02T21:45:39+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2334,14 +2332,10 @@ sendAsynchronousRequest : queue : completionHandler :
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="HTTP-POST使用注意事项："><a href="#HTTP-POST使用注意事项：" class="headerlink" title="HTTP POST使用注意事项："></a><code>HTTP POST</code>使用注意事项：</h4><ul>
-<li><p>http Body 中的NSData 编码方式要用<code>NSASCIIStringEncoding</code>而不是<code>NSUTF8StringEncoding</code></p>
-</li>
-<li><p>通过</p>
-<p>  <code>NSString *postLength = [NSString stringWithFormat:@&quot;%d&quot;,[postData length]];</code></p>
-</li>
+          <h4 id="HTTP-POST-使用注意事项："><a href="#HTTP-POST-使用注意事项：" class="headerlink" title="HTTP POST 使用注意事项："></a><code>HTTP POST</code> 使用注意事项：</h4><ul>
+<li>http Body 中的NSData 编码方式要用<code>NSASCIIStringEncoding</code>而不是<code>NSUTF8StringEncoding</code></li>
+<li>通过<br>  <code>NSString *postLength = [NSString stringWithFormat:@&quot;%d&quot;,[postData length]];</code>		<br>计算数据的长度</li>
 </ul>
-<p>		<br>计算数据的长度</p>
 <h4 id="POST参数设置"><a href="#POST参数设置" class="headerlink" title="POST参数设置"></a>POST参数设置</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置header Content-Length</span></span><br><span class="line">[request setValue:postLength forHTTPHeaderField:<span class="string">@&quot;Content-Length&quot;</span>];</span><br><span class="line"><span class="comment">//设置header contentType</span></span><br><span class="line">[request setValue:<span class="string">@&quot;application/x-www-form-urlencoded&quot;</span> forHTTPHeaderField:<span class="string">@&quot;Current-Type&quot;</span>];</span><br><span class="line"><span class="comment">//设置body</span></span><br><span class="line">[request setHTTPBody:postData];</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -2435,7 +2429,7 @@ sendAsynchronousRequest : queue : completionHandler :
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:25:08" itemprop="dateModified" datetime="2024-11-02T19:25:08+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:43:42" itemprop="dateModified" datetime="2024-11-02T21:43:42+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2472,21 +2466,21 @@ sendAsynchronousRequest : queue : completionHandler :
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="3种工厂模式"><a href="#3种工厂模式" class="headerlink" title="3种工厂模式"></a>3种工厂模式</h2><p>概述：工厂模式是个系列，分为简单工厂模式， 工厂方法模式， 抽象工厂模式，这三种模式也非常常用。这些模式最最经典的就例子就是设计计算器。</p>
+          <h2 id="3-种工厂模式"><a href="#3-种工厂模式" class="headerlink" title="3 种工厂模式"></a>3 种工厂模式</h2><p>概述：工厂模式是个系列，分为简单工厂模式， 工厂方法模式， 抽象工厂模式，这三种模式也非常常用。这些模式最最经典的就例子就是设计计算器。</p>
 <ul>
 <li>Factory Method (工厂方法模式)</li>
 <li>Abstract Factory (抽象工厂模式）</li>
 <li>Simple Factory（简单工厂模式）</li>
 </ul>
-<p><code>参考GoF《Design Patterns》一书</code></p>
-<p>GOF是这样描述工厂模式的：</p>
+<p><code>参考 GoF《Design Patterns》一书</code></p>
+<p>GOF 是这样描述工厂模式的：</p>
 <blockquote>
 <p>“Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.”</p>
 </blockquote>
 <blockquote>
 <p>在基类中定义创建对象的一个接口，让子类决定实例化哪个类。工厂方法让一个类的实例化延迟到子类中进行。</p>
 </blockquote>
-<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p>  严格的说，简单工厂模式并不是23种常用的设计模式之一，它只算工厂模式的一个特殊实现。简单工厂模式在实际中的应用相对于其他2个工厂模式用的还是相对少得多，因为它只适应很多简单的情况，最最重要的是它违背了我们在概述中说的开放-封闭原则。因为每次你要新添加一个功能，都需要在生switch-case 语句（或者if-else 语句）中去修改代码，添加分支条件</p>
+<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p>  严格的说，简单工厂模式并不是 23 种常用的设计模式之一，它只算工厂模式的一个特殊实现。简单工厂模式在实际中的应用相对于其他 2 个工厂模式用的还是相对少得多，因为它只适应很多简单的情况，最最重要的是它违背了我们在概述中说的开放-封闭原则。因为每次你要新添加一个功能，都需要在生 switch-case 语句（或者 if-else 语句）中去修改代码，添加分支条件</p>
 <p>  简单工厂模式角色分配：</p>
 <ol>
 <li><p>Creator（产品创建者）<br>简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。</p>
@@ -2496,21 +2490,21 @@ sendAsynchronousRequest : queue : completionHandler :
 <li><p>Concrete Product （具体产品）<br>是简单工厂模式的创建目标，所有创建的对象都是充当这个角色的某个具体类的实例。</p>
 </li>
 </ol>
-<p>简单的工厂模式UML图<br><img src="http://ww1.sinaimg.cn/mw690/64124373gw1ezgte12komj20h109smxx.jpg" alt="简单工厂模式"></p>
-<p>考虑下面一个事例： 加入你是一个商人，你做的的是手机生意。现在你生产android 手机和iphone等，考虑到以后你可能还会生产其他手机例如ubuntu手机。假定你选择了简单工厂模式来实现。那么显然，我们需要所有产品的抽象基类（Product） 即是Phone类：</p>
+<p>简单的工厂模式 UML 图<br><img src="/images/factory_pattern/uml_1.jpg" alt="简单工厂模式"></p>
+<p>考虑下面一个事例： 加入你是一个商人，你做的的是手机生意。现在你生产 android 手机和 iphone 等，考虑到以后你可能还会生产其他手机例如 ubuntu 手机。假定你选择了简单工厂模式来实现。那么显然，我们需要所有产品的抽象基类（Product） 即是 Phone 类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>然后我们需要具体的产品类 Concrete Product： AndroidPhone 和iOSPhone</p>
+<p>然后我们需要具体的产品类 Concrete Product： AndroidPhone 和 iOSPhone</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;IosPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>最后我们需要Creator</p>
+<p>最后我们需要 Creator</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PhoneFactory</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Phone* createPhone(string phoneName)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span>(phoneName == <span class="string">&quot;AndroidPhone&quot;</span>)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPhone</span>();  </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(phoneName == <span class="string">&quot;IosPhone&quot;</span>)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPhone</span>();  </span><br><span class="line">        &#125;  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>客户端这样实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span>  </span><br><span class="line">&#123;  </span><br><span class="line">    PhoneFactor factory;  </span><br><span class="line">    Phone* myAndroid = factory.createPhone(<span class="string">&quot;AndroidPhone&quot;</span>);  </span><br><span class="line">    Phone* myIPhone = factory.createPhone(<span class="string">&quot;iOSPhone&quot;</span>);  </span><br><span class="line">    <span class="keyword">if</span>(myAndroid)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myAndroid-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete myAndroid;  </span><br><span class="line">        myAndroid = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(myIPhone)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myIPhone-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete  myIPhone;  </span><br><span class="line">        myIPhone = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这就是简单工厂方法，把所有的创建交给creator,creator 通过switch-case(或者if-else)语句来选择具体创建的对象。简单明了。但是就如上面所说，它最致命的问题的违背了开放-封闭原则。每次你要新添加一个功能，都要修改factor里面的createPhone代码。 但是工厂方法模式可以解决这个问题。</p>
-<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>个人觉得工厂方法模式在工厂模式家族中是用的最多模式。上面说过了，如果简单工厂模式，要添加一个新功能，比如我现在要增加WinPhone 的生产，那么我要修改PhoneFactory中的createPhone 中的分支判断条件。这违背了开放-封闭原则，那为什么不能将创建方法放到子类中呢？<br>工厂方法的定义就是：定义一个用于创建对象的接口，让子类决定实例化哪一个类，工厂方法使一个类的实例化延迟到其子类。</p>
+<p>这就是简单工厂方法，把所有的创建交给 creator,creator 通过 switch-case(或者 if-else)语句来选择具体创建的对象。简单明了。但是就如上面所说，它最致命的问题的违背了开放-封闭原则。每次你要新添加一个功能，都要修改 factor 里面的 createPhone 代码。 但是工厂方法模式可以解决这个问题。</p>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>个人觉得工厂方法模式在工厂模式家族中是用的最多模式。上面说过了，如果简单工厂模式，要添加一个新功能，比如我现在要增加 WinPhone 的生产，那么我要修改 PhoneFactory 中的 createPhone 中的分支判断条件。这违背了开放-封闭原则，那为什么不能将创建方法放到子类中呢？<br>工厂方法的定义就是：定义一个用于创建对象的接口，让子类决定实例化哪一个类，工厂方法使一个类的实例化延迟到其子类。</p>
 <p>  工厂方法模式角色：</p>
 <ol>
 <li>抽象工厂(Creator)角色：是工厂方法模式的核心，与应用程序无关。任何在模式中创建的对象的工厂类必须实现这个接口。</li>
@@ -2518,30 +2512,31 @@ sendAsynchronousRequest : queue : completionHandler :
 <li>抽象产品(Product)角色：工厂方法模式所创建的对象的超类型，也就是产品对象的共同父类或共同拥有的接口。</li>
 <li>具体产品(Concrete Product)角色：这个角色实现了抽象产品角色所定义的接口。某具体产品有专门的具体工厂创建，它们之间往往一一对应</li>
 </ol>
-<p>工厂方法模式UML图：<br><img src="http://ww1.sinaimg.cn/mw690/64124373gw1ezgtqlod9zj20hy0aijrz.jpg" alt="工厂方法模式"></p>
+<p>工厂方法模式 UML 图：<br><img src="/images/factory_pattern/uml_2.jpg" alt="工厂方法模式"></p>
 <p>看定义看的晕乎乎的？那么我们来看代码：产品接口，以及其相应的子类。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">iOSPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;iOSPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>上面这个和简单工厂方法还是一样的。接下来不一样的来了…</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PhoneFactory</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~PhoneFactory()&#123;&#125;;  </span><br><span class="line">    virtual Phone* createPhone() = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhoneFactory</span> : <span class="keyword">public</span> PhoneFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhoneFactory</span> : <span class="keyword">public</span> PhoneFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>工厂方法将PhoneFactory抽象成了基类，PhoneFactory的createPhone不在像以前那样将所有的判断塞到里面。而是改由其子类来实现创建功能，这感觉就是权力下放。<br>客户端：</p>
+<p>工厂方法将 PhoneFactory 抽象成了基类，PhoneFactory 的 createPhone 不在像以前那样将所有的判断塞到里面。而是改由其子类来实现创建功能，这感觉就是权力下放。<br>客户端：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span>  </span><br><span class="line">&#123;  </span><br><span class="line">    PhoneFactory*  androidCreator = <span class="keyword">new</span> <span class="title class_">AndroidPhoneFactory</span>();  </span><br><span class="line">    PhoneFactory*  iosCreator = <span class="keyword">new</span> <span class="title class_">IosPhoneFactory</span>();  </span><br><span class="line">    Phone*  myAndroid = androidCreator-&gt;createPhone();  </span><br><span class="line">    Phone* myIPhone = iosCreator-&gt;createPhone();  </span><br><span class="line">    <span class="keyword">if</span>(myAndroid)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myAndroid-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete myAndroid;  </span><br><span class="line">        myAndroid = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(myIPhone)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myIPhone-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete  myIPhone;  </span><br><span class="line">        myIPhone = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    delete androidCreator;  </span><br><span class="line">    delete iosCreator;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在工厂方法模式中，核心工厂类不在负责产品的创建，而是将具体的创建工作交给子类去完成。也就是后所这个核心工厂仅仅只是提供创建的接口，具体实现方法交给继承它的子类去完成。当我们的系统需要增加其他新功能时，只需要继承PhoneFactory这个类，并且实现createPhone接口。 不需要对原工厂PhoneFactory进行任何修改，这样很好地符合了“开放-封闭“原则。</p>
+<p>在工厂方法模式中，核心工厂类不在负责产品的创建，而是将具体的创建工作交给子类去完成。也就是后所这个核心工厂仅仅只是提供创建的接口，具体实现方法交给继承它的子类去完成。当我们的系统需要增加其他新功能时，只需要继承 PhoneFactory 这个类，并且实现 createPhone 接口。 不需要对原工厂 PhoneFactory 进行任何修改，这样很好地符合了“开放-封闭“原则。</p>
 <p>虽然工厂方法模式满足了”开放-封闭”原则，但是这个模式也仍然有缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，是的系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</p>
 <h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>在工厂方法模式中，其实我们有一个潜在意识的意识。那就是我们生产的都是同一类产品，例如我们生产的都是手机！那么现在假如现在我们又要生产平板了了呢？那么就要用到抽象工厂模式。我抽象工厂模式也用的比较多在工厂模式家族中，仅次于工厂方法模式。在了解抽象工厂模式之前，还是老生常谈的理清下产品等级结构和产品簇的概念。下面的图还是老图。但是我讲讲我的理解：</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezgtxoyognj20d8087wes.jpg" alt="抽象工厂模式"><br>产品等级结构：产品的等级结构也就是产品的继承结构。我理解就是同一类产品，比如手机是一个系列，有android手机，ios手机，win手机，那么这个抽象类手机和他的子类就构成了一个产品等级结构。那其他的平板显然不是和手机一个系列的，一个平板，一个是手机，所以他们是不同的产品等级结构。</p>
-<p>产品族: 在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品。比如分为android产品，和ios产品。其中一个ios产品包含ios手机和ios平板。显然ios手机和ios平板不是同一个产品等级结构的，因为一个是手机，一个是平板。但他们是同一个产品簇—都是ios产品。<br>希望大家通过上面的例子大家明白了这两个概念。</p>
-<p> 抽象工厂模式的UML图：<br> <img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezgtzs7hwaj20db09p0ta.jpg" alt="抽象工厂模式"></p>
+<p><img src="/images/factory_pattern/uml_3.jpg" alt="抽象工厂模式"></p>
+<p>产品等级结构：产品的等级结构也就是产品的继承结构。我理解就是同一类产品，比如手机是一个系列，有 android 手机，ios 手机，win 手机，那么这个抽象类手机和他的子类就构成了一个产品等级结构。那其他的平板显然不是和手机一个系列的，一个平板，一个是手机，所以他们是不同的产品等级结构。</p>
+<p>产品族: 在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品。比如分为 android 产品，和 ios 产品。其中一个 ios 产品包含 ios 手机和 ios 平板。显然 ios 手机和 ios 平板不是同一个产品等级结构的，因为一个是手机，一个是平板。但他们是同一个产品簇—都是 ios 产品。<br>希望大家通过上面的例子大家明白了这两个概念。</p>
+<p> 抽象工厂模式的 UML 图：<br> <img src="/images/factory_pattern/uml_4.jpg" alt="抽象工厂模式"></p>
 <p>接着上面的话题，现在假如我要增加对平板的支持，那么我们肯定先添加两个产品等级结构，一个是手机，一个是平板：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//产品等级结构--手机  </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;IosPhone is calling...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//产品等级结构--平板  </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pad</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Pad()&#123;&#125;;  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPad</span> : <span class="keyword">public</span> Pad  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span>&#123; cout&lt;&lt;<span class="string">&quot;AndriodPad is playing movie...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPad</span> : <span class="keyword">public</span> Pad  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span>&#123; cout&lt;&lt;<span class="string">&quot;IosPad is playing movie...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure>
-<p>然后具体的工厂我们整个工厂是生产移动设备的所以我们取名为MobileFactory,然后工厂可以生产平板和手机，故有了createPhone 和createPad两个接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//产品等级结构--手机  </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;IosPhone is calling...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//产品等级结构--平板  </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pad</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Pad()&#123;&#125;;  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPad</span> : <span class="keyword">public</span> Pad  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span>&#123; cout&lt;&lt;<span class="string">&quot;AndriodPad is playing movie...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPad</span> : <span class="keyword">public</span> Pad  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span>&#123; cout&lt;&lt;<span class="string">&quot;IosPad is playing movie...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;   </span><br></pre></td></tr></table></figure>
+<p>然后具体的工厂我们整个工厂是生产移动设备的所以我们取名为 MobileFactory,然后工厂可以生产平板和手机，故有了 createPhone 和 createPad 两个接口。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MobileFactory</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~MobileFactory()&#123;&#125;;  </span><br><span class="line">    virtual Phone* createPhone() = <span class="number">0</span>;  </span><br><span class="line">    virtual Pad* createPad() = <span class="number">0</span>;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>接着是 android 产品簇 的工厂类，负责生产android 的手机和平板：</p>
+<p>接着是 android 产品簇 的工厂类，负责生产 android 的手机和平板：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidFactory</span> : <span class="keyword">public</span> MobileFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">    Pad* createPad()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPad</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>接着是ios的产品簇的工厂类，负责生产ios的手机和平板：</p>
+<p>接着是 ios 的产品簇的工厂类，负责生产 ios 的手机和平板：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">IosFactory</span> : <span class="keyword">public</span> MobileFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    Pad* createPad()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPad</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>最后客户端这样实现：</p>
@@ -2551,9 +2546,9 @@ sendAsynchronousRequest : queue : completionHandler :
 <h2 id="主要用途"><a href="#主要用途" class="headerlink" title="主要用途"></a>主要用途</h2><p>工厂方法要解决的问题是对象的创建时机，它提供了一种扩展的策略，很好地符合了开放封闭原则。工厂方法也叫做虚构造器（Virtual Constructor）。</p>
 <p><img src="http://cdn.cocimg.com/cms/uploads/allimg/130516/4196_130516112054_1.png" alt="工厂方法的类结构图"></p>
 <h2 id="什么时候使用工厂方法"><a href="#什么时候使用工厂方法" class="headerlink" title="什么时候使用工厂方法"></a>什么时候使用工厂方法</h2><p>当是如下情况是，可以使用工厂方法：一个类不知道它所必须创建的对象的类时，一个类希望有它的子类决定所创建的对象时。</p>
-<p>更多关于工厂方法的介绍，可以参考本文最后给出的参考内容。下面我们就来看看在iOS中工厂方法的一种实现方法。</p>
-<h2 id="iOS中工厂方法的实现实例"><a href="#iOS中工厂方法的实现实例" class="headerlink" title="iOS中工厂方法的实现实例"></a>iOS中工厂方法的实现实例</h2><p>如下有一个类图，该图描述了下面即将实现的工厂方法（利用工厂方法，创建出不同的形状）。其中BVShapeFactory为工厂方法的基类，BVShape为形状的基类，BVClient通过BVShapeFactory，利用 BVShapeFactory的子类（BVCircleShapeFactory和BVSquareShapeFactory）分别创建出BVCircleShape和BVSquareShape。<br><img src="http://cdn.cocimg.com/cms/uploads/allimg/130516/4196_130516112123_1.png" alt="工厂方法"></p>
-<p>github下载地址:<a target="_blank" rel="noopener" href="https://github.com/BeyondVincent/ios_patterns/tree/master/FactoryMethodPattern">https://github.com/BeyondVincent/ios_patterns/tree/master/FactoryMethodPattern</a></p>
+<p>更多关于工厂方法的介绍，可以参考本文最后给出的参考内容。下面我们就来看看在 iOS 中工厂方法的一种实现方法。</p>
+<h2 id="iOS-中工厂方法的实现实例"><a href="#iOS-中工厂方法的实现实例" class="headerlink" title="iOS 中工厂方法的实现实例"></a>iOS 中工厂方法的实现实例</h2><p>如下有一个类图，该图描述了下面即将实现的工厂方法（利用工厂方法，创建出不同的形状）。其中 BVShapeFactory 为工厂方法的基类，BVShape 为形状的基类，BVClient 通过 BVShapeFactory，利用 BVShapeFactory 的子类（BVCircleShapeFactory 和 BVSquareShapeFactory）分别创建出 BVCircleShape 和 BVSquareShape。<br><img src="http://cdn.cocimg.com/cms/uploads/allimg/130516/4196_130516112123_1.png" alt="工厂方法"></p>
+<p>github 下载地址:<a target="_blank" rel="noopener" href="https://github.com/BeyondVincent/ios_patterns/tree/master/FactoryMethodPattern">https://github.com/BeyondVincent/ios_patterns/tree/master/FactoryMethodPattern</a></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://doc.okbase.net/luozhonglan/archive/103843.html">iOS设计模式——工厂方法（简单工厂模式，工厂方法模式， 抽象工厂模式）</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.cocoachina.com/ios/20130516/6219.html">iOS设计模式(03):工厂方法</a></li>
@@ -2617,7 +2612,7 @@ sendAsynchronousRequest : queue : completionHandler :
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:22:38" itemprop="dateModified" datetime="2024-11-02T19:22:38+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:23:46" itemprop="dateModified" datetime="2024-11-02T21:23:46+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2635,14 +2630,14 @@ sendAsynchronousRequest : queue : completionHandler :
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>966</span>
+              <span>917</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -2654,69 +2649,60 @@ sendAsynchronousRequest : queue : completionHandler :
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="本文目录"><a href="#本文目录" class="headerlink" title="本文目录"></a>本文目录</h2><ul>
-<li>前言</li>
-<li>1.获取当前线程</li>
-<li>2.获取主线程</li>
-<li>3.NSThread的创建</li>
-<li>4.暂停当前线程</li>
-<li>5.线程的其他操作</li>
-<li>6.优缺点</li>
-</ul>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每个iOS应用程序都有个专门用来更新显示UI界面、处理用户触摸事件的主线程，因此不能将其他太耗时的操作放在主线程中执行，不然会造成主线程堵塞(出现卡机现象)，带来极坏的用户体验。一般的解决方案就是将那些耗时的操作放到另外一个线程中去执行，多线程编程是防止主线程堵塞，增加运行效率的最佳方法。</p>
-<p>iOS中有3种常见的多线程编程方法</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每个 iOS 应用程序都有个专门用来更新显示 UI 界面、处理用户触摸事件的主线程，因此不能将其他太耗时的操作放在主线程中执行，不然会造成主线程堵塞(出现卡机现象)，带来极坏的用户体验。一般的解决方案就是将那些耗时的操作放到另外一个线程中去执行，多线程编程是防止主线程堵塞，增加运行效率的最佳方法。</p>
+<p>iOS 中有 3 种常见的多线程编程方法</p>
 <ol>
 <li><p><code>NSThread</code><br>这种方法需要管理线程的生命周期、同步、加锁问题，会导致一定的性能开销</p>
 </li>
-<li><p><code>NSOperation</code>和<code>NSOperationQueue</code><br>是基于OC实现的。NSOperation以面向对象的方式封装了需要执行的操作，然后可以将这个操作放到一个NSOperationQueue中去异步执行。不必关心线程管理、同步等问题。</p>
+<li><p><code>NSOperation</code>和<code>NSOperationQueue</code><br>是基于 OC 实现的。NSOperation 以面向对象的方式封装了需要执行的操作，然后可以将这个操作放到一个 NSOperationQueue 中去异步执行。不必关心线程管理、同步等问题。</p>
 </li>
-<li><p><code>Grand Centeral Dispatch</code><br>简称GCD，iOS4才开始支持，是纯C语言的API。自iPad2开始，苹果设备开始有了双核CPU，为了充分利用这2个核，GCD提供了一些新特性来支持多核并行编程</p>
+<li><p><code>Grand Centeral Dispatch</code><br>简称 GCD，iOS4 才开始支持，是纯 C 语言的 API。自 iPad2 开始，苹果设备开始有了双核 CPU，为了充分利用这 2 个核，GCD 提供了一些新特性来支持多核并行编程</p>
 </li>
 </ol>
-<p>这篇文章简单介绍<code>NSThread这</code>个类，一个<code>NSThread</code>实例就代表着一条线程</p>
-<h3 id="1-获取当前线程"><a href="#1-获取当前线程" class="headerlink" title="1.获取当前线程"></a>1.获取当前线程</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br></pre></td></tr></table></figure>
+<p>这篇文章简单介绍<code>NSThread 这</code>个类，一个<code>NSThread</code>实例就代表着一条线程</p>
+<h2 id="获取当前线程"><a href="#获取当前线程" class="headerlink" title="获取当前线程"></a>获取当前线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-获取主线程"><a href="#2-获取主线程" class="headerlink" title="2.获取主线程"></a>2.获取主线程</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *main = [<span class="built_in">NSThread</span> mainThread];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;主线程:%@&quot;</span>, main);    </span><br></pre></td></tr></table></figure>
+<h2 id="获取主线程"><a href="#获取主线程" class="headerlink" title="获取主线程"></a>获取主线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *main = [<span class="built_in">NSThread</span> mainThread];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;主线程:%@&quot;</span>, main);    </span><br></pre></td></tr></table></figure>
 
 <p>打印结果是：</p>
 <pre><code>2013-04-18 21:36:38.599 thread[7499:c07] 主线程:&lt;NSThread: 0x71434e0&gt;&#123;name = (null), num = 1&#125;
 </code></pre>
-<p>num相当于线程的id，主线程的num是为1的</p>
-<h3 id="3-NSThread的创建"><a href="#3-NSThread的创建" class="headerlink" title="3.NSThread的创建"></a>3.NSThread的创建</h3><h4 id="a-动态方法"><a href="#a-动态方法" class="headerlink" title="a.动态方法"></a>a.动态方法</h4><pre><code>- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
+<p>num 相当于线程的 id，主线程的 num 是为 1 的</p>
+<h2 id="NSThread-的创建"><a href="#NSThread-的创建" class="headerlink" title="NSThread 的创建"></a>NSThread 的创建</h2><h3 id="a-动态方法"><a href="#a-动态方法" class="headerlink" title="a.动态方法"></a>a.动态方法</h3><pre><code>- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
 </code></pre>
-<p>在第2行创建了一条新线程，然后在第4行调用<code>start</code>方法启动线程，线程启动后会调用self的<code>run:</code>方法，并且将@”mj”作为方法参数</p>
+<p>在第 2 行创建了一条新线程，然后在第 4 行调用<code>start</code>方法启动线程，线程启动后会调用 self 的<code>run:</code>方法，并且将@”mj”作为方法参数</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化线程</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(run:) object:<span class="string">@&quot;mj&quot;</span>] autorelease];</span><br><span class="line"><span class="comment">// 开启线程</span></span><br><span class="line">[thread start];</span><br></pre></td></tr></table></figure>
 
-<p>假如run:方法是这样的：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)run:(<span class="built_in">NSString</span> *)string &#123;</span><br><span class="line">     <span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了run:方法-参数：%@，当前线程：%@&quot;</span>, string, current);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如 run:方法是这样的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)run:(<span class="built_in">NSString</span> *)string &#123;</span><br><span class="line">     <span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了 run:方法-参数：%@，当前线程：%@&quot;</span>, string, current);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>打印结果为：</p>
-<pre><code>2013-04-18 21:40:33.102 thread[7542:3e13] 执行了run:方法-参数：mj，当前线程：&lt;NSThread: 0x889e8d0&gt;&#123;name = (null), num = 3&#125;
+<pre><code>2013-04-18 21:40:33.102 thread[7542:3e13] 执行了 run:方法-参数：mj，当前线程：&lt;NSThread: 0x889e8d0&gt;&#123;name = (null), num = 3&#125;
 </code></pre>
-<p>可以发现，这条线程的num值为3，说明不是主线程，主线程的num为1</p>
-<h4 id="b-静态方法"><a href="#b-静态方法" class="headerlink" title="b.静态方法"></a>b.静态方法</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">void</span>)detachNewThreadSelector:(SEL)selector toTarget:(<span class="type">id</span>)target withObject:(<span class="type">id</span>)argument;</span><br></pre></td></tr></table></figure>
+<p>可以发现，这条线程的 num 值为 3，说明不是主线程，主线程的 num 为 1</p>
+<h3 id="b-静态方法"><a href="#b-静态方法" class="headerlink" title="b.静态方法"></a>b.静态方法</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">void</span>)detachNewThreadSelector:(SEL)selector toTarget:(<span class="type">id</span>)target withObject:(<span class="type">id</span>)argument;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector:<span class="keyword">@selector</span>(run:) toTarget:<span class="keyword">self</span> withObject:<span class="string">@&quot;mj&quot;</span>];</span><br></pre></td></tr></table></figure>
 
-<h4 id="c-隐式创建线程"><a href="#c-隐式创建线程" class="headerlink" title="c.隐式创建线程"></a>c.隐式创建线程</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelectorInBackground:<span class="keyword">@selector</span>(run:) withObject:<span class="string">@&quot;mj&quot;</span>];</span><br></pre></td></tr></table></figure>
-<p>会隐式地创建一条新线程，并且在这条线程上调用self的run:方法，以@”mj”为方法参数</p>
-<h3 id="4-暂停当前线程"><a href="#4-暂停当前线程" class="headerlink" title="4.暂停当前线程"></a>4.暂停当前线程</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="c-隐式创建线程"><a href="#c-隐式创建线程" class="headerlink" title="c.隐式创建线程"></a>c.隐式创建线程</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelectorInBackground:<span class="keyword">@selector</span>(run:) withObject:<span class="string">@&quot;mj&quot;</span>];</span><br></pre></td></tr></table></figure>
+<p>会隐式地创建一条新线程，并且在这条线程上调用 self 的 run:方法，以@”mj”为方法参数</p>
+<h2 id="暂停当前线程"><a href="#暂停当前线程" class="headerlink" title="暂停当前线程"></a>暂停当前线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDate</span> *date = [<span class="built_in">NSDate</span> dateWithTimeInterval:<span class="number">2</span> sinceDate:[<span class="built_in">NSDate</span> date]];  </span><br><span class="line">[<span class="built_in">NSThread</span> sleepUntilDate:date];</span><br></pre></td></tr></table></figure>
 
-<p>上面两种做法都是暂停当前线程2秒</p>
-<h3 id="5-线程的其他操作"><a href="#5-线程的其他操作" class="headerlink" title="5.线程的其他操作"></a>5.线程的其他操作</h3><h4 id="a-在指定线程上执行操作"><a href="#a-在指定线程上执行操作" class="headerlink" title="a.在指定线程上执行操作"></a>a.在指定线程上执行操作</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(run) onThread:thread withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
+<p>上面两种做法都是暂停当前线程 2 秒</p>
+<h2 id="线程的其他操作"><a href="#线程的其他操作" class="headerlink" title="线程的其他操作"></a>线程的其他操作</h2><h3 id="a-在指定线程上执行操作"><a href="#a-在指定线程上执行操作" class="headerlink" title="a.在指定线程上执行操作"></a>a.在指定线程上执行操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(run) onThread:thread withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>上面代码的意思是在thread这条线程上调用self的run方法</li>
-<li>最后的YES代表：上面的代码会阻塞，等run方法在thread线程执行完毕后，上面的代码才会通过</li>
+<li>上面代码的意思是在 thread 这条线程上调用 self 的 run 方法</li>
+<li>最后的 YES 代表：上面的代码会阻塞，等 run 方法在 thread 线程执行完毕后，上面的代码才会通过</li>
 </ul>
-<h4 id="b-在主线程上执行操作"><a href="#b-在主线程上执行操作" class="headerlink" title="b.在主线程上执行操作"></a>b.在主线程上执行操作</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelectorOnMainThread:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];  </span><br></pre></td></tr></table></figure>
+<h3 id="b-在主线程上执行操作"><a href="#b-在主线程上执行操作" class="headerlink" title="b.在主线程上执行操作"></a>b.在主线程上执行操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelectorOnMainThread:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];  </span><br></pre></td></tr></table></figure>
 
-<p>在主线程调用self的run方法</p>
-<h4 id="c-在当前线程执行操作"><a href="#c-在当前线程执行操作" class="headerlink" title="c.在当前线程执行操作"></a>c.在当前线程执行操作</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
-<p>在当前线程调用self的run方法</p>
-<h3 id="6-优缺点"><a href="#6-优缺点" class="headerlink" title="6.优缺点"></a>6.优缺点</h3><ol>
+<p>在主线程调用 self 的 run 方法</p>
+<h3 id="c-在当前线程执行操作"><a href="#c-在当前线程执行操作" class="headerlink" title="c.在当前线程执行操作"></a>c.在当前线程执行操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>在当前线程调用 self 的 run 方法</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ol>
 <li>优点：<code>NSThread</code>比其他多线程方案较轻量级，更直观地控制线程对象</li>
 <li>缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁会有一定的系统开销</li>
 </ol>

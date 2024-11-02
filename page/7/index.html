@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:40:53" itemprop="dateModified" datetime="2024-11-02T19:40:53+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:18:50" itemprop="dateModified" datetime="2024-11-02T21:18:50+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,10 +267,8 @@
 <li>原文链接：<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift</a></li>
 <li>译者<a target="_blank" rel="noopener" href="https://twitter.com/oneruofeng">@oneruofeng</a></li>
 </ul>
-<p><strong>Post info</strong>: Updated for Xcode 7.1 and Swift 2.1 – 1 January 2016</p>
-<p><strong>Update note</strong>: This tutorial was updated to iOS 8, Xcode 6.1 and Swift by Richard Turton.</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">Original post</a> by Tutorial Team member <a target="_blank" rel="noopener" href="http://www.raywenderlich.com/u/Canopus">Soheil Azarpour</a>.</p>
+<p><strong>Post info</strong>: Updated for Xcode 7.1 and Swift 2.1 – 1 January 2016<br><strong>Update note</strong>: This tutorial was updated to iOS 8, Xcode 6.1 and Swift by Richard Turton.<br><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">Original post</a> by Tutorial Team member <a target="_blank" rel="noopener" href="http://www.raywenderlich.com/u/Canopus">Soheil Azarpour</a>.</p>
 </blockquote>
 <p>每个人都有点击一个按钮或者进入一些文本在iOS或者Mac App上的令人沮丧的经历，就是突然-WHAM，用户交互停止了响应。</p>
 <p>在Mac上，你的用户开始盯着一个沙漏或者一个七彩的轮子开始旋转直到它们再次恢复UI交互为止。在一个iOS app中，用户期望App立即响应它们的触摸事件，无响应的app给人的感觉是笨重和缓慢，这样通常会导致收到差评。</p>
@@ -518,7 +516,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:22:25" itemprop="dateModified" datetime="2024-11-02T19:22:25+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:17:02" itemprop="dateModified" datetime="2024-11-02T21:17:02+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -555,7 +553,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本文目录</p>
+          <p><strong>本文目录</strong></p>
 <ul>
 <li>前言</li>
 <li>NSInvocationOperation</li>
@@ -570,7 +568,7 @@
 <li>然后将NSOperation对象添加到NSOperationQueue中</li>
 <li>系统会自动将<code>NSOperation</code>中封装的操作放到一条新线程中执行在此过程中，我们根本不用考虑线程的生命周期、同步、加锁等问题下面列举一个应用场景，比如微博的粉丝列表：</li>
 </ul>
-<p><img src="http://images.cnitblog.com/blog/497279/201304/19122046-b40c752b60a5413290b569f5377ef7f3.png" alt="微博的粉丝列表"></p>
+<p><img src="/images/common/weibo_fancy.png" alt="微博的粉丝列表"></p>
 <p>每一行的头像肯定要从新浪服务器下载图片后才能显示的，而且是需要异步下载。这时候你就可以把每一行的图片下载操作封装到一个<code>NSOperation</code>对象中，上面有6行，所以要创建6个<code>NSOperation</code>对象，然后添加到<code>NSOperationQueue</code>中，分别下载不同的图片，下载完毕后，回到对应的行将图片显示出来。</p>
 <p>2 .默认情况下，<code>NSOperation</code>并不具备封装操作的能力，必须使用它的子类，使用NSOperation子类的方式有3种：</p>
 <ul>
@@ -707,7 +705,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:58:55" itemprop="dateModified" datetime="2024-11-02T20:58:55+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 21:11:34" itemprop="dateModified" datetime="2024-11-02T21:11:34+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -750,29 +748,17 @@
 <li>远程事件</li>
 </ul>
 <h3 id="谁能处理触摸事件"><a href="#谁能处理触摸事件" class="headerlink" title="谁能处理触摸事件?"></a>谁能处理触摸事件?</h3><p>响应者对象</p>
-<p>在 iOS 中不是任何对象都能处理事件,只有继承了 UIResponder 的对象才能接收并处理事件.我们称之为响应者对象.</p>
-<p><code>UIApplication</code>,<code>UIViewController</code>,<code>UIView</code>都继承自<code>UIResponder</code>,因此它们都是响应者对象,都能够接收并处理事件.</p>
+<p>在 iOS 中不是任何对象都能处理事件,只有继承了 <code>UIResponder</code> 的对象才能接收并处理事件.我们称之为响应者对象.</p>
+<p><code>UIApplication</code>、<code>UIViewController</code>、<code>UIView</code> 都继承自 <code>UIResponder</code>,因此它们都是响应者对象,都能够接收并处理事件.</p>
 <h3 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h3><p>UIResponder 内部提供了方法来处理事件</p>
 <ol>
 <li><p>触摸事件</p>
-<p> 一次完成的触摸过程,会经历 3 个状态;<br> UIView 的触摸事件处理</p>
+<p> 一次完成的触摸过程,会经历 3 个状态, UIView 的触摸事件处理</p>
 <ul>
-<li>一根或多根手指开始触摸 view,系统会自动调用 view 下面的方法:<ul>
-<li>(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸开始</li>
-</ul>
-</li>
-<li>一根或者多根手指在 view 上移动，系统会自动调用 view 下面的方法（随着手指的移动，会持续调用该方法）<ul>
-<li>(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸移动</li>
-</ul>
-</li>
-<li>一根或者多根手指离开 view，系统会自动调用 view 下面的方法<ul>
-<li>(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸结束</li>
-</ul>
-</li>
-<li>触摸结束前，某个系统事件（例如电话呼入   ）会打断触摸过程，系统会自动调用 view 下面的方法<ul>
-<li>(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event; &#x2F;&#x2F;触摸取消(可能会经历)</li>
-</ul>
-</li>
+<li>一根或多根手指开始触摸 view,系统会自动调用 view 下面的方法:  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)touchesBegan:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;  <span class="comment">//触摸开始</span></span><br></pre></td></tr></table></figure></li>
+<li>一根或者多根手指在 view 上移动，系统会自动调用 view 下面的方法（随着手指的移动，会持续调用该方法）  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)touchesMoved:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;  <span class="comment">//触摸移动</span></span><br></pre></td></tr></table></figure></li>
+<li>一根或者多根手指离开 view，系统会自动调用 view 下面的方法  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)touchesEnded:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event;  <span class="comment">//触摸结束</span></span><br></pre></td></tr></table></figure></li>
+<li>触摸结束前，某个系统事件（例如电话呼入   ）会打断触摸过程，系统会自动调用 view 下面的方法  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)touchesCancelled:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event; <span class="comment">//触摸取消(可能会经历)</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <p> 4 个触摸事件的处理方法中，都有 NSSet *touches 和 UIEvent *event 两个参数:</p>
 <ul>
@@ -784,14 +770,10 @@
 <p> 提示：touches 中存放的都是 UITouch 对象。</p>
 </li>
 <li><p>加速计事件</p>
-<ul>
-<li>(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event;    - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event;    - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event;</li>
-</ul>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)motionBegan:(<span class="built_in">UIEventSubtype</span>)motion withEvent:(<span class="built_in">UIEvent</span> *)event;    </span><br><span class="line">- (<span class="type">void</span>)motionEnded:(<span class="built_in">UIEventSubtype</span>)motion withEvent:(<span class="built_in">UIEvent</span> *)event;    </span><br><span class="line">- (<span class="type">void</span>)motionCancelled:(<span class="built_in">UIEventSubtype</span>)motion withEvent:(<span class="built_in">UIEvent</span> *)event;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>远程控制事件</p>
-<pre><code> - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
-</code></pre>
-</li>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)remoteControlReceivedWithEvent:(<span class="built_in">UIEvent</span> *)event;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="UITouch"><a href="#UITouch" class="headerlink" title="UITouch"></a>UITouch</h3><p>当用户用一根手指触摸屏幕时，会创建一个与手指相关联的 UITouch 对象；一根手指对应一个 UITouch 对象<br>UITouch 的作用:</p>
 <ul>
@@ -813,7 +795,7 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span> timestamp;</span><br></pre></td></tr></table></figure>
 
 <p>当前触摸事件所处的状态</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UITouchPhase</span> phase;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">UITouchPhase 是一个枚举类型，包含：</span></span><br><span class="line"><span class="comment">UITouchPhaseBegan（触摸开始）</span></span><br><span class="line"><span class="comment">UITouchPhaseMoved（接触点移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseStationary（接触点无移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseEnded（触摸结束）</span></span><br><span class="line"><span class="comment">UITouchPhaseCancelled（触摸取消）*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">UITouchPhase 是一个枚举类型，包含：</span></span><br><span class="line"><span class="comment">UITouchPhaseBegan（触摸开始）</span></span><br><span class="line"><span class="comment">UITouchPhaseMoved（接触点移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseStationary（接触点无移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseEnded（触摸结束）</span></span><br><span class="line"><span class="comment">UITouchPhaseCancelled（触摸取消）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UITouchPhase</span> phase;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>UITouch 的方法：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CGPoint</span>)locationInView:(<span class="built_in">UIView</span> *)view;</span><br></pre></td></tr></table></figure>
@@ -826,7 +808,7 @@
 <p>每产生一个事件，就会产生一个 UIEvent 对象；<br>UIEvent:称为事件对象，记录事件产生的时刻和类型。</p>
 </blockquote>
 <p>常见属性：<br>1.事件类型</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventType</span>  type;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventSubtype</span>  subtype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventType</span>) &#123;</span><br><span class="line">    <span class="built_in">UIEventTypeTouches</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeMotion</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeRemoteControl</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventSubtype</span>) &#123;</span><br><span class="line">    <span class="comment">// available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeNone</span>                              = <span class="number">0</span>,    <span class="comment">// for UIEventTypeMotion, available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeMotionShake</span>                       = <span class="number">1</span>,</span><br><span class="line">    <span class="comment">// for UIEventTypeRemoteControl, available in iOS 4.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPlay</span>                 = <span class="number">100</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPause</span>                = <span class="number">101</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlStop</span>                 = <span class="number">102</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlTogglePlayPause</span>      = <span class="number">103</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlNextTrack</span>            = <span class="number">104</span>,    <span class="built_in">UIEventSubtypeRemoteControlPreviousTrack</span>        = <span class="number">105</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingBackward</span> = <span class="number">106</span>,    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingBackward</span>   = <span class="number">107</span>,    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingForward</span>  = <span class="number">108</span>,    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingForward</span>    = <span class="number">109</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventType</span>  type;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventSubtype</span>  subtype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventType</span>) &#123;</span><br><span class="line">    <span class="built_in">UIEventTypeTouches</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeMotion</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeRemoteControl</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventSubtype</span>) &#123;</span><br><span class="line">    <span class="comment">// available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeNone</span>                              = <span class="number">0</span>,    <span class="comment">// for UIEventTypeMotion, available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeMotionShake</span>                       = <span class="number">1</span>,</span><br><span class="line">    <span class="comment">// for UIEventTypeRemoteControl, available in iOS 4.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPlay</span>                 = <span class="number">100</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPause</span>                = <span class="number">101</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlStop</span>                 = <span class="number">102</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlTogglePlayPause</span>      = <span class="number">103</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlNextTrack</span>            = <span class="number">104</span>,    <span class="built_in">UIEventSubtypeRemoteControlPreviousTrack</span>        = <span class="number">105</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingBackward</span> = <span class="number">106</span>,    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingBackward</span>   = <span class="number">107</span>,    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingForward</span>  = <span class="number">108</span>,    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingForward</span>    = <span class="number">109</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>2.事件产生的时间</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span>  timestamp;</span><br></pre></td></tr></table></figure>
@@ -885,22 +867,10 @@
 </ul>
 <p>每一个手势识别器的用法都差不多，比如 UITapGestureRecognizer 的使用步骤如下:</p>
 <ol>
-<li><p>创建手势识别器对象；</p>
-<p> UITapGestureRecognizer *tap &#x3D; [[UITapGestureRecognizer alloc] init];</p>
-</li>
-<li><p>设置手势识别器对象的具体属性；</p>
-<pre><code> // 连续敲击 2 次
- tap.numberOfTapsRequired = 2;
- // 需要 2 根手指一起敲击
- tap.numberOfTouchesRequired = 2;
-</code></pre>
-</li>
-<li><p>添加手势识别器到对应的 view 上</p>
-<p> [self.iconView addGestureRecognizer:tap];</p>
-</li>
-<li><p>监听手势的触发</p>
-<p> [tap addTarget:self action:@selector(tapIconView:)];</p>
-</li>
+<li>创建手势识别器对象； <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UITapGestureRecognizer</span> *tap = [[<span class="built_in">UITapGestureRecognizer</span> alloc] init];</span><br></pre></td></tr></table></figure></li>
+<li>设置手势识别器对象的具体属性； <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 连续敲击 2 次</span></span><br><span class="line">tap.numberOfTapsRequired = <span class="number">2</span>;</span><br><span class="line"><span class="comment">// 需要 2 根手指一起敲击</span></span><br><span class="line">tap.numberOfTouchesRequired = <span class="number">2</span>;</span><br></pre></td></tr></table></figure></li>
+<li>添加手势识别器到对应的 view 上 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.iconView addGestureRecognizer:tap];</span><br></pre></td></tr></table></figure></li>
+<li>监听手势的触发 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[tap addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(tapIconView:)];</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>手势识别的状态</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIGestureRecognizerState</span>) &#123;</span><br><span class="line">    <span class="comment">// 没有触摸事件发生，所有手势识别的默认状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStatePossible</span>,</span><br><span class="line">    <span class="comment">// 一个手势已经开始但尚未改变或者完成时</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateBegan</span>,</span><br><span class="line">    <span class="comment">// 手势状态改变</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateChanged</span>,</span><br><span class="line">    <span class="comment">// 手势完成</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateEnded</span>,</span><br><span class="line">    <span class="comment">// 手势取消，恢复至 Possible 状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateCancelled</span>,</span><br><span class="line">    <span class="comment">// 手势失败，恢复至 Possible 状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateFailed</span>,</span><br><span class="line">    <span class="comment">// 识别到手势识别</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateRecognized</span> = <span class="built_in">UIGestureRecognizerStateEnded</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
