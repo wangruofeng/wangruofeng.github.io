@@ -1020,7 +1020,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:21:36" itemprop="dateModified" datetime="2024-11-02T19:21:36+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 22:50:28" itemprop="dateModified" datetime="2024-11-02T22:50:28+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1057,7 +1057,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://ww2.sinaimg.cn/large/64124373gw1f01qjo2k00j21g00ejjvd.jpg" alt="coreAnimation"></p>
+          <p><img src="/images/ios_animation_swift/ios_animation_swift_cover.jpg" alt="coreAnimation"></p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>此文主要记录我学习iOS的动画相关内容用<code>Swift</code>语言，记录下来以供参考，不定时更新。</p>
 <h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><ul>
 <li>Section I: View 动画<ul>
@@ -1116,7 +1116,7 @@
 </blockquote>
 <h4 id="Section-II-Auto-Layout-动画"><a href="#Section-II-Auto-Layout-动画" class="headerlink" title="Section II: Auto Layout 动画"></a>Section II: Auto Layout 动画</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// change Constraint</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// init layout</span></span><br><span class="line">view.layoutIfNeeded()</span><br><span class="line"></span><br><span class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.8</span>, delay: <span class="number">0.0</span>,</span><br><span class="line">      usingSpringWithDamping: <span class="number">0.4</span>, initialSpringVelocity: <span class="number">0.0</span>,</span><br><span class="line">      options: [], animations: &#123;</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// do something change constraint</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// layout</span></span><br><span class="line">        <span class="keyword">self</span>.view.layoutIfNeeded()</span><br><span class="line">      &#125;, completion: <span class="literal">nil</span>)</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
 
-<p>原理就是，修改约束,让添加一个动画，在动画<code>block</code>里面执行布局更新，<code>block</code>里面也可以添加修改约束代码，修改约束的本质是修改相关<code>View</code>的<code>frame</code>和<code>bounds</code>，由于修改<code>View</code>的这个属性是支持动画的，所以修改约束其实是间接修改<code>View</code>的这些属性，所有也是支持动画的，这个动画的强大的之处在于，可以实现一系列<code>View</code>相互协作的动画。</p>
+<p>原理就是，修改约束,让添加一个动画，在动画<code>block</code>里面执行布局更新，<code>block</code>里面也可以添加修改约束代码，修改约束的本质是修改相关<code>View</code>的<code>frame</code>和<code>bounds</code>，由于修改<code>View</code>的这个属性是支持动画的，所以修改约束其实是间接修改<code>View</code>的这些属性，所以也是支持动画的，这个动画的强大的之处在于，可以实现一系列<code>View</code>相互协作的动画。</p>
 <h4 id="Section-VIII-Apple-Watch-动画"><a href="#Section-VIII-Apple-Watch-动画" class="headerlink" title="Section VIII: Apple Watch 动画"></a>Section VIII: Apple Watch 动画</h4><p>概述：在Apple Watch 中有两种技术来创建动画，一个是一次性创建一系列静态可动画的图片序列或者循环动画，另一种是对标签和其他项目通过改变尺寸，对齐，颜色，透明度进行布局和外观动画。</p>
 <p><strong>Animated Image Sequences</strong></p>
 <p><code>Animated Image Sequences</code>是由两个或者更多的独立图片组成的序列来随时间按序列显示。每张图片组成了动画的一个单独的帧，整个动画运行在一个循环中除了你在运行的时候修改了播放的行为。主要把它安装在你界面中的<code>image</code>，<code>group</code>,<code>button</code>等元素中。通过<code>WKImageAnimatable</code>协议来实现动画，也就是说凡是遵循这个协议的对象都支持动画，<code>WatchKit</code>中遵循这个协议的对象有：<code>WKInterfaceGroup</code>，<code>WKInterfaceImage</code></p>
@@ -1136,7 +1136,7 @@
 <p>参数说明：<code>imageRange</code>,将要执行动画的图片范围，<code>0</code>表示第一张图片，<code>1</code>表示第二张图片，以此类推；<code>duration</code>,单位秒，表示动画执行单个循环的时间，<code>正值</code>表示从第一帧到最后一帧执行，<code>负值</code>表示以相反的顺序执行动画，以第一帧结束；<code>repeatCount</code>,动画的重复次数，设置<code>0</code>表示无限循环。</p>
 </blockquote>
 <p>3.将素材文件拖入<code>Watch</code>的<code>Asset.xcassets</code>的文件里面，以<code>Progress</code>开始命名后面接一串连续的数字，效果应该像下面这样。</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1f0g7yyn3ipj20co0c60tw.jpg" alt="iWatchProgress"></p>
+<p><img src="/images/ios_animation_swift/ios_animation_swift_01.jpg" alt="iWatchProgress"></p>
 <p>4.然后在模拟器上运行就OK了。</p>
 <p><strong>Layout and Appearance Animations</strong></p>
 <p>你可以动画改变所有界面元素的布局和外观。动画改变布局让你修改元素的尺寸或者动态的改变布局的方向。你可以移动在屏幕上的元素或者让它们的内容重新对齐。你也可以动画改变元素的外观，包括改变他们的<code>backgroud color</code>或者<code>opactiy</code>。这些类型的动画让你创建动态的界面用来响应用户的交互并且提供一个更好的反馈。</p>
@@ -1155,7 +1155,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">func</span> animateWithDuration(<span class="keyword">_</span> duration: <span class="type">NSTimeInterval</span>, animations animations: () -&gt; <span class="type">Void</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>说明:这个方法在<code>WKInterfaceController</code>中，目前发现只有这一个动画API，你可以在这个闭包里面执行相应的动画操作，实现跟<code>UIView</code>的block动画类似。</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1f0g87cuk9cj20zi034dh2.jpg" alt="iWatchAnimation"></p>
+<p><img src="/images/ios_animation_swift/ios_animation_swift_02.jpg" alt="iWatchAnimation"></p>
 <p>实例：</p>
 <blockquote>
 <p>在界面已经出现的时候对<code>planeImage</code>进行着色动画,改变<code>separator</code>的颜色</p>
