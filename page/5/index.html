@@ -194,6 +194,166 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/03/2016-03-03-shi-yong-mantlegao-xiao-gou-jian-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/03/2016-03-03-shi-yong-mantlegao-xiao-gou-jian-model/" class="post-title-link" itemprop="url">使用 Mantle 高效构建 Model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-03 01:05:21" itemprop="dateCreated datePublished" datetime="2016-03-03T01:05:21+08:00">2016-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 16:29:50" itemprop="dateModified" datetime="2024-11-02T16:29:50+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>在iOS开发中，从服务器获取数据，然后解析成本地的模型是经常的要做事，而且重复次数特别多，每次增加一个网络请求或者增加一个模型都需要完成<code>JSON</code>到<code>Model</code>层的转换，手写通过字典<code>valueForKey:</code>直接解析已经更不上时代的步伐，学会利用工具提高自己的工作效率，今天就分享一下<code>Mantle</code>这个框架解析的心得。</p>
+<p><code>Mantle</code>解决的痛点：</p>
+<ul>
+<li>服务器经常更新（添加或者删除）字段，客服端需要在<code>Model</code>层初始化的时候修改取值字段，易出错，而且繁琐。</li>
+<li>实现自定义的<code>Model</code>的序列化，以便将数据保存到本地，也就是说实现<code>NSCoding</code>协议，在模型复制的情况下添加或者修改字段非常麻烦。</li>
+<li>自定义的<code>Model</code>的<code>Copy</code>,你必须手动实现<code>NSCopying</code>协议,而且没有办法反序列化成<code>JSON</code>。</li>
+</ul>
+<p><code>Mantle</code>很好的解决的以上痛点：</p>
+<ul>
+<li>实现了<code>NSCopying</code>协议。</li>
+<li>实现了<code>NSCoding</code>协议，可以通过<code>NSKeyedArchiver</code>将数据归档到本地。</li>
+<li>提供了<code>isEqual:</code>和<code>hash</code>的默认实现。</li>
+<li>可以在<code>Model</code>和<code>JSON</code>之间互相转换。</li>
+</ul>
+<p>以一个<code>CATProfile</code>模型类为例，演示这个框架怎样以一种非常简单的方式将一个<code>NSDictionary</code>对象映射成一个<code>Objective-C</code>,反之亦然。</p>
+<p>下面的<code>CATProfile</code>模型</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Objective Cat&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;birthday&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2013-09-12 13:29:36 +0100&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;website&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://objc.at&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;location&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;lat&quot;</span><span class="punctuation">:</span> <span class="string">&quot;48.2083&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;lon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;16.3731&quot;</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;relationship_status&quot;</span><span class="punctuation">:</span> <span class="string">&quot;single&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;awesome&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面我们创建一个<code>MTLModel</code>子类代表以上的<code>Json</code>对象。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// CATProfile.h</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">CATRelationshipStatus</span>) &#123;</span><br><span class="line">    <span class="built_in">CATRelationshipStatusSingle</span> = <span class="number">0</span>,</span><br><span class="line">    <span class="built_in">CATRelationshipStatusInRelationship</span>,</span><br><span class="line">    <span class="built_in">CATRelationshipStatusComplicated</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CATProfile</span> : <span class="title">MTLModel</span>&lt;<span class="title">MTLJSONSerializing</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSNumber</span> *profileId;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSDate</span> *birthday;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSURL</span> *website;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CLLocationCoordinate2D</span> locationCoordinate;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>) <span class="built_in">CATRelationshipStatus</span> relationshipStatus;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isAwesome) <span class="type">BOOL</span> awesome;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>CATProfile</code>类继承自<code>MTLModel</code>并且实现了<code>MTLJSONSerializing</code>，协议要求实现<code>+JSONKeyPathsByPropertyKey</code>方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// CATProfile.m</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSDictionary</span> *)JSONKeyPathsByPropertyKey &#123;</span><br><span class="line">    <span class="comment">// properties defined in header &lt; : &gt; key in JSON Dictionary</span></span><br><span class="line">    <span class="keyword">return</span> @&#123;</span><br><span class="line">             <span class="string">@&quot;profileId&quot;</span>:          <span class="string">@&quot;id&quot;</span>,</span><br><span class="line">             <span class="string">@&quot;websiteURL&quot;</span>:         <span class="string">@&quot;website&quot;</span>,</span><br><span class="line">             <span class="string">@&quot;locationCoordinate&quot;</span>: <span class="string">@&quot;location&quot;</span>,</span><br><span class="line">             <span class="string">@&quot;relationshipStatus&quot;</span>: <span class="string">@&quot;relationship_status&quot;</span>,</span><br><span class="line">            &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>+JSONKeyPathsByPropertyKey</code>方法返回一个在JSON数据中需要模型的属性匹配的值的字典，这能确保<code>Mantle</code>知道那个JSON键键使用来构成一个指定的模型接口。</p>
+<p>很明显除了这个列表中的<code>name</code>,<code>birthday</code>和<code>awesome</code>属性。假如一个属性在字典中被忽略，<code>Mantle</code>将自动在JSON中查找带有相同名称的接口。</p>
+<p><strong>NSValueTransformer</strong></p>
+<p><code>Mantle</code>还能够处理任意类型的转换，例如<code>NSString</code>he<code>NSNumber</code>默认支持。然而，它也需要一些帮助对于处理非任意的类型例如<code>NSURL</code>和<code>枚举</code>还有自定义的结构体像<code>CLLocationCoordinate2D</code>。</p>
+<p><code>Mantle</code>依赖<strong>Foundation</strong>框架下<code>NSValueTransformer</code>对象来实现在模型代表的JSON层和OC对象的实际接口之间的值的映射。</p>
+<p>创建一个自定义<strong>transformer</strong>给某个属性，我们需要实现一个叫做<code>+&lt;propertyName&gt;JSONTransformer</code>的类方法并且返回一个想要的<code>NSValueTransformer</code>对象。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mapping birthday to NSDate and vice-versa</span></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)birthdayJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">MTLValueTransformer</span> reversibleTransformerWithForwardBlock:^(<span class="built_in">NSString</span> *dateString) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="keyword">self</span>.dateFormatter dateFromString:dateString];</span><br><span class="line">    &#125; reverseBlock:^(<span class="built_in">NSDate</span> *date) &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="keyword">self</span>.dateFormatter stringFromDate:date];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSDateFormatter</span> *)dateFormatter &#123;</span><br><span class="line">    <span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</span><br><span class="line">    dateFormatter.locale = [[<span class="built_in">NSLocale</span> alloc] initWithLocaleIdentifier:<span class="string">@&quot;en_US_POSIX&quot;</span>];</span><br><span class="line">    dateFormatter.dateFormat = <span class="string">@&quot;yyyy-MM-dd&#x27;T&#x27;HH:mm:ss.SSS&#x27;Z&#x27;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dateFormatter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Mantle</code>在<code>runtime</code>调用这个方法来决定怎样变换**birthday **属性，正向转换block从一个字符串对象到一个<code>NSDate</code>对象，反向转换block将<code>NSDate</code>对象转换回一个字符串对象，非常棒！</p>
+<p>下面列举了一些变换方法，对于所有的我们需要注意的非任意属性以供参考。</p>
+<h3 id="NSURL-↔︎-JSON-string"><a href="#NSURL-↔︎-JSON-string" class="headerlink" title="NSURL ↔︎ JSON string"></a>NSURL ↔︎ JSON string</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)websiteURLJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> valueTransformerForName:<span class="built_in">MTLURLValueTransformerName</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CLLocationCoordinate2D-↔︎-JSON-object"><a href="#CLLocationCoordinate2D-↔︎-JSON-object" class="headerlink" title="CLLocationCoordinate2D ↔︎ JSON object"></a>CLLocationCoordinate2D ↔︎ JSON object</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)locationCoordinateJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">MTLValueTransformer</span> reversibleTransformerWithForwardBlock:^(<span class="built_in">NSDictionary</span> *coordinateDict) &#123;</span><br><span class="line">        <span class="built_in">CLLocationDegrees</span> latitude = [coordinateDict[<span class="string">@&quot;lat&quot;</span>] doubleValue];</span><br><span class="line">        <span class="built_in">CLLocationDegrees</span> longitude = [coordinateDict[<span class="string">@&quot;lon&quot;</span>] doubleValue];</span><br><span class="line">        <span class="keyword">return</span> [<span class="built_in">NSValue</span> valueWithMKCoordinate:<span class="built_in">CLLocationCoordinate2DMake</span>(latitude, longitude)];</span><br><span class="line">    &#125; reverseBlock:^(<span class="built_in">NSValue</span> *coordinateValue) &#123;</span><br><span class="line">        <span class="built_in">CLLocationCoordinate2D</span> coordinate = [coordinateValue <span class="built_in">MKCoordinateValue</span>];</span><br><span class="line">        <span class="keyword">return</span> @&#123;<span class="string">@&quot;lat&quot;</span>: @(coordinate.latitude), <span class="string">@&quot;lon&quot;</span>: @(coordinate.longitude)&#125;;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="enum-↔︎-JSON-string"><a href="#enum-↔︎-JSON-string" class="headerlink" title="enum ↔︎ JSON string"></a>enum ↔︎ JSON string</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)relationshipStatusJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> mtl_valueMappingTransformerWithDictionary:@&#123;</span><br><span class="line">        <span class="string">@&quot;single&quot;</span>: @(<span class="built_in">CATRelationshipStatusSingle</span>),</span><br><span class="line">        <span class="string">@&quot;relationship&quot;</span>: @(<span class="built_in">CATRelationshipStatusInRelationship</span>),</span><br><span class="line">        <span class="string">@&quot;complicated&quot;</span>: @(<span class="built_in">CATRelationshipStatusComplicated</span>)</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="BOOL-↔︎-JSON-boolean"><a href="#BOOL-↔︎-JSON-boolean" class="headerlink" title="BOOL ↔︎ JSON boolean"></a>BOOL ↔︎ JSON boolean</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)awesomeJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> valueTransformerForName:<span class="built_in">MTLBooleanValueTransformerName</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="从JSON创建模型对象"><a href="#从JSON创建模型对象" class="headerlink" title="从JSON创建模型对象"></a>从JSON创建模型对象</h3><p>一旦模型配置完成，就该获得JSON对象从API中，并且把它转换成我们模型的一个实例。首先，我们需要把JSON呈现转换成一个<code>NSDictionary</code>,它能够用来通过<code>Mantle</code>来创建我们的模型，很幸运的是iOS提供了一个非常棒的方法来处理它，就是通过<code>NSJSONSerialization</code>。</p>
+<p>那样以后，<code>MTLJSONAdapter</code>类就能利用<code>Mantle</code>做繁重的工作来创建我们的模型。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create NSDictionary from JSON data</span></span><br><span class="line"><span class="built_in">NSData</span> JSONData = ... <span class="comment">// the JSON response from the API</span></span><br><span class="line"><span class="built_in">NSDictionary</span> *JSONDict = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:JSONData options:<span class="number">0</span> error:<span class="literal">NULL</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// create model object from NSDictionary using MTLJSONSerialisation</span></span><br><span class="line"><span class="built_in">CATProfile</span> *profile = [<span class="built_in">MTLJSONAdapter</span> modelOfClass:<span class="built_in">CATProfile</span>.class fromJSONDictionary:JSONDict error:<span class="literal">NULL</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="从模型对象创建JSON"><a href="#从模型对象创建JSON" class="headerlink" title="从模型对象创建JSON"></a>从模型对象创建JSON</h3><p><code>MTLJSONAdapter</code>也有能力创建一个字典从我们的的模型类中，以便能直接编码回一个JSON字符串。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create NSDictionary from model class using MTLJSONSerialisation</span></span><br><span class="line"><span class="built_in">CATProfile</span> *profile = ...</span><br><span class="line"><span class="built_in">NSDictionary</span> *profileDict = [<span class="built_in">MTLJSONAdapter</span> JSONDictionaryFromModel:profile];</span><br><span class="line"></span><br><span class="line"><span class="comment">// convert NSDictionary to JSON data</span></span><br><span class="line"><span class="built_in">NSData</span> *JSONData = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:profileDict options:<span class="number">0</span> error:<span class="literal">NULL</span>];</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>假如当创建一个JSON呈现你的模型是在你的模型中有一个属性不应该包括，你应该返回<code>NSNull.null</code>,例如。在<code>+JSONKeyPathsByPropertyKey</code>的@{“name” : “NSNull.null”}。<code>Mantle</code>将安全的忽略这个属性。</p>
+</blockquote>
+<h3 id="映射数组和字典"><a href="#映射数组和字典" class="headerlink" title="映射数组和字典"></a>映射数组和字典</h3><p>大多数情况，模型和其他模型有关系，这些关系普遍通过JSON数组或者对象来呈现。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Objective Cat&quot;</span><span class="punctuation">,</span></span><br><span class="line">  ...<span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">&quot;owner&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">99</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Alexander Schuch&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;friends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Owly&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bird&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hedgy&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mammal&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Mantle</code>支持映射这些关系到新的模型，为了让<code>Mantle</code>知道怎样变换关系，我们可以使用下面提供的分类方法中的一个来返回<code>NSValueTransformer</code>。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)mtl_JSONDictionaryTransformerWithModelClass:(Class)modelClass;</span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)mtl_JSONArrayTransformerWithModelClass:(Class)modelClass;</span><br></pre></td></tr></table></figure>
+
+<p>当然<code>Mantle</code>需要知道这些官和他们的将要转换的<code>MTLModel</code>子类，就像和创建一个新的<code>MTLModel</code>子类并且实现将要映射到这些对象的<code>MTLJSONSerializing</code>协议一样简单。然后我们可以添加一些新的属性到我们<code>CATProfile</code>类中并且实现两个新的转换器。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CATProfile.h</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CATOwner</span> *owner;   <span class="comment">// CATOwner is a MTLModel subclass</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSArray</span> *friends;  <span class="comment">// Array of CATFriend objects</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CATProfile.m</span></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)ownerJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> mtl_JSONDictionaryTransformerWithModelClass:<span class="built_in">CATOwner</span>.class];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)friendsJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> mtl_JSONArrayTransformerWithModelClass:<span class="built_in">CATFriend</span>.class];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一些有用的补充"><a href="#一些有用的补充" class="headerlink" title="一些有用的补充"></a>一些有用的补充</h3><p>我们简单的聊了一下<code>NSValueTransformer</code>在前面,<code>NSValueTransformer</code>有一个非常棒的特征让通过名字全局注册一个变换器成为可能。假如你正在使用相同的变换器在你整个app中，确保子类化<code>NSValueTransformer</code>，注册你的自定义变换器一次并且在你随后的<code>MTLModels</code>中使用它。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// In CATProfile.m</span></span><br><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> kCATCustomValueTransformerName = <span class="string">@&quot;CATCustomValueTransformer&quot;</span>;</span><br><span class="line"></span><br><span class="line">+ (<span class="type">void</span>)initialize</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// Register NSValueTransformer</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">self</span> == <span class="built_in">CATProfile</span>.class) &#123;</span><br><span class="line">    <span class="built_in">CATCustomValueTransformer</span> *transformer = [<span class="built_in">CATCustomValueTransformer</span> new];</span><br><span class="line">    [<span class="built_in">NSValueTransformer</span> setValueTransformer:transformer forName:kCATCustomValueTransformerName];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Then use the custom transformer to translate properties using Mantle</span></span><br><span class="line">+ (<span class="built_in">NSValueTransformer</span> *)whateverPropertyJSONTransformer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSValueTransformer</span> valueTransformerForName:kCATCustomValueTransformerName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><code>Mantle</code>是一个非常棒的补充处理<code>JSON</code>APIs，然而，你也必须意识到假如你不得不处理非常复杂的数据或者不稳定的APIs它也是不合适的。</p>
+<p>参考资料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.objc.at/mantle">Mantle-Cat</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MantleFramework/Mantle">Mantle Framework on Github</a></li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.com/nsvaluetransformer/">NSValueTransformer at NSHipster</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.dominikgruber.com/articles/2013/08/mantle-as-a-model-layer-for-ios-and-os-x-apps">Mantle as a Model Layer for iOS and OS X Apps</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.ibireme.com/2015/10/23/ios_model_framework_benchmark/">iOS JSON 模型转换库评测</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/31/2016-01-31-3chong-fang-shi-shi-xian-iosmo-hu-xiao-guo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2348,322 +2508,6 @@ LIMIT [no of rows] OFFSET [row num]
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/14/2016-01-14-sqlite-jiao-cheng-wu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/14/2016-01-14-sqlite-jiao-cheng-wu/" class="post-title-link" itemprop="url">SQLite 教程(五)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-14 01:35:50" itemprop="dateCreated datePublished" datetime="2016-01-14T01:35:50+08:00">2016-01-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 16:29:18" itemprop="dateModified" datetime="2024-11-02T16:29:18+08:00">2024-11-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="SQL表达式"><a href="#SQL表达式" class="headerlink" title="SQL表达式"></a>SQL表达式</h4><p>表达式是一个或多个值、运算符和计算值的SQL函数的组合。</p>
-<p>SQL 表达式与公式类似，都写在查询语言中。您还可以使用特定的数据集来查询数据库。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>假设 SELECT 语句的基本语法如下：</p>
-<pre><code>SELECT column1, column2, columnN
-FROM table_name
-WHERE [CONTION | EXPRESSION];
-</code></pre>
-<p>有不同类型的 SQLite 表达式，具体讲解如下：</p>
-<h4 id="SQLite-布尔表达式"><a href="#SQLite-布尔表达式" class="headerlink" title="SQLite - 布尔表达式"></a>SQLite - 布尔表达式</h4><p>SQLite 的布尔表达式在匹配单个值的基础上获取数据。语法如下：</p>
-<pre><code>SELECT column1, column2, columnN
-FROM table_name
-WHERE SINGLE VALUE MATCHTING EXPRESSION;
-</code></pre>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>下面的实例演示了 SQLite 布尔表达式的用法：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY = 10000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           James        24          Houston   10000.0
-</code></pre>
-<h4 id="SQLite-数值表达式"><a href="#SQLite-数值表达式" class="headerlink" title="SQLite - 数值表达式"></a>SQLite - 数值表达式</h4><p>这些表达式用来执行查询中的任何数学运算。语法如下：</p>
-<pre><code>SELECT numerical_expression as  OPERATION_NAME
-[FROM table_name WHERE CONDITION] ;
-</code></pre>
-<p>在这里，numerical_expression 用于数学表达式或任何公式。下面的实例演示了 SQLite 数值表达式的用法：</p>
-<pre><code>sqlite&gt; SELECT (15 + 6) AS ADDITION
-ADDITION = 21
-</code></pre>
-<p>有几个内置的函数，比如 avg()、sum()、count()，等等，执行被称为对一个表或一个特定的表列的汇总数据计算。</p>
-<pre><code>sqlite&gt; SELECT COUNT(*) AS &quot;RECORDS&quot; FROM COMPANY;
-RECORDS = 7
-</code></pre>
-<hr>
-<h4 id="SQLite-日期表达式"><a href="#SQLite-日期表达式" class="headerlink" title="SQLite - 日期表达式"></a>SQLite - 日期表达式</h4><p>日期表达式返回当前系统日期和时间值，这些表达式将被用于各种数据操作。</p>
-<pre><code>sqlite&gt;  SELECT CURRENT_TIMESTAMP;
-CURRENT_TIMESTAMP = 2016-01-13 16:29:56
-</code></pre>
-<h4 id="SQLite-Where-子句"><a href="#SQLite-Where-子句" class="headerlink" title="SQLite Where 子句"></a>SQLite Where 子句</h4><p>SQLite的 WHERE 子句用于指定从一个表或多个表中获取数据的条件。</p>
-<p>如果满足给定的条件，即为真（true）时，则从表中返回特定的值。您可以使用 WHERE 子句来过滤记录，只获取需要的记录。</p>
-<p>WHERE 子句不仅可用在 SELECT 语句中，它也可用在 UPDATE、DELETE 语句中，等等，这些我们将在随后的章节中学习到。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>SQLite 的带有 WHERE 子句的 SELECT 语句的基本语法如下：</p>
-<pre><code>SELECT column1, column2, columnN
-FROM table_name
-WHERE [condition]
-</code></pre>
-<p><strong>实例</strong></p>
-<p>您还可以使用比较或逻辑运算符指定条件，比如 &gt;、&lt;、&#x3D;、LIKE、NOT，等等。假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>下面的实例演示了 SQLite 逻辑运算符的用法。下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
-<p>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;&#x3D; 25 OR SALARY &gt;&#x3D; 65000;</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 AGE 不为 NULL 的所有记录，结果显示所有的记录，意味着没有一个记录的 AGE 等于 NULL：</p>
-<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制（不区分大小写）：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME LIKE &#39;Ki%&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制（区分大小写）：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME GLOB &#39;Ki*&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 AGE 的值为 25 或 27 的所有记录：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IN ( 25, 27 );
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-</code></pre>
-<h4 id="SQLite-AND-OR-运算符"><a href="#SQLite-AND-OR-运算符" class="headerlink" title="SQLite AND&#x2F;OR 运算符"></a>SQLite AND&#x2F;OR 运算符</h4><p>SQLite 的 AND 和 OR 运算符用于编译多个条件来缩小在 SQLite 语句中所选的数据。这两个运算符被称为连接运算符。</p>
-<p>这些运算符为同一个 SQLite 语句中不同的运算符之间的多个比较提供了可能。</p>
-<hr>
-<h4 id="AND-运算符"><a href="#AND-运算符" class="headerlink" title="AND 运算符"></a>AND 运算符</h4><p>AND 运算符允许在一个 SQL 语句的 WHERE 子句中的多个条件的存在。使用 AND 运算符时，只有当所有条件都为真（true）时，整个条件为真（true）。例如，只有当 condition1 和 condition2 都为真（true）时，[condition1] AND [condition2] 为真（true）。</p>
-<p><strong>语法</strong></p>
-<p>带有 WHERE 子句的 AND 运算符的基本语法如下：</p>
-<pre><code>SELECT column1, column2, columnN
-FROM table_name
-WHERE [condition1] AND [condition2]...AND [conditionN];
-</code></pre>
-<p>您可以使用 AND 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，所有由 AND 分隔的条件都必须为真（TRUE）。</p>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-</code></pre>
-<h4 id="OR-运算符"><a href="#OR-运算符" class="headerlink" title="OR 运算符"></a>OR 运算符</h4><p>OR 运算符也用于结合一个 SQL 语句的 WHERE 子句中的多个条件。使用 OR 运算符时，只要当条件中任何一个为真（true）时，整个条件为真（true）。例如，只要当 condition1 或 condition2 有一个为真（true）时，[condition1] OR [condition2] 为真（true）</p>
-<p><strong>语法</strong></p>
-<p>带有 WHERE 子句的 OR 运算符的基本语法如下：</p>
-<pre><code>SELECT column1, column2, columnN
-FROM table_name
-WHERE [condition1] OR [condition2]...OR [conditionN]
-</code></pre>
-<p>您可以使用 OR 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，只要任何一个由 OR 分隔的条件为真（TRUE）即可。</p>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 OR SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-</code></pre>
-<h4 id="SQLite-Update-语句"><a href="#SQLite-Update-语句" class="headerlink" title="SQLite Update 语句"></a>SQLite Update 语句</h4><p>SQLite 的 **UPDATE **查询用于修改表中已有的记录。可以使用带有 WHERE 子句的 UPDATE 查询来更新选定行，否则所有的行都会被更新。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>带有 WHERE 子句的 UPDATE 查询的基本语法如下：</p>
-<pre><code>UPDATE table_name
-SET column1 = value1, column2 = value2...., columnN = valueN
-WHERE [condition];
-</code></pre>
-<p>您可以使用 AND 或 OR 运算符来结合 N 个数量的条件。</p>
-<hr>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>下面是一个实例，它会更新 ID 为 6 的客户地址：</p>
-<pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = &#39;Texas&#39; WHERE ID = 6;
-</code></pre>
-<p>现在，COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          Texas       45000.0
-7           James       24          Houston     10000.0
-</code></pre>
-<p>如果您想修改 COMPANY 表中 ADDRESS 和 SALARY 列的所有值，则不需要使用 WHERE 子句，UPDATE 查询如下：</p>
-<pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = &#39;Texas&#39;, SALARY = 20000.00;
-</code></pre>
-<p>现在，COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          Texas       20000.0
-2           Allen       25          Texas       20000.0
-3           Teddy       23          Texas       20000.0
-4           Mark        25          Texas       20000.0
-5           David       27          Texas       20000.0
-6           Kim         22          Texas       20000.0
-7           James       24          Texas       20000.0
-</code></pre>
-<p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite教程</a><br>转载请注明出处。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2733,14 +2577,14 @@ WHERE [condition];
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -2796,12 +2640,12 @@ WHERE [condition];
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">99k</span>
+    <span title="站点总字数">108k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:01</span>
+    <span title="站点阅读时长">6:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="写在最前比起设计模式，个人认为这3条原则更加重要：  DRY（Don’t Repeat Yourself）：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。 KISS（Keep It Simple, Stupid）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让BUG不容易隐藏且更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式 与 Flutter">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2024/11/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%8E-Flutter/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="写在最前比起设计模式，个人认为这3条原则更加重要：  DRY（Don’t Repeat Yourself）：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。 KISS（Keep It Simple, Stupid）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让BUG不容易隐藏且更">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/design_pattern_cover.webp">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/singleton.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/factory_method.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/abstract_factory.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/prototype.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/builder.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/adapter_01.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/adapter_02.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/bridge.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/composite_01.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/composite_02.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/decorator_01.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/decorator_02.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/facades_01.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/facades_02.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/flyweight.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/proxy.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/chain_of_responsibility.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/command.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/Iterator.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/mediator.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/memento.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/observer.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/state.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/strategy.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/template_method.png">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/visitor.png">
+<meta property="article:published_time" content="2024-11-02T08:38:31.000Z">
+<meta property="article:modified_time" content="2024-11-02T09:10:28.813Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="flutter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/design_pattern_cover.webp">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2024/11/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%8E-Flutter/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            设计模式 与 Flutter | 王若风的技术博客
+        </title>
+        
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2024/11/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%8E-Flutter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式 与 Flutter
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-11-02 16:38:31 / 修改时间：17:10:28" itemprop="dateCreated datePublished" datetime="2024-11-02T16:38:31+08:00">2024-11-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>31 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="写在最前"><a href="#写在最前" class="headerlink" title="写在最前"></a>写在最前</h1><p>比起设计模式，个人认为这3条原则更加重要：</p>
+<ul>
+<li>DRY（<strong>Don’t Repeat Yourself）</strong>：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。</li>
+<li>KISS（<strong>Keep It Simple, Stupid</strong>）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让BUG不容易隐藏且更容易修复。</li>
+<li>YAGNI（<strong>You aren’t gonna need it</strong>）：只有当你需要的时候才去添加额外的功能，不要过度设计。我们经常会在开发当中尽可能的迎合未来可能的需求。而为了迎合某些产生概率极低的需求而设计的成本是非常高的，这种过度设计的收益非常低。可能你深思熟虑的设计花了不少时间成本，却在未来的两三年内这个设计却完全没有派上用场。一些设计是否必要，更多的应该基于当前的情况。而不是为了应对未来的各种变化，画蛇添足的设计。</li>
+</ul>
+<p><img src="/images/design_pattern_flutter/design_pattern_cover.webp"></p>
+<span id="more"></span>
+
+<h1 id="设计模式历史"><a href="#设计模式历史" class="headerlink" title="设计模式历史"></a>设计模式历史</h1><p>1994 年， 埃里希·伽玛、 约翰·弗利赛德斯、 拉尔夫·约翰逊、 理查德·赫尔姆这四位作者出版了 《**<a target="_blank" rel="noopener" href="https://refactoringguru.cn/gof-book">设计模式： 可复用面向对象软件的基础</a>**》 一书， 将设计模式的概念应用到程序开发领域中。 </p>
+<p>该书提供了 <strong>23</strong> 个模式来解决面向对象程序设计中的各种问题， 很快便成为了畅销书。</p>
+<p>由于书名太长， 人们将其简称为 “四人组 （Gang of Four， GoF） 的书”， 并且很快进一步简化为 “GoF 的书”。</p>
+<h1 id="三大类设计模式"><a href="#三大类设计模式" class="headerlink" title="三大类设计模式"></a><strong>三大类设计模式</strong></h1><p>根据其意图或目的，可以分为三种主要的模式类别：</p>
+<p><img src="/images/design_pattern_flutter/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.png" alt=" "></p>
+<h1 id="六大原则（SOLID）"><a href="#六大原则（SOLID）" class="headerlink" title="六大原则（SOLID）"></a>六大原则（SOLID）</h1><p><img src="/images/design_pattern_flutter/%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99.png" alt=" "></p>
+<h1 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h1><ol>
+<li><h2 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式 (Singleton)"></a>单例模式 (Singleton)</h2></li>
+</ol>
+<blockquote>
+<p><strong>单例模式</strong>是一种创建型设计模式， 让你能够保证一个类只有一个实例， 并提供一个访问该实例的全局节点。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/single">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/single</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/singleton.png" alt=" "></p>
+<ul>
+<li><strong>单例</strong> （Sin­gle­ton） 类声明了一个名为 <code>get­Instance</code>的静态方法来返回其所属类的一个相同实例。</li>
+<li>单例的构造函数必须对客户端 （Client） 代码隐藏。 调用<code>get­Instance</code>方法必须是获取单例对象的唯一方式。</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  Singleton._();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">late</span> <span class="keyword">final</span> Singleton _instance = Singleton._();</span><br><span class="line">  <span class="keyword">static</span> Singleton <span class="keyword">get</span> instance =&gt; _instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><h2 id="简单工厂模式-Simple-Factory"><a href="#简单工厂模式-Simple-Factory" class="headerlink" title="简单工厂模式 * (Simple Factory)"></a><strong>简单工厂模式 * (<strong>Simple Factory</strong>)</strong></h2></li>
+</ol>
+<blockquote>
+<p><strong>简单工厂模式</strong> 不在 23 种 GoF 设计模式中，却是我们最常使用的一种编程方式。</p>
+</blockquote>
+<p>主要涉及到一个特殊的方法，专门用来提供我们想要的实例对象（对象工厂），我们可以将这个方法放到一个单独的类 <code>SimpleFactory</code> 中，如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleFactory</span> </span>&#123;</span><br><span class="line">  <span class="comment">/// <span class="language-markdown">工厂方法</span></span></span><br><span class="line">  <span class="keyword">static</span> Product createProduct(<span class="built_in">int</span> type) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> Product1();</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> Product2();</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> Product3();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String?</span> name;</span><br><span class="line">  <span class="built_in">String?</span> color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product1</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 1&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;red&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类2</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product2</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 2&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;green&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类3</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product3</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 3&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;blue&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当我们想要在代码中获取对应的类型对象时，只需要通过这个方法传入想要的类型值即可，我们不必关心生产如何被生产以及哪个对象被选择的具体逻辑：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Product product = SimpleFactory.createProduct(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这就是 <strong>简单工厂模式</strong>。说到这里，就不得不提到 Dart 中特有的 <strong>factory</strong> 关键词了。</p>
+<p><strong>factory 关键词</strong> 可以用来修饰 Dart 类的构造函数，意为 <strong>工厂构造函数</strong>，它能够让 <strong>类</strong> 的构造函数天然具有工厂的功能，使用方式如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String?</span> name;</span><br><span class="line">  <span class="built_in">String?</span> color;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 工厂构造函数</span></span><br><span class="line">  <span class="keyword">factory</span> Product.createProduct(<span class="built_in">int</span> type) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> Product1();</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> Product2();</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> Product3();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><h2 id="工厂模式-Factory-Method"><a href="#工厂模式-Factory-Method" class="headerlink" title="工厂模式 (Factory Method)"></a><strong>工厂模式 (Factory Method)</strong></h2></li>
+</ol>
+<blockquote>
+<p><strong>工厂方法模式</strong> 是一种创建型设计模式， 其在父类中提供一个创建对象的方法， 允许子类决定实例化对象的类型。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/factory">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/factory</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/factory_method.png" alt=" "></p>
+<ul>
+<li><strong>产品</strong> （Prod­uct） 将会对接口进行声明。 对于所有由创建者及其子类构建的对象， 这些接口都是通用的。</li>
+<li><strong>具体产品</strong> （Con­crete Prod­ucts） 是产品接口的不同实现。</li>
+<li><strong>创建者</strong> （Cre­ator） 类声明返回产品对象的工厂方法。 该方法的返回对象类型必须与产品接口相匹配。<ul>
+<li>你可以将工厂方法声明为抽象方法， 强制要求每个子类以不同方式实现该方法。 或者， 你也可以在基础工厂方法中返回默认产品类型。</li>
+<li>注意， 尽管它的名字是创建者， 但它最主要的职责并<strong>不是</strong>创建产品。 一般来说， 创建者类包含一些与产品相关的核心业务逻辑。 工厂方法将这些逻辑处理从具体产品类中分离出来。 打个比方， 大型软件开发公司拥有程序员培训部门。 但是， 这些公司的主要工作还是编写代码， 而非生产程序员。</li>
+</ul>
+</li>
+<li><strong>具体创建者</strong> （Con­crete Cre­ators） 将会重写基础工厂方法， 使其返回不同类型的产品。<ul>
+<li>注意， 并不一定每次调用工厂方法都会<strong>创建</strong>新的实例。 工厂方法也可以返回缓存、 对象池或其他来源的已有对象。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Flutter Demo 应用</strong> </p>
+<p>在 Flutter 中，Widget 就属于 Product 抽象类，每一个具体实现的  Widget 都属于 Con­crete Prod­uct。</p>
+<p>假如我们需要区分Android 、iOS 等平台来显示不同的对话框：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomDialog</span> </span>&#123;</span><br><span class="line">  Widget create(BuildContext context);</span><br><span class="line"></span><br><span class="line">  Future&lt;T?&gt; <span class="keyword">show</span>&lt;T&gt;(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> dialog = create(context);</span><br><span class="line">    <span class="keyword">return</span> showDialog(context: context, builder: (context) =&gt; dialog);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AndroidAlertDialog</span> <span class="keyword">extends</span> <span class="title">CustomDialog</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget create(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> AlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IOSAlertDialog</span> <span class="keyword">extends</span> <span class="title">CustomDialog</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget create(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> CupertinoAlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">void</span> test(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// final dialog = AndroidAlertDialog();</span></span><br><span class="line">  <span class="keyword">final</span> dialog = IOSAlertDialog();</span><br><span class="line">  dialog.<span class="keyword">show</span>(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><h2 id="抽象工厂模式-Abstract-Factory"><a href="#抽象工厂模式-Abstract-Factory" class="headerlink" title="抽象工厂模式 (Abstract Factory)"></a><strong>抽象工厂模式 (Abstract Factory)</strong></h2></li>
+</ol>
+<blockquote>
+<p><strong>抽象工厂模式</strong>是一种创建型设计模式， 它能创建一系列相关的对象， 而无需指定其具体类。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/factory">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/factory</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/abstract_factory.png" alt=" "></p>
+<ul>
+<li><strong>抽象产品</strong> （Abstract Prod­uct） 为构成系列产品的一组不同但相关的产品声明接口。</li>
+<li><strong>具体产品</strong> （Con­crete Prod­uct） 是抽象产品的多种不同类型实现。 所有变体 （苹果&#x2F;小米&#x2F;…） 都必须实现相应的抽象产品 （手机&#x2F;平板&#x2F;…）。</li>
+<li><strong>抽象工厂</strong> （Abstract Fac­to­ry） 接口声明了一组创建各种抽象产品的方法。</li>
+<li><strong>具体工厂</strong> （Con­crete Fac­to­ry） 实现抽象工厂的构建方法。 每个具体工厂都对应特定产品变体， 且仅创建此种产品变体。</li>
+<li>尽管具体工厂会对具体产品进行初始化， 其构建方法签名必须返回相应的<em>抽象</em>产品。 这样， 使用工厂类的客户端代码就不会与工厂创建的特定产品变体耦合。 <strong>客户端</strong> （Client） 只需通过抽象接口调用工厂和产品对象， 就能与任何具体工厂&#x2F;产品变体交互。</li>
+</ul>
+<h3 id="与工厂模式的区别"><a href="#与工厂模式的区别" class="headerlink" title="与工厂模式的区别"></a><strong>与工厂模式的区别</strong></h3><p><strong>简单工厂</strong> 和 <strong>工厂方法</strong> 这两种模式只生产一种对象，</p>
+<p>而抽象工厂<strong>生产的是一系列对象</strong>（对象族），而且生成的这一系列对象一定存在某种联系。比如 Apple 会生产 <strong>手机</strong>、<strong>平板</strong> 等多个产品，这些产品都属于 Apple 这个品牌。</p>
+<p><strong>Flutter Demo 应用</strong> </p>
+<ol>
+<li>定义抽象工厂，用于生产 widget：</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">IWidgetsFactory</span> </span>&#123;</span><br><span class="line">  Widget createButton(BuildContext context);</span><br><span class="line"></span><br><span class="line">  Widget createDialog(BuildContext context);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>针对每一个平台，我们都可以实现对应的实现工厂</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Dart</span><br><span class="line"><span class="comment">// Material 风格组件工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaterialWidgetsFactory</span> <span class="keyword">extends</span> <span class="title">IWidgetsFactory</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createButton(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> ElevatedButton(</span><br><span class="line">      child: <span class="keyword">const</span> Text(<span class="string">&#x27;text&#x27;</span>),</span><br><span class="line">      onPressed: () &#123;&#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createDialog(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> AlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Cupertino 风格组件工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CupertinoWidgetsFactory</span> <span class="keyword">extends</span> <span class="title">IWidgetsFactory</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createButton(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> CupertinoButton(</span><br><span class="line">      child: <span class="keyword">const</span> Text(<span class="string">&#x27;text&#x27;</span>),</span><br><span class="line">      onPressed: () &#123;&#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createDialog(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> CupertinoAlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>这样，在 Android 平台上我们使用 <code>MaterialWidgetsFactory</code>，在 iOS 平台上使用 <code>CupertinoWidgetsFactory</code>，就能使用对应平台的 widget，想要适配更多平台只需要再继承 <code>IWidgetsFactory</code> 实现对应平台的工厂类即可。</li>
+</ol>
+<p>至此，我们可以发现，作为创建型模式，这三类工厂模式主要工作就是以不同的方式创建对象，但他们各有特点：简单工厂模式抽象的是 <strong>生产对象</strong>，工厂模式抽象的是 <strong>类方法</strong>，抽象工厂模式抽象的则是 <strong>生产对象的工厂</strong>，如何使用就见仁见智了。</p>
+<ol>
+<li><h2 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式 (Prototype)"></a><strong>原型模式 (Prototype)</strong></h2></li>
+</ol>
+<blockquote>
+<p> <strong>原型模式</strong>是一种创建型设计模式， 使你能够复制已有对象， 而又无需使代码依赖它们所属的类。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/proxy">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/proxy</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/prototype.png" alt=" "></p>
+<ul>
+<li><strong>原型</strong> （Pro­to­type） 接口将对克隆方法进行声明。 在绝大多数情况下， 其中只会有一个名为 <code>clone</code>的方法。</li>
+<li><strong>具体原型</strong> （Con­crete Pro­to­type） 类将实现克隆方法。 除了将原始对象的数据复制到克隆体中之外， 该方法有时还需处理克隆过程中的极端情况， 例如克隆关联对象和梳理递归依赖等等。</li>
+<li><strong>客户端</strong> （Client） 可以复制实现了原型接口的任何对象。</li>
+</ul>
+<ol>
+<li><h2 id="建造者模式-Builder"><a href="#建造者模式-Builder" class="headerlink" title="建造者模式 (Builder)"></a><strong>建造者模式 (Builder)</strong></h2></li>
+</ol>
+<blockquote>
+<p><strong>建造者模式</strong>是一种创建型设计模式， 使你能够分步骤创建复杂对象。 该模式允许你使用相同的创建代码生成不同类型和形式的对象。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/builder">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/builder</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/builder.png" alt=" "></p>
+<p><strong>Flutter 应用</strong></p>
+<p>Dart 语言的级联语法，就已经提供了最基础的 Builder 实现，举个例子：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Dart</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String</span> firstName = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="built_in">String</span> lastName = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建方法</span></span><br><span class="line"><span class="keyword">final</span> person = Person()</span><br><span class="line">  ..firstName = <span class="string">&#x27;San&#x27;</span></span><br><span class="line">  ..lastName = <span class="string">&#x27;Zhang&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h1><ol>
+<li><h2 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h2></li>
+</ol>
+<blockquote>
+<p><strong>适配器模式</strong>是一种结构型设计模式， 它能使接口不兼容的对象能够相互合作。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/adapter">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/adapter</a></p>
+</blockquote>
+<h3 id="对象适配器"><a href="#对象适配器" class="headerlink" title="对象适配器"></a><strong>对象适配器</strong></h3><p><img src="/images/design_pattern_flutter/adapter_01.png" alt=" "></p>
+<h3 id="类适配器"><a href="#类适配器" class="headerlink" title="类适配器"></a><strong>类适配器</strong></h3><p><img src="/images/design_pattern_flutter/adapter_02.png" alt=" "></p>
+<p><strong>Flutter Demo 应用</strong> </p>
+<p>在 Flutter 中，最常见的适配器实现就是 <strong>SliverToBoxAdapter</strong> </p>
+<p>我们经常会使用到 CustomScrollView 创建拥有自定义滚动效果的组件，而 CustomScrollView 只允许包含 sliver 系列组件 (SliverAppBar、SliverList、SliverPersistentHeader 等) ，如果想包含普通的组件，必然需要使用 <strong>SliverToBoxAdapter。</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Dart</span><br><span class="line">CustomScrollView(</span><br><span class="line">    slivers: &lt;Widget&gt;[</span><br><span class="line">        SliverAppBar(),</span><br><span class="line">        SliverToBoxAdapter(</span><br><span class="line">            child: Container(height: <span class="number">100.0</span>),</span><br><span class="line">        ),</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><h2 id="桥接模式-Bridge"><a href="#桥接模式-Bridge" class="headerlink" title="桥接模式 Bridge"></a>桥接模式 Bridge</h2></li>
+</ol>
+<blockquote>
+<p><strong>桥接模式</strong>是一种结构型设计模式， 可将一个大类或一系列紧密相关的类拆分为抽象和实现两个独立的层次结构， 从而能在开发时分别使用。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/bridge">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/bridge</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/bridge.png" alt=" "></p>
+<ol>
+<li><p><strong>抽象部分</strong> （Abstraction） 提供高层控制逻辑， 依赖于完成底层实际工作的实现对象。</p>
+</li>
+<li><p><strong>实现部分</strong> （Implementation） 为所有具体实现声明通用接口。 抽象部分仅能通过在这里声明的方法与实现对象交互。</p>
+</li>
+<li><p>抽象部分可以列出和实现部分一样的方法， 但是抽象部分通常声明一些复杂行为， 这些行为依赖于多种由实现部分声明的原语操作。</p>
+</li>
+<li><p><strong>具体实现</strong> （Concrete Implementations） 中包括特定于平台的代码。</p>
+</li>
+<li><p><strong>精确抽象</strong> （Refined Abstraction） 提供控制逻辑的变体。 与其父类一样， 它们通过通用实现接口与不同的实现进行交互。</p>
+</li>
+<li><p>通常情况下， <strong>客户端</strong> （Client） 仅关心如何与抽象部分合作。 但是， 客户端需要将抽象对象与一个实现对象连接起来。</p>
+</li>
+<li><h2 id="组合模式-Composite"><a href="#组合模式-Composite" class="headerlink" title="组合模式 Composite"></a>组合模式 Composite</h2></li>
+</ol>
+<blockquote>
+<p><strong>组合模式</strong>是一种结构型设计模式， 你可以使用它将对象组合成树状结构， 并且能像使用独立对象一样使用它们。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/combination">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/combination</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/composite_01.png" alt=" "></p>
+<p><img src="/images/design_pattern_flutter/composite_02.png" alt=" "></p>
+<ol>
+<li><p><strong>组件</strong> （Component） 接口描述了树中简单项目和复杂项目所共有的操作。</p>
+</li>
+<li><p><strong>叶节点</strong> （Leaf） 是树的基本结构， 它不包含子项目。</p>
+</li>
+<li><p>一般情况下， 叶节点最终会完成大部分的实际工作， 因为它们无法将工作指派给其他部分。</p>
+</li>
+<li><p><strong>容器</strong> （Container）——又名 “组合 （Composite）”——是包含叶节点或其他容器等子项目的单位。 容器不知道其子项目所属的具体类， 它只通过通用的组件接口与其子项目交互。</p>
+</li>
+<li><p>容器接收到请求后会将工作分配给自己的子项目， 处理中间结果， 然后将最终结果返回给客户端。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 通过组件接口与所有项目交互。 因此， 客户端能以相同方式与树状结构中的简单或复杂项目交互。</p>
+</li>
+<li><h2 id="装饰模式-Decorator"><a href="#装饰模式-Decorator" class="headerlink" title="装饰模式 Decorator"></a>装饰模式 Decorator</h2></li>
+</ol>
+<blockquote>
+<p><strong>装饰模式</strong>是一种结构型设计模式， 允许你通过将对象放入包含行为的特殊封装对象中来为原对象绑定新的行为。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/decorator">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/decorator</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/decorator_01.png" alt=" "></p>
+<p><img src="/images/design_pattern_flutter/decorator_02.png" alt=" "></p>
+<ol>
+<li><p><strong>部件</strong> （Component） 声明封装器和被封装对象的公用接口。</p>
+</li>
+<li><p><strong>具体部件</strong> （Concrete Component） 类是被封装对象所属的类。 它定义了基础行为， 但装饰类可以改变这些行为。</p>
+</li>
+<li><p><strong>基础装饰</strong> （Base Decorator） 类拥有一个指向被封装对象的引用成员变量。 该变量的类型应当被声明为通用部件接口， 这样它就可以引用具体的部件和装饰。 装饰基类会将所有操作委派给被封装的对象。</p>
+</li>
+<li><p><strong>具体装饰类</strong> （Concrete Decorators） 定义了可动态添加到部件的额外行为。 具体装饰类会重写装饰基类的方法， 并在调用父类方法之前或之后进行额外的行为。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 可以使用多层装饰来封装部件， 只要它能使用通用接口与所有对象互动即可。</p>
+</li>
+<li><h2 id="外观模式-Facades"><a href="#外观模式-Facades" class="headerlink" title="外观模式 Facades"></a>外观模式 Facades</h2></li>
+</ol>
+<blockquote>
+<p><strong>外观模式</strong>是一种结构型设计模式， 能为程序库、 框架或其他复杂类提供一个简单的接口。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/facade">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/facade</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/facades_01.png" alt=" "></p>
+<p><img src="/images/design_pattern_flutter/facades_02.png" alt=" "></p>
+<ol>
+<li><p><strong>外观</strong> （Facade） 提供了一种访问特定子系统功能的便捷方式， 其了解如何重定向客户端请求， 知晓如何操作一切活动部件。</p>
+</li>
+<li><p>创建<strong>附加外观</strong> （Additional Facade） 类可以避免多种不相关的功能污染单一外观， 使其变成又一个复杂结构。 客户端和其他外观都可使用附加外观。</p>
+</li>
+<li><p><strong>复杂子系统</strong> （Complex Subsystem） 由数十个不同对象构成。 如果要用这些对象完成有意义的工作， 你必须深入了解子系统的实现细节， 比如按照正确顺序初始化对象和为其提供正确格式的数据。</p>
+</li>
+<li><p>子系统类不会意识到外观的存在， 它们在系统内运作并且相互之间可直接进行交互。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 使用外观代替对子系统对象的直接调用。</p>
+</li>
+<li><h2 id="享元模式-Flyweight"><a href="#享元模式-Flyweight" class="headerlink" title="享元模式 Flyweight"></a>享元模式 Flyweight</h2></li>
+</ol>
+<blockquote>
+<p><strong>享元模式</strong>是一种结构型设计模式， 它摒弃了在每个对象中保存所有数据的方式， 通过共享多个对象所共有的相同状态， 让你能在有限的内存容量中载入更多对象。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/flyweight">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/flyweight</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/flyweight.png" alt=" "></p>
+<ol>
+<li><p>享元模式只是一种优化。 在应用该模式之前， 你要确定程序中存在与大量类似对象同时占用内存相关的内存消耗问题， 并且确保该问题无法使用其他更好的方式来解决。</p>
+</li>
+<li><p><strong>享元</strong> （Flyweight） 类包含原始对象中部分能在多个对象中共享的状态。 同一享元对象可在许多不同情景中使用。 享元中存储的状态被称为 “内在状态”。 传递给享元方法的状态被称为 “外在状态”。</p>
+</li>
+<li><p><strong>情景</strong> （Context） 类包含原始对象中各不相同的外在状态。 情景与享元对象组合在一起就能表示原始对象的全部状态。</p>
+</li>
+<li><p>通常情况下， 原始对象的行为会保留在享元类中。 因此调用享元方法必须提供部分外在状态作为参数。 但你也可将行为移动到情景类中， 然后将连入的享元作为单纯的数据对象。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 负责计算或存储享元的外在状态。 在客户端看来， 享元是一种可在运行时进行配置的模板对象， 具体的配置方式为向其方法中传入一些情景数据参数。</p>
+</li>
+<li><p><strong>享元工厂</strong> （Flyweight Factory） 会对已有享元的缓存池进行管理。 有了工厂后， 客户端就无需直接创建享元， 它们只需调用工厂并向其传递目标享元的一些内在状态即可。 工厂会根据参数在之前已创建的享元中进行查找， 如果找到满足条件的享元就将其返回； 如果没有找到就根据参数新建享元。</p>
+</li>
+<li><h2 id="代理模式-Proxy"><a href="#代理模式-Proxy" class="headerlink" title="代理模式 Proxy"></a>代理模式 Proxy</h2></li>
+</ol>
+<blockquote>
+<p><strong>代理模式</strong>是一种结构型设计模式， 让你能够提供对象的替代品或其占位符。 代理控制着对于原对象的访问， 并允许在将请求提交给对象前后进行一些处理。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/proxy">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/proxy</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/proxy.png" alt=" "></p>
+<ol>
+<li><strong>服务接口</strong> （Service Interface） 声明了服务接口。 代理必须遵循该接口才能伪装成服务对象。</li>
+<li><strong>服务</strong> （Service） 类提供了一些实用的业务逻辑。</li>
+<li><strong>代理</strong> （Proxy） 类包含一个指向服务对象的引用成员变量。 代理完成其任务 （例如延迟初始化、 记录日志、 访问控制和缓存等） 后会将请求传递给服务对象。</li>
+<li>通常情况下， 代理会对其服务对象的整个生命周期进行管理。</li>
+<li><strong>客户端</strong> （Client） 能通过同一接口与服务或代理进行交互， 所以你可在一切需要服务对象的代码中使用代理。</li>
+</ol>
+<h1 id="行为型"><a href="#行为型" class="headerlink" title="行为型"></a>行为型</h1><ol>
+<li><h2 id="责任链模式-Chain-of-Responsibility"><a href="#责任链模式-Chain-of-Responsibility" class="headerlink" title="责任链模式 Chain of Responsibility"></a>责任链模式 Chain of Responsibility</h2></li>
+</ol>
+<blockquote>
+<p><strong>责任链模式</strong>是一种行为设计模式， 允许你将请求沿着处理者链进行发送。 收到请求后， 每个处理者均可对请求进行处理， 或将其传递给链上的下个处理者。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/duty">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/duty</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/chain_of_responsibility.png" alt=" "></p>
+<ol>
+<li><p><strong>处理者</strong> （Handler） 声明了所有具体处理者的通用接口。 该接口通常仅包含单个方法用于请求处理， 但有时其还会包含一个设置链上下个处理者的方法。</p>
+</li>
+<li><p><strong>基础处理者</strong> （Base Handler） 是一个可选的类， 你可以将所有处理者共用的样本代码放置在其中。</p>
+</li>
+<li><p>通常情况下， 该类中定义了一个保存对于下个处理者引用的成员变量。 客户端可通过将处理者传递给上个处理者的构造函数或设定方法来创建链。 该类还可以实现默认的处理行为： 确定下个处理者存在后再将请求传递给它。</p>
+</li>
+<li><p><strong>具体处理者</strong> （Concrete Handlers） 包含处理请求的实际代码。 每个处理者接收到请求后， 都必须决定是否进行处理， 以及是否沿着链传递请求。</p>
+</li>
+<li><p>处理者通常是独立且不可变的， 需要通过构造函数一次性地获得所有必要地数据。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 可根据程序逻辑一次性或者动态地生成链。 值得注意的是， 请求可发送给链上的任意一个处理者， 而非必须是第一个处理者。</p>
+</li>
+<li><h2 id="命令模式-Command"><a href="#命令模式-Command" class="headerlink" title="命令模式 Command"></a>命令模式 Command</h2></li>
+</ol>
+<blockquote>
+<p><strong>命令模式</strong>是一种行为设计模式， 它可将请求转换为一个包含与请求相关的所有信息的独立对象。 该转换让你能根据不同的请求将方法参数化、 延迟请求执行或将其放入队列中， 且能实现可撤销操作。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/command">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/command</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/command.png" alt=" "></p>
+<ol>
+<li><p><strong>发送者</strong> （Sender）——亦称 “触发者 （Invoker）”——类负责对请求进行初始化， 其中必须包含一个成员变量来存储对于命令对象的引用。 发送者触发命令， 而不向接收者直接发送请求。 注意， 发送者并不负责创建命令对象： 它通常会通过构造函数从客户端处获得预先生成的命令。</p>
+</li>
+<li><p><strong>命令</strong> （Command） 接口通常仅声明一个执行命令的方法。</p>
+</li>
+<li><p><strong>具体命令</strong> （Concrete Commands） 会实现各种类型的请求。 具体命令自身并不完成工作， 而是会将调用委派给一个业务逻辑对象。 但为了简化代码， 这些类可以进行合并。</p>
+</li>
+<li><p>接收对象执行方法所需的参数可以声明为具体命令的成员变量。 你可以将命令对象设为不可变， 仅允许通过构造函数对这些成员变量进行初始化。</p>
+</li>
+<li><p><strong>接收者</strong> （Receiver） 类包含部分业务逻辑。 几乎任何对象都可以作为接收者。 绝大部分命令只处理如何将请求传递到接收者的细节， 接收者自己会完成实际的工作。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 会创建并配置具体命令对象。 客户端必须将包括接收者实体在内的所有请求参数传递给命令的构造函数。 此后， 生成的命令就可以与一个或多个发送者相关联了。</p>
+</li>
+<li><h2 id="迭代器模式-Iterator"><a href="#迭代器模式-Iterator" class="headerlink" title="迭代器模式 Iterator"></a>迭代器模式 Iterator</h2></li>
+</ol>
+<blockquote>
+<p><strong>迭代器模式</strong>是一种行为设计模式， 让你能在不暴露集合底层表现形式 （列表、 栈和树等） 的情况下遍历集合中所有的元素。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/iterator">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/iterator</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/Iterator.png" alt=" "></p>
+<ol>
+<li><strong>迭代器</strong> （Iterator） 接口声明了遍历集合所需的操作： 获取下一个元素、 获取当前位置和重新开始迭代等。</li>
+<li><strong>具体迭代器</strong> （Concrete Iterators） 实现遍历集合的一种特定算法。 迭代器对象必须跟踪自身遍历的进度。 这使得多个迭代器可以相互独立地遍历同一集合。</li>
+<li><strong>集合</strong> （Collection） 接口声明一个或多个方法来获取与集合兼容的迭代器。 请注意， 返回方法的类型必须被声明为迭代器接口， 因此具体集合可以返回各种不同种类的迭代器。</li>
+<li><strong>具体集合</strong> （Concrete Collections） 会在客户端请求迭代器时返回一个特定的具体迭代器类实体。 你可能会琢磨， 剩下的集合代码在什么地方呢？ 不用担心， 它也会在同一个类中。 只是这些细节对于实际模式来说并不重要， 所以我们将其省略了而已。</li>
+<li><strong>客户端</strong> （Client） 通过集合和迭代器的接口与两者进行交互。 这样一来客户端无需与具体类进行耦合， 允许同一客户端代码使用各种不同的集合和迭代器。</li>
+</ol>
+<p>客户端通常不会自行创建迭代器， 而是会从集合中获取。 但在特定情况下， 客户端可以直接创建一个迭代器 （例如当客户端需要自定义特殊迭代器时）。</p>
+<ol>
+<li><h2 id="中介者模式-Mediator"><a href="#中介者模式-Mediator" class="headerlink" title="中介者模式 Mediator"></a>中介者模式 Mediator</h2></li>
+</ol>
+<blockquote>
+<p><strong>中介者模式</strong>是一种行为设计模式， 能让你减少对象之间混乱无序的依赖关系。 该模式会限制对象之间的直接交互， 迫使它们通过一个中介者对象进行合作。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/midd">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/midd</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/mediator.png" alt=" "></p>
+<ol>
+<li><strong>组件</strong> （Component） 是各种包含业务逻辑的类。 每个组件都有一个指向中介者的引用， 该引用被声明为中介者接口类型。 组件不知道中介者实际所属的类， 因此你可通过将其连接到不同的中介者以使其能在其他程序中复用。</li>
+<li><strong>中介者</strong> （Mediator） 接口声明了与组件交流的方法， 但通常仅包括一个通知方法。 组件可将任意上下文 （包括自己的对象） 作为该方法的参数， 只有这样接收组件和发送者类之间才不会耦合。</li>
+<li><strong>具体中介者</strong> （Concrete Mediator） 封装了多种组件间的关系。 具体中介者通常会保存所有组件的引用并对其进行管理， 甚至有时会对其生命周期进行管理。</li>
+<li>组件并不知道其他组件的情况。 如果组件内发生了重要事件， 它只能通知中介者。 中介者收到通知后能轻易地确定发送者， 这或许已足以判断接下来需要触发的组件了。</li>
+</ol>
+<p>对于组件来说， 中介者看上去完全就是一个黑箱。 发送者不知道最终会由谁来处理自己的请求， 接收者也不知道最初是谁发出了请求。</p>
+<ol>
+<li><h2 id="备忘录模式-Memento"><a href="#备忘录模式-Memento" class="headerlink" title="备忘录模式 Memento"></a>备忘录模式 Memento</h2></li>
+</ol>
+<blockquote>
+<p><strong>备忘录模式</strong>是一种行为设计模式， 允许在不暴露对象实现细节的情况下保存和恢复对象之前的状态。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/memory">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/memory</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/memento.png" alt=" "></p>
+<ol>
+<li><strong>原发器</strong> （Originator） 类可以生成自身状态的快照， 也可以在需要时通过快照恢复自身状态。</li>
+<li><strong>备忘录</strong> （Memento） 是原发器状态快照的值对象 （value object）。 通常做法是将备忘录设为不可变的， 并通过构造函数一次性传递数据。</li>
+<li><strong>负责人</strong> （Caretaker） 仅知道 “何时” 和 “为何” 捕捉原发器的状态， 以及何时恢复状态。</li>
+</ol>
+<blockquote>
+<p>负责人通过保存备忘录栈来记录原发器的历史状态。 当原发器需要回溯历史状态时， 负责人将从栈中获取最顶部的备忘录， 并将其传递给原发器的恢复 （restoration） 方法。</p>
+</blockquote>
+<ol>
+<li><p>在该实现方法中， 备忘录类将被嵌套在原发器中。 这样原发器就可访问备忘录的成员变量和方法， 即使这些方法被声明为私有。 另一方面， 负责人对于备忘录的成员变量和方法的访问权限非常有限： 它们只能在栈中保存备忘录， 而不能修改其状态。</p>
+</li>
+<li><h2 id="观察者模式-Observer"><a href="#观察者模式-Observer" class="headerlink" title="观察者模式 Observer"></a>观察者模式 Observer</h2></li>
+</ol>
+<blockquote>
+<p><strong>观察者模式</strong>是一种行为设计模式， 允许你定义一种订阅机制， 可在对象事件发生时通知多个 “观察” 该对象的其他对象。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/observer">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/observer</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/observer.png" alt=" "></p>
+<ul>
+<li><strong>发布者</strong> （Pub­lish­er） 会向其他对象发送值得关注的事件。 事件会在发布者自身状态改变或执行特定行为后发生。 发布者中包含一个允许新订阅者加入和当前订阅者离开列表的订阅构架。</li>
+<li>当新事件发生时， 发送者会遍历订阅列表并调用每个订阅者对象的通知方法。 该方法是在订阅者接口中声明的。</li>
+<li><strong>订阅者</strong> （Sub­scriber） 接口声明了通知接口。 在绝大多数情况下， 该接口仅包含一个 <code>update</code>方法。 该方法可以拥有多个参数， 使发布者能在更新时传递事件的详细信息。</li>
+<li><strong>具体订阅者</strong> （Con­crete Sub­scribers） 可以执行一些操作来回应发布者的通知。 所有具体订阅者类都实现了同样的接口， 因此发布者不需要与具体类相耦合。</li>
+<li>订阅者通常需要一些上下文信息来正确地处理更新。 因此， 发布者通常会将一些上下文数据作为通知方法的参数进行传递。 发布者也可将自身作为参数进行传递， 使订阅者直接获取所需的数据。</li>
+<li><strong>客户端</strong> （Client） 会分别创建发布者和订阅者对象， 然后为订阅者注册发布者更新。</li>
+</ul>
+<p><strong>Flutter Demo 应用</strong> </p>
+<ul>
+<li>Stream 可以被看作是 Dart 语言原生支持的观察者模式的典型模型之一</li>
+<li>ChangeNotifier 大概是 Flutter 中实现观察者模式最典型的例子</li>
+<li>Flutter 中每个 Navigator 对象都接受一个 NavigatorObserver 对象的数组，在实际开发过程中，我们可以通过根组件 <code>MaterialApp</code> (或 <code>CupertinoPageRoute</code>) 的 <code>navigatorObservers</code> 属性传递给根 Navigator 组件，用于观察根 Navigator 的路由行为，这一组 NavigatorObserver 对象就是一系列的路由观察者。</li>
+</ul>
+<p>更多参考： <a target="_blank" rel="noopener" href="https://flutter.cn/community/tutorials/observer-pattern-in-flutter-n-dart">https://flutter.cn/community/tutorials/observer-pattern-in-flutter-n-dart</a></p>
+<ol>
+<li><h2 id="状态模式-State"><a href="#状态模式-State" class="headerlink" title="状态模式 State"></a>状态模式 State</h2></li>
+</ol>
+<blockquote>
+<p><strong>状态模式</strong>是一种行为设计模式， 让你能在一个对象的内部状态变化时改变其行为， 使其看上去就像改变了自身所属的类一样。</p>
+<p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/state">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/state</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/state.png" alt=" "></p>
+<ol>
+<li><strong>上下文</strong> （Context） 保存了对于一个具体状态对象的引用， 并会将所有与该状态相关的工作委派给它。 上下文通过状态接口与状态对象交互， 且会提供一个设置器用于传递新的状态对象。</li>
+<li><strong>状态</strong> （State） 接口会声明特定于状态的方法。 这些方法应能被其他所有具体状态所理解， 因为你不希望某些状态所拥有的方法永远不会被调用。</li>
+<li><strong>具体状态</strong> （Concrete States） 会自行实现特定于状态的方法。 为了避免多个状态中包含相似代码， 你可以提供一个封装有部分通用行为的中间抽象类。</li>
+</ol>
+<blockquote>
+<p>状态对象可存储对于上下文对象的反向引用。 状态可以通过该引用从上下文处获取所需信息， 并且能触发状态转移。</p>
+</blockquote>
+<ol>
+<li><p>上下文和具体状态都可以设置上下文的下个状态， 并可通过替换连接到上下文的状态对象来完成实际的状态转换。</p>
+</li>
+<li><h2 id="策略模式-Strategy"><a href="#策略模式-Strategy" class="headerlink" title="策略模式 Strategy"></a>策略模式 Strategy</h2></li>
+</ol>
+<blockquote>
+<p><strong>策略模式</strong>是一种行为设计模式， 它能让你定义一系列算法， 并将每种算法分别放入独立的类中， 以使算法的对象能够相互替换。</p>
+<p><strong>Demo</strong>：<a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/strategy">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/strategy</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/strategy.png" alt=" "></p>
+<ol>
+<li><p><strong>上下文</strong> （Context） 维护指向具体策略的引用， 且仅通过策略接口与该对象进行交流。</p>
+</li>
+<li><p><strong>策略</strong> （Strategy） 接口是所有具体策略的通用接口， 它声明了一个上下文用于执行策略的方法。</p>
+</li>
+<li><p><strong>具体策略</strong> （Concrete Strategies） 实现了上下文所用算法的各种不同变体。</p>
+</li>
+<li><p>当上下文需要运行算法时， 它会在其已连接的策略对象上调用执行方法。 上下文不清楚其所涉及的策略类型与算法的执行方式。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 会创建一个特定策略对象并将其传递给上下文。 上下文则会提供一个设置器以便客户端在运行时替换相关联的策略。</p>
+</li>
+<li><p>这个是最受争议的设计模式，因为策略模式在绝大部分现代编程语言中可以简单地使用匿名 （lamb­da） 函数来实现。</p>
+</li>
+<li><p>包括 Dart，允许在匿名函数中实现不同版本的算法。 因此使用这些函数的方式就和使用策略对象时完全相同， 无需借助额外的类和接口来保持代码简洁。如下：</p>
+</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> doSomething(&#123;<span class="keyword">required</span> <span class="built_in">Function</span>() strategy&#125;) &#123;</span><br><span class="line">        strategy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Client</span></span><br><span class="line">Context().doSomething(</span><br><span class="line">    strategy: () &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><h2 id="模板方法模式-Template-Method"><a href="#模板方法模式-Template-Method" class="headerlink" title="模板方法模式 Template Method"></a>模板方法模式 Template Method</h2></li>
+</ol>
+<blockquote>
+<p><strong>模板方法模式</strong>是一种行为设计模式， 它在超类中定义了一个算法的框架， 允许子类在不修改结构的情况下重写算法的特定步骤。</p>
+<p><strong>Demo</strong>：<a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/template">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/template</a></p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/template_method.png" alt=" "></p>
+<ol>
+<li><p><strong>抽象类</strong> （Abstract­Class） 会声明作为算法步骤的方法， 以及依次调用它们的实际模板方法。 算法步骤可以被声明为 <code>抽象</code>类型， 也可以提供一些默认实现。</p>
+</li>
+<li><p><strong>具体类</strong> （Concrete­Class） 可以重写所有步骤， 但不能重写模板方法自身。</p>
+</li>
+<li><h2 id="访问者模式-Visitor"><a href="#访问者模式-Visitor" class="headerlink" title="访问者模式 Visitor"></a>访问者模式 Visitor</h2></li>
+</ol>
+<blockquote>
+<p><strong>访问者模式</strong>是一种行为设计模式， 它能将算法与其所作用的对象隔离开来。</p>
+</blockquote>
+<p><img src="/images/design_pattern_flutter/visitor.png" alt=" "></p>
+<ol>
+<li><strong>访问者</strong> （Visitor） 接口声明了一系列以对象结构的具体元素为参数的访问者方法。 如果编程语言支持重载， 这些方法的名称可以是相同的， 但是其参数一定是不同的。</li>
+<li><strong>具体访问者</strong> （Concrete Visitor） 会为不同的具体元素类实现相同行为的几个不同版本。</li>
+<li><strong>元素</strong> （Element） 接口声明了一个方法来 “接收” 访问者。 该方法必须有一个参数被声明为访问者接口类型。</li>
+<li><strong>具体元素</strong> （Concrete Element） 必须实现接收方法。 该方法的目的是根据当前元素类将其调用重定向到相应访问者的方法。 请注意， 即使元素基类实现了该方法， 所有子类都必须对其进行重写并调用访问者对象中的合适方法。</li>
+<li><strong>客户端</strong> （Client） 通常会作为集合或其他复杂对象 （例如一个**<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/composite">组合</a>**树） 的代表。 客户端通常不知晓所有的具体元素类， 因为它们会通过抽象接口与集合中的对象进行交互。</li>
+</ol>
+<p>Demo：null</p>
+<ol>
+<li><h2 id="解释器模式-Interpreter"><a href="#解释器模式-Interpreter" class="headerlink" title="解释器模式 Interpreter"></a>解释器模式 Interpreter</h2></li>
+</ol>
+<blockquote>
+<p><strong>Demo</strong>：<a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/interpreter">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/interpreter</a></p>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns">https://refactoringguru.cn/design-patterns</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns">https://github.com/FlutterOpen/design_patterns</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2024/11/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%8E-Flutter/" title="设计模式 与 Flutter">https://blog.wangruofeng007.com/2024/11/02/设计模式-与-Flutter/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/flutter/" rel="tag"># flutter</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/11/01/Hexo-%E5%8D%87%E7%BA%A7%E5%88%B0-V7-3/" rel="prev" title="Hexo 升级到 V7.3">
+      <i class="fa fa-chevron-left"></i> Hexo 升级到 V7.3
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D"><span class="nav-number">1.</span> <span class="nav-text">写在最前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">设计模式历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E7%B1%BB%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">三大类设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99%EF%BC%88SOLID%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">六大原则（SOLID）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">创建型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton"><span class="nav-number">5.1.</span> <span class="nav-text">单例模式 (Singleton)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Simple-Factory"><span class="nav-number">5.2.</span> <span class="nav-text">简单工厂模式 * (Simple Factory)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Factory-Method"><span class="nav-number">5.3.</span> <span class="nav-text">工厂模式 (Factory Method)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F-Abstract-Factory"><span class="nav-number">5.4.</span> <span class="nav-text">抽象工厂模式 (Abstract Factory)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.4.1.</span> <span class="nav-text">与工厂模式的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-Prototype"><span class="nav-number">5.5.</span> <span class="nav-text">原型模式 (Prototype)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F-Builder"><span class="nav-number">5.6.</span> <span class="nav-text">建造者模式 (Builder)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">结构型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F-Adapter"><span class="nav-number">6.1.</span> <span class="nav-text">适配器模式 Adapter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">6.1.1.</span> <span class="nav-text">对象适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">6.1.2.</span> <span class="nav-text">类适配器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F-Bridge"><span class="nav-number">6.2.</span> <span class="nav-text">桥接模式 Bridge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-Composite"><span class="nav-number">6.3.</span> <span class="nav-text">组合模式 Composite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-Decorator"><span class="nav-number">6.4.</span> <span class="nav-text">装饰模式 Decorator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-Facades"><span class="nav-number">6.5.</span> <span class="nav-text">外观模式 Facades</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F-Flyweight"><span class="nav-number">6.6.</span> <span class="nav-text">享元模式 Flyweight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-Proxy"><span class="nav-number">6.7.</span> <span class="nav-text">代理模式 Proxy</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">行为型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F-Chain-of-Responsibility"><span class="nav-number">7.1.</span> <span class="nav-text">责任链模式 Chain of Responsibility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-Command"><span class="nav-number">7.2.</span> <span class="nav-text">命令模式 Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F-Iterator"><span class="nav-number">7.3.</span> <span class="nav-text">迭代器模式 Iterator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F-Mediator"><span class="nav-number">7.4.</span> <span class="nav-text">中介者模式 Mediator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F-Memento"><span class="nav-number">7.5.</span> <span class="nav-text">备忘录模式 Memento</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer"><span class="nav-number">7.6.</span> <span class="nav-text">观察者模式 Observer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F-State"><span class="nav-number">7.7.</span> <span class="nav-text">状态模式 State</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy"><span class="nav-number">7.8.</span> <span class="nav-text">策略模式 Strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-Template-Method"><span class="nav-number">7.9.</span> <span class="nav-text">模板方法模式 Template Method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F-Visitor"><span class="nav-number">7.10.</span> <span class="nav-text">访问者模式 Visitor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F-Interpreter"><span class="nav-number">7.11.</span> <span class="nav-text">解释器模式 Interpreter</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">108k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:32</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+    </body>
+</html>
