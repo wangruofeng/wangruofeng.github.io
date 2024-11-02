@@ -707,7 +707,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:33:05" itemprop="dateModified" datetime="2024-11-02T19:33:05+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:58:55" itemprop="dateModified" datetime="2024-11-02T20:58:55+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -744,32 +744,48 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="iOS触摸事件分类"><a href="#iOS触摸事件分类" class="headerlink" title="iOS触摸事件分类"></a>iOS触摸事件分类</h3><ul>
+          <h3 id="iOS-触摸事件分类"><a href="#iOS-触摸事件分类" class="headerlink" title="iOS 触摸事件分类"></a>iOS 触摸事件分类</h3><ul>
 <li>触摸事件</li>
 <li>加速事件</li>
 <li>远程事件</li>
 </ul>
-<h3 id="谁能处理触摸事件"><a href="#谁能处理触摸事件" class="headerlink" title="谁能处理触摸事件?"></a>谁能处理触摸事件?</h3><p><strong>响应者对象</strong></p>
-<p>在iOS中不是任何对象都能处理事件,只有继承了UIResponder的对象才能接收并处理事件.我们称之为<strong>响应者对象</strong>.</p>
+<h3 id="谁能处理触摸事件"><a href="#谁能处理触摸事件" class="headerlink" title="谁能处理触摸事件?"></a>谁能处理触摸事件?</h3><p>响应者对象</p>
+<p>在 iOS 中不是任何对象都能处理事件,只有继承了 UIResponder 的对象才能接收并处理事件.我们称之为响应者对象.</p>
 <p><code>UIApplication</code>,<code>UIViewController</code>,<code>UIView</code>都继承自<code>UIResponder</code>,因此它们都是响应者对象,都能够接收并处理事件.</p>
-<h3 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h3><p>UIResponder内部提供了方法来处理事件</p>
+<h3 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h3><p>UIResponder 内部提供了方法来处理事件</p>
 <ol>
 <li><p>触摸事件</p>
-<p> 一次完成的触摸过程,会经历3个状态;<br> UIView的触摸事件处理</p>
-<p> 1.一根或多根手指开始触摸view,系统会自动调用view下面的方法:<br> - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸开始<br> 2.一根或者多根手指在view上移动，系统会自动调用view下面的方法（随着手指的移动，会持续调用该方法）<br> - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸移动<br> 3.一根或者多根手指离开view，系统会自动调用view下面的方法<br> - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸结束<br> 4.触摸结束前，某个系统事件（例如电话呼入	）会打断触摸过程，系统会自动调用view下面的方法<br> - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event; &#x2F;&#x2F;触摸取消(可能会经历)<br> 4个触摸事件的处理方法中，都有 NSSet *touches 和 UIEvent *event 两个参数:</p>
+<p> 一次完成的触摸过程,会经历 3 个状态;<br> UIView 的触摸事件处理</p>
 <ul>
-<li>一次完整的触摸过程，只会产生一个事件对象，4个触摸方法都是同一个event参数</li>
-<li>如果两根手指同时触摸一个view，那么view只会调用一次 touchesBegan:withEvent: 方法，touches参数中装着两个UITouch对象；</li>
-<li>如果这两根手指一前一后分开触摸同一个view，那么view会分别调用两次 touchesBegan:withEvent:方法， 并且每次调用时的touches参数只包含一个UITouch对象；</li>
-<li>根据touches中UITouch个数可以判断出使单点触摸还是多点触摸</li>
+<li>一根或多根手指开始触摸 view,系统会自动调用 view 下面的方法:<ul>
+<li>(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸开始</li>
 </ul>
-<p> 提示：touches中存放的都是UITouch对象。</p>
+</li>
+<li>一根或者多根手指在 view 上移动，系统会自动调用 view 下面的方法（随着手指的移动，会持续调用该方法）<ul>
+<li>(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸移动</li>
+</ul>
+</li>
+<li>一根或者多根手指离开 view，系统会自动调用 view 下面的方法<ul>
+<li>(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;  &#x2F;&#x2F;触摸结束</li>
+</ul>
+</li>
+<li>触摸结束前，某个系统事件（例如电话呼入   ）会打断触摸过程，系统会自动调用 view 下面的方法<ul>
+<li>(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event; &#x2F;&#x2F;触摸取消(可能会经历)</li>
+</ul>
+</li>
+</ul>
+<p> 4 个触摸事件的处理方法中，都有 NSSet *touches 和 UIEvent *event 两个参数:</p>
+<ul>
+<li>一次完整的触摸过程，只会产生一个事件对象，4 个触摸方法都是同一个 event 参数</li>
+<li>如果两根手指同时触摸一个 view，那么 view 只会调用一次 touchesBegan:withEvent: 方法，touches 参数中装着两个 UITouch 对象；</li>
+<li>如果这两根手指一前一后分开触摸同一个 view，那么 view 会分别调用两次 touchesBegan:withEvent:方法， 并且每次调用时的 touches 参数只包含一个 UITouch 对象；</li>
+<li>根据 touches 中 UITouch 个数可以判断出使单点触摸还是多点触摸</li>
+</ul>
+<p> 提示：touches 中存放的都是 UITouch 对象。</p>
 </li>
 <li><p>加速计事件</p>
 <ul>
-<li>(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event;	</li>
-<li>(void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event;	</li>
-<li>(void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event;</li>
+<li>(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event;    - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event;    - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event;</li>
 </ul>
 </li>
 <li><p>远程控制事件</p>
@@ -777,117 +793,88 @@
 </code></pre>
 </li>
 </ol>
-<h3 id="UITouch"><a href="#UITouch" class="headerlink" title="UITouch"></a>UITouch</h3><p>当用户用一根手指触摸屏幕时，会创建一个与手指相关联的UITouch对象；一根手指对应一个UITouch对象<br>UITouch的作用:</p>
+<h3 id="UITouch"><a href="#UITouch" class="headerlink" title="UITouch"></a>UITouch</h3><p>当用户用一根手指触摸屏幕时，会创建一个与手指相关联的 UITouch 对象；一根手指对应一个 UITouch 对象<br>UITouch 的作用:</p>
 <ul>
 <li>保存跟手指相关的信息，比如触摸的位置、时间、阶段；</li>
-<li>当手指移动时，系统会更新同一个UITouch对象，使之能够一直保存该手指的触摸位置；</li>
-<li>当手指离开屏幕时，系统会销毁相应的UITouch对象。</li>
+<li>当手指移动时，系统会更新同一个 UITouch 对象，使之能够一直保存该手指的触摸位置；</li>
+<li>当手指离开屏幕时，系统会销毁相应的 UITouch 对象。</li>
 </ul>
-<p>提示：iPhone开发中，要避免使用双击事件。</p>
-<p>UITouch的属性:<br>触摸产生时所处的窗口:</p>
+<p>提示：iPhone 开发中，要避免使用双击事件。</p>
+<p>UITouch 的属性:<br>触摸产生时所处的窗口:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIWindow</span> *window;</span><br></pre></td></tr></table></figure>
 
 <p>触摸产生时所处的视图</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>,<span class="keyword">retain</span>) <span class="built_in">UIView</span> *view;</span><br></pre></td></tr></table></figure>
 
-<p>短时间内点按屏幕的次数，可以根据tapCount判断单击、双击或更多地点击</p>
+<p>短时间内点按屏幕的次数，可以根据 tapCount 判断单击、双击或更多地点击</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">NSUInteger</span> tapCount;</span><br></pre></td></tr></table></figure>
 
 <p>记录了触摸事件产生或变化时的时间，单位是秒</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span> timestamp;</span><br></pre></td></tr></table></figure>
 
 <p>当前触摸事件所处的状态</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UITouchPhase</span> phase;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">UITouchPhase是一个枚举类型，包含：</span></span><br><span class="line"><span class="comment">UITouchPhaseBegan（触摸开始）</span></span><br><span class="line"><span class="comment">UITouchPhaseMoved（接触点移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseStationary（接触点无移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseEnded（触摸结束）</span></span><br><span class="line"><span class="comment">UITouchPhaseCancelled（触摸取消）*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UITouchPhase</span> phase;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">UITouchPhase 是一个枚举类型，包含：</span></span><br><span class="line"><span class="comment">UITouchPhaseBegan（触摸开始）</span></span><br><span class="line"><span class="comment">UITouchPhaseMoved（接触点移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseStationary（接触点无移动）</span></span><br><span class="line"><span class="comment">UITouchPhaseEnded（触摸结束）</span></span><br><span class="line"><span class="comment">UITouchPhaseCancelled（触摸取消）*/</span></span><br></pre></td></tr></table></figure>
 
-<p>UITouch的方法：</p>
+<p>UITouch 的方法：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CGPoint</span>)locationInView:(<span class="built_in">UIView</span> *)view;</span><br></pre></td></tr></table></figure>
 
-<p>1.返回值表示触摸在view上的位置；</p>
-<p>2.这里返回的位置是针对view坐标系的,（以view的左上角为原点（0，0））；</p>
-<p>3.调用时传入的view参数为nil 的话，返回的是触摸点在UIWindow的位置。</p>
+<p>1.返回值表示触摸在 view 上的位置；<br>2.这里返回的位置是针对 view 坐标系的,（以 view 的左上角为原点（0，0））；<br>3.调用时传入的 view 参数为 nil 的话，返回的是触摸点在 UIWindow 的位置。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CGPoint</span>)previousLocationInView:(<span class="built_in">UIView</span> *)view;</span><br></pre></td></tr></table></figure>
 
 <p>该方法记录了前一个触摸点的位置；</p>
 <h3 id="UIEvent"><a href="#UIEvent" class="headerlink" title="UIEvent"></a>UIEvent</h3><blockquote>
-<p>每产生一个事件，就会产生一个UIEvent对象；</p>
-<p>UIEvent:称为事件对象，记录事件产生的时刻和类型。</p>
+<p>每产生一个事件，就会产生一个 UIEvent 对象；<br>UIEvent:称为事件对象，记录事件产生的时刻和类型。</p>
 </blockquote>
 <p>常见属性：<br>1.事件类型</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventType</span>  type;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventSubtype</span>  subtype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventType</span>) &#123;</span><br><span class="line">    <span class="built_in">UIEventTypeTouches</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeMotion</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeRemoteControl</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventSubtype</span>) &#123;</span><br><span class="line">    <span class="comment">// available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeNone</span>                              = <span class="number">0</span>,    </span><br><span class="line">    <span class="comment">// for UIEventTypeMotion, available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeMotionShake</span>                       = <span class="number">1</span>,</span><br><span class="line">    <span class="comment">// for UIEventTypeRemoteControl, available in iOS 4.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPlay</span>                 = <span class="number">100</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPause</span>                = <span class="number">101</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlStop</span>                 = <span class="number">102</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlTogglePlayPause</span>      = <span class="number">103</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlNextTrack</span>            = <span class="number">104</span>,  </span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPreviousTrack</span>        = <span class="number">105</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingBackward</span> = <span class="number">106</span>,   </span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingBackward</span>   = <span class="number">107</span>,  </span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingForward</span>  = <span class="number">108</span>,  </span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingForward</span>    = <span class="number">109</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventType</span>  type;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">UIEventSubtype</span>  subtype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventType</span>) &#123;</span><br><span class="line">    <span class="built_in">UIEventTypeTouches</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeMotion</span>,</span><br><span class="line">    <span class="built_in">UIEventTypeRemoteControl</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span></span><br><span class="line"><span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIEventSubtype</span>) &#123;</span><br><span class="line">    <span class="comment">// available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeNone</span>                              = <span class="number">0</span>,    <span class="comment">// for UIEventTypeMotion, available in iPhone OS 3.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeMotionShake</span>                       = <span class="number">1</span>,</span><br><span class="line">    <span class="comment">// for UIEventTypeRemoteControl, available in iOS 4.0</span></span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPlay</span>                 = <span class="number">100</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlPause</span>                = <span class="number">101</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlStop</span>                 = <span class="number">102</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlTogglePlayPause</span>      = <span class="number">103</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlNextTrack</span>            = <span class="number">104</span>,    <span class="built_in">UIEventSubtypeRemoteControlPreviousTrack</span>        = <span class="number">105</span>,</span><br><span class="line">    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingBackward</span> = <span class="number">106</span>,    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingBackward</span>   = <span class="number">107</span>,    <span class="built_in">UIEventSubtypeRemoteControlBeginSeekingForward</span>  = <span class="number">108</span>,    <span class="built_in">UIEventSubtypeRemoteControlEndSeekingForward</span>    = <span class="number">109</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>2.事件产生的时间</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">readonly</span>) <span class="built_in">NSTimeInterval</span>  timestamp;</span><br></pre></td></tr></table></figure>
 
-<p> UIEvent还提供了相应的方法可以获得在某个view上面的触摸对象（UITouch）。</p>
+<p> UIEvent 还提供了相应的方法可以获得在某个 view 上面的触摸对象（UITouch）。</p>
 <p> 触摸事件的产生：</p>
 <ol>
-<li><p>发生触摸事件后，系统会将该事件加入到一个由UIApplication管理的事件队列中；</p>
-</li>
-<li><p>UIApplication会从事件队列中取出最前面的事件，并将事件分发下去以便处理，通常，先发送事件给应用程序的主窗口（keyWindow）；</p>
-</li>
-<li><p>主窗口会在视图层次结构中找到一个最合适的视图控件来处理触摸事件，这也是整个事件处理过程的第一步；</p>
-</li>
-<li><p>找到合适的视图控件后，就会调用视图控件的touches方法来做具体的事件处理。</p>
-</li>
+<li>发生触摸事件后，系统会将该事件加入到一个由 UIApplication 管理的事件队列中；</li>
+<li>UIApplication 会从事件队列中取出最前面的事件，并将事件分发下去以便处理，通常，先发送事件给应用程序的主窗口（keyWindow）；</li>
+<li>主窗口会在视图层次结构中找到一个最合适的视图控件来处理触摸事件，这也是整个事件处理过程的第一步；</li>
+<li>找到合适的视图控件后，就会调用视图控件的 touches 方法来做具体的事件处理。</li>
 </ol>
 <p>触摸事件的传递：</p>
 <blockquote>
-<p>触摸事件的传递是从父控件传递到子控件；</p>
-<p>如果父控件不能接收触摸事件，那么子控件就不可能接收到触摸事件。</p>
+<p>触摸事件的传递是从父控件传递到子控件；<br>如果父控件不能接收触摸事件，那么子控件就不可能接收到触摸事件。<br><img src="http://ww4.sinaimg.cn/mw690/64124373gw1eznrp087anj205t07rdfx.jpg" alt="触摸事件"><br><img src="http://ww2.sinaimg.cn/mw690/64124373gw1eznrrf36ymj2097077dhc.jpg" alt="触摸事件2"></p>
 </blockquote>
-<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1eznrp087anj205t07rdfx.jpg" alt="触摸事件"><br><img src="http://ww2.sinaimg.cn/mw690/64124373gw1eznrrf36ymj2097077dhc.jpg" alt="触摸事件2"></p>
-<p>UIView不接收触摸事件的三种情况:<br>不接受用户交互 ：</p>
+<p>UIView 不接收触摸事件的三种情况:<br>不接受用户交互 ：</p>
 <ol>
-<li><p>userInteractionEnable &#x3D; NO;</p>
-</li>
-<li><p>隐藏 ：hidden &#x3D; YES;</p>
-</li>
-<li><p>透明：alpha &#x3D; 0.0 ~ 0.01</p>
-</li>
+<li>userInteractionEnable &#x3D; NO;</li>
+<li>隐藏 ：hidden &#x3D; YES;</li>
+<li>透明：alpha &#x3D; 0.0 ~ 0.01</li>
 </ol>
-<p>提示：UIImageView的userInteractionEnable默认就是NO，因此UIImageView以及它的子控件默认是不能接收触摸事件的。</p>
+<p>提示：UIImageView 的 userInteractionEnable 默认就是 NO，因此 UIImageView 以及它的子控件默认是不能接收触摸事件的。</p>
 <p>触摸事件处理的详细过程：</p>
 <ol>
-<li><p>用户点击屏幕后产生的一个触摸事件，经过一些列的传递过程后，会找到最合适的视图控件来处理这个事件</p>
-</li>
-<li><p>找到最合适的视图控件后，就会调用控件的touches方法来作具体的事件处理</p>
-<p> touchesBegan…</p>
-<p> touchesMoved…</p>
-<p> touchedEnded…</p>
-</li>
+<li>用户点击屏幕后产生的一个触摸事件，经过一些列的传递过程后，会找到最合适的视图控件来处理这个事件</li>
+<li>找到最合适的视图控件后，就会调用控件的 touches 方法来作具体的事件处理<br> touchesBegan…<br> touchesMoved…<br> touchedEnded…</li>
 </ol>
-<p>这些touches方法的默认做法是将事件顺着响应者链条向上传递，将事件交给上一个响应者进行处理</p>
+<p>这些 touches 方法的默认做法是将事件顺着响应者链条向上传递，将事件交给上一个响应者进行处理</p>
 <p>响应者链的事件传递过程：</p>
 <ol>
-<li><p>如果view的控制器存在，就传递给控制器；如果控制器不存在，则将其传递给它的父视图；</p>
-</li>
-<li><p>在视图层次结构最顶级的视图，如果也不能处理收到的事件或消息，则其将事件或消息传递给window对象进行处理。</p>
-</li>
-<li><p>如果window对象也不处理，则其将事件或消息传递给UIApplication对象；</p>
-</li>
-<li><p>如果UIApplication也不能处理该事件或消息，则将其丢弃</p>
-</li>
+<li>如果 view 的控制器存在，就传递给控制器；如果控制器不存在，则将其传递给它的父视图；</li>
+<li>在视图层次结构最顶级的视图，如果也不能处理收到的事件或消息，则其将事件或消息传递给 window 对象进行处理。</li>
+<li>如果 window 对象也不处理，则其将事件或消息传递给 UIApplication 对象；</li>
+<li>如果 UIApplication 也不能处理该事件或消息，则将其丢弃</li>
 </ol>
-<h3 id="监听触摸事件的做法"><a href="#监听触摸事件的做法" class="headerlink" title="监听触摸事件的做法"></a>监听触摸事件的做法</h3><p>如果想监听一个view上面的触摸事件，之前的做法是：</p>
+<h3 id="监听触摸事件的做法"><a href="#监听触摸事件的做法" class="headerlink" title="监听触摸事件的做法"></a>监听触摸事件的做法</h3><p>如果想监听一个 view 上面的触摸事件，之前的做法是：</p>
 <ol>
-<li><p>自定义一个view；</p>
-</li>
-<li><p>实现view的touches方法，在方法内部实现具体处理代码。</p>
-<p> 通过touches方法监听view触摸事件，有很明显的几个缺点：</p>
-<ul>
-<li><p>必须得自定义view；</p>
-</li>
-<li><p>由于是在view内部的touches方法中监听触摸事件，因此默认情况下，无法让其他外界对象监听view的触摸事件；</p>
-</li>
-<li><p>不容易区分用户的具体手势行为。</p>
-</li>
+<li>自定义一个 view；</li>
+<li>实现 view 的 touches 方法，在方法内部实现具体处理代码。<br> 通过 touches 方法监听 view 触摸事件，有很明显的几个缺点：<ul>
+<li>必须得自定义 view；</li>
+<li>由于是在 view 内部的 touches 方法中监听触摸事件，因此默认情况下，无法让其他外界对象监听 view 的触摸事件；</li>
+<li>不容易区分用户的具体手势行为。</li>
 </ul>
 </li>
 </ol>
-<p>iOS 3.2之后，苹果推出了手势识别功能（Gesture Recognizer）,在触摸事件处理方面，大大简化了开发者的开发难度。</p>
-<h3 id="UIGestureRescognizer"><a href="#UIGestureRescognizer" class="headerlink" title="UIGestureRescognizer"></a>UIGestureRescognizer</h3><p>为了完成手势识别，必须借助于手势识别器：UIGestureRecognizer 。</p>
-<p>利用UIGestureRecognizer,能轻松识别用户在某个view上面做的一些常见手势。</p>
-<p>UIGestureRecognizer是一个抽象类，定义了所有的手势基本行为，使用它的子类才能处理具体的手势</p>
+<p>iOS 3.2 之后，苹果推出了手势识别功能（Gesture Recognizer）,在触摸事件处理方面，大大简化了开发者的开发难度。</p>
+<h3 id="UIGestureRescognizer"><a href="#UIGestureRescognizer" class="headerlink" title="UIGestureRescognizer"></a>UIGestureRescognizer</h3><p>为了完成手势识别，必须借助于手势识别器：UIGestureRecognizer 。<br>利用 UIGestureRecognizer,能轻松识别用户在某个 view 上面做的一些常见手势。<br>UIGestureRecognizer 是一个抽象类，定义了所有的手势基本行为，使用它的子类才能处理具体的手势</p>
 <ul>
 <li>UITapGestureRecognizer(敲击)</li>
 <li>UIPinchGestureRecognizer(捏合，用于缩放)</li>
@@ -896,19 +883,19 @@
 <li>UIRotationGestureRecognizer(旋转)</li>
 <li>UILongPressGestureRecognizer(长按)</li>
 </ul>
-<p>每一个手势识别器的用法都差不多，比如UITapGestureRecognizer的使用步骤如下:</p>
+<p>每一个手势识别器的用法都差不多，比如 UITapGestureRecognizer 的使用步骤如下:</p>
 <ol>
 <li><p>创建手势识别器对象；</p>
 <p> UITapGestureRecognizer *tap &#x3D; [[UITapGestureRecognizer alloc] init];</p>
 </li>
 <li><p>设置手势识别器对象的具体属性；</p>
-<pre><code> // 连续敲击2次
+<pre><code> // 连续敲击 2 次
  tap.numberOfTapsRequired = 2;
- // 需要2根手指一起敲击
+ // 需要 2 根手指一起敲击
  tap.numberOfTouchesRequired = 2;
 </code></pre>
 </li>
-<li><p>添加手势识别器到对应的view上</p>
+<li><p>添加手势识别器到对应的 view 上</p>
 <p> [self.iconView addGestureRecognizer:tap];</p>
 </li>
 <li><p>监听手势的触发</p>
@@ -916,9 +903,8 @@
 </li>
 </ol>
 <p>手势识别的状态</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIGestureRecognizerState</span>) &#123;</span><br><span class="line">    <span class="comment">// 没有触摸事件发生，所有手势识别的默认状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStatePossible</span>,</span><br><span class="line">    <span class="comment">// 一个手势已经开始但尚未改变或者完成时</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateBegan</span>,</span><br><span class="line">    <span class="comment">// 手势状态改变</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateChanged</span>,</span><br><span class="line">    <span class="comment">// 手势完成</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateEnded</span>,</span><br><span class="line">    <span class="comment">// 手势取消，恢复至Possible状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateCancelled</span>,</span><br><span class="line">    <span class="comment">// 手势失败，恢复至Possible状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateFailed</span>,</span><br><span class="line">    <span class="comment">// 识别到手势识别</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateRecognized</span> = <span class="built_in">UIGestureRecognizerStateEnded</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIGestureRecognizerState</span>) &#123;</span><br><span class="line">    <span class="comment">// 没有触摸事件发生，所有手势识别的默认状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStatePossible</span>,</span><br><span class="line">    <span class="comment">// 一个手势已经开始但尚未改变或者完成时</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateBegan</span>,</span><br><span class="line">    <span class="comment">// 手势状态改变</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateChanged</span>,</span><br><span class="line">    <span class="comment">// 手势完成</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateEnded</span>,</span><br><span class="line">    <span class="comment">// 手势取消，恢复至 Possible 状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateCancelled</span>,</span><br><span class="line">    <span class="comment">// 手势失败，恢复至 Possible 状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateFailed</span>,</span><br><span class="line">    <span class="comment">// 识别到手势识别</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateRecognized</span> = <span class="built_in">UIGestureRecognizerStateEnded</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>参考资料：<a target="_blank" rel="noopener" href="http://my.oschina.net/aofe/blog/268749">傲风凌寒的博客</a></p>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
 
       
@@ -970,7 +956,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:33:15" itemprop="dateModified" datetime="2024-11-02T19:33:15+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:47:34" itemprop="dateModified" datetime="2024-11-02T20:47:34+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1010,13 +996,13 @@
           <blockquote>
 <p>记录iOS各种重要里程碑事件</p>
 </blockquote>
-<h3 id="私有成员变量的实现"><a href="#私有成员变量的实现" class="headerlink" title="私有成员变量的实现"></a>私有成员变量的实现</h3><p>1.0时代，在.h文件采用<code>@private</code>关键词</p>
+<h3 id="私有成员变量的实现"><a href="#私有成员变量的实现" class="headerlink" title="私有成员变量的实现"></a>私有成员变量的实现</h3><p>1.0 时代，在.h文件采用<code>@private</code>关键词</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">@private</span></span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2.0时代 通过在.m文件通过<code>匿名Category</code></p>
+<p>2.0 时代 通过在.m文件通过<code>匿名Category</code></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSInteger</span> value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
-<p>3.0时代 2013 年的 WWDC 允许在 .m 的 <code>@implementation </code>中</p>
+<p>3.0 时代 2013 年的 WWDC 允许在 .m 的 <code>@implementation </code>中</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span> </span>&#123;</span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -1280,7 +1266,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 16:29:06" itemprop="dateModified" datetime="2024-11-02T16:29:06+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:31:46" itemprop="dateModified" datetime="2024-11-02T20:31:46+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1355,8 +1341,9 @@
 <p>在button点击事件触发时的这样使用</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)rotateImage:(<span class="type">id</span>)sender &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *oldImage = <span class="keyword">self</span>.imgView.image;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *rotatedImage = [<span class="built_in">UIImage</span> rotateImage:oldImage orientation:<span class="built_in">UIImageOrientationLeft</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imgView.image = rotatedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>点击按钮测试发现第一次没问题，但是重逢点击无效<br>原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过<br><code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，<br>如果是就直接返回不做处理，如果不是再作旋转处理，<br>也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
-<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？<br>在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，<br>再把UIImage通过<code>drawInRect </code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片<br>下面是具体实现</p>
+<p>点击按钮测试发现第一次没问题，但是重逢点击无效<br>原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过 <code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，如果是就直接返回不做处理，如果不是再作旋转处理，也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
+<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？<br>在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，再把UIImage通过<code>drawInRect</code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片</p>
+<p>下面是具体实现</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)fixedRotation&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.imageOrientation == <span class="built_in">UIImageOrientationUp</span>) <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">    <span class="built_in">CGAffineTransform</span> transform = <span class="built_in">CGAffineTransformIdentity</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="number">0</span>, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, -M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.height, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Now we draw the underlying CGImage into a new context, applying the transform</span></span><br><span class="line">    <span class="comment">// calculated above.</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height,</span><br><span class="line">                                             <span class="built_in">CGImageGetBitsPerComponent</span>(<span class="keyword">self</span>.CGImage), <span class="number">0</span>,</span><br><span class="line">                                             <span class="built_in">CGImageGetColorSpace</span>(<span class="keyword">self</span>.CGImage),</span><br><span class="line">                                             <span class="built_in">CGImageGetBitmapInfo</span>(<span class="keyword">self</span>.CGImage));</span><br><span class="line">    <span class="built_in">CGContextConcatCTM</span>(ctx, transform);</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            <span class="comment">// Grr...</span></span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.height,<span class="keyword">self</span>.size.width), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.width,<span class="keyword">self</span>.size.height), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// And now we just create a new UIImage from the drawing context</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> cgimg = <span class="built_in">CGBitmapContextCreateImage</span>(ctx);</span><br><span class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageWithCGImage:cgimg];</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(ctx);</span><br><span class="line">    <span class="built_in">CGImageRelease</span>(cgimg);</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>现在再优化一下原来<code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
@@ -1420,7 +1407,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:21:07" itemprop="dateModified" datetime="2024-11-02T19:21:07+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:35:11" itemprop="dateModified" datetime="2024-11-02T20:35:11+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1457,10 +1444,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ul>
-<li><a target="_blank" rel="noopener" href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/">原文链接</a></li>
-</ul>
-<h4 id="这是什么？"><a href="#这是什么？" class="headerlink" title="这是什么？"></a>这是什么？</h4><blockquote>
+          <h4 id="这是什么？"><a href="#这是什么？" class="headerlink" title="这是什么？"></a>这是什么？</h4><blockquote>
 <p>此文将讲解通过形状图层<code>CAShaperLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现动画绘制路径<code>CGPath</code>,此文是<a target="_blank" rel="noopener" href="http://oleb.net/">By Ole Begemann</a>创建于December 18, 2010,当时是发布iOS SDK 4.2时<code>CAShapeLayer</code>新增加的两个属性<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW16">strokeStart</a>和<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW15">strokeEnd</a>,这两个值是两个浮点数取值范围0.0~1.0,用来表明形状图层所指向的路径在绘制开始和结束路径中的相对位置。</p>
 </blockquote>
 <p><code>strokeStart</code>默认值是0.0，<code>strokeEnd</code>默认值是1.0，显然这会导致形状图层的路径将一整个被绘制。假如，你想说，如果设置了layer.strokeEnd &#x3D; 0.5f,只让她绘制前半部分，那该多好。</p>
@@ -1509,6 +1493,9 @@
 <li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
 </ol>
 <h4 id="修复一处bug"><a href="#修复一处bug" class="headerlink" title="修复一处bug"></a>修复一处bug</h4><p>重复点击<code>UISegmentedControl</code>导致铅笔消失，这是设置了<code> penAnimation.delegate = self;</code>在代理方法里面没有判断结束直接将设置<code>self.penLayer.hidden = YES</code>，导致连续切换时铅笔不见了，要修复这个bug只需加一个判断<code>   if (flag)   self.penLayer.hidden = YES;</code>即可,这样的意思是只有当动画完成时才设置<code>self.penLayer.hidden</code>的值，好了现在已经非常完美了，快去动手自己试试吧！🍺</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/">原文链接</a></li>
+</ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
 
       
@@ -1560,7 +1547,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:33:32" itemprop="dateModified" datetime="2024-11-02T19:33:32+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:40:00" itemprop="dateModified" datetime="2024-11-02T20:40:00+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1578,7 +1565,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>873</span>
+              <span>785</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1597,17 +1584,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
-<p>用于收藏不错的个人或者公司Blog地址</p>
-</blockquote>
-<h2 id="幽幽传送门"><a href="#幽幽传送门" class="headerlink" title="幽幽传送门"></a>幽幽传送门</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/p/e5353a1a752c">我常常浏览的博客和网站
-</a> –<a target="_blank" rel="noopener" href="http://www.jianshu.com/users/b82d2721ba07">叶孤城__</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.cocoachina.com/ios/20150626/11348.html">11个超棒的iOS开发学习网站</a></li>
-<li><a target="_blank" rel="noopener" href="http://blog.devtang.com/blog/2014/07/27/ios-levelup-tips/">iOS开发如何提高</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/tangqiaoboy/iOSBlogCN-">中文 iOS&#x2F;Mac 开发博客列表</a>–唐巧精心整理了国内40多位iOS开发博主的博客地址列表</li>
-</ul>
-<h2 id="简书"><a href="#简书" class="headerlink" title="简书"></a>简书</h2><ul>
+          <h2 id="简书"><a href="#简书" class="headerlink" title="简书"></a>简书</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/b82d2721ba07/latest_articles">叶孤城___</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/39eeabac725a/latest_articles">MarkNote</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/384f80cdc57b/latest_articles">lp_马建成</a></li>
@@ -1739,7 +1716,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:31:41" itemprop="dateModified" datetime="2024-11-02T19:31:41+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:41:42" itemprop="dateModified" datetime="2024-11-02T20:41:42+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1776,14 +1753,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="autoreleasing-修饰符"><a href="#autoreleasing-修饰符" class="headerlink" title="__autoreleasing 修饰符"></a>__autoreleasing 修饰符</h3><p>将对象赋值给附有__autoreleasing 修饰符的变量等同于ARC 无效时调用对象的autorelease方法。我们通过以下源代码来看一下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line"><span class="type">id</span> __autoreleasing obj  = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h3 id="autoreleasing-修饰符"><a href="#autoreleasing-修饰符" class="headerlink" title="__autoreleasing 修饰符"></a>__autoreleasing 修饰符</h3><p>将对象赋值给附有 __autoreleasing 修饰符的变量等同于 ARC 无效时调用对象的 autorelease 方法。我们通过以下源代码来看一下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">    <span class="type">id</span> __autoreleasing obj  = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>该源代码主要将NSObject 类对象注册到autoreleasepool 中，可作如下变换：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 编译器的模拟代码 */</span></span><br><span class="line"><span class="type">id</span> pool = objc_autoreleasePoolPush();</span><br><span class="line"><span class="type">id</span> obj = objc_msgSend(<span class="built_in">NSObject</span>, <span class="keyword">@selector</span>(alloc));</span><br><span class="line">objc_msgSend(obj, <span class="keyword">@selector</span>(init));</span><br><span class="line">objc_autorelease(obj);</span><br><span class="line">objc_autoreleasePoolPop(pool);</span><br></pre></td></tr></table></figure>
 
-<p>这与苹果的autorelease 实现中的说明（参考1.2.7 节）完全相同。虽然ARC 有效和无效时，其在源代码上的表现有所不同，但autorelease 的功能完全一样。</p>
-<p>在alloc&#x2F;new&#x2F;copy&#x2F;mutableCopy 方法群之外的方法中使用注册到autoreleasepool 中的对象会如何呢？下面我们来看看NSMutableArray 类的array 类方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line"><span class="type">id</span> __autoreleasing obj = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这与苹果的autorelease 实现中的说明（参考1.2.7 节）完全相同。虽然 ARC 有效和无效时，其在源代码上的表现有所不同，但 autorelease 的功能完全一样。</p>
+<p>在 alloc&#x2F;new&#x2F;copy&#x2F;mutableCopy 方法群之外的方法中使用注册到 autoreleasepool 中的对象会如何呢？下面我们来看看 NSMutableArray 类的 array 类方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">    <span class="type">id</span> __autoreleasing obj = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这与前面的源代码有何不同呢？</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 编译器的模拟代码 */</span></span><br><span class="line"><span class="type">id</span> pool = objc_autoreleasePoolPush();</span><br><span class="line"><span class="type">id</span> obj = objc_msgSend(<span class="built_in">NSMutableArray</span>, <span class="keyword">@selector</span>(array));</span><br><span class="line">objc_retainAutoreleasedReturnValue(obj);</span><br><span class="line">objc_autorelease(obj);</span><br><span class="line">objc_autoreleasePoolPop(pool);</span><br></pre></td></tr></table></figure>
@@ -1839,7 +1816,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:39:01" itemprop="dateModified" datetime="2024-11-02T19:39:01+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 20:43:05" itemprop="dateModified" datetime="2024-11-02T20:43:05+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
