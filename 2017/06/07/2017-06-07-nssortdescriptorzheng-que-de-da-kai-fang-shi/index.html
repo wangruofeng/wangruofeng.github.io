@@ -23,13 +23,13 @@
 
         <meta name="description" content="排序是应用常见需求之一，如何正确优雅的实现一个排序，NSSortDescriptor或许是一个非常好的选择。 NSSortDescriptor由3个参数组成：  key(键):对于一个给定的集合，将对集合种的每个对象按照该键来进行排序 ascending(升序):指定集合按照升序(YES)还是降序(NO)进行排序 selector(方法子):排序时的比较函数，当对字符串进行排序时，应当加入loca">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSSortDescriptor正确的打开方式">
+<meta property="og:title" content="NSSortDescriptor 正确的打开方式">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="排序是应用常见需求之一，如何正确优雅的实现一个排序，NSSortDescriptor或许是一个非常好的选择。 NSSortDescriptor由3个参数组成：  key(键):对于一个给定的集合，将对集合种的每个对象按照该键来进行排序 ascending(升序):指定集合按照升序(YES)还是降序(NO)进行排序 selector(方法子):排序时的比较函数，当对字符串进行排序时，应当加入loca">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-06-06T16:09:44.000Z">
-<meta property="article:modified_time" content="2024-11-02T03:36:52.412Z">
+<meta property="article:modified_time" content="2024-11-02T08:31:01.531Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="技巧">
 <meta name="twitter:card" content="summary">
@@ -48,7 +48,7 @@
 </script>
 
         <title>
-            NSSortDescriptor正确的打开方式 | 王若风的技术博客
+            NSSortDescriptor 正确的打开方式 | 王若风的技术博客
         </title>
         
 
@@ -210,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          NSSortDescriptor正确的打开方式
+          NSSortDescriptor 正确的打开方式
         </h1>
 
         <div class="post-meta">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:31:01" itemprop="dateModified" datetime="2024-11-02T16:31:01+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,14 +245,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>687</span>
+              <span>688</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -271,6 +271,9 @@
 <li><strong>ascending</strong>(升序):指定集合按照升序(YES)还是降序(NO)进行排序</li>
 <li><strong>selector</strong>(方法子):排序时的比较函数，当对字符串进行排序时，应当加入<code>localizedStandardCompare:</code>选择器，它将根据语言规则进行排序(例如大小写，变音符号等等的顺序)</li>
 </ul>
+<span id="more"></span>
+
+
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p><code>NSSortDescriptor</code>主要针对各种集合排序,<code>NSArray</code>,<code>NSMutableArray</code>,<code>NSSet</code>,<code>NSOrderedSet</code>,<code>NSMutableOrderedSet</code></p>
 <p>如果集合是可变的，则对集合本身排序例如</p>
 <ul>
@@ -350,7 +353,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/" title="NSSortDescriptor正确的打开方式">https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/</a>
+    <a href="https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/" title="NSSortDescriptor 正确的打开方式">https://blog.wangruofeng007.com/2017/06/07/2017-06-07-nssortdescriptorzheng-que-de-da-kai-fang-shi/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -369,12 +372,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/" rel="prev" title="从OC到Swift你要知道的事">
-      <i class="fa fa-chevron-left"></i> 从OC到Swift你要知道的事
+    <a href="/2017/03/10/2017-03-10-cong-ocdao-swiftni-yao-zhi-dao-de-shi/" rel="prev" title="从 OC 到 Swift 你要知道的事">
+      <i class="fa fa-chevron-left"></i> 从 OC 到 Swift 你要知道的事
     </a></div>
       <div class="post-nav-item">
-    <a href="/2017/10/14/2017-10-14-nsnumberzhuan-nsstringdiu-jing-wen-ti/" rel="next" title="NSNumber转NSString丢精问题">
-      NSNumber转NSString丢精问题 <i class="fa fa-chevron-right"></i>
+    <a href="/2017/10/14/2017-10-14-nsnumberzhuan-nsstringdiu-jing-wen-ti/" rel="next" title="NSNumber 转 NSString 丢精问题">
+      NSNumber 转 NSString 丢精问题 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -448,7 +451,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

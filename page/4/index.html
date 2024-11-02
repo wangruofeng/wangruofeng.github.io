@@ -194,6 +194,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/09/10/2016-09-10-kuai-su-feng-zhuang-airbnbfeng-ge-loadingview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/09/10/2016-09-10-kuai-su-feng-zhuang-airbnbfeng-ge-loadingview/" class="post-title-link" itemprop="url">快速封装 Airbnb 风格 Loadingview</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-09-10 13:54:15" itemprop="dateCreated datePublished" datetime="2016-09-10T13:54:15+08:00">2016-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-02 16:30:31" itemprop="dateModified" datetime="2024-11-02T16:30:31+08:00">2024-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>942</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一直在观察各种App的<code>LoadingView</code>，比较有代表性的是<code>MBProgressVHUD</code>，<code>SVProgressHUD</code>，这两个使用得非常广泛，大到QQ，支付宝，小到各种不知道名的App，长时间的迭代让它们的逻辑非常完善，同时也导致了有些累赘，如果把它们当一个产品来分析，可以看出，它们在不断地增加需求和使用场景，有没有一个非常简洁的HUD没有我们不需要的那些多余的逻辑只是负责显示指示和隐藏呢？</p>
+<p>好像没有，所有今天动手准备自己封装一个<code>LoadingView</code>，灵感来自Airbnb，用过Airbnb的同学都知道，它的<code>LoadingView</code>很有风格,Airbnb是几张图片循环翻转切换，当然我不准备复制他们的idea，我准备做一个循环左右上下切换的<code>LoadingView</code>。</p>
+<img src="/images/loading_img/loading_img_01.jpg" width="375" height="667">
+
+<p>废话不多说，先来看一下，最终效果的原型图</p>
+<p><img src="/images/loading_img/loading_img_02.jpg" alt="RFLoadingView"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>分析一下思路：</p>
+<ul>
+<li>四条虚线交叉形成的区域就是我们能够看到的图片</li>
+<li>首先准备两张图片，位置 中+上</li>
+<li>开始第一段动画，向下切换，位置 变成 中+下</li>
+<li>第一段动画结束，将下面的图片移动到右边，准备开始第二段动画</li>
+<li>第二动画跟第一段类似，只是方向是从右向左，动画结束后 位置变成 中+左</li>
+<li>将左边的图片移动到上方位置，完成一个循环</li>
+</ul>
+<p> 为了使动画更流畅不至于生硬，我们使用iOS7推出的带弹簧效果的API</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">+ (<span class="type">void</span>)animateWithDuration:(<span class="built_in">NSTimeInterval</span>)duration delay:(<span class="built_in">NSTimeInterval</span>)delay usingSpringWithDamping:(<span class="built_in">CGFloat</span>)dampingRatio initialSpringVelocity:(<span class="built_in">CGFloat</span>)velocity options:(<span class="built_in">UIViewAnimationOptions</span>)options animations:(<span class="type">void</span> (^)(<span class="type">void</span>))animations completion:(<span class="type">void</span> (^ __<span class="keyword">nullable</span>)(<span class="type">BOOL</span> finished))completion <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">7</span>_0);</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="API接口"><a href="#API接口" class="headerlink" title="API接口"></a>API接口</h3><p>在API接口设计上，我希望尽量简单实用，封装了两个方法，一个用来显示，一个用来隐藏，可以指定显示到某个view，以及指定显示和隐藏时是否使用动画。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">+ (<span class="type">void</span>)showViewAddedTo:(<span class="built_in">UIView</span> *)view animated:(<span class="type">BOOL</span>)animated;</span><br><span class="line">+ (<span class="type">void</span>)hideViewForView:(<span class="built_in">UIView</span> *)view animated:(<span class="type">BOOL</span>)animated;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="API实现"><a href="#API实现" class="headerlink" title="API实现"></a>API实现</h3><p>根据刚才的分析，核心的动画实现已经有了思路，现在就是怎么设计内部代码实现，为了方便显示蒙版阻止加载的时候用户交互，我把view的背景颜色设置了一个淡灰色，view的中间有三个子view，一个是位于中间的容器<code>centralView</code>,负责显示我们所看到的区域，方便实现圆角和动画效果，里面加入两个子view，<code>firstView</code>和<code>secondView</code>用于显示动画切换的图片。</p>
+<p>内部接口大概这样</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIView</span>      *centralView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *firstView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *secondView;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>为了防止多次添加<code>LoadingView</code>，在每次添加前，我们会查找该view是否存在，如果不存在，创建一个新的对象，如果存在直接跳过添加操作。反向遍历，快速查找。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+ (RFLoadingView *)loadingViewForView:(<span class="built_in">UIView</span> *)view</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSEnumerator</span> *subviewsEnum = [view.subviews reverseObjectEnumerator];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">UIView</span> *subview <span class="keyword">in</span> subviewsEnum) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([subview isKindOfClass:<span class="keyword">self</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> (RFLoadingView *)subview;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>动画核心实现,两端动画，封装成两个方法</p>
+<ul>
+<li><code>- (void)animatedImageFromTopToBottom</code></li>
+<li><code>- (void)animatedImageFromTopToBottom</code></li>
+</ul>
+<p>具体实现如下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="type">void</span>)animatedImageFromTopToBottom</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.3</span> delay:<span class="number">0.5</span> usingSpringWithDamping:<span class="number">0.7</span> initialSpringVelocity:<span class="number">0</span> options:<span class="built_in">UIViewAnimationOptionCurveEaseInOut</span> animations:^&#123;</span><br><span class="line">        _firstView.centerY  += kCenterViewSize;</span><br><span class="line">        _secondView.centerY += kCenterViewSize;</span><br><span class="line">    &#125; completion:^(<span class="type">BOOL</span> finished) &#123;</span><br><span class="line">        _firstView.centerX += kCenterViewSize;</span><br><span class="line">        _firstView.centerY -= kCenterViewSize;</span><br><span class="line">        </span><br><span class="line">        [<span class="keyword">self</span> changeFirstImage];</span><br><span class="line">        [<span class="keyword">self</span> animatedImageFromRightToLeft];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)animatedImageFromRightToLeft</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.3</span> delay:<span class="number">0.5</span> usingSpringWithDamping:<span class="number">0.7</span> initialSpringVelocity:<span class="number">0</span> options:<span class="built_in">UIViewAnimationOptionCurveEaseInOut</span> animations:^&#123;</span><br><span class="line">        _firstView.centerX  -= kCenterViewSize;</span><br><span class="line">        _secondView.centerX -= kCenterViewSize;</span><br><span class="line">    &#125; completion:^(<span class="type">BOOL</span> finished) &#123;</span><br><span class="line">        _secondView.centerX += kCenterViewSize;</span><br><span class="line">        _secondView.centerY -= kCenterViewSize;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.alpha &amp;&amp; <span class="keyword">self</span>) &#123;</span><br><span class="line">            [<span class="keyword">self</span> changeSecondImage];</span><br><span class="line">            [<span class="keyword">self</span> animatedImageFromTopToBottom];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要非常注意的是，一定要写上终止动画的条件，不然会无限循环，影响性能</p>
+</blockquote>
+<h3 id="show和hide"><a href="#show和hide" class="headerlink" title="show和hide"></a>show和hide</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (void)showAnimated:(BOOL)animated</span><br><span class="line">&#123;</span><br><span class="line">    RFMainThreadAssert();</span><br><span class="line">    </span><br><span class="line">    self.alpha = 1;</span><br><span class="line">    </span><br><span class="line">    [UIView animateWithDuration:animated ? 0.3 : 0 animations:^&#123;</span><br><span class="line">        _centralView.alpha = 1;</span><br><span class="line">    &#125; completion:^(BOOL finished) &#123;</span><br><span class="line">        [self animatedImageFromTopToBottom];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)hideAnimated:(BOOL)animated</span><br><span class="line">&#123;</span><br><span class="line">    RFMainThreadAssert();</span><br><span class="line">    </span><br><span class="line">    [UIView animateWithDuration:animated ? 0.3 : 0 animations:^&#123;</span><br><span class="line">        self.alpha = 0;</span><br><span class="line">    &#125; completion:^(BOOL finished) &#123;</span><br><span class="line">        [self removeFromSuperview];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><img src="/images/loading_img/loading_img_03.jpg" width="375" height="667">
+
+<ul>
+<li>Github Demo地址:<br><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/RFLoadingView">RFLoadingViewDemo</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/04/15/2016-04-15-iosdi-san-fang-ku-hui-zong/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -208,7 +341,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/04/15/2016-04-15-iosdi-san-fang-ku-hui-zong/" class="post-title-link" itemprop="url">iOS第三方库汇总</a>
+            <a href="/2016/04/15/2016-04-15-iosdi-san-fang-ku-hui-zong/" class="post-title-link" itemprop="url">iOS 第三方库汇总</a>
         </h2>
 
         <div class="post-meta">
@@ -225,7 +358,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:30:15" itemprop="dateModified" datetime="2024-11-02T16:30:15+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -976,7 +1109,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/04/15/2016-04-15-ru-he-li-yong-lldblai-debug/" class="post-title-link" itemprop="url">如何利用LLDB来Debug</a>
+            <a href="/2016/04/15/2016-04-15-ru-he-li-yong-lldblai-debug/" class="post-title-link" itemprop="url">如何利用 LLDB 来 Debug</a>
         </h2>
 
         <div class="post-meta">
@@ -993,7 +1126,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:30:19" itemprop="dateModified" datetime="2024-11-02T16:30:19+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1137,7 +1270,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/04/15/2016-04-15-shi-yong-facebookde-chisellai-diao-shi/" class="post-title-link" itemprop="url">使用facebook的chisel来调试</a>
+            <a href="/2016/04/15/2016-04-15-shi-yong-facebookde-chisellai-diao-shi/" class="post-title-link" itemprop="url">使用 facebook 的 chisel 来调试</a>
         </h2>
 
         <div class="post-meta">
@@ -1154,7 +1287,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:30:25" itemprop="dateModified" datetime="2024-11-02T16:30:25+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1524,7 +1657,7 @@ brew install chisel
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/04/14/2016-04-14-wan-zhuan-iosjian-qie-ban/" class="post-title-link" itemprop="url">玩转iOS剪切板</a>
+            <a href="/2016/04/14/2016-04-14-wan-zhuan-iosjian-qie-ban/" class="post-title-link" itemprop="url">玩转 iOS 剪切板</a>
         </h2>
 
         <div class="post-meta">
@@ -1541,7 +1674,7 @@ brew install chisel
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:30:12" itemprop="dateModified" datetime="2024-11-02T16:30:12+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1676,7 +1809,7 @@ brew install chisel
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/04/10/2016-04-10-chuang-jian-zi-ding-yi-viewzai-ibzhong-shi-shi-xuan-ran/" class="post-title-link" itemprop="url">创建自定义View在IB中实时渲染</a>
+            <a href="/2016/04/10/2016-04-10-chuang-jian-zi-ding-yi-viewzai-ibzhong-shi-shi-xuan-ran/" class="post-title-link" itemprop="url">创建自定义 View 在 IB 中实时渲染</a>
         </h2>
 
         <div class="post-meta">
@@ -1693,7 +1826,7 @@ brew install chisel
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:30:06" itemprop="dateModified" datetime="2024-11-02T16:30:06+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1804,7 +1937,7 @@ brew install chisel
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" class="post-title-link" itemprop="url">Unix Shell常用命令</a>
+            <a href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" class="post-title-link" itemprop="url">Unix Shell 常用命令</a>
         </h2>
 
         <div class="post-meta">
@@ -1821,7 +1954,7 @@ brew install chisel
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:29:59" itemprop="dateModified" datetime="2024-11-02T16:29:59+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1973,7 +2106,7 @@ change mode
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/03/27/2016-03-27-gitchang-yong-ming-ling/" class="post-title-link" itemprop="url">git常用命令</a>
+            <a href="/2016/03/27/2016-03-27-gitchang-yong-ming-ling/" class="post-title-link" itemprop="url">git 常用命令</a>
         </h2>
 
         <div class="post-meta">
@@ -1990,7 +2123,7 @@ change mode
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:29:55" itemprop="dateModified" datetime="2024-11-02T16:29:55+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2068,7 +2201,7 @@ change mode
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2016/03/03/2016-03-03-shi-yong-mantlegao-xiao-gou-jian-model/" class="post-title-link" itemprop="url">使用Mantle高效构建Model</a>
+            <a href="/2016/03/03/2016-03-03-shi-yong-mantlegao-xiao-gou-jian-model/" class="post-title-link" itemprop="url">使用 Mantle 高效构建 Model</a>
         </h2>
 
         <div class="post-meta">
@@ -2085,7 +2218,7 @@ change mode
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-02 16:29:50" itemprop="dateModified" datetime="2024-11-02T16:29:50+08:00">2024-11-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2210,189 +2343,10 @@ change mode
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/31/2016-01-31-3chong-fang-shi-shi-xian-iosmo-hu-xiao-guo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/31/2016-01-31-3chong-fang-shi-shi-xian-iosmo-hu-xiao-guo/" class="post-title-link" itemprop="url">4种方式实现iOS模糊效果</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-31 23:12:52" itemprop="dateCreated datePublished" datetime="2016-01-31T23:12:52+08:00">2016-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 11:36:52" itemprop="dateModified" datetime="2024-11-02T11:36:52+08:00">2024-11-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>704</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>介绍iOS中以下四种方式实现：</p>
-<ul>
-<li><code>CoreImage</code>中的模糊滤镜</li>
-<li><code>UIImage + ImageEffects</code>的category模糊效果</li>
-<li>iOS8中<code>UIVisualEffectView</code>模糊效果</li>
-<li>iOS7以后通过<code>UIToolBar</code>实现模糊效果</li>
-</ul>
-<h3 id="CoreImage中的模糊滤镜实现"><a href="#CoreImage中的模糊滤镜实现" class="headerlink" title="CoreImage中的模糊滤镜实现"></a><code>CoreImage</code>中的模糊滤镜实现</h3><p><code>CoreImage</code>主要通过<code>CIFilter</code>这个类来实现。</p>
-<p>这个类支持的滤镜多达14类，每个类又细分多款滤镜：</p>
-<ol>
-<li>CICategoryBlur<ul>
-<li>CIBoxBlur</li>
-<li>CIDiscBlur</li>
-<li><strong>CIGaussianBlur</strong></li>
-<li>CIMaskedVariableBlur</li>
-<li>CIMedianFilter</li>
-<li>CIMotionBlur</li>
-<li>CINoiseReduction</li>
-<li>CIZoomBlur</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>CICategoryColorAdjustment<ul>
-<li>CIColorClamp</li>
-<li>CIColorControls</li>
-<li>CIColorMatrix</li>
-<li>CIColorPolynomial</li>
-<li>CIExposureAdjust</li>
-<li>CIGammaAdjust</li>
-<li>CIHueAdjust</li>
-<li>CILinearToSRGBToneCurve</li>
-<li>CISRGBToneCurveToLinear</li>
-<li>CITemperatureAndTint</li>
-<li>CIToneCurve</li>
-<li>CIVibrance</li>
-<li>CIWhitePointAdjust</li>
-</ul>
-</li>
-<li>CICategoryColorEffect</li>
-<li>CICategoryCompositeOperation</li>
-<li>CICategoryDistortionEffect</li>
-<li>CICategoryGenerator</li>
-<li>CICategoryGeometryAdjustment</li>
-<li>CICategoryGradient</li>
-<li>CICategoryHalftoneEffect</li>
-<li>CICategoryReduction</li>
-<li>CICategorySharpen</li>
-<li>CICategoryStylize</li>
-<li>CICategoryTileEffect</li>
-<li>CICategoryTransition</li>
-</ul>
-<p>我们这里使用的是高斯模糊，也就是<code>CIGaussianBlur</code>。</p>
-<p><strong>Sample Code：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UIImage *avatar = [UIImage imageNamed:@&quot;avatar&quot;];</span><br><span class="line"></span><br><span class="line">/********** CoreImage ************/</span><br><span class="line"></span><br><span class="line">// CIImage</span><br><span class="line">CIImage *ciImage = [[CIImage alloc] initWithImage:avatar];</span><br><span class="line"></span><br><span class="line">// CIFilter</span><br><span class="line">CIFilter *blurFilter = [CIFilter filterWithName:@&quot;CIGaussianBlur&quot;];</span><br><span class="line"></span><br><span class="line">// 设置模糊滤镜半径</span><br><span class="line">[blurFilter setValue:@(20) forKey:@&quot;inputRadius&quot;];</span><br><span class="line"></span><br><span class="line">// 将图片输入到滤镜</span><br><span class="line">[blurFilter setValue:ciImage forKey:kCIInputImageKey];</span><br><span class="line"></span><br><span class="line">// 将处理好的图片输出</span><br><span class="line">CIImage *outCiImage = [blurFilter valueForKey:kCIOutputImageKey];</span><br><span class="line"></span><br><span class="line">// 查询可以设置的参数和一些信息</span><br><span class="line">NSLog(@&quot;%@&quot;,[blurFilter attributes]);</span><br><span class="line"></span><br><span class="line">// CIContext</span><br><span class="line">CIContext *contex = [CIContext contextWithOptions:nil];</span><br><span class="line"></span><br><span class="line">// 获取CGImage句柄</span><br><span class="line">CGImageRef outCGImage = [contex createCGImage:outCiImage fromRect:[outCiImage extent]];</span><br><span class="line"></span><br><span class="line">// 最终获取到图片</span><br><span class="line">UIImage *blurImage = [UIImage imageWithCGImage:outCGImage];</span><br><span class="line"></span><br><span class="line">// 释放CGImage句柄</span><br><span class="line">CGImageRelease(outCGImage);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>此时<code>blurImage</code>图片就是经过滤镜处理后的图片，在放在<code>ImageView</code>上加载即可看到效果。</p>
-<p><img src="/images/img_blur.jpg" alt="avatar"></p>
-<h3 id="UIImage-ImageEffects的category模糊效果"><a href="#UIImage-ImageEffects的category模糊效果" class="headerlink" title="UIImage + ImageEffects的category模糊效果"></a><code>UIImage + ImageEffects</code>的category模糊效果</h3><p>使用Apple开源的一个图片处理分类来实现，这个使用起来只需一行代码，简洁明了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">UIImage *blurImage = [sourceImage blurImage];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这里封装了一个区域模糊效果的方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (UIImage *)blurImageAtFrame:(CGRect)frame;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="iOS8中UIVisualEffectView模糊效果"><a href="#iOS8中UIVisualEffectView模糊效果" class="headerlink" title="iOS8中UIVisualEffectView模糊效果"></a>iOS8中<code>UIVisualEffectView</code>模糊效果</h3><p>这个效果只支持iOS8.0以上的版本，通过<code>UIVisualEffectView</code>来实现。</p>
-<p><strong>Sample Code：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 1.创建模糊view</span><br><span class="line">   UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];</span><br><span class="line">   </span><br><span class="line">   // 2.设置尺寸</span><br><span class="line">   effectView.frame = CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 200);</span><br><span class="line">   </span><br><span class="line">   // 3.添加到view当中</span><br><span class="line">   [self.view addSubview:effectView];</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
-
-<p><strong>😊Bonus:</strong><br>实现iOS高版本通知中心炫酷的Label模糊效果。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 添加一个文本标签</span><br><span class="line">   UILabel *label = [[UILabel alloc] initWithFrame:effectView.bounds];</span><br><span class="line">   label.text = @&quot;www.blog.wangruofeng007&quot;;</span><br><span class="line">   label.textAlignment = NSTextAlignmentCenter;</span><br><span class="line">   label.font = [UIFont systemFontOfSize:30];</span><br><span class="line">   [effectView.contentView addSubview:label];</span><br><span class="line">   </span><br><span class="line">   /***************** 添加模糊效果 *****************/</span><br><span class="line">   </span><br><span class="line">   // 1.创建子模糊view</span><br><span class="line">   UIVisualEffectView *subEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIVibrancyEffect effectForBlurEffect:(UIBlurEffect *)effectView.effect]];</span><br><span class="line">   </span><br><span class="line">   // 2.设定尺寸</span><br><span class="line">   subEffectView.frame = effectView.bounds;</span><br><span class="line">   </span><br><span class="line">   // 3.将子模糊view添加到effectView的contenView才能生效</span><br><span class="line">   [effectView.contentView addSubview:subEffectView];</span><br><span class="line">   </span><br><span class="line">   // 4.添加要显示的view来达到特殊的效果</span><br><span class="line">   [subEffectView.contentView addSubview:label];</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
-
-<p>效果图：</p>
-<img src="https://github.com/wangruofeng/BlurEffectDemo/raw/master/sample.png" style="witdh:50%; height:50%">
-</img>
-
-<p>Demo地址：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/BlurEffectDemo">BlurEffectDemo 
-</a> – 本文效果Demo</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/UIVisualEffects_Objective-c">UIVisualEffects_Objective-c</a> – 详细介绍<code>UIVisualEffects</code>的使用</li>
-</ul>
-<h3 id="iOS7以后通过UIToolBar实现模糊效果"><a href="#iOS7以后通过UIToolBar实现模糊效果" class="headerlink" title="iOS7以后通过UIToolBar实现模糊效果"></a>iOS7以后通过<code>UIToolBar</code>实现模糊效果</h3><p>在iOS7以后，<code>UINavigationBar</code>和<code>UIToolBar</code>自带毛玻璃模糊效果，可以通过手动创建<code>UIToolBar</code>对象，然后添加到view中实现，UIToolBar区域就可以实现动态毛玻璃模糊效果。</p>
-<p>例如在一个状态栏后方添加一个模糊view,可以在控制器中这样实现，假设没有导航栏</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIToolbar *statusBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];</span><br><span class="line">[self.view addSubview:statusBar];</span><br></pre></td></tr></table></figure>
-
-<p>这个方法非常简单实用😊，快去试试吧。</p>
-<p>参考资料：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_tasks/ci_tasks.html">Core Image Programming Guide</a></li>
-<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html">Core Image Filter Reference</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/UIImageBlur">UIImageBlur</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2458,7 +2412,7 @@ change mode
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
