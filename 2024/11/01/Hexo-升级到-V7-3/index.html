@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/hexo_update/hexo.webp">
 <meta property="article:published_time" content="2024-11-01T06:04:25.000Z">
-<meta property="article:modified_time" content="2024-11-03T05:32:35.303Z">
+<meta property="article:modified_time" content="2024-11-03T09:20:48.533Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 17:20:48" itemprop="dateModified" datetime="2024-11-03T17:20:48+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,20 +241,34 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2024/11/01/Hexo-%E5%8D%87%E7%BA%A7%E5%88%B0-V7-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/11/01/Hexo-升级到-V7-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>783</span>
+              <span>1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -321,6 +335,30 @@
 <h2 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h2><p>安装 <code>npm install hexo-word-counter</code> 插件 , <a target="_blank" rel="noopener" href="https://hexo-next.readthedocs.io/zh-cn/latest/next/advanced/%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1/">参考</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-word-counter</span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
 
+<h2 id="Disqus"><a href="#Disqus" class="headerlink" title="Disqus"></a>Disqus</h2><p>要在 Hexo 博客中使用 Next 主题集成 Disqus 评论系统，请按照以下步骤进行配置：</p>
+<ol>
+<li><p><strong>注册 Disqus 并获取短名称</strong>:</p>
+<ul>
+<li>前往 <a target="_blank" rel="noopener" href="https://disqus.com/">Disqus</a> 官网注册一个账户，并创建一个新的站点。</li>
+<li>创建站点后，会分配一个 <code>shortname</code>，这是你在 Next 主题中配置 Disqus 的关键。</li>
+</ul>
+</li>
+<li><p><strong>配置 Next 主题</strong>:</p>
+<ul>
+<li>打开你的 Hexo 博客的 Next 主题配置文件，路径通常是 <code>/Users/ruofeng/Documents/git_repo/hexo_blog/themes/next/_config.yml</code>。</li>
+<li>找到 <code>disqus</code> 设置部分并启用它。</li>
+</ul>
+<p>示例配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Disqus comments</span></span><br><span class="line"><span class="attr">disqus:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">shortname:</span> <span class="string">your_disqus_shortname</span></span><br></pre></td></tr></table></figure>
+
+<p>将 <code>your_disqus_shortname</code> 替换为你在 Disqus 上获得的 <code>shortname</code>。</p>
+</li>
+<li><p><strong>重新部署博客 &amp; 集成验证</strong>:<br>确保保存配置文件后，在 Hexo 根目录中执行以下命令重新生成和部署博客：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>打开你的博客页面，检查文章页底部是否显示了 Disqus 评论区域。</p>
+</li>
+</ol>
 <h2 id="发布插件"><a href="#发布插件" class="headerlink" title="发布插件"></a>发布插件</h2><p>然后需要在 blog 根目录下安装以下插件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
@@ -383,6 +421,13 @@
 
                         </div>
                         
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+ 
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -429,7 +474,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Hexo-7-3"><span class="nav-number">1.</span> <span class="nav-text">安装 Hexo 7.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">配置分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%A0%87%E7%AD%BE"><span class="nav-number">4.</span> <span class="nav-text">配置标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">安装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2"><span class="nav-number">5.1.</span> <span class="nav-text">站内搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-number">5.2.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E6%8F%92%E4%BB%B6"><span class="nav-number">5.3.</span> <span class="nav-text">发布插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Hexo-7-3"><span class="nav-number">1.</span> <span class="nav-text">安装 Hexo 7.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%88%86%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">配置分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%A0%87%E7%AD%BE"><span class="nav-number">4.</span> <span class="nav-text">配置标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">安装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2"><span class="nav-number">5.1.</span> <span class="nav-text">站内搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-number">5.2.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Disqus"><span class="nav-number">5.3.</span> <span class="nav-text">Disqus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E6%8F%92%E4%BB%B6"><span class="nav-number">5.4.</span> <span class="nav-text">发布插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -511,7 +556,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:32</span>
+    <span title="站点阅读时长">6:33</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
@@ -578,6 +623,37 @@
             
 
             
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangruofeng007.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.wangruofeng007.com/2024/11/01/Hexo-%E5%8D%87%E7%BA%A7%E5%88%B0-V7-3/";
+    this.page.identifier = "2024/11/01/Hexo-升级到-V7-3/";
+    this.page.title = "Hexo 升级到 V7.3";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangruofeng007.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
     </body>
 </html>
