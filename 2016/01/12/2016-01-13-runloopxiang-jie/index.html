@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/common/runloop.jpg">
 <meta property="article:published_time" content="2016-01-11T20:44:06.000Z">
-<meta property="article:modified_time" content="2024-11-03T05:32:35.286Z">
+<meta property="article:modified_time" content="2024-11-03T06:20:18.763Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="RunLoop">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 14:20:18" itemprop="dateModified" datetime="2024-11-03T14:20:18+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,21 +294,31 @@
 <p>每个 RunLoop 可运行在不同的模式下，一个 RunLoop mode 是一个集合，其中包含其监听的若干输入事件源，定时器，以及在事件发生时需要通知的 RunLoop observers。运行在一种 mode 下的 RunLoop 只会处理其 RunLoop mode 中包含的输入源事件、定时器事件、以及通知 RunLoop mode 中包含的 observers。</p>
 <p>Cocoa 中的预定义模式有:</p>
 <ol>
-<li>Default 模式</li>
+<li>Default 模式<ol>
 <li>定义 <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSDefaultRunLoopMode">NSDefaultRunLoopMode </a>(Cocoa) <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopDefaultMode">kCFRunLoopDefaultMode </a>(Core Foundation)</li>
 <li>描述：默认模式中几乎包含了所有输入源(NSConnection 除外),一般情况下应使用此模式，这是最常用的 RunLoop mode。</li>
-<li>Connection 模式</li>
+</ol>
+</li>
+<li>Connection 模式<ol>
 <li>定义： <code>NSConnectionReplyMode</code> (Cocoa)</li>
 <li>描述：处理 <code>NSConnection</code> 对象相关事件，系统内部使用，这个 mode 表明 <code>NSConnection</code> 对象等待 reply,用户基本不会使用。</li>
-<li>Modal 模式</li>
+</ol>
+</li>
+<li>Modal 模式<ol>
 <li>定义： <code>NSModalPanelRunLoopMode</code> (Cocoa)</li>
 <li>描述：处理 modal panels 事件,需要等待处理的 input source 为 modal panel 时设置，比如 NSSavePanel 和 NSOpenPanel。</li>
-<li>Event tracking 模式</li>
+</ol>
+</li>
+<li>Event tracking 模式<ol>
 <li>定义： <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/index.html#//apple_ref/doc/uid/TP40006728-CH3-SW38">UITrackingRunLoopMode </a>(iOS) <code>NSEventTrackingRunLoopMode</code> (cocoa)</li>
 <li>描述：使用该模式来处理用户界面相关的事件,例如在拖动 loop 或其他 user interface tracking loops 时处于此种模式下，在此模式下会限制输入事件的处理。例如，当手指按住 UITableView 拖动时就会处于此模式。</li>
-<li>Common 模式</li>
+</ol>
+</li>
+<li>Common 模式<ol>
 <li>定义： <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSRunLoop_Class/index.html#//apple_ref/c/data/NSRunLoopCommonModes">NSRunLoopCommonModes </a>(Cocoa) <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/data/kCFRunLoopCommonModes">kCFRunLoopCommonModes </a>(Core Foundation)</li>
 <li>描述：这是一个伪模式，其为一组 RunLoop mode 的集合，将输入源加入此模式意味着在 Common Modes 中包含的所有模式下都可以处理。在 Cocoa 应用程序中，默认情况下 Common Modes 包含 default modes,modal modes,event Tracking modes, 可使用 <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFRunLoopRef/index.html#//apple_ref/c/func/CFRunLoopAddCommonMode">CFRunLoopAddCommonMode </a>方法向 Common Modes 中添加自定义 modes。</li>
+</ol>
+</li>
 </ol>
 <p><strong>注意这个并不是一个特定的 mode，而是一个 mode 的集合，而 runloop 必须运行在一个特定的 mode 下</strong> 。</p>
 <p>获取当前线程的 runloop mode</p>
