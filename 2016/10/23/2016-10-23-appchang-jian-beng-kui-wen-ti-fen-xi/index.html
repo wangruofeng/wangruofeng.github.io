@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="前言此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。 App常见崩溃 数组下标越界 字典构造与修改 NSAttributedString相关 呈现一个空控制器 unrecognized selector 操作tableView数据 Push到同一个控制器多次  1.数组下标越界示例代码： 12345- (void)testArrayOutOfBounds&amp;">
+        <meta name="description" content="前言此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。 App 常见崩溃 数组下标越界 字典构造与修改 NSAttributedString 相关 呈现一个空控制器 unrecognized selector 操作 tableView 数据 Push 到同一个控制器多次  1.数组下标越界示例代码： 12345- (void)testArrayOutOfBo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="App 常见崩溃问题分析">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2016/10/23/2016-10-23-appchang-jian-beng-kui-wen-ti-fen-xi/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="前言此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。 App常见崩溃 数组下标越界 字典构造与修改 NSAttributedString相关 呈现一个空控制器 unrecognized selector 操作tableView数据 Push到同一个控制器多次  1.数组下标越界示例代码： 12345- (void)testArrayOutOfBounds&amp;">
+<meta property="og:description" content="前言此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。 App 常见崩溃 数组下标越界 字典构造与修改 NSAttributedString 相关 呈现一个空控制器 unrecognized selector 操作 tableView 数据 Push 到同一个控制器多次  1.数组下标越界示例代码： 12345- (void)testArrayOutOfBo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-10-23T15:18:01.000Z">
-<meta property="article:modified_time" content="2024-11-02T11:36:16.678Z">
+<meta property="article:modified_time" content="2024-11-03T03:05:50.931Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="奔溃分析">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:36:16" itemprop="dateModified" datetime="2024-11-02T19:36:16+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,14 +265,14 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。</p>
-<h3 id="App常见崩溃"><a href="#App常见崩溃" class="headerlink" title="App常见崩溃"></a>App常见崩溃</h3><ol>
+<h3 id="App-常见崩溃"><a href="#App-常见崩溃" class="headerlink" title="App 常见崩溃"></a>App 常见崩溃</h3><ol>
 <li>数组下标越界</li>
 <li>字典构造与修改</li>
-<li><code>NSAttributedString</code>相关</li>
+<li><code>NSAttributedString</code> 相关</li>
 <li>呈现一个空控制器</li>
 <li>unrecognized selector</li>
-<li>操作<code>tableView</code>数据</li>
-<li>Push到同一个控制器多次</li>
+<li>操作 <code>tableView</code> 数据</li>
+<li>Push 到同一个控制器多次</li>
 </ol>
 <h4 id="1-数组下标越界"><a href="#1-数组下标越界" class="headerlink" title="1.数组下标越界"></a>1.数组下标越界</h4><p><strong>示例代码</strong>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)testArrayOutOfBounds</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *testArray = @[@<span class="number">1</span>,@<span class="number">2</span>,@<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">NSNumber</span> *num = testArray[<span class="number">3</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -282,29 +282,29 @@
 <p><strong>预防方案</strong>：</p>
 <p>在数组中取值时需要先进组下标索引边界检查，如果没有越界方可取值。</p>
 <h4 id="2-字典构造造与修改"><a href="#2-字典构造造与修改" class="headerlink" title="2.字典构造造与修改"></a>2.字典构造造与修改</h4><p><strong>示例代码</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)testDicSetNilValueCrash</span><br><span class="line">&#123;</span><br><span class="line">    // 构造不可变字典时 key和value都不能为空</span><br><span class="line">    NSString *nilValue = nil;</span><br><span class="line">    NSString *nilKey = nil;</span><br><span class="line">    NSDictionary *dic1 = @&#123;@&quot;key&quot; : nilValue&#125;;</span><br><span class="line">    NSDictionary *dic2 = @&#123;nilKey : @&quot;value&quot;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)testDicSetNilValueCrash</span><br><span class="line">&#123;</span><br><span class="line">    // 构造不可变字典时 key 和 value 都不能为空</span><br><span class="line">    NSString *nilValue = nil;</span><br><span class="line">    NSString *nilKey = nil;</span><br><span class="line">    NSDictionary *dic1 = @&#123;@&quot;key&quot; : nilValue&#125;;</span><br><span class="line">    NSDictionary *dic2 = @&#123;nilKey : @&quot;value&quot;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>异常现象</strong>：</p>
 <p><em>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘*</em>* -[__NSPlaceholderDictionary initWithObjects:forKeys:count:]: attempt to insert nil object from objects[0]’*</p>
 <p><strong>预防方案</strong>：</p>
-<p>在我们使用字面量快速创建一个字典的时候需要特别小心，因为很可能字典的键和值不能保证同时不为空。有潜在崩溃的风险，这种崩溃非常容易出现，需要特别小心，但是当你留心的话也非常好避免，就是设置字典的键或者值的时候判断是否非空，可变字典设置某个键的值是可以为空，相当于删除字典中的某个键值。为了使App保持健壮推荐使用<code>KVO</code>或者字面量的方式来设置字典的值</p>
+<p>在我们使用字面量快速创建一个字典的时候需要特别小心，因为很可能字典的键和值不能保证同时不为空。有潜在崩溃的风险，这种崩溃非常容易出现，需要特别小心，但是当你留心的话也非常好避免，就是设置字典的键或者值的时候判断是否非空，可变字典设置某个键的值是可以为空，相当于删除字典中的某个键值。为了使 App 保持健壮推荐使用 <code>KVO</code> 或者字面量的方式来设置字典的值</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)testMutableDicSetNilValueCrash</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *value = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *mDic = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// via Dic set, leading crash</span></span><br><span class="line">    [mDic setObject:value forKey:<span class="string">@&quot;key&quot;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// via KVO set, it&#x27;s safe</span></span><br><span class="line">    [mDic setValue:value forKey:<span class="string">@&quot;key&quot;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// or via literal set, it&#x27;s safe</span></span><br><span class="line">    mDic[<span class="string">@&quot;key&quot;</span>] = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-<h4 id="3-NSAttributedString相关"><a href="#3-NSAttributedString相关" class="headerlink" title="3.NSAttributedString相关"></a>3.NSAttributedString相关</h4><p><strong>示例代码</strong>：</p>
+<h4 id="3-NSAttributedString-相关"><a href="#3-NSAttributedString-相关" class="headerlink" title="3.NSAttributedString 相关"></a>3.NSAttributedString 相关</h4><p><strong>示例代码</strong>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)testAttributedStringInitCrash</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *nilStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *attributedStr = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:nilStr];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)testAttributedStringAddAttributeCrash</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *nonnullStr = <span class="string">@&quot;str&quot;</span>;</span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *attributedStr = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:nonnullStr];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *nilValue = <span class="literal">nil</span>;</span><br><span class="line">    [attributedStr addAttribute:<span class="built_in">NSAttachmentAttributeName</span> value:nilValue range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, <span class="number">1</span>)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>异常现象</strong>：</p>
 <p><em>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘NSConcreteMutableAttributedString initWithString:: nil value’</em></p>
 <p><strong>预防方案</strong>：</p>
-<p>在构造<code>NSMutableAttributedString</code>或者<code>NSAttributedString</code>需要留意，设置的属性的值是否有可能存在<code>nil</code>的情况。这个很容易被人忽视，值得注意。</p>
+<p>在构造 <code>NSMutableAttributedString</code> 或者 <code>NSAttributedString</code> 需要留意，设置的属性的值是否有可能存在 <code>nil</code> 的情况。这个很容易被人忽视，值得注意。</p>
 <h4 id="4-呈现一个空控制器"><a href="#4-呈现一个空控制器" class="headerlink" title="4.呈现一个空控制器"></a>4.呈现一个空控制器</h4><p><strong>示例代码</strong>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)testPresentNilControllerCrash</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIViewController</span> *someVC = [<span class="built_in">UIViewController</span> new];</span><br><span class="line">    <span class="built_in">UIViewController</span> *presentVC = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    [someVC presentViewController:presentVC animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>异常现象</strong>：</p>
-<p>present一个空的控制器导致App crash</p>
+<p>present 一个空的控制器导致 App crash</p>
 <p><strong>预防方案</strong>：</p>
-<p>present一个新控制器时，判断是否存在，存在才执行，否则直接返回</p>
+<p>present 一个新控制器时，判断是否存在，存在才执行，否则直接返回</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)testPresentNilControllerCrashFixed</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIViewController</span> *someVC = [<span class="built_in">UIViewController</span> new];</span><br><span class="line">    <span class="built_in">UIViewController</span> *presentVC = [<span class="built_in">UIViewController</span> new];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (presentVC) &#123;</span><br><span class="line">        [someVC presentViewController:presentVC animated:<span class="literal">YES</span> completion:<span class="literal">nil</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="5-unrecognized-selector"><a href="#5-unrecognized-selector" class="headerlink" title="5.unrecognized selector"></a>5.unrecognized selector</h4><p><strong>示例代码</strong>：</p>
@@ -313,86 +313,86 @@
 <p><strong>异常现象</strong>：</p>
 <p><em>Terminating app due to uncaught exception ‘NSInvalidArgumentException’, reason: ‘-[ViewController testSel]: unrecognized selector sent to instance 0x7ffd41609d10’</em></p>
 <p><strong>预防方案</strong>：</p>
-<p>此类崩溃经常出现，特别是当服务器数据放回异常时，比如本来应该返回一个<code>NSString</code>类型字符串，结果返回<code>NULL</code>,当你调用字符串的<code>length</code>方式时，导致App崩溃。预防方法，重要的地方对类型进行判断再调用该类的相关方法，或者写一个分类统一处理此类逻辑。</p>
-<h4 id="6-操作tableView数据"><a href="#6-操作tableView数据" class="headerlink" title="6.操作tableView数据"></a>6.操作tableView数据</h4><p><strong>示例代码</strong>：</p>
+<p>此类崩溃经常出现，特别是当服务器数据放回异常时，比如本来应该返回一个 <code>NSString</code> 类型字符串，结果返回 <code>NULL</code> ,当你调用字符串的 <code>length</code> 方式时，导致 App 崩溃。预防方法，重要的地方对类型进行判断再调用该类的相关方法，或者写一个分类统一处理此类逻辑。</p>
+<h4 id="6-操作-tableView-数据"><a href="#6-操作-tableView-数据" class="headerlink" title="6.操作 tableView 数据"></a>6.操作 tableView 数据</h4><p><strong>示例代码</strong>：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)testTableViewUpdateCrash</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSIndexPath</span> *insertIndexPath = [<span class="built_in">NSIndexPath</span> indexPathForRow:<span class="number">0</span> inSection:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSIndexPath</span> *deleteIndexPath = [<span class="built_in">NSIndexPath</span> indexPathForRow:<span class="number">1</span> inSection:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSIndexPath</span> *reloadIndexPath = [<span class="built_in">NSIndexPath</span> indexPathForRow:<span class="number">2</span> inSection:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSIndexPath</span> *moved1IndexPath = [<span class="built_in">NSIndexPath</span> indexPathForRow:<span class="number">3</span> inSection:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSIndexPath</span> *moved2IndexPath = [<span class="built_in">NSIndexPath</span> indexPathForRow:<span class="number">4</span> inSection:<span class="number">0</span>];</span><br><span class="line">    [<span class="keyword">self</span>.tableView beginUpdates];</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span>.tableView insertRowsAtIndexPaths:@[insertIndexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationAutomatic</span>];</span><br><span class="line">    [<span class="keyword">self</span>.tableView deleteRowsAtIndexPaths:@[deleteIndexPath]withRowAnimation:<span class="built_in">UITableViewRowAnimationAutomatic</span>];</span><br><span class="line">    [<span class="keyword">self</span>.tableView reloadRowsAtIndexPaths:@[reloadIndexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationAutomatic</span>];</span><br><span class="line">    [<span class="keyword">self</span>.tableView moveRowAtIndexPath:moved1IndexPath toIndexPath:moved2IndexPath];</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span>.tableView endUpdates];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>异常现象</strong>：</p>
 <p><em>Fatal Exception: NSInternalInconsistencyException</em></p>
 <p><em>Invalid update: invalid number of sections. The number of sections contained in the table view after the update (1) must be equal to the number of sections contained in the table view before the update (1), plus or minus the number of sections inserted or deleted (1 inserted, 0 deleted).</em></p>
 <p><strong>预防方案</strong>：</p>
-<p>当需要动态更新<code>tableView</code>的数据时，计算好模型的数据使模型的数据和更新<code>tableView</code>的后的数据保持同步。</p>
-<h4 id="7-Push到同一个控制器多次"><a href="#7-Push到同一个控制器多次" class="headerlink" title="7.Push到同一个控制器多次"></a>7.Push到同一个控制器多次</h4><p><strong>异常现象</strong>：</p>
+<p>当需要动态更新 <code>tableView</code> 的数据时，计算好模型的数据使模型的数据和更新 <code>tableView</code> 的后的数据保持同步。</p>
+<h4 id="7-Push-到同一个控制器多次"><a href="#7-Push-到同一个控制器多次" class="headerlink" title="7.Push 到同一个控制器多次"></a>7.Push 到同一个控制器多次</h4><p><strong>异常现象</strong>：</p>
 <p>Fatal Exception: NSInvalidArgumentException</p>
 <p>Pushing the same view controller instance more than once is not supported (&lt;PPSelectPayMethodViewControllerIOS7: 0x10d7e7f10&gt;)</p>
 <p><strong>参考链接</strong>：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/nixzhu/dev-blog/blob/master/2016-01-04-duplicate-push.md">防止点击 Cell 时 ViewController 被重复 Push</a></li>
 </ul>
-<p>以上就是工作中常见的异常崩溃以及处理方案，下面的异常分类内容来自<code>Apple</code>的官方文档，有兴趣的可以查阅。☕️</p>
-<h3 id="Apple官方常见异常类型-Exception-types"><a href="#Apple官方常见异常类型-Exception-types" class="headerlink" title="Apple官方常见异常类型(Exception types)"></a>Apple官方常见异常类型(Exception types)</h3><ol>
-<li>访问一块坏内存<code>[EXC_BAD_ACCESS] // SIGSEGV // SIGBUS]</code></li>
-<li>异常退出<code>[EXC_CRASH // SIGABRT]</code></li>
-<li>追踪受限<code>[EXC_BREAKPOINT // SIGTRAP]</code></li>
-<li>非法指令<code>[EXC_BAD_INSTRUCTION // SIGILL]</code></li>
-<li>被保护的资源遭到侵害<code>[EXC_GUARD]</code></li>
-<li>资源限制<code>[EXC_RESOURCE]</code></li>
+<p>以上就是工作中常见的异常崩溃以及处理方案，下面的异常分类内容来自 <code>Apple</code> 的官方文档，有兴趣的可以查阅。☕️</p>
+<h3 id="Apple-官方常见异常类型-Exception-types"><a href="#Apple-官方常见异常类型-Exception-types" class="headerlink" title="Apple 官方常见异常类型(Exception types)"></a>Apple 官方常见异常类型(Exception types)</h3><ol>
+<li>访问一块坏内存 <code>[EXC_BAD_ACCESS] // SIGSEGV // SIGBUS]</code> </li>
+<li>异常退出 <code>[EXC_CRASH // SIGABRT]</code> </li>
+<li>追踪受限 <code>[EXC_BREAKPOINT // SIGTRAP]</code> </li>
+<li>非法指令 <code>[EXC_BAD_INSTRUCTION // SIGILL]</code> </li>
+<li>被保护的资源遭到侵害 <code>[EXC_GUARD]</code> </li>
+<li>资源限制 <code>[EXC_RESOURCE]</code> </li>
 <li>其他异常类型</li>
 </ol>
-<h4 id="1-访问一块坏内存-Bad-Memory-Access"><a href="#1-访问一块坏内存-Bad-Memory-Access" class="headerlink" title="1.访问一块坏内存(Bad Memory Access)"></a>1.访问一块坏内存(Bad Memory Access)</h4><p>当程序试图接入无效内容或者尝试以不被允许的方式接入由于内存的保护等级(例如，尝试写入只读的内存)。<code>Exception Subtype</code>字段包含一个<strong>kern_return_t</strong>结构体用来描述错误和不正确接入的内存地址。</p>
+<h4 id="1-访问一块坏内存-Bad-Memory-Access"><a href="#1-访问一块坏内存-Bad-Memory-Access" class="headerlink" title="1.访问一块坏内存(Bad Memory Access)"></a>1.访问一块坏内存(Bad Memory Access)</h4><p>当程序试图接入无效内容或者尝试以不被允许的方式接入由于内存的保护等级(例如，尝试写入只读的内存)。 <code>Exception Subtype</code> 字段包含一个<strong>kern_return_t</strong>结构体用来描述错误和不正确接入的内存地址。</p>
 <p>下面是一些调试坏内存接入导致崩溃的建议：</p>
 <ul>
-<li>假如<strong>objc_msgSend</strong>或者<strong>objc_release</strong>在崩溃线程回溯(<strong>Backtraces</strong>)的顶部附近,这个线程可能尝试给一个释放的对象发消息。你应该profile应用使用<strong>Zombies instrument</strong>来更好的理解这个崩溃发生的条件。</li>
+<li>假如<strong>objc_msgSend</strong>或者<strong>objc_release</strong>在崩溃线程回溯(<strong>Backtraces</strong>)的顶部附近,这个线程可能尝试给一个释放的对象发消息。你应该 profile 应用使用<strong>Zombies instrument</strong>来更好的理解这个崩溃发生的条件。</li>
 <li>假如<strong>gpus_ReturnNotPermittedKillClient</strong>在崩溃线程回溯(<strong>Backtraces</strong>)的顶部附近，线程被终结因为它尝试用<strong>OpenGL ES</strong>或者<strong>Metal</strong>执行渲染当程序处于后台时。查看<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/qa/qa1766/_index.html">QA1766: How to fix OpenGL ES application crashes when moving to the background</a></li>
-<li>打开<code>Address Sanitizer</code>运行你的应用。Address Sanitizer添加了额外的说明在内容接入当你编译代码的时候。随着你应用的运行，Xcode将⚠️你假如内存以一种可能导致崩溃的方式接入。</li>
+<li>打开 <code>Address Sanitizer</code> 运行你的应用。Address Sanitizer 添加了额外的说明在内容接入当你编译代码的时候。随着你应用的运行，Xcode 将⚠️你假如内存以一种可能导致崩溃的方式接入。</li>
 </ul>
-<h4 id="2-异常退出（Abnormal-Exit）"><a href="#2-异常退出（Abnormal-Exit）" class="headerlink" title="2.异常退出（Abnormal Exit）"></a>2.异常退出（Abnormal Exit）</h4><p>程序异常退出，是最常见导致这类异常崩溃的原因是捕获到<code>Objective-C/C++</code>异常和调用了<code>abort()</code>函数。</p>
-<p><strong>App Extensions</strong>将被终结发生这种类型的异常，假如他们初始化花费太多的时间(<em>watchdog</em>终结)。假如一个<strong>extension</strong>由于载入时间太长被终结，产生崩溃报告的<strong>Exception Subtype</strong>将是<em>LAUNCH_HANG</em>。因为<strong>extensions</strong>并没有一个<code>main</code>函数，任何花销在初始化的时间都发生在<strong>static constructors</strong>和呈现在你的<strong>extensions</strong>和依赖库的<code>+load</code>方法。你应该尽可能的延迟做这些工作。</p>
-<h4 id="3-追踪受限（Trace-Trap）"><a href="#3-追踪受限（Trace-Trap）" class="headerlink" title="3.追踪受限（Trace Trap）"></a>3.追踪受限（Trace Trap）</h4><p>和异常退出类似，这种异常的目的是给一个追加的调试器，让它有机会来打断在一个当它执行时候指定的点的进程。你可以使用<code>__builtin_trap()</code>函数在你的代码中来触发这个异常。假如没有调试器追加的话，线程将被终结并且产生一个崩溃报告。</p>
+<h4 id="2-异常退出（Abnormal-Exit）"><a href="#2-异常退出（Abnormal-Exit）" class="headerlink" title="2.异常退出（Abnormal Exit）"></a>2.异常退出（Abnormal Exit）</h4><p>程序异常退出，是最常见导致这类异常崩溃的原因是捕获到 <code>Objective-C/C++</code> 异常和调用了 <code>abort()</code> 函数。</p>
+<p><strong>App Extensions</strong>将被终结发生这种类型的异常，假如他们初始化花费太多的时间(<em>watchdog</em>终结)。假如一个<strong>extension</strong>由于载入时间太长被终结，产生崩溃报告的<strong>Exception Subtype</strong>将是<em>LAUNCH_HANG</em>。因为<strong>extensions</strong>并没有一个 <code>main</code> 函数，任何花销在初始化的时间都发生在<strong>static constructors</strong>和呈现在你的<strong>extensions</strong>和依赖库的 <code>+load</code> 方法。你应该尽可能的延迟做这些工作。</p>
+<h4 id="3-追踪受限（Trace-Trap）"><a href="#3-追踪受限（Trace-Trap）" class="headerlink" title="3.追踪受限（Trace Trap）"></a>3.追踪受限（Trace Trap）</h4><p>和异常退出类似，这种异常的目的是给一个追加的调试器，让它有机会来打断在一个当它执行时候指定的点的进程。你可以使用 <code>__builtin_trap()</code> 函数在你的代码中来触发这个异常。假如没有调试器追加的话，线程将被终结并且产生一个崩溃报告。</p>
 <p>低等级的库（例如<strong>libdispatch</strong>）将受限这个进程一旦遇到一个重大的错误。关于错误的额外信息可以在<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/technotes/tn2151/_index.html#//apple_ref/doc/uid/DTS40008184-CH1-APPINFO">Additional Diagnostic Information</a>章节中的崩溃报告找到，或者在设备的控制台。</p>
-<p>假如在<code>runtime</code>遇到诸如下面的一个意外的条件，<code>Swift</code>代码将终结出现这种类型的异常：</p>
+<p>假如在 <code>runtime</code> 遇到诸如下面的一个意外的条件， <code>Swift</code> 代码将终结出现这种类型的异常：</p>
 <ul>
-<li>非可选类型带有一个<code>nil</code>值</li>
+<li>非可选类型带有一个 <code>nil</code> 值</li>
 <li>错误的强制类型转换</li>
 </ul>
-<p>查看<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/technotes/tn2151/_index.html#//apple_ref/doc/uid/DTS40008184-CH1-STACKTRACE">Backtraces</a>来决发生定异常条件的位置。额外的信息可能已经在设备的控制台打印出来了。你应该修改崩溃处的代码来优雅的处理<code>runtime</code>错误。例如，使用<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html">Optional Binding</a>而不是强制解包一个可选变量。</p>
-<h4 id="4-非法指令（Illegal-Instruction）"><a href="#4-非法指令（Illegal-Instruction）" class="headerlink" title="4.非法指令（Illegal Instruction）"></a>4.非法指令（Illegal Instruction）</h4><p>进程尝试执行一个非法或者未定义的指令。进程可能已经尝试跳进到一个无效的地址通过一个配置错误的函数指针。在<code>Intel</code>处理器中，<code>ud2</code>操作码导致一个<strong>EXC_BAD_INSTRUCTION</strong>异常，但是它通常被用来困住进程达到调试的目的。<code>Swift</code>代码在<code>Intel</code>处理器中将以这种异常终结，假如在<code>runtime</code>位置条件发生。更多详情查看<strong>Trace Trap</strong>。</p>
-<h4 id="5-被保护的资源遭到侵害（Guarded-Resource-Violation）"><a href="#5-被保护的资源遭到侵害（Guarded-Resource-Violation）" class="headerlink" title="5.被保护的资源遭到侵害（Guarded Resource Violation）"></a>5.被保护的资源遭到侵害（Guarded Resource Violation）</h4><p>进程侵犯一个被保护的资源。系统库可能某个文件的描述器成<code>guarded</code>，在那以后，所有不正常的操作在这些描述器上都将触发一个<strong>EXC_GUARD</strong>异常（当它想操作在这些文件描述器上，系统可以使用特殊的<code>guarded</code>标记的私有APIs）。这可以帮你向下快速追踪问题，例如关闭一个已经被系库打开的文件描述器。例如，假如一个app关闭文件秒杀器通过使用截图<code>SQLite</code>文件到一个<code>Core Data</code>存储，<code>Core Data</code>将会在随后诡异的崩溃。<strong>guard exception</strong>将让这些问题尽早引起你的注意，这样也让他们变得更容易调试。</p>
-<p>崩溃报告来自新版的<code>iOS</code>包含了人类可读的详细信息关于引起<code>EXC_GUARD</code>异常的操作在<code>Exception Subtype</code>和<code>Exception Message</code>字段中。在来自<code>macOS</code>或者老版本的<code>iOS</code>的崩溃报告中，这些信息被编码到第一个<code> Exception Code</code>就像一个分解成如下的位段：</p>
+<p>查看<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/technotes/tn2151/_index.html#//apple_ref/doc/uid/DTS40008184-CH1-STACKTRACE">Backtraces</a>来决发生定异常条件的位置。额外的信息可能已经在设备的控制台打印出来了。你应该修改崩溃处的代码来优雅的处理 <code>runtime</code> 错误。例如，使用<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html">Optional Binding</a>而不是强制解包一个可选变量。</p>
+<h4 id="4-非法指令（Illegal-Instruction）"><a href="#4-非法指令（Illegal-Instruction）" class="headerlink" title="4.非法指令（Illegal Instruction）"></a>4.非法指令（Illegal Instruction）</h4><p>进程尝试执行一个非法或者未定义的指令。进程可能已经尝试跳进到一个无效的地址通过一个配置错误的函数指针。在 <code>Intel</code> 处理器中， <code>ud2</code> 操作码导致一个<strong>EXC_BAD_INSTRUCTION</strong>异常，但是它通常被用来困住进程达到调试的目的。 <code>Swift</code> 代码在 <code>Intel</code> 处理器中将以这种异常终结，假如在 <code>runtime</code> 位置条件发生。更多详情查看<strong>Trace Trap</strong>。</p>
+<h4 id="5-被保护的资源遭到侵害（Guarded-Resource-Violation）"><a href="#5-被保护的资源遭到侵害（Guarded-Resource-Violation）" class="headerlink" title="5.被保护的资源遭到侵害（Guarded Resource Violation）"></a>5.被保护的资源遭到侵害（Guarded Resource Violation）</h4><p>进程侵犯一个被保护的资源。系统库可能某个文件的描述器成 <code>guarded</code> ，在那以后，所有不正常的操作在这些描述器上都将触发一个<strong>EXC_GUARD</strong>异常（当它想操作在这些文件描述器上，系统可以使用特殊的 <code>guarded</code> 标记的私有 APIs）。这可以帮你向下快速追踪问题，例如关闭一个已经被系库打开的文件描述器。例如，假如一个 app 关闭文件秒杀器通过使用截图 <code>SQLite</code> 文件到一个 <code>Core Data</code> 存储， <code>Core Data</code> 将会在随后诡异的崩溃。<strong>guard exception</strong>将让这些问题尽早引起你的注意，这样也让他们变得更容易调试。</p>
+<p>崩溃报告来自新版的 <code>iOS</code> 包含了人类可读的详细信息关于引起 <code>EXC_GUARD</code> 异常的操作在 <code>Exception Subtype</code> 和 <code>Exception Message</code> 字段中。在来自 <code>macOS</code> 或者老版本的 <code>iOS</code> 的崩溃报告中，这些信息被编码到第一个 <code> Exception Code</code> 就像一个分解成如下的位段：</p>
 <ul>
-<li><strong>[63:61] - Guard Type</strong>：被保护的资源类型。<code>0x2</code>代表一个文件描述器资源。</li>
+<li><strong>[63:61] - Guard Type</strong>：被保护的资源类型。 <code>0x2</code> 代表一个文件描述器资源。</li>
 <li><strong>[60:32] - Flavor</strong>：侵害被处罚时的条件<ul>
-<li>假如第一个<code>(1 &lt;&lt; 0)</code>位被设置，进程尝试执行<code>close()</code>函数在一个受保护的文件描述器。</li>
-<li>假如第二个<code>(1 &lt;&lt; 1)</code>位被设置，进程尝试执行<code>dup()</code>，<code>dup2()</code>，或者<code>fcntl()</code>带<code>F_DUPFD</code>或者<code>F_DUPFD_CLOEXEC</code>命令在一个受保护的文件描述器。</li>
-<li>假如第三个<code>(1 &lt;&lt; 2)</code>位被设置，进程尝试通过一个<code>socket</code>发送给一个受保护的文件描述器。</li>
-<li>假如第三个<code>(1 &lt;&lt; 3)</code>位被设置，进程尝试写入到一个受保护的文件描述器。</li>
+<li>假如第一个 <code>(1 &lt;&lt; 0)</code> 位被设置，进程尝试执行 <code>close()</code> 函数在一个受保护的文件描述器。</li>
+<li>假如第二个 <code>(1 &lt;&lt; 1)</code> 位被设置，进程尝试执行 <code>dup()</code> ， <code>dup2()</code> ，或者 <code>fcntl()</code> 带 <code>F_DUPFD</code> 或者 <code>F_DUPFD_CLOEXEC</code> 命令在一个受保护的文件描述器。</li>
+<li>假如第三个 <code>(1 &lt;&lt; 2)</code> 位被设置，进程尝试通过一个 <code>socket</code> 发送给一个受保护的文件描述器。</li>
+<li>假如第三个 <code>(1 &lt;&lt; 3)</code> 位被设置，进程尝试写入到一个受保护的文件描述器。</li>
 </ul>
 </li>
 <li><strong>[31:0] - File Descriptor</strong>：进程尝试修改的受保护的文件描述器。</li>
 </ul>
-<h4 id="6-资源限制（Resource-Limit）"><a href="#6-资源限制（Resource-Limit）" class="headerlink" title="6.资源限制（Resource Limit）"></a>6.资源限制（Resource Limit）</h4><p>进程超出了一个资源消耗的限制。这是一个来自操作系统通知，告诉进程正在使用的资源过多。精确的资源列在<code>Exception Subtype</code>字段中。假如<code>Exception Note</code>字段包含<code>NON-FATAL CONDITION</code>，进程不会被终结即使产生了一个崩溃报告。</p>
+<h4 id="6-资源限制（Resource-Limit）"><a href="#6-资源限制（Resource-Limit）" class="headerlink" title="6.资源限制（Resource Limit）"></a>6.资源限制（Resource Limit）</h4><p>进程超出了一个资源消耗的限制。这是一个来自操作系统通知，告诉进程正在使用的资源过多。精确的资源列在 <code>Exception Subtype</code> 字段中。假如 <code>Exception Note</code> 字段包含 <code>NON-FATAL CONDITION</code> ，进程不会被终结即使产生了一个崩溃报告。</p>
 <ul>
-<li><p>异常子类型<code>MEMORY</code>表明进程已经越过系统应用的内存限制。这可能是一个终结的先兆由于超额的使用内存。</p>
+<li><p>异常子类型 <code>MEMORY</code> 表明进程已经越过系统应用的内存限制。这可能是一个终结的先兆由于超额的使用内存。</p>
 </li>
-<li><p>异常子类型<code>WAKEUPS</code>表明在进程中的线程每秒被唤醒太多次，这强制<code>CPU</code>非常频繁的唤醒消耗电池寿命。</p>
-<p>  典型的，这个通过由线程与线程的通信产生（通常是使用<code>peformSelector:onThread:</code>或<code>dispatch_async</code>）,那样无意的发生了远远超出它正常应该的切换频率。因为通信的协调发生得非常频繁而出发此类的异常，这个通常和多个后台线程有着相似<code>Backtraces</code> – 表明那些地方发生过通信。</p>
+<li><p>异常子类型 <code>WAKEUPS</code> 表明在进程中的线程每秒被唤醒太多次，这强制 <code>CPU</code> 非常频繁的唤醒消耗电池寿命。</p>
+<p>  典型的，这个通过由线程与线程的通信产生（通常是使用 <code>peformSelector:onThread:</code> 或 <code>dispatch_async</code> ）,那样无意的发生了远远超出它正常应该的切换频率。因为通信的协调发生得非常频繁而出发此类的异常，这个通常和多个后台线程有着相似 <code>Backtraces</code>  – 表明那些地方发生过通信。</p>
 </li>
 </ul>
-<h4 id="7-其他异常类型（Other-Exception-Types）"><a href="#7-其他异常类型（Other-Exception-Types）" class="headerlink" title="7.其他异常类型（Other Exception Types）"></a>7.其他异常类型（Other Exception Types）</h4><p>一些崩溃报告可能含有一个未命名的<code>Exception Type</code>，将以一个16进制的值（例如，00000020）的形式打印。假如你的设备收到了一个这样的崩溃报告，直接查看<code>Exception Codes</code>字段寻找更多的信息。</p>
+<h4 id="7-其他异常类型（Other-Exception-Types）"><a href="#7-其他异常类型（Other-Exception-Types）" class="headerlink" title="7.其他异常类型（Other Exception Types）"></a>7.其他异常类型（Other Exception Types）</h4><p>一些崩溃报告可能含有一个未命名的 <code>Exception Type</code> ，将以一个16进制的值（例如，00000020）的形式打印。假如你的设备收到了一个这样的崩溃报告，直接查看 <code>Exception Codes</code> 字段寻找更多的信息。</p>
 <ul>
-<li><p>异常代码<code>0xbaaaaaad</code>表明记录是整个系统的<code>stackshot</code>，不是一个崩溃报告。为了获得一个<code>stackshot</code>，按<code>Home</code>键和任意音量键。这些记录经常被用户偶然创建，并不表明是一个错误。</p>
+<li><p>异常代码 <code>0xbaaaaaad</code> 表明记录是整个系统的 <code>stackshot</code> ，不是一个崩溃报告。为了获得一个 <code>stackshot</code> ，按 <code>Home</code> 键和任意音量键。这些记录经常被用户偶然创建，并不表明是一个错误。</p>
 </li>
-<li><p>异常代码<code>0xbad22222</code>表明一个<code>VoIP</code>应用已经被<code>iOS</code>终结，因为它启动得太频繁。</p>
+<li><p>异常代码 <code>0xbad22222</code> 表明一个 <code>VoIP</code> 应用已经被 <code>iOS</code> 终结，因为它启动得太频繁。</p>
 </li>
-<li><p>异常代码<code>0x8badf00d</code>表明应用已经被<code>iOS</code>终结因为发生<code>watchdog</code>超时。应用花费太长时间启动，终结，或者响应系统事件。通常导致这歌问题是做了<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/qa/qa1693/">在主线程执行了同步的网络请求</a>。无论什么操作在<code>Thread 0</code>都需要移动到后台线程，或者异步处理，以免它阻塞主线程。</p>
+<li><p>异常代码 <code>0x8badf00d</code> 表明应用已经被 <code>iOS</code> 终结因为发生 <code>watchdog</code> 超时。应用花费太长时间启动，终结，或者响应系统事件。通常导致这歌问题是做了<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/qa/qa1693/">在主线程执行了同步的网络请求</a>。无论什么操作在 <code>Thread 0</code> 都需要移动到后台线程，或者异步处理，以免它阻塞主线程。</p>
 </li>
-<li><p>异常代码<code>0xc00010ff</code>表明引用被操作系统终结为了响应一个发热事件。这个可能由于一个发生崩溃的特定的设备的问题或者环境被操作导致。为了使你的应用更高效运行的建议，查看<strong>WWDC session</strong><a target="_blank" rel="noopener" href="https://developer.apple.com/videos/wwdc/2011/?id=312"> iOS Performance and Power Optimization with Instruments</a>。</p>
+<li><p>异常代码 <code>0xc00010ff</code> 表明引用被操作系统终结为了响应一个发热事件。这个可能由于一个发生崩溃的特定的设备的问题或者环境被操作导致。为了使你的应用更高效运行的建议，查看<strong>WWDC session</strong><a target="_blank" rel="noopener" href="https://developer.apple.com/videos/wwdc/2011/?id=312"> iOS Performance and Power Optimization with Instruments</a>。</p>
 </li>
-<li><p>异常代码<code>0xdead10cc</code>表明应用被<code>iOS</code>终结，由于当在后台运行时它持有了一个系统的资源（像通信录数据库）。</p>
+<li><p>异常代码 <code>0xdead10cc</code> 表明应用被 <code>iOS</code> 终结，由于当在后台运行时它持有了一个系统的资源（像通信录数据库）。</p>
 </li>
-<li><p>异常代码<code>0xdeadfa11</code>表明应用被用户强制退出。强制退出发生在当用户第一次按下开关机按钮直到”滑动来关机”出现，然后在按下Home键。这是合理的假如用户这样做了，因为应用已经变得不可响应，但是这并不能保证 - 强制退出任何正在运行的任务。</p>
+<li><p>异常代码 <code>0xdeadfa11</code> 表明应用被用户强制退出。强制退出发生在当用户第一次按下开关机按钮直到”滑动来关机”出现，然后在按下 Home 键。这是合理的假如用户这样做了，因为应用已经变得不可响应，但是这并不能保证 - 强制退出任何正在运行的任务。</p>
 <blockquote>
-<p>注意：终结一个挂起的app通过从多任务关系面板中移除并不会产生一个崩溃报告。一旦一个app被挂起，<strong>iOS</strong>它有资格在任何时候终结它，所有没有崩溃报告产生。</p>
+<p>注意：终结一个挂起的 app 通过从多任务关系面板中移除并不会产生一个崩溃报告。一旦一个 app 被挂起，<strong>iOS</strong>它有资格在任何时候终结它，所有没有崩溃报告产生。</p>
 </blockquote>
 </li>
 </ul>
@@ -400,6 +400,7 @@
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/technotes/tn2151/_index.html">Understanding and Analyzing Application Crash Reports</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AnalyzingCrashReports/AnalyzingCrashReports.html">Analyzing Crash Reports</a></li>
 </ul>
+<!-- processed -->
 
     </div>
 
@@ -498,7 +499,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App%E5%B8%B8%E8%A7%81%E5%B4%A9%E6%BA%83"><span class="nav-number">2.</span> <span class="nav-text">App常见崩溃</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87%E8%B6%8A%E7%95%8C"><span class="nav-number">2.1.</span> <span class="nav-text">1.数组下标越界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AD%97%E5%85%B8%E6%9E%84%E9%80%A0%E9%80%A0%E4%B8%8E%E4%BF%AE%E6%94%B9"><span class="nav-number">2.2.</span> <span class="nav-text">2.字典构造造与修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NSAttributedString%E7%9B%B8%E5%85%B3"><span class="nav-number">2.3.</span> <span class="nav-text">3.NSAttributedString相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%91%88%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%A9%BA%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">4.呈现一个空控制器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-unrecognized-selector"><span class="nav-number">2.5.</span> <span class="nav-text">5.unrecognized selector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%93%8D%E4%BD%9CtableView%E6%95%B0%E6%8D%AE"><span class="nav-number">2.6.</span> <span class="nav-text">6.操作tableView数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Push%E5%88%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E6%8E%A7%E5%88%B6%E5%99%A8%E5%A4%9A%E6%AC%A1"><span class="nav-number">2.7.</span> <span class="nav-text">7.Push到同一个控制器多次</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apple%E5%AE%98%E6%96%B9%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B-Exception-types"><span class="nav-number">3.</span> <span class="nav-text">Apple官方常见异常类型(Exception types)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%BF%E9%97%AE%E4%B8%80%E5%9D%97%E5%9D%8F%E5%86%85%E5%AD%98-Bad-Memory-Access"><span class="nav-number">3.1.</span> <span class="nav-text">1.访问一块坏内存(Bad Memory Access)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA%EF%BC%88Abnormal-Exit%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">2.异常退出（Abnormal Exit）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%BF%BD%E8%B8%AA%E5%8F%97%E9%99%90%EF%BC%88Trace-Trap%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3.追踪受限（Trace Trap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%9D%9E%E6%B3%95%E6%8C%87%E4%BB%A4%EF%BC%88Illegal-Instruction%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">4.非法指令（Illegal Instruction）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E8%A2%AB%E4%BF%9D%E6%8A%A4%E7%9A%84%E8%B5%84%E6%BA%90%E9%81%AD%E5%88%B0%E4%BE%B5%E5%AE%B3%EF%BC%88Guarded-Resource-Violation%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">5.被保护的资源遭到侵害（Guarded Resource Violation）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%EF%BC%88Resource-Limit%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">6.资源限制（Resource Limit）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%85%B6%E4%BB%96%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B%EF%BC%88Other-Exception-Types%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">7.其他异常类型（Other Exception Types）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-%E5%B8%B8%E8%A7%81%E5%B4%A9%E6%BA%83"><span class="nav-number">2.</span> <span class="nav-text">App 常见崩溃</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87%E8%B6%8A%E7%95%8C"><span class="nav-number">2.1.</span> <span class="nav-text">1.数组下标越界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AD%97%E5%85%B8%E6%9E%84%E9%80%A0%E9%80%A0%E4%B8%8E%E4%BF%AE%E6%94%B9"><span class="nav-number">2.2.</span> <span class="nav-text">2.字典构造造与修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-NSAttributedString-%E7%9B%B8%E5%85%B3"><span class="nav-number">2.3.</span> <span class="nav-text">3.NSAttributedString 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%91%88%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%A9%BA%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">4.呈现一个空控制器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-unrecognized-selector"><span class="nav-number">2.5.</span> <span class="nav-text">5.unrecognized selector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%93%8D%E4%BD%9C-tableView-%E6%95%B0%E6%8D%AE"><span class="nav-number">2.6.</span> <span class="nav-text">6.操作 tableView 数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Push-%E5%88%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E6%8E%A7%E5%88%B6%E5%99%A8%E5%A4%9A%E6%AC%A1"><span class="nav-number">2.7.</span> <span class="nav-text">7.Push 到同一个控制器多次</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apple-%E5%AE%98%E6%96%B9%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B-Exception-types"><span class="nav-number">3.</span> <span class="nav-text">Apple 官方常见异常类型(Exception types)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%BF%E9%97%AE%E4%B8%80%E5%9D%97%E5%9D%8F%E5%86%85%E5%AD%98-Bad-Memory-Access"><span class="nav-number">3.1.</span> <span class="nav-text">1.访问一块坏内存(Bad Memory Access)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA%EF%BC%88Abnormal-Exit%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">2.异常退出（Abnormal Exit）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%BF%BD%E8%B8%AA%E5%8F%97%E9%99%90%EF%BC%88Trace-Trap%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3.追踪受限（Trace Trap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%9D%9E%E6%B3%95%E6%8C%87%E4%BB%A4%EF%BC%88Illegal-Instruction%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">4.非法指令（Illegal Instruction）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E8%A2%AB%E4%BF%9D%E6%8A%A4%E7%9A%84%E8%B5%84%E6%BA%90%E9%81%AD%E5%88%B0%E4%BE%B5%E5%AE%B3%EF%BC%88Guarded-Resource-Violation%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">5.被保护的资源遭到侵害（Guarded Resource Violation）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E8%B5%84%E6%BA%90%E9%99%90%E5%88%B6%EF%BC%88Resource-Limit%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">6.资源限制（Resource Limit）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%85%B6%E4%BB%96%E5%BC%82%E5%B8%B8%E7%B1%BB%E5%9E%8B%EF%BC%88Other-Exception-Types%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">7.其他异常类型（Other Exception Types）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

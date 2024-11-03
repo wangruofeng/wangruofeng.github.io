@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/baner_hexo.jpg">
 <meta property="article:published_time" content="2019-11-10T10:16:11.000Z">
-<meta property="article:modified_time" content="2024-11-02T15:47:50.099Z">
+<meta property="article:modified_time" content="2024-11-03T03:05:50.933Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 23:47:50" itemprop="dateModified" datetime="2024-11-02T23:47:50+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,25 +267,25 @@
         <p><img src="/images/baner_hexo.jpg" alt="hexo"></p>
 <span id="more"></span>
 
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近准备更新博客（以前的基于Octopress），去写的时候突然发现以前的博客跑不起来了…倒腾了一下，在执行博客更新时<code>rake generate</code>，一直报错，错误出现在高亮解析模块 <code>Pygments</code>，尝试升级<code>jekyll</code>但是和它相关的依赖模块还是有问题。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近准备更新博客（以前的基于 Octopress），去写的时候突然发现以前的博客跑不起来了…倒腾了一下，在执行博客更新时 <code>rake generate</code> ，一直报错，错误出现在高亮解析模块  <code>Pygments</code> ，尝试升级 <code>jekyll</code> 但是和它相关的依赖模块还是有问题。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  Octopress git:(source) ✗ rake generate</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generating Site with Jekyll</span></span></span><br><span class="line">Configuration file: /Users/wangruofeng/Documents/Git Repositories/Octopress/_config.yml</span><br><span class="line">            Source: source</span><br><span class="line">       Destination: public</span><br><span class="line">      Generating... </span><br><span class="line">jekyll 2.5.3 | Error:  Pygments can&#x27;t parse unknown language: objective-c.</span><br></pre></td></tr></table></figure>
 
 
 
-<p>后面去<a target="_blank" rel="noopener" href="http://octopress.org/">Octopress</a>官网查了了，发现上次更新还是<a target="_blank" rel="noopener" href="http://octopress.org/2015/01/15/octopress-3.0-is-coming/">2015.01.15</a>的事了，后续也没有更新，于是觉得这个不太靠谱，准备换一个，调研了一下，发现使用hexo的挺多，于是开始捣腾起来…</p>
+<p>后面去<a target="_blank" rel="noopener" href="http://octopress.org/">Octopress</a>官网查了了，发现上次更新还是<a target="_blank" rel="noopener" href="http://octopress.org/2015/01/15/octopress-3.0-is-coming/">2015.01.15</a>的事了，后续也没有更新，于是觉得这个不太靠谱，准备换一个，调研了一下，发现使用 hexo 的挺多，于是开始捣腾起来…</p>
 <h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><p>准备 node 和 git 环境， 首先，安装 <a target="_blank" rel="noopener" href="https://nodejs.org/en/">NodeJS</a>，因为 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 是基于 Node.js 驱动的一款博客框架。</p>
 <p>在命令行中输入相应命令验证是否成功，如果成功会有相应的版本号。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  myBlog git:(master) ✗ git version</span><br><span class="line">git version 2.24.0</span><br><span class="line">➜  myBlog git:(master) ✗ node -v</span><br><span class="line">v12.13.0</span><br><span class="line">➜  myBlog git:(master) ✗ npm -v</span><br><span class="line">6.12.0</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>如果以上环境准备好了就可以使用 npm 开始安装 Hexo 了。也可查看 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 的详细文档。 在命令行输入执行以下命令：</p>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>如果以上环境准备好了就可以使用 npm 开始安装 Hexo 了。也可查看 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 的详细文档。 在命令行输入执行以下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
 <p>没有权限的话可能会出现下面的错误信息:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code EACCES</span><br><span class="line">npm ERR! syscall mkdir</span><br><span class="line">npm ERR! path /Users/wangruofeng/.npm/_cacache/content-v2/sha512/0b/8a</span><br><span class="line">npm ERR! errno -13</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! Your cache folder contains root-owned files, due to a bug in</span><br><span class="line">npm ERR! previous versions of npm which has since been addressed.</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! To permanently fix this problem, please run:</span><br><span class="line">npm ERR!   sudo chown -R 501:20 &quot;/Users/wangruofeng/.npm&quot;</span><br><span class="line"></span><br><span class="line">npm ERR! A complete log of this run can be found in:</span><br><span class="line">npm ERR!     /Users/wangruofeng/.npm/_logs/2019-11-10T07_21_42_135Z-debug.log</span><br></pre></td></tr></table></figure>
 
-<p>报错的话加上 sudo重试一次或者执行<strong>sudo chown -R 501:20 “&#x2F;Users&#x2F;wangruofeng&#x2F;.npm”</strong></p>
+<p>报错的话加上 sudo 重试一次或者执行<strong>sudo chown -R 501:20 “&#x2F;Users&#x2F;wangruofeng&#x2F;.npm”</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  Git Repositories sudo npm install -g hexo-cli</span><br><span class="line">/usr/local/Cellar/node/5.7.0/bin/hexo -&gt; /usr/local/Cellar/node/5.7.0/lib/node_modules/hexo-cli/bin/hexo</span><br><span class="line">+ hexo-cli@3.1.0</span><br><span class="line">added 67 packages from 317 contributors in 27.347s</span><br></pre></td></tr></table></figure>
 
 
@@ -296,7 +296,7 @@
 
 
 <p>新建完成后，指定文件夹的目录如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml # 网站的配置信息，您可以在此配置大部分的参数。 </span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds # 模版文件夹</span><br><span class="line">├── source  # 资源文件夹，除 _posts 文件，其他以下划线_开头的文件或者文件夹不会被编译打包到public文件夹</span><br><span class="line">|   ├── _drafts # 草稿文件</span><br><span class="line">|   └── _posts # 文章Markdowm文件 </span><br><span class="line">└── themes  # 主题文件夹</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml # 网站的配置信息，您可以在此配置大部分的参数。 </span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds # 模版文件夹</span><br><span class="line">├── source  # 资源文件夹，除 _posts 文件，其他以下划线_开头的文件或者文件夹不会被编译打包到 public 文件夹</span><br><span class="line">|   ├── _drafts # 草稿文件</span><br><span class="line">|   └── _posts # 文章 Markdowm 文件 </span><br><span class="line">└── themes  # 主题文件夹</span><br></pre></td></tr></table></figure>
 
 
 
@@ -304,7 +304,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 
 <p>至此，你本地的博客就已经搭建成功，接下来就是部署到 Github Page 了。</p>
-<h2 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h2><p>此时，本地和Github的工作做得差不了，是时候把它们两个连接起来了。你也可以查看官网的<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/deployment">部署</a>教程。 先不着急，部署之前还需要修改配置和安装部署插件。 第一：打开项目根目录下的 _config.yml 配置文件配置参数。拉到文件末尾，填上如下配置（也可同时部署到多个仓库，后面再说）：</p>
+<h2 id="部署到-GitHub"><a href="#部署到-GitHub" class="headerlink" title="部署到 GitHub"></a>部署到 GitHub</h2><p>此时，本地和 Github 的工作做得差不了，是时候把它们两个连接起来了。你也可以查看官网的<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/deployment">部署</a>教程。 先不着急，部署之前还需要修改配置和安装部署插件。 第一：打开项目根目录下的 _config.yml 配置文件配置参数。拉到文件末尾，填上如下配置（也可同时部署到多个仓库，后面再说）：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span></span><br><span class="line">    <span class="attr">github:</span> <span class="string">https://github.com/wangruofeng/wangruofeng.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
 
 
@@ -335,17 +335,18 @@
 
 
 
-<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><h3 id="1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined"><a href="#1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined" class="headerlink" title="1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined"></a>1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</h3><p>解决方案是 将你工程下的 _config.yml (这个不是主题的_config.yml) 文件里面的 <code>auto_detect</code> 设置为 false。</p>
+<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><h3 id="1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined"><a href="#1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined" class="headerlink" title="1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined"></a>1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</h3><p>解决方案是 将你工程下的 _config.yml (这个不是主题的_config.yml) 文件里面的  <code>auto_detect</code>  设置为 false。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tab_replace:</span></span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效"><a href="#2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效" class="headerlink" title="2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效"></a>2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</h3><p>使用 hexo 的命令 <code>hexo clean</code>,清除一下。</p>
+<h3 id="2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效"><a href="#2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效" class="headerlink" title="2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效"></a>2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</h3><p>使用 hexo 的命令  <code>hexo clean</code> ,清除一下。</p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/1913">运行 hexo g 出错 #1913</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24422335">有哪些好看的 Hexo 主题？</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5c4730c9f265da61616efeec">超详细Hexo+Github Page搭建技术博客教程【持续更新】</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5c4730c9f265da61616efeec">超详细 Hexo+Github Page 搭建技术博客教程【持续更新】</a></li>
 </ul>
+<!-- processed -->
 
     </div>
 
@@ -444,7 +445,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">准备环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0GitHub"><span class="nav-number">4.</span> <span class="nav-text">部署到GitHub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E5%86%99%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">开始写作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91"><span class="nav-number">6.</span> <span class="nav-text">遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Hexo-TypeError-Cannot-set-property-%E2%80%98lastIndex%E2%80%99-of-undefined"><span class="nav-number">6.1.</span> <span class="nav-text">1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AE%8C-hexo-%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84-config-yml-%E6%96%87%E4%BB%B6-%E9%87%8D%E6%96%B0-generate-%E6%96%87%E4%BB%B6%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-number">6.2.</span> <span class="nav-text">2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">准备环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0-GitHub"><span class="nav-number">4.</span> <span class="nav-text">部署到 GitHub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E5%86%99%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">开始写作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91"><span class="nav-number">6.</span> <span class="nav-text">遇到的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Hexo-TypeError-Cannot-set-property-%E2%80%98lastIndex%E2%80%99-of-undefined"><span class="nav-number">6.1.</span> <span class="nav-text">1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AE%8C-hexo-%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84-config-yml-%E6%96%87%E4%BB%B6-%E9%87%8D%E6%96%B0-generate-%E6%96%87%E4%BB%B6%E4%B8%8D%E7%94%9F%E6%95%88"><span class="nav-number">6.2.</span> <span class="nav-text">2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

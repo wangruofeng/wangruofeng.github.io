@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="为什么需要出现tintColor ？ 解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观 跟UIAppearance协议设计有点类似，UIAppearance是为了方便统一 设置一类控件的外观，而tintColor是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。   像在UIViewController 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在">
+        <meta name="description" content="为什么需要出现 tintColor ？ 解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观 跟 UIAppearance 协议设计有点类似， UIAppearance 是为了方便统一 设置一类控件的外观，而 tintColor 是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。   像在 UIViewController  中，通过这段代码可以实现容器内，所有的子 vie">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS7 tintColor 详解">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2016/01/12/2016-01-13-ios7-tintcolorxiang-jie/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="为什么需要出现tintColor ？ 解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观 跟UIAppearance协议设计有点类似，UIAppearance是为了方便统一 设置一类控件的外观，而tintColor是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。   像在UIViewController 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在">
+<meta property="og:description" content="为什么需要出现 tintColor ？ 解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观 跟 UIAppearance 协议设计有点类似， UIAppearance 是为了方便统一 设置一类控件的外观，而 tintColor 是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。   像在 UIViewController  中，通过这段代码可以实现容器内，所有的子 vie">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-01-11T20:41:39.000Z">
-<meta property="article:modified_time" content="2024-11-02T11:57:46.694Z">
+<meta property="article:modified_time" content="2024-11-03T03:05:50.922Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="主色调">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:57:46" itemprop="dateModified" datetime="2024-11-02T19:57:46+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>397</span>
+              <span>398</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -264,11 +264,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="为什么需要出现tintColor-？"><a href="#为什么需要出现tintColor-？" class="headerlink" title="为什么需要出现tintColor ？"></a>为什么需要出现tintColor ？</h2><blockquote>
-<p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观<br> 跟<code>UIAppearance</code>协议设计有点类似，<code>UIAppearance</code>是为了方便统一 设置一类控件的外观，而<code>tintColor</code>是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
+        <h2 id="为什么需要出现-tintColor-？"><a href="#为什么需要出现-tintColor-？" class="headerlink" title="为什么需要出现 tintColor ？"></a>为什么需要出现 tintColor ？</h2><blockquote>
+<p>解决以前不方便统一设置视图颜色风格的通点，方便自定义系统控件外观<br> 跟 <code>UIAppearance</code> 协议设计有点类似， <code>UIAppearance</code> 是为了方便统一 设置一类控件的外观，而 <code>tintColor</code> 是为方便设置某个控件的外观，或者 说某个容器内所有控件的风格。</p>
 </blockquote>
 <blockquote>
-<p>像在<code>UIViewController</code> 中，通过这段代码可以实现容器内，所有的子view风格统一化,这样在这个控制器中的所有子view都会以<code>tintColor</code>显示</p>
+<p>像在 <code>UIViewController</code>  中，通过这段代码可以实现容器内，所有的子 view 风格统一化,这样在这个控制器中的所有子 view 都会以 <code>tintColor</code> 显示</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.view.tintAdjustmentMode = <span class="built_in">UIViewTintAdjustmentModeNormal</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 <p><code>UIView</code>的<code>tintAdjustmentMode</code>需要说明一下，这是一个<code>UIViewTintAdjustmentMode</code>枚举</p>
@@ -277,20 +277,22 @@
 <li>UIViewTintAdjustmentModeNormal（着色调整模式正常）</li>
 <li>UIViewTintAdjustmentModeDimmed（着色调整模式变暗，打开控风格会变成灰白模式）</li>
 </ul>
-<h2 id="先看看官方API说明"><a href="#先看看官方API说明" class="headerlink" title="先看看官方API说明"></a>先看看官方API说明</h2><p><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor?language=objc">https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor?language=objc</a></p>
-<p>iOS7以后所有的UIView以及它的子类都新增了一个叫tintColor的接口，方便我们对视图进行颜色调整</p>
+<h2 id="先看看官方-API-说明"><a href="#先看看官方-API-说明" class="headerlink" title="先看看官方 API 说明"></a>先看看官方 API 说明</h2><p><a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor?language=objc">https://developer.apple.com/documentation/uikit/uiview/1622467-tintcolor?language=objc</a></p>
+<p>iOS7以后所有的 UIView 以及它的子类都新增了一个叫 tintColor 的接口，方便我们对视图进行颜色调整</p>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><blockquote>
-<p><code>UIImageView</code>需要设置<code>renderingMode</code>为<code>UIImageRenderingModeAlwaysTemplate</code>才能生效。<br><code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举</p>
+<p> <code>UIImageView</code> 需要设置 <code>renderingMode</code> 为 <code>UIImageRenderingModeAlwaysTemplate</code> 才能生效。<br><code>renderingMode</code>是一个类型为<code>UIImageRenderingMode</code>的枚举</p>
 </blockquote>
 <ul>
 <li>UIImageRenderingModeAutomatic （默认渲染模式，自动模式）</li>
 <li>UIImageRenderingModeAlwaysOriginal（总是绘制原来的图片，不把它当成临时图片来处理）</li>
-<li>UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据<code>tintColor</code>生产图片）</li>
+<li>UIImageRenderingModeAlwaysTemplate （总是绘制临时图片，会忽略它原本的颜色信息，也就是根据 <code>tintColor</code> 生产图片）</li>
 </ul>
-<h2 id="UIImageView的使用"><a href="#UIImageView的使用" class="headerlink" title="UIImageView的使用"></a>UIImageView的使用</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;xxx.png&quot;</span>];</span><br><span class="line">image = [image imageWithRenderingMode:<span class="built_in">UIImageRenderingModeAlwaysTemplate</span>];</span><br></pre></td></tr></table></figure>
+<h2 id="UIImageView-的使用"><a href="#UIImageView-的使用" class="headerlink" title="UIImageView 的使用"></a>UIImageView 的使用</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;xxx.png&quot;</span>];</span><br><span class="line">image = [image imageWithRenderingMode:<span class="built_in">UIImageRenderingModeAlwaysTemplate</span>];</span><br></pre></td></tr></table></figure>
 
-<h2 id="tintColor更新"><a href="#tintColor更新" class="headerlink" title="tintColor更新"></a>tintColor更新</h2><p>在子类中重写<code>- (void)tintColorDidChange</code> 方法，就可以实现每次更新<code>tintColor</code>的时候调用相关配置</p>
+<h2 id="tintColor-更新"><a href="#tintColor-更新" class="headerlink" title="tintColor 更新"></a>tintColor 更新</h2><p>在子类中重写 <code>- (void)tintColorDidChange</code>  方法，就可以实现每次更新 <code>tintColor</code> 的时候调用相关配置</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)tintColorDidChange</span><br><span class="line">&#123;</span><br><span class="line">   _tintColorLabel.textColor = <span class="keyword">self</span>.tintColor;</span><br><span class="line">   _tintColorBlock.backgroundColor = <span class="keyword">self</span>.tintColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<!-- processed -->
 
     </div>
 
@@ -389,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%87%BA%E7%8E%B0tintColor-%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么需要出现tintColor ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E7%9C%8B%E7%9C%8B%E5%AE%98%E6%96%B9API%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">先看看官方API说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIImageView%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">UIImageView的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tintColor%E6%9B%B4%E6%96%B0"><span class="nav-number">5.</span> <span class="nav-text">tintColor更新</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%87%BA%E7%8E%B0-tintColor-%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么需要出现 tintColor ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E7%9C%8B%E7%9C%8B%E5%AE%98%E6%96%B9-API-%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">先看看官方 API 说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIImageView-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">UIImageView 的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tintColor-%E6%9B%B4%E6%96%B0"><span class="nav-number">5.</span> <span class="nav-text">tintColor 更新</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

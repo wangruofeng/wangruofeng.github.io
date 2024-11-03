@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="主要涉及到Tips：  获取设备音量 静音模式失效 监听音量改变 设置设备音量  监听静音按钮 监听耳机拔插  获取设备音量播放音频可以通过： 12MPMusicPlayerController *iPod &#x3D; [MPMusicPlayerController systemMusicPlayer];float volumeLevel &#x3D; iPod.volume;  播放视频可以通过： 1float">
+        <meta name="description" content="主要涉及到 Tips：  获取设备音量 静音模式失效 监听音量改变 设置设备音量  监听静音按钮 监听耳机拔插  获取设备音量播放音频可以通过： 12MPMusicPlayerController *iPod &#x3D; [MPMusicPlayerController systemMusicPlayer];float volumeLevel &#x3D; iPod.volume;  播放视频可以通过： 1floa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="视频播放 Tips">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2016/12/08/2016-12-08-shi-pin-bo-fang-tips/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="主要涉及到Tips：  获取设备音量 静音模式失效 监听音量改变 设置设备音量  监听静音按钮 监听耳机拔插  获取设备音量播放音频可以通过： 12MPMusicPlayerController *iPod &#x3D; [MPMusicPlayerController systemMusicPlayer];float volumeLevel &#x3D; iPod.volume;  播放视频可以通过： 1float">
+<meta property="og:description" content="主要涉及到 Tips：  获取设备音量 静音模式失效 监听音量改变 设置设备音量  监听静音按钮 监听耳机拔插  获取设备音量播放音频可以通过： 12MPMusicPlayerController *iPod &#x3D; [MPMusicPlayerController systemMusicPlayer];float volumeLevel &#x3D; iPod.volume;  播放视频可以通过： 1floa">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-12-08T15:44:02.000Z">
-<meta property="article:modified_time" content="2024-11-02T11:36:05.379Z">
+<meta property="article:modified_time" content="2024-11-03T03:05:50.886Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="音视频">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 19:36:05" itemprop="dateModified" datetime="2024-11-02T19:36:05+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>409</span>
+              <span>410</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -264,7 +264,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>主要涉及到Tips：</p>
+        <p>主要涉及到 Tips：</p>
 <ol>
 <li>获取设备音量</li>
 <li>静音模式失效</li>
@@ -282,11 +282,11 @@
 <blockquote>
 <p>推荐下面的方法，上面的在某些版本可能有问题，下面的方法兼容<strong>iOS6及以上</strong>。</p>
 </blockquote>
-<h2 id="静音模式失效"><a href="#静音模式失效" class="headerlink" title="静音模式失效"></a>静音模式失效</h2><p>通过设置音频会话的category实现：</p>
+<h2 id="静音模式失效"><a href="#静音模式失效" class="headerlink" title="静音模式失效"></a>静音模式失效</h2><p>通过设置音频会话的 category 实现：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSError</span> *setCategoryError = <span class="literal">nil</span>;</span><br><span class="line"><span class="type">BOOL</span> success = [[<span class="built_in">AVAudioSession</span> sharedInstance] setCategory: <span class="built_in">AVAudioSessionCategoryPlayback</span></span><br><span class="line">	                                                  error: &amp;setCategoryError];</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> (!success) &#123; <span class="comment">/* handle the error in setCategoryError */</span> &#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>这样App就不会随着手机静音键打开而静音，可在手机静音下播放声音😁</p>
+<p>这样 App 就不会随着手机静音键打开而静音，可在手机静音下播放声音😁</p>
 </blockquote>
 <h2 id="监听音量改变"><a href="#监听音量改变" class="headerlink" title="监听音量改变"></a>监听音量改变</h2><p>监听音频改变私有通知：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(volumeChanged:) name:<span class="string">@&quot;AVSystemController_SystemVolumeDidChangeNotification&quot;</span> object:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
@@ -294,23 +294,25 @@
 <p>实现通过回调：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)volumeChanged:(<span class="built_in">NSNotification</span> *)notification</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> volume = [[[notification userInfo] objectForKey:<span class="string">@&quot;AVSystemController_AudioVolumeNotificationParameter&quot;</span>]</span><br><span class="line">     floatValue];</span><br><span class="line">     </span><br><span class="line">     <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="设置设备音量"><a href="#设置设备音量" class="headerlink" title="设置设备音量"></a>设置设备音量</h2><p>使用<code>MPVolumeView</code>类，便利它的子views找到类为<code>MPVolumeSlider</code>的滑竿。</p>
+<h2 id="设置设备音量"><a href="#设置设备音量" class="headerlink" title="设置设备音量"></a>设置设备音量</h2><p>使用 <code>MPVolumeView</code> 类，便利它的子 views 找到类为 <code>MPVolumeSlider</code> 的滑竿。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPVolumeView</span> *volumeView = [[<span class="built_in">MPVolumeView</span> alloc] init];</span><br><span class="line"><span class="built_in">UISlider</span> *volumeViewSlider = <span class="literal">nil</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">UIView</span> *view <span class="keyword">in</span> [volumeView subviews])&#123;</span><br><span class="line">	    <span class="keyword">if</span> ([view.class.description isEqualToString:<span class="string">@&quot;MPVolumeSlider&quot;</span>])	&#123;</span><br><span class="line">	        volumeViewSlider = (<span class="built_in">UISlider</span> *)view;</span><br><span class="line">	        <span class="keyword">break</span>;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然后再通过设置<code>volumeViewSlider</code>的<code>value</code>即可。</p>
+<p>然后再通过设置 <code>volumeViewSlider</code> 的 <code>value</code> 即可。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_volumeViewSlider.value = someVolume;</span><br></pre></td></tr></table></figure>
 
 <h2 id="监听静音按钮"><a href="#监听静音按钮" class="headerlink" title="监听静音按钮"></a>监听静音按钮</h2><p>参考<a target="_blank" rel="noopener" href="http://sharkfood.com/content/Developers/content/Sound%20Switch/">Sound Switch - Sharkfood</a>的实现。</p>
 <p>使用很简单，判断是否为静音模式：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([SharkfoodMuteSwitchDetector shared].isMute) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>动态监听，通过block回调：</p>
+<p>动态监听，通过 block 回调：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[SharkfoodMuteSwitchDetector shared].silentNotify = ^(<span class="type">BOOL</span> silent)&#123;</span><br><span class="line">      <span class="comment">// do something</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h2 id="监听耳机拔插"><a href="#监听耳机拔插" class="headerlink" title="监听耳机拔插"></a>监听耳机拔插</h2><p>监听<code>AVAudioSessionRouteChangeNotification</code>通知：</p>
+<h2 id="监听耳机拔插"><a href="#监听耳机拔插" class="headerlink" title="监听耳机拔插"></a>监听耳机拔插</h2><p>监听 <code>AVAudioSessionRouteChangeNotification</code> 通知：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span></span><br><span class="line">									      selector:<span class="keyword">@selector</span>(audioRouteChangeListenerCallback:) 										      name:<span class="built_in">AVAudioSessionRouteChangeNotification</span> </span><br><span class="line">									        object:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
 
 <p>实现回调：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)audioRouteChangeListenerCallback:(<span class="built_in">NSNotification</span>*)notification</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSDictionary</span> *interuptionDict = notification.userInfo;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSInteger</span> routeChangeReason = [[interuptionDict valueForKey:<span class="built_in">AVAudioSessionRouteChangeReasonKey</span>] integerValue];</span><br><span class="line">    <span class="keyword">switch</span> (routeChangeReason) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAudioSessionRouteChangeReasonNewDeviceAvailable</span>:</span><br><span class="line">            <span class="comment">// 耳机插入</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAudioSessionRouteChangeReasonOldDeviceUnavailable</span>:</span><br><span class="line">            <span class="comment">// 耳机拔掉</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAudioSessionRouteChangeReasonCategoryChange</span>:</span><br><span class="line">            <span class="comment">// called at start - also when other audio wants to play</span></span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;AVAudioSessionRouteChangeReasonCategoryChange&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<!-- processed -->
 
     </div>
 

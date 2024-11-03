@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 21:18:50" itemprop="dateModified" datetime="2024-11-02T21:18:50+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,14 +270,14 @@
 <blockquote>
 <p><strong>Post info</strong>: Updated for Xcode 7.1 and Swift 2.1 – 1 January 2016<br><strong>Update note</strong>: This tutorial was updated to iOS 8, Xcode 6.1 and Swift by Richard Turton.<br><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/76341/use-nsoperation-nsoperationqueue-swift">Original post</a> by Tutorial Team member <a target="_blank" rel="noopener" href="http://www.raywenderlich.com/u/Canopus">Soheil Azarpour</a>.</p>
 </blockquote>
-<p>每个人都有点击一个按钮或者进入一些文本在iOS或者Mac App上的令人沮丧的经历，就是突然-WHAM，用户交互停止了响应。</p>
-<p>在Mac上，你的用户开始盯着一个沙漏或者一个七彩的轮子开始旋转直到它们再次恢复UI交互为止。在一个iOS app中，用户期望App立即响应它们的触摸事件，无响应的app给人的感觉是笨重和缓慢，这样通常会导致收到差评。</p>
-<p>保持你的app的可交互的状态说起来容易做起来难，一旦你的app需要执行不仅仅是少量的任务，事情很快就变得很复杂，我们并没有多少事件在主事件循环执行繁重的工作并且同时提供一个可以响应的UI。</p>
+<p>每个人都有点击一个按钮或者进入一些文本在 iOS 或者 Mac App 上的令人沮丧的经历，就是突然-WHAM，用户交互停止了响应。</p>
+<p>在 Mac 上，你的用户开始盯着一个沙漏或者一个七彩的轮子开始旋转直到它们再次恢复 UI 交互为止。在一个 iOS app 中，用户期望 App 立即响应它们的触摸事件，无响应的 app 给人的感觉是笨重和缓慢，这样通常会导致收到差评。</p>
+<p>保持你的 app 的可交互的状态说起来容易做起来难，一旦你的 app 需要执行不仅仅是少量的任务，事情很快就变得很复杂，我们并没有多少事件在主事件循环执行繁重的工作并且同时提供一个可以响应的 UI。</p>
 <p>低级的开发者是怎样做的呢？解决方案就是把工作从主线程中移除通过并发。并发意味着你应用所有的操作同时执行在多个流（或者线程）中–这样的话用户界面就能保持响应的要执行的工作。</p>
-<p>一种实现并发操作在iOS是通过<code>NSOperation</code>和<code>NSOperationQueue</code>这两个类。在这个教程中，你将学会怎样使用它们！你将从一个没有使用并发的App开始，所以它将出现的非常迟钝和无响应。然后你将重做你的应用给它们添加并发操作并且–希望–呈现一个更加响应良好的可交互界面给用户！</p>
+<p>一种实现并发操作在 iOS 是通过 <code>NSOperation</code> 和 <code>NSOperationQueue</code> 这两个类。在这个教程中，你将学会怎样使用它们！你将从一个没有使用并发的 App 开始，所以它将出现的非常迟钝和无响应。然后你将重做你的应用给它们添加并发操作并且–希望–呈现一个更加响应良好的可交互界面给用户！</p>
 <h3 id="我们开始吧"><a href="#我们开始吧" class="headerlink" title="我们开始吧"></a>我们开始吧</h3><p>这份样品工程的总的目标的就是展示一个滤镜处理过的图片的表视图。图片将从网络上下载，经过一个滤镜处理后，然后在表视图中显示。</p>
-<p>下面是这个app模型的示意图</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" alt="app模型的示意图"></p>
+<p>下面是这个 app 模型的示意图</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" alt="app 模型的示意图"></p>
 <!--
 <img src = "http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" with= 300 height = 600>-->
 
@@ -286,20 +286,20 @@
 <blockquote>
 <p>注意：所以的图片来自<a target="_blank" rel="noopener" href="http://sxc.hu/"> stock.xchng.</a>。一下图片在数据源故意错误命名，以便这里有些例子是图片下载失败好处理失败的情况。</p>
 </blockquote>
-<p>构建并且运行这个工程，最终你将看到这个app运行起来显示一列照片。尝试滚动这个列表，很痛苦，不是吗？<br><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk45qmdigj205x08wdga.jpg" alt="list of photoes"></p>
+<p>构建并且运行这个工程，最终你将看到这个 app 运行起来显示一列照片。尝试滚动这个列表，很痛苦，不是吗？<br><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk45qmdigj205x08wdga.jpg" alt="list of photoes"></p>
 <p><em>传统的相册，运行缓慢</em></p>
-<p>所有的操作都发生在<code>ListViewController.swift</code>里，并且最主要的是发生在<code> tableView(_:cellForRowAtIndexPath:)</code>方法里。看一下那个方法和注释这里有两件相当集中的事情需要思考：</p>
+<p>所有的操作都发生在 <code>ListViewController.swift</code> 里，并且最主要的是发生在 <code> tableView(_:cellForRowAtIndexPath:)</code> 方法里。看一下那个方法和注释这里有两件相当集中的事情需要思考：</p>
 <ol>
-<li><code>从网络载入图片数据</code>。即使网络状况良好，app将仍然必须等待直到下载完成了才能继续。</li>
-<li>使用<em>Core Image</em>给图片加滤镜。这个方法给图片应用一个深褐色的滤镜，假如你想了解更多关于<code>Core Image</code>滤镜的知识，请点击<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/76285/beginning-core-image-swift">Beginning Core Image in Swift</a></li>
+<li><code>从网络载入图片数据</code> 。即使网络状况良好，app 将仍然必须等待直到下载完成了才能继续。</li>
+<li>使用<em>Core Image</em>给图片加滤镜。这个方法给图片应用一个深褐色的滤镜，假如你想了解更多关于 <code>Core Image</code> 滤镜的知识，请点击<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/76285/beginning-core-image-swift">Beginning Core Image in Swift</a></li>
 </ol>
 <p>还有，你将载入一系列图片请求从网络当它第一次被请求时:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lazy</span> <span class="keyword">var</span> photos <span class="operator">=</span> <span class="type">NSDictionary</span>(contentsOfURL:dataSourceURL)</span><br></pre></td></tr></table></figure>
 
-<p>所有的工作发生在应用的主线程。由于主线程也负责用户交互，让它一直忙于从网络下载东西和给图片加滤镜消磨掉了响应中的app。你可以通过使用Xcode的仪表测量视图获得这样一个快速的概述。你可以通过显示<code>调试导航</code>(Commnad+6)接入这个仪表视图,让后选择<code>CPU</code>当app正在运行的时候。</p>
+<p>所有的工作发生在应用的主线程。由于主线程也负责用户交互，让它一直忙于从网络下载东西和给图片加滤镜消磨掉了响应中的 app。你可以通过使用 Xcode 的仪表测量视图获得这样一个快速的概述。你可以通过显示 <code>调试导航</code> (Commnad+6)接入这个仪表视图,让后选择 <code>CPU</code> 当 app 正在运行的时候。</p>
 <p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezk4seggwgj20jg0a0ta0.jpg" alt="gauges"></p>
-<p><em>Xcode的仪表视图表明，主线程的任务非常重</em></p>
-<p>你会看到那些所有的长钉在<code>Thread 1</code>，那就是app的主线程。更多详细的信息你可以运行app的<code>Instruments</code>,但是那个在<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?p=23037"> whole other tutorial :].</a>中</p>
+<p><em>Xcode 的仪表视图表明，主线程的任务非常重</em></p>
+<p>你会看到那些所有的长钉在 <code>Thread 1</code> ，那就是 app 的主线程。更多详细的信息你可以运行 app 的 <code>Instruments</code> ,但是那个在<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?p=23037"> whole other tutorial :].</a>中</p>
 <p>是时候考虑怎样改善一下你的用户体验了！</p>
 <h3 id="任务，线程和进程"><a href="#任务，线程和进程" class="headerlink" title="任务，线程和进程"></a>任务，线程和进程</h3><p>在你专研这篇教程之前，这里有一下技术上的慨念需要理一下，我将定义一些专用术语：</p>
 <ul>
@@ -308,34 +308,34 @@
 <li><strong>进程</strong> ：一个可执行的代码块，它可以由多个线程构成</li>
 </ul>
 <blockquote>
-<p>注意：在iOS和OS X中，线程的功能由POSIX线程API（或者 pthreads）实现，并且它使操作系统的一部分。而这个又是相当底层的东西，你将发现它很容易犯错误；或许关于线程最糟糕的事情是那些很难被发现的错误！</p>
+<p>注意：在 iOS 和 OS X 中，线程的功能由 POSIX 线程 API（或者 pthreads）实现，并且它使操作系统的一部分。而这个又是相当底层的东西，你将发现它很容易犯错误；或许关于线程最糟糕的事情是那些很难被发现的错误！</p>
 </blockquote>
 <blockquote>
-<p><code>Foundation</code>框架包含了一个叫做<code>NSThread</code>的类，这让我们处理事情更容易，但是用<code>NSThread</code>管理多个线程仍是一件令人头疼的事情。<code>NSOperation</code>和<code>NSOperationQueue</code>是为了最大化简化处理多线程的更高级的类。</p>
+<p> <code>Foundation</code> 框架包含了一个叫做 <code>NSThread</code> 的类，这让我们处理事情更容易，但是用 <code>NSThread</code> 管理多个线程仍是一件令人头疼的事情。 <code>NSOperation</code> 和 <code>NSOperationQueue</code> 是为了最大化简化处理多线程的更高级的类。</p>
 </blockquote>
 <p>在这个图解中，你会看到进程，线程和任务之间的关系：</p>
 <p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk5dwtbhuj20go03n0t2.jpg" alt="the relationship between a process, threads, and tasks"></p>
 <p><em>进程，线程和任务</em></p>
 <p>正如你所见，一个进程可以包涵多个执行的线程，每个线程能够同时执行多个任务。</p>
-<p>在这个图集中, <code>thread 2</code>执行文件的读的工作，同时<code>thread 1</code>执行UI相关的代码。这和你应该怎样在iOS中构建你的代码（主线程执行任何和UI相关的工作，第二线程应当执行慢的或者长时间运行的耗时操作例如读取文件，接入网络等等）有点相似。</p>
-<h3 id="NSOperation-vs-Grand-Central-Dispatch-GCD"><a href="#NSOperation-vs-Grand-Central-Dispatch-GCD" class="headerlink" title="NSOperation vs. Grand Central Dispatch (GCD)"></a>NSOperation vs. Grand Central Dispatch (GCD)</h3><p>你应该听说过<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/#documentation/Performance/Reference/GCD_libdispatch_Ref/Reference/reference.html">Grand Central Dispatch (GCD).</a>。简单的来说，<code>GCD</code>由语言的特征，运行时库和系统增强组成来提供一个在<code>iOS</code>和<code>OS X</code>多核硬件中支持并发系统并且综合的改良。假如你想了解更多关于GCD相关的知识，有可以阅读我们的<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?p=4295">Multithreading and Grand Central Dispatch on iOS for Beginners Tutorial</a>。</p>
+<p>在这个图集中,  <code>thread 2</code> 执行文件的读的工作，同时 <code>thread 1</code> 执行 UI 相关的代码。这和你应该怎样在 iOS 中构建你的代码（主线程执行任何和 UI 相关的工作，第二线程应当执行慢的或者长时间运行的耗时操作例如读取文件，接入网络等等）有点相似。</p>
+<h3 id="NSOperation-vs-Grand-Central-Dispatch-GCD"><a href="#NSOperation-vs-Grand-Central-Dispatch-GCD" class="headerlink" title="NSOperation vs. Grand Central Dispatch (GCD)"></a>NSOperation vs. Grand Central Dispatch (GCD)</h3><p>你应该听说过<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/#documentation/Performance/Reference/GCD_libdispatch_Ref/Reference/reference.html">Grand Central Dispatch (GCD).</a>。简单的来说， <code>GCD</code> 由语言的特征，运行时库和系统增强组成来提供一个在 <code>iOS</code> 和 <code>OS X</code> 多核硬件中支持并发系统并且综合的改良。假如你想了解更多关于 GCD 相关的知识，有可以阅读我们的<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?p=4295">Multithreading and Grand Central Dispatch on iOS for Beginners Tutorial</a>。</p>
 <p><code>NSOperation</code>和<code>NSOperationQueue</code>构建在GCD之上。普遍来说，苹果推荐使用最高级别抽象，当需要显示他们一些需要的测量工作时回到最底层。</p>
-<p>下面是关于这两者的一些简单比较，将帮助你决定何时何地选择使用<code>GCD</code>或者<code>NSOperation</code>：</p>
+<p>下面是关于这两者的一些简单比较，将帮助你决定何时何地选择使用 <code>GCD</code> 或者 <code>NSOperation</code> ：</p>
 <ul>
-<li><p><strong>GCD</strong> 是一个轻量级的方式来描述将要被并发执行的工作单元。你不必定制这个工作单元的时刻表；系统为你定制时刻表。在blocks中增加依赖是一件头疼的事情。取消或者暂停一个block来进行额外的工作为作为开发者的你！ :]</p>
+<li><p><strong>GCD</strong> 是一个轻量级的方式来描述将要被并发执行的工作单元。你不必定制这个工作单元的时刻表；系统为你定制时刻表。在 blocks 中增加依赖是一件头疼的事情。取消或者暂停一个 block 来进行额外的工作为作为开发者的你！ :]</p>
 </li>
-<li><p><strong>NSOperation</strong> 和GCD相比增加了一些额外开支，但是你能够在各种操作之间增加依赖并且恢复，取消，暂停他们。</p>
+<li><p><strong>NSOperation</strong> 和 GCD 相比增加了一些额外开支，但是你能够在各种操作之间增加依赖并且恢复，取消，暂停他们。</p>
 </li>
 </ul>
-<p>这个教程将使用<code>NSOperation</code>,因为你将处理一个列表为了好的表现并且由于它大量的消耗的资源你需要能够取消一个操作针对某个图片，假如用户已经将那张图片滚出屏幕。即使这些操作在后台线程，假如这里有一打事情在队列里等着它们去处理，这将表现得跟糟糕。</p>
+<p>这个教程将使用 <code>NSOperation</code> ,因为你将处理一个列表为了好的表现并且由于它大量的消耗的资源你需要能够取消一个操作针对某个图片，假如用户已经将那张图片滚出屏幕。即使这些操作在后台线程，假如这里有一打事情在队列里等着它们去处理，这将表现得跟糟糕。</p>
 <h3 id="重构-App-Model"><a href="#重构-App-Model" class="headerlink" title="重构 App Model"></a>重构 App Model</h3><p>是时候重构开始的非多线程的模型了！假如你仔细观察先前的模型，你会发现这里有三个可以被改进的线程受困区域。通过切割这三个区域让后把他们放在单独的线程里，主线程的压力将得到缓解并且能够保持和用户交互。</p>
 <p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk6m9a5xzj20i20nm416.jpg" alt="NSOperation_model_improved"></p>
 <p><em>改进后的 model</em></p>
-<p>为了摆脱你应用的瓶颈，你需要一个指定一个线程来响应你的用户时间，一个线程专注于下载资源和图片，一个线程执行图片滤镜操作。在新的模型中，app从主线程启动让后载入一个空的表视图。同时，app启动第二个线程开始下载数据资源。</p>
-<p>一旦数据资源下载完成，你将通知表视图重新载入。这些事情必须在主线程完成，因为它涉及到用户界面相关的操作。从这一点来说，表视图知道有多少行，并且它知道他将显示图片的URL地址，但是她不知道它是否真的有图片！假如你立即开始下载所有的图片在这个点上，这可能导致效率极其低下，因为你不需要一次性把所有图片下载完！</p>
+<p>为了摆脱你应用的瓶颈，你需要一个指定一个线程来响应你的用户时间，一个线程专注于下载资源和图片，一个线程执行图片滤镜操作。在新的模型中，app 从主线程启动让后载入一个空的表视图。同时，app 启动第二个线程开始下载数据资源。</p>
+<p>一旦数据资源下载完成，你将通知表视图重新载入。这些事情必须在主线程完成，因为它涉及到用户界面相关的操作。从这一点来说，表视图知道有多少行，并且它知道他将显示图片的 URL 地址，但是她不知道它是否真的有图片！假如你立即开始下载所有的图片在这个点上，这可能导致效率极其低下，因为你不需要一次性把所有图片下载完！</p>
 <p>为了让这个变得更好我们能够做什么？</p>
 <p>一个更好的模型就是可交互的行在屏幕范围内可见时才开始下载图片。所以你的代码开始将询问表视图有多少行可见。因此，代码应该直到这里有一个未加滤镜的图片等待处理时才开始处理图片加滤镜操作。</p>
-<p>为了使app更加快速响应，代码将要让图片一旦下载完毕立即显示。让后才开始进行图片加滤镜操作，让后更新UI界面来显示已经经过滤镜处理后的图片。下面的图标显示了这个过程的控制流：</p>
+<p>为了使 app 更加快速响应，代码将要让图片一旦下载完毕立即显示。让后才开始进行图片加滤镜操作，让后更新 UI 界面来显示已经经过滤镜处理后的图片。下面的图标显示了这个过程的控制流：</p>
 <p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk75nd4bdj20i206yq3q.jpg" alt="Control Flow"></p>
 <p><em>Cotroll Flow</em></p>
 <p>为了获得这些对象，你需要跟踪这张图片现在是否正在被下载，一旦完成下载，假如图片的滤镜被应用上。你需要跟跟踪每个操作的状态，它是否正在下载中或者执行滤镜操作，以便你能够取消，暂停或者恢复每个操作当用户滚动的时候。</p>
@@ -344,128 +344,129 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PendingOperations</span> &#123;</span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">var</span> downloadsInProgress <span class="operator">=</span> [<span class="type">NSIndexPath</span>:<span class="type">NSOperation</span>]()</span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">var</span> downloadQueue:<span class="type">NSOperationQueue</span> <span class="operator">=</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> queue <span class="operator">=</span> <span class="type">NSOperationQueue</span>()</span><br><span class="line">    queue.name <span class="operator">=</span> <span class="string">&quot;Download queue&quot;</span></span><br><span class="line">    queue.maxConcurrentOperationCount <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> queue</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">var</span> filtrationsInProgress <span class="operator">=</span> [<span class="type">NSIndexPath</span>:<span class="type">NSOperation</span>]()</span><br><span class="line">  <span class="keyword">lazy</span> <span class="keyword">var</span> filtrationQueue:<span class="type">NSOperationQueue</span> <span class="operator">=</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> queue <span class="operator">=</span> <span class="type">NSOperationQueue</span>()</span><br><span class="line">    queue.name <span class="operator">=</span> <span class="string">&quot;Image Filtration queue&quot;</span></span><br><span class="line">    queue.maxConcurrentOperationCount <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> queue</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这回类包含了2个字典为了跟踪激活和正在进行中的下载和滤镜操作对表中的每一行，并且两个操作队列都有各自的操作类型。</p>
-<p>所有的值被懒加载的方式创建，意味着他们不会被初始化知道他们第一次被接入。这样改善了你app的表现性能。</p>
-<p>创建一个<code>NSOperationQueue</code>是非常简单的，正如你所见，给你的队列命名是非常有用的，因为名字会在仪器或者调速器中显示。<code>maxConcurrentOperationCount</code>在这里由于这个教程的缘故被设置成1，是为了让你看到操作一个接一个完成。你可以离开这一部分允许队列决定他一次处理多少个操作–这样会进一步改善性能。</p>
-<p>队列是怎样决定一次运行多少个操作的呢？这是一个非常好的问题！ :] 这取决于硬件。默认，<code>NSOperationQueue</code>将要处理一写计算在屏幕背后，决定什么是最好的需要看代码是运行在某个具体的平台，和将载入的最大数量的线程数。</p>
-<p>考虑到下面的例子，假设系统此时是空闲的，这里有很多资源可用，所以这个队列能够载入可能8条并发的线程。下一个时刻你运行程序，系统可能忙于其他不相关的正在抢夺资源的操作，这时队列就仅仅载入2个并发的线程。因为你已经设置了一个最大并发操作数，在这个app中一次只会进行一个操作。</p>
+<p>所有的值被懒加载的方式创建，意味着他们不会被初始化知道他们第一次被接入。这样改善了你 app 的表现性能。</p>
+<p>创建一个 <code>NSOperationQueue</code> 是非常简单的，正如你所见，给你的队列命名是非常有用的，因为名字会在仪器或者调速器中显示。 <code>maxConcurrentOperationCount</code> 在这里由于这个教程的缘故被设置成1，是为了让你看到操作一个接一个完成。你可以离开这一部分允许队列决定他一次处理多少个操作–这样会进一步改善性能。</p>
+<p>队列是怎样决定一次运行多少个操作的呢？这是一个非常好的问题！ :] 这取决于硬件。默认， <code>NSOperationQueue</code> 将要处理一写计算在屏幕背后，决定什么是最好的需要看代码是运行在某个具体的平台，和将载入的最大数量的线程数。</p>
+<p>考虑到下面的例子，假设系统此时是空闲的，这里有很多资源可用，所以这个队列能够载入可能8条并发的线程。下一个时刻你运行程序，系统可能忙于其他不相关的正在抢夺资源的操作，这时队列就仅仅载入2个并发的线程。因为你已经设置了一个最大并发操作数，在这个 app 中一次只会进行一个操作。</p>
 <blockquote>
-<p>注意：你可能想知道为什么你必须跟踪所有的激活的和正在进行中操作。队列有一个<code>operations</code>的方法，它将返回一个操作的数组，所有为什么不用它呢？在这个工程中这样做效果不是很好。你需要跟踪更表视图行数关联的操作，它可能会重复执行数组每次你需要一个的时候。把它们储存在一个字典中用index path来作为他的key方便快速和高效的查找。</p>
+<p>注意：你可能想知道为什么你必须跟踪所有的激活的和正在进行中操作。队列有一个 <code>operations</code> 的方法，它将返回一个操作的数组，所有为什么不用它呢？在这个工程中这样做效果不是很好。你需要跟踪更表视图行数关联的操作，它可能会重复执行数组每次你需要一个的时候。把它们储存在一个字典中用 index path 来作为他的 key 方便快速和高效的查找。</p>
 </blockquote>
-<p>是时候考虑下载和过滤操作了。添加下列代码到<code> PhotoOperations.swift:</code>文件的末尾：</p>
+<p>是时候考虑下载和过滤操作了。添加下列代码到 <code> PhotoOperations.swift:</code> 文件的末尾：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ImageDownloader</span>: <span class="title class_ inherited__">NSOperation</span> &#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">let</span> photoRecord: <span class="type">PhotoRecord</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//2</span></span><br><span class="line">  <span class="keyword">init</span>(<span class="params">photoRecord</span>: <span class="type">PhotoRecord</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.photoRecord <span class="operator">=</span> photoRecord</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//3</span></span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">//4</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.cancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//5</span></span><br><span class="line">    <span class="keyword">let</span> imageData <span class="operator">=</span> <span class="type">NSData</span>(contentsOfURL:<span class="keyword">self</span>.photoRecord.url)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//6</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.cancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//7</span></span><br><span class="line">    <span class="keyword">if</span> imageData<span class="operator">?</span>.length <span class="operator">&gt;</span> <span class="number">0</span> &#123;</span><br><span class="line">      <span class="keyword">self</span>.photoRecord.image <span class="operator">=</span> <span class="type">UIImage</span>(data:imageData<span class="operator">!</span>)</span><br><span class="line">      <span class="keyword">self</span>.photoRecord.state <span class="operator">=</span> .<span class="type">Downloaded</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">self</span>.photoRecord.state <span class="operator">=</span> .<span class="type">Failed</span></span><br><span class="line">      <span class="keyword">self</span>.photoRecord.image <span class="operator">=</span> <span class="type">UIImage</span>(named: <span class="string">&quot;Failed&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>NSOperation</code>是一个抽象类，为它的子类而设计。每个子类代表了一个特别的<code>任务</code>正如呈现在列表早期那样。</p>
 <p>下面是上面代码每行注释到底发生了什么的说明：</p>
 <ol>
-<li>添加一个常量引用到和操作相关的<code>PhotoRecord</code>对象</li>
-<li>创建一个设计初始化方法允许<code>photo record</code>参数可以被传进来</li>
-<li><code>main</code>是你在<code>NSOperation</code>子类中需要重写的方法，用来执行相关工作</li>
+<li>添加一个常量引用到和操作相关的 <code>PhotoRecord</code> 对象</li>
+<li>创建一个设计初始化方法允许 <code>photo record</code> 参数可以被传进来</li>
+<li><code>main</code> 是你在 <code>NSOperation</code> 子类中需要重写的方法，用来执行相关工作</li>
 <li>在启动开始前检查是否被取消，操作应该定期检查是否已经被取消在尝试长时间或密集的工作之前</li>
 <li>下载图片数据</li>
 <li>再次检查是否被取消</li>
 <li>假如这里有数据，创建一个图片对象然后把它添加到记录中，同时改变它的状态，假如这里没有数据，把这条记录标记成失败然后设置适当的图片</li>
 </ol>
-<p>下一步，你将创建另一个操作来处理图片加滤镜的操作！添加下面的代码到<code>PhotoOperations.swift</code>文件末尾：</p>
+<p>下一步，你将创建另一个操作来处理图片加滤镜的操作！添加下面的代码到 <code>PhotoOperations.swift</code> 文件末尾：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ImageFiltration</span>: <span class="title class_ inherited__">NSOperation</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> photoRecord: <span class="type">PhotoRecord</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(<span class="params">photoRecord</span>: <span class="type">PhotoRecord</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.photoRecord <span class="operator">=</span> photoRecord</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">main</span> () &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.cancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.photoRecord.state <span class="operator">!=</span> .<span class="type">Downloaded</span> &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> filteredImage <span class="operator">=</span> <span class="keyword">self</span>.applySepiaFilter(<span class="keyword">self</span>.photoRecord.image<span class="operator">!</span>) &#123;</span><br><span class="line">      <span class="keyword">self</span>.photoRecord.image <span class="operator">=</span> filteredImage</span><br><span class="line">      <span class="keyword">self</span>.photoRecord.state <span class="operator">=</span> .<span class="type">Filtered</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>除了你对图片应用滤镜（使用一个未实现的方法，因此编译1错误）而不是下载它之外，这个看起来和下载操作非常相像。</p>
-<p>添加遗失的图片滤镜处理方法到<code>ImageFiltration</code>类中:</p>
+<p>添加遗失的图片滤镜处理方法到 <code>ImageFiltration</code> 类中:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">(image:<span class="type">UIImage</span>) -&gt; <span class="type">UIImage</span>? &#123;</span><br><span class="line">  <span class="keyword">let</span> inputImage <span class="operator">=</span> <span class="type">CIImage</span>(data:<span class="type">UIImagePNGRepresentation</span>(image))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">self</span>.cancelled &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> context <span class="operator">=</span> <span class="type">CIContext</span>(options:<span class="literal">nil</span>)</span><br><span class="line">  <span class="keyword">let</span> filter <span class="operator">=</span> <span class="type">CIFilter</span>(name:<span class="string">&quot;CISepiaTone&quot;</span>)</span><br><span class="line">  filter.setValue(inputImage, forKey: kCIInputImageKey)</span><br><span class="line">  filter.setValue(<span class="number">0.8</span>, forKey: <span class="string">&quot;inputIntensity&quot;</span>)</span><br><span class="line">  <span class="keyword">let</span> outputImage <span class="operator">=</span> filter.outputImage</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">self</span>.cancelled &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> outImage <span class="operator">=</span> context.createCGImage(outputImage, fromRect: outputImage.extent())</span><br><span class="line">  <span class="keyword">let</span> returnImage <span class="operator">=</span> <span class="type">UIImage</span>(CGImage: outImage)</span><br><span class="line">  <span class="keyword">return</span> returnImage</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>图片添加滤镜操作使用先前<code>ListViewController</code>中相同的实现。已经把它移动到这里来了以至于它它能在后台的一个单独的操作中完成。再次强调，你应该非常频繁的检查取消操作；最佳实践是在进行任何耗时操作调用之前和之后。一旦加滤镜操作完成，你应该立即设置photo record 实例的值。</p>
+<p>图片添加滤镜操作使用先前 <code>ListViewController</code> 中相同的实现。已经把它移动到这里来了以至于它它能在后台的一个单独的操作中完成。再次强调，你应该非常频繁的检查取消操作；最佳实践是在进行任何耗时操作调用之前和之后。一旦加滤镜操作完成，你应该立即设置 photo record 实例的值。</p>
 <p>很棒！现在你已经有了所有的工具和基础为了处理后台任务进程的操作。是时候回到控制器修改它以便能利用所有这些新的福利。</p>
-<p>切换到<code>ListViewController.swift</code>文件，然后删除<code>lazy var photos</code>接口声明。添加下面声明：</p>
+<p>切换到 <code>ListViewController.swift</code> 文件，然后删除 <code>lazy var photos</code> 接口声明。添加下面声明：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> photos <span class="operator">=</span> [<span class="type">PhotoRecord</span>]()</span><br><span class="line"><span class="keyword">let</span> pendingOperations <span class="operator">=</span> <span class="type">PendingOperations</span>()</span><br></pre></td></tr></table></figure>
 
-<p>这些将持有一个数组的你在开始创建的<code>PhotoDetails</code>对象，<code>PendingOperations</code>对象来管理操作。</p>
-<p>添加一个下载<code>photos property</code>列表新的方法到类中：</p>
+<p>这些将持有一个数组的你在开始创建的 <code>PhotoDetails</code> 对象， <code>PendingOperations</code> 对象来管理操作。</p>
+<p>添加一个下载 <code>photos property</code> 列表新的方法到类中：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">fetchPhotoDetails</span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> request <span class="operator">=</span> <span class="type">NSURLRequest</span>(URL:dataSourceURL<span class="operator">!</span>)</span><br><span class="line">  <span class="type">UIApplication</span>.sharedApplication().networkActivityIndicatorVisible <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="type">NSURLConnection</span>.sendAsynchronousRequest(request, queue: <span class="type">NSOperationQueue</span>.mainQueue()) &#123;response,data,error <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> data <span class="operator">!=</span> <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> datasourceDictionary <span class="operator">=</span> <span class="type">NSPropertyListSerialization</span>.propertyListWithData(data, options: <span class="type">Int</span>(<span class="type">NSPropertyListMutabilityOptions</span>.<span class="type">Immutable</span>.rawValue), format: <span class="literal">nil</span>, error: <span class="literal">nil</span>) <span class="keyword">as!</span> <span class="type">NSDictionary</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span>(key : <span class="type">AnyObject</span>,value : <span class="type">AnyObject</span>) <span class="keyword">in</span> datasourceDictionary &#123;</span><br><span class="line">        <span class="keyword">let</span> name <span class="operator">=</span> key <span class="keyword">as?</span> <span class="type">String</span></span><br><span class="line">        <span class="keyword">let</span> url <span class="operator">=</span> <span class="type">NSURL</span>(string:value <span class="keyword">as?</span> <span class="type">String</span> <span class="operator">??</span> <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> name <span class="operator">!=</span> <span class="literal">nil</span> <span class="operator">&amp;&amp;</span> url <span class="operator">!=</span> <span class="literal">nil</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> photoRecord <span class="operator">=</span> <span class="type">PhotoRecord</span>(name:name<span class="operator">!</span>, url:url<span class="operator">!</span>)</span><br><span class="line">          <span class="keyword">self</span>.photos.append(photoRecord)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">self</span>.tableView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> error <span class="operator">!=</span> <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> alert <span class="operator">=</span> <span class="type">UIAlertView</span>(title:<span class="string">&quot;Oops!&quot;</span>,message:error.localizedDescription, delegate:<span class="literal">nil</span>, cancelButtonTitle:<span class="string">&quot;OK&quot;</span>)</span><br><span class="line">      alert.show()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">UIApplication</span>.sharedApplication().networkActivityIndicatorVisible <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个方法创建一个异步的网络请求，当完成的时候，将执行<code>completion block</code>在主线程。当下载完成property list的数据被萃取成一个<code>NSDictionary</code>,然后再次处理一个数组的<code>PhotoRecord</code>的对象。你不能直接使用这里的<code>NSOperation</code>,你应该在主线程中接入它使用<code>NSOperationQueue.mainQueue()</code>。</p>
-<p>在<code>viewDidLoad</code>调用新方法</p>
+<p>这个方法创建一个异步的网络请求，当完成的时候，将执行 <code>completion block</code> 在主线程。当下载完成 property list 的数据被萃取成一个 <code>NSDictionary</code> ,然后再次处理一个数组的 <code>PhotoRecord</code> 的对象。你不能直接使用这里的 <code>NSOperation</code> ,你应该在主线程中接入它使用 <code>NSOperationQueue.mainQueue()</code> 。</p>
+<p>在 <code>viewDidLoad</code> 调用新方法</p>
 <blockquote>
 <p>fetchPhotoDetails()</p>
 </blockquote>
-<p>下一步找到<code> tableView(_:cellForRowAtIndexPath:)</code>然后替换它用下面的实现：</p>
+<p>下一步找到 <code> tableView(_:cellForRowAtIndexPath:)</code> 然后替换它用下面的实现：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">tableView</span>(<span class="params">tableView</span>: <span class="type">UITableView</span>, <span class="params">cellForRowAtIndexPath</span> <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>) -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> cell <span class="operator">=</span> tableView.dequeueReusableCellWithIdentifier(<span class="string">&quot;CellIdentifier&quot;</span>, forIndexPath: indexPath) <span class="keyword">as!</span> <span class="type">UITableViewCell</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">if</span> cell.accessoryView <span class="operator">==</span> <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> indicator <span class="operator">=</span> <span class="type">UIActivityIndicatorView</span>(activityIndicatorStyle: .<span class="type">Gray</span>)</span><br><span class="line">    cell.accessoryView <span class="operator">=</span> indicator</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> indicator <span class="operator">=</span> cell.accessoryView <span class="keyword">as!</span> <span class="type">UIActivityIndicatorView</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//2</span></span><br><span class="line">  <span class="keyword">let</span> photoDetails <span class="operator">=</span> photos[indexPath.row]</span><br><span class="line"></span><br><span class="line">  <span class="comment">//3</span></span><br><span class="line">  cell.textLabel<span class="operator">?</span>.text <span class="operator">=</span> photoDetails.name</span><br><span class="line">  cell.imageView<span class="operator">?</span>.image <span class="operator">=</span> photoDetails.image</span><br><span class="line"></span><br><span class="line">  <span class="comment">//4</span></span><br><span class="line">  <span class="keyword">switch</span> (photoDetails.state)&#123;</span><br><span class="line">  <span class="keyword">case</span> .<span class="type">Filtered</span>:</span><br><span class="line">    indicator.stopAnimating()</span><br><span class="line">  <span class="keyword">case</span> .<span class="type">Failed</span>:</span><br><span class="line">    indicator.stopAnimating()</span><br><span class="line">    cell.textLabel<span class="operator">?</span>.text <span class="operator">=</span> <span class="string">&quot;Failed to load&quot;</span></span><br><span class="line">  <span class="keyword">case</span> .<span class="type">New</span>, .<span class="type">Downloaded</span>:</span><br><span class="line">    indicator.startAnimating()</span><br><span class="line">    <span class="keyword">self</span>.startOperationsForPhotoRecord(photoDetails,indexPath:indexPath)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> cell</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>花点时间来通读注释区域下面的解释：</p>
 <ol>
-<li>为了给用户提供反馈，创建<code>UIActivityIndicatorView</code>让后把它设成cell的accessory view。</li>
-<li>数据源包含<code>PhotoRecord</code>实例。抓取正确的数据基于当前行的<code>indexPath</code>。</li>
-<li>cell的文本标签总是一样的，图片被正确的设置在<code>PhotoRecord</code>中当它被处理的时候，以便你能够设置他们两者，而不管记录的状态。</li>
-<li>检查记录，正确的设置activity indicator和文本，然后开始操作（暂时还没实现）</li>
+<li>为了给用户提供反馈，创建 <code>UIActivityIndicatorView</code> 让后把它设成 cell 的 accessory view。</li>
+<li>数据源包含 <code>PhotoRecord</code> 实例。抓取正确的数据基于当前行的 <code>indexPath</code> 。</li>
+<li>cell 的文本标签总是一样的，图片被正确的设置在 <code>PhotoRecord</code> 中当它被处理的时候，以便你能够设置他们两者，而不管记录的状态。</li>
+<li>检查记录，正确的设置 activity indicator 和文本，然后开始操作（暂时还没实现）</li>
 </ol>
-<p>你可以移除<code>applySepiaFilter</code>的实现，因为那个将不再被调用了，添加下面的方法到类中来开始操作：</p>
+<p>你可以移除 <code>applySepiaFilter</code> 的实现，因为那个将不再被调用了，添加下面的方法到类中来开始操作：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">startOperationsForPhotoRecord</span>(<span class="params">photoDetails</span>: <span class="type">PhotoRecord</span>, <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>)&#123;</span><br><span class="line">  <span class="keyword">switch</span> (photoDetails.state) &#123;</span><br><span class="line">  <span class="keyword">case</span> .<span class="type">New</span>:</span><br><span class="line">    startDownloadForRecord(photoDetails, indexPath: indexPath)</span><br><span class="line">  <span class="keyword">case</span> .<span class="type">Downloaded</span>:</span><br><span class="line">    startFiltrationForRecord(photoDetails, indexPath: indexPath)</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="type">NSLog</span>(<span class="string">&quot;do nothing&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这里，你将传递一个<code>PhotoRecord</code>类型的实例带有它的<code>index path</code>。<br>依据<code>photo record</code>的状态，你选开始进行下载还是加滤镜的步骤。</p>
+<p>这里，你将传递一个 <code>PhotoRecord</code> 类型的实例带有它的 <code>index path</code> 。<br>依据 <code>photo record</code> 的状态，你选开始进行下载还是加滤镜的步骤。</p>
 <blockquote>
 <p>注意：下载图片和给图片加滤镜的方法分开实现，因为这里有可能出现当一个图片正在被下载，用户可能把它滚开了，这样你就不必对它应用滤镜操作。当下一次用户又来到相同的哪行时，你不必重新下载图片；你只需对它应用<br>图片滤镜即可！ Efficiency rocks! :]</p>
 </blockquote>
-<p>现在你需要实现你在上面调用的方法。记住你创建的自定义的类，<code>PendingOperations</code>,保持跟踪操作；现在实际上你可以使用它了！添加下面的方法到类中：</p>
+<p>现在你需要实现你在上面调用的方法。记住你创建的自定义的类， <code>PendingOperations</code> ,保持跟踪操作；现在实际上你可以使用它了！添加下面的方法到类中：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">startDownloadForRecord</span>(<span class="params">photoDetails</span>: <span class="type">PhotoRecord</span>, <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>)&#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> downloadOperation <span class="operator">=</span> pendingOperations.downloadsInProgress[indexPath] &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//2</span></span><br><span class="line">  <span class="keyword">let</span> downloader <span class="operator">=</span> <span class="type">ImageDownloader</span>(photoRecord: photoDetails)</span><br><span class="line">  <span class="comment">//3</span></span><br><span class="line">  downloader.completionBlock <span class="operator">=</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> downloader.cancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    dispatch_async(dispatch_get_main_queue(), &#123;</span><br><span class="line">      <span class="keyword">self</span>.pendingOperations.downloadsInProgress.removeValueForKey(indexPath)</span><br><span class="line">      <span class="keyword">self</span>.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .<span class="type">Fade</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//4</span></span><br><span class="line">  pendingOperations.downloadsInProgress[indexPath] <span class="operator">=</span> downloader</span><br><span class="line">  <span class="comment">//5</span></span><br><span class="line">  pendingOperations.downloadQueue.addOperation(downloader)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">startFiltrationForRecord</span>(<span class="params">photoDetails</span>: <span class="type">PhotoRecord</span>, <span class="params">indexPath</span>: <span class="type">NSIndexPath</span>)&#123;</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> filterOperation <span class="operator">=</span> pendingOperations.filtrationsInProgress[indexPath]&#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> filterer <span class="operator">=</span> <span class="type">ImageFiltration</span>(photoRecord: photoDetails)</span><br><span class="line">  filterer.completionBlock <span class="operator">=</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> filterer.cancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    dispatch_async(dispatch_get_main_queue(), &#123;</span><br><span class="line">      <span class="keyword">self</span>.pendingOperations.filtrationsInProgress.removeValueForKey(indexPath)</span><br><span class="line">      <span class="keyword">self</span>.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .<span class="type">Fade</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  pendingOperations.filtrationsInProgress[indexPath] <span class="operator">=</span> filterer</span><br><span class="line">  pendingOperations.filtrationQueue.addOperation(filterer)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>Okey!下面是一个快速列表来帮助你立即上面的代码到底做了什么：</p>
 <ol>
-<li>首先，检查特定的<code>indexPath</code>来看这里是否已经有一个操作在<code>downloadsInProgress</code>中。假如有，忽略它。</li>
-<li>假如没有，通过<code>designated initializer</code>创建一个<code>ImageDownloader</code>实例</li>
-<li>添加一个当操作完成时执行的完成block。这是最好的地方让你其余的应用知道一个操作已经完成。注意完成block必须被执行即使这个操作被取消，这相当的重要，所以你需要使用GCD来触发重新载入表视图在主线程。</li>
-<li>添加操作到<code>downloadsInProgress</code>中来保持跟踪一些事情。</li>
+<li>首先，检查特定的 <code>indexPath</code> 来看这里是否已经有一个操作在 <code>downloadsInProgress</code> 中。假如有，忽略它。</li>
+<li>假如没有，通过 <code>designated initializer</code> 创建一个 <code>ImageDownloader</code> 实例</li>
+<li>添加一个当操作完成时执行的完成 block。这是最好的地方让你其余的应用知道一个操作已经完成。注意完成 block 必须被执行即使这个操作被取消，这相当的重要，所以你需要使用 GCD 来触发重新载入表视图在主线程。</li>
+<li>添加操作到 <code>downloadsInProgress</code> 中来保持跟踪一些事情。</li>
 <li>添加操作到下载队列中。这是你实际获取这些操作开始运行的方法–队列需要注意的是一旦你添加了操作它就会执行。</li>
 </ol>
-<p>过滤图片的方法遵循下面相同的类型，除了它使用<code>ImageFiltration</code>和<code>filtrationsInProgress</code>来跟踪操作。作为经验，你应该尝试不要重复这个区域的代码 :]</p>
-<p>你做到了！你的工程完成了。构建让后运行看有什么改进在操作上！当你滚动表视图的时候，app并没有停止，还是像它们变得可见一样继续下载图片和给图片加滤镜操作。</p>
+<p>过滤图片的方法遵循下面相同的类型，除了它使用 <code>ImageFiltration</code> 和 <code>filtrationsInProgress</code> 来跟踪操作。作为经验，你应该尝试不要重复这个区域的代码 :]</p>
+<p>你做到了！你的工程完成了。构建让后运行看有什么改进在操作上！当你滚动表视图的时候，app 并没有停止，还是像它们变得可见一样继续下载图片和给图片加滤镜操作。</p>
 <p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezkc6fh23sj205x08wdga.jpg" alt="classicphotos-stalled-screenshot"></p>
 <p><em>原来的图片，现在可以滚动了</em></p>
 <p>是不是很酷？你能看到随做你的进步让你的应用更易于响应能做出的努力 –对用户来说更有趣！</p>
 <h3 id="细微的调整"><a href="#细微的调整" class="headerlink" title="细微的调整"></a>细微的调整</h3><p>你已经随着这个教程走过漫长的路！你的小项目现在反应灵敏表明了在原来的版本基础上有很多改进。然而，这里任然有一些遗留的细节我们需要考虑。你是想成为一名伟大的程序员，而不仅仅是一名优秀的程序员！</p>
-<p>你可能已经注意到了当你滚动表视图时，那些离屏的cell仍然在处理下载和给图片加滤镜的操作。假如你快速滚动，app将忙于下载和给图片处理滤镜的操作，在列表中从最前面甚至到不可见的地方。理想的情况下app应该对离开屏幕的cells就是现在不可见的取消滤镜操作。</p>
+<p>你可能已经注意到了当你滚动表视图时，那些离屏的 cell 仍然在处理下载和给图片加滤镜的操作。假如你快速滚动，app 将忙于下载和给图片处理滤镜的操作，在列表中从最前面甚至到不可见的地方。理想的情况下 app 应该对离开屏幕的 cells 就是现在不可见的取消滤镜操作。</p>
 <p>难道你没有把取消的规定放进你的代码里？ 是的，你做了–现在你应该充分利用它们！:]</p>
-<p>回到Xcode，让后打开<code>ListViewController.swift</code>文件。去到<code>tableView(_:cellForRowAtIndexPath:)</code>方法的实现，封装<code>startOperationsForPhotoRecord</code>调用在一个if条件向下面的：</p>
+<p>回到 Xcode，让后打开 <code>ListViewController.swift</code> 文件。去到 <code>tableView(_:cellForRowAtIndexPath:)</code> 方法的实现，封装 <code>startOperationsForPhotoRecord</code> 调用在一个 if 条件向下面的：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="operator">!</span>tableView.dragging <span class="operator">&amp;&amp;</span> <span class="operator">!</span>tableView.decelerating) &#123;</span><br><span class="line">  <span class="keyword">self</span>.startOperationsForPhotoRecord(photoDetails, indexPath: indexPath)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你需要告诉表视图开始操作仅仅当表视图没有滚动的时候。这实际上是<code>UIScrollView</code>的接口，由于<code>UITableView</code>是<code>UIScrollView</code>的子类，你自动继承了这些接口。</p>
-<p>下一步，添加到下面<code>UIScrollView</code>代理方法的实现到类中：</p>
+<p>你需要告诉表视图开始操作仅仅当表视图没有滚动的时候。这实际上是 <code>UIScrollView</code> 的接口，由于 <code>UITableView</code> 是 <code>UIScrollView</code> 的子类，你自动继承了这些接口。</p>
+<p>下一步，添加到下面 <code>UIScrollView</code> 代理方法的实现到类中：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">scrollViewWillBeginDragging</span>(<span class="params">scrollView</span>: <span class="type">UIScrollView</span>) &#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  suspendAllOperations()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">scrollViewDidEndDragging</span>(<span class="params">scrollView</span>: <span class="type">UIScrollView</span>, <span class="params">willDecelerate</span> <span class="params">decelerate</span>: <span class="type">Bool</span>) &#123;</span><br><span class="line">  <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">if</span> <span class="operator">!</span>decelerate &#123;</span><br><span class="line">    loadImagesForOnscreenCells()</span><br><span class="line">    resumeAllOperations()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">scrollViewDidEndDecelerating</span>(<span class="params">scrollView</span>: <span class="type">UIScrollView</span>) &#123;</span><br><span class="line">  <span class="comment">// 3</span></span><br><span class="line">  loadImagesForOnscreenCells()</span><br><span class="line">  resumeAllOperations()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>快速走查上面的代码显示在下面：</p>
 <ol>
-<li>当用户开始滚动，你想暂停所有的操作让后看看用户想看到什么。你将要实现<code>suspendAllOperations</code>在一会儿工夫。</li>
-<li>假如<code>decelerate</code>的值是<code>false</code>,那就意味着停止拖拽表视图，因此你想恢复暂停的，因为cell离开屏幕取消的操作，启动在屏幕内cells的操作。你将要一起实现<code>loadImagesForOnscreenCells</code>和<code>resumeAllOperations</code>。</li>
+<li>当用户开始滚动，你想暂停所有的操作让后看看用户想看到什么。你将要实现 <code>suspendAllOperations</code> 在一会儿工夫。</li>
+<li>假如 <code>decelerate</code> 的值是 <code>false</code> ,那就意味着停止拖拽表视图，因此你想恢复暂停的，因为 cell 离开屏幕取消的操作，启动在屏幕内 cells 的操作。你将要一起实现 <code>loadImagesForOnscreenCells</code> 和 <code>resumeAllOperations</code> 。</li>
 <li>代理方法告诉你表视图已经停止滚动，所以你将做和#2条相同的处理。</li>
 </ol>
-<p>现在，添加下面这些遗失的方法的实现到<code>ListViewController.swift</code>:</p>
+<p>现在，添加下面这些遗失的方法的实现到 <code>ListViewController.swift</code> :</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">suspendAllOperations</span> () &#123;</span><br><span class="line">  pendingOperations.downloadQueue.suspended <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">  pendingOperations.filtrationQueue.suspended <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">resumeAllOperations</span> () &#123;</span><br><span class="line">  pendingOperations.downloadQueue.suspended <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">  pendingOperations.filtrationQueue.suspended <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">loadImagesForOnscreenCells</span> () &#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> pathsArray <span class="operator">=</span> tableView.indexPathsForVisibleRows() &#123;</span><br><span class="line">    <span class="comment">//2</span></span><br><span class="line">    <span class="keyword">var</span> allPendingOperations <span class="operator">=</span> <span class="type">Set</span>(pendingOperations.downloadsInProgress.keys.array)</span><br><span class="line">    allPendingOperations.unionInPlace(pendingOperations.filtrationsInProgress.keys.array)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3</span></span><br><span class="line">    <span class="keyword">var</span> toBeCancelled <span class="operator">=</span> allPendingOperations</span><br><span class="line">    <span class="keyword">let</span> visiblePaths <span class="operator">=</span> <span class="type">Set</span>(pathsArray <span class="keyword">as!</span> [<span class="type">NSIndexPath</span>])</span><br><span class="line">    toBeCancelled.subtractInPlace(visiblePaths)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4</span></span><br><span class="line">    <span class="keyword">var</span> toBeStarted <span class="operator">=</span> visiblePaths</span><br><span class="line">    toBeStarted.subtractInPlace(allPendingOperations)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5</span></span><br><span class="line">    <span class="keyword">for</span> indexPath <span class="keyword">in</span> toBeCancelled &#123;</span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> pendingDownload <span class="operator">=</span> pendingOperations.downloadsInProgress[indexPath] &#123;</span><br><span class="line">        pendingDownload.cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      pendingOperations.downloadsInProgress.removeValueForKey(indexPath)</span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> pendingFiltration <span class="operator">=</span> pendingOperations.filtrationsInProgress[indexPath] &#123;</span><br><span class="line">        pendingFiltration.cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      pendingOperations.filtrationsInProgress.removeValueForKey(indexPath)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6</span></span><br><span class="line">    <span class="keyword">for</span> indexPath <span class="keyword">in</span> toBeStarted &#123;</span><br><span class="line">      <span class="keyword">let</span> indexPath <span class="operator">=</span> indexPath <span class="keyword">as</span> <span class="type">NSIndexPath</span></span><br><span class="line">      <span class="keyword">let</span> recordToProcess <span class="operator">=</span> <span class="keyword">self</span>.photos[indexPath.row]</span><br><span class="line">      startOperationsForPhotoRecord(recordToProcess, indexPath: indexPath)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>suspendAllOperations</code>和<code>resumeAllOperations</code>有一个简单的实现。<code>NSOperationQueues</code>能够被暂停，通过设置<code>suspended</code>接口为<code>true</code>。这将暂停队列里面的所有操作–你不能单独暂停一个操作。</p>
 <p><code>loadImagesForOnscreenCells</code>有一点小复杂。这里发生了什么事？</p>
 <ol>
-<li>以一个包含了现在表视图可见的<code>index paths</code>的数组开始开始</li>
+<li>以一个包含了现在表视图可见的 <code>index paths</code> 的数组开始开始</li>
 <li>构造一个所有进行中的操作的集合通过结合所有在下载的进度+所有在处理滤镜的进度。</li>
-<li>构造一个<code>index paths</code>集合用来取消操作。开始所有的操作，然后移除可见行的<code>index paths</code>，这样讲留下一个离开屏幕的行正在执行的操作集合</li>
-<li>构造一个<code>index paths</code>集合，需要操作启动，用所有可见行的<code>index paths</code>启动，让后移除它们中在进行的操作。</li>
-<li>遍历那些被取消的操作，取消它们，然后移除它们的引用从<code>PendingOperations</code>。</li>
-<li>遍历那些将要开始的操作，然后对他们每个调用<code>startOperationsForPhotoRecord</code>。</li>
+<li>构造一个 <code>index paths</code> 集合用来取消操作。开始所有的操作，然后移除可见行的 <code>index paths</code> ，这样讲留下一个离开屏幕的行正在执行的操作集合</li>
+<li>构造一个 <code>index paths</code> 集合，需要操作启动，用所有可见行的 <code>index paths</code> 启动，让后移除它们中在进行的操作。</li>
+<li>遍历那些被取消的操作，取消它们，然后移除它们的引用从 <code>PendingOperations</code> 。</li>
+<li>遍历那些将要开始的操作，然后对他们每个调用 <code>startOperationsForPhotoRecord</code> 。</li>
 </ol>
 <p>构建运行然后你发现一个更流畅，资源管理德更好的应用！给你自己一轮掌声！</p>
 <p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezkdl5q55nj20jg09qq4h.jpg" alt="improved app"></p>
 <p><em>原来的相册，载入东西一次一个</em></p>
-<p>注意到当你完成滚动表视图，在可见区域行的cell的图片立即开始处理。</p>
+<p>注意到当你完成滚动表视图，在可见区域行的 cell 的图片立即开始处理。</p>
 <h3 id="何去何从？"><a href="#何去何从？" class="headerlink" title="何去何从？"></a>何去何从？</h3><p>这里是<a target="_blank" rel="noopener" href="http://cdn2.raywenderlich.com/wp-content/uploads/2014/10/ClassicPhotos-Final63.zip">completed version of the project</a>。</p>
 <blockquote>
-<p>注意：此教程写于<code>Update 17 April 2015: Updated for Xcode 6.3 and Swift 1.2</code>,现在Swift最新版本2.1使用Xcode7+以上编辑会报错，这里打包一个新语法修改版<a target="_blank" rel="noopener" href="https://github.com/wangruofeng/ClassicPhotos-Starter-fixed/archive/master.zip">completed fixed version of the project</a>。</p>
+<p>注意：此教程写于 <code>Update 17 April 2015: Updated for Xcode 6.3 and Swift 1.2</code> ,现在 Swift 最新版本2.1使用 Xcode7+以上编辑会报错，这里打包一个新语法修改版<a target="_blank" rel="noopener" href="https://github.com/wangruofeng/ClassicPhotos-Starter-fixed/archive/master.zip">completed fixed version of the project</a>。</p>
 </blockquote>
-<p>假如你完成这个工程应该花时间来真正理解它，恭喜你！你可以认为你自己是一位更有价值iOS开发者了比起在教程刚开始的时候！大多数开发的公司是非常幸运的有一个或者两个人正在知道这个东西。</p>
-<p>当时请当心 – 像多层嵌套的blocks,不必要的使用多线程可能让一个工程变得难以理解对维护你代码的人来说。线程可能引入一些难以捉摸的bugs，将永远不出现知道你网络非常慢，或者代码运行在一个更快（或更慢）的设备上，或一个不同数量的核的芯片上时。小心测试，尽量使用<code>Instruments</code>（或者你自己的观察）来确定引入多线程真的有很大改进。</p>
-<p>一个有用的特征使用操作时在这里没涉及到就是依赖（<code>dependency</code>）。你可以给一个操作添加一个或者更多的操作的依赖。这个操作不会开始直到它所有依赖的操作完成时。例如：</p>
+<p>假如你完成这个工程应该花时间来真正理解它，恭喜你！你可以认为你自己是一位更有价值 iOS 开发者了比起在教程刚开始的时候！大多数开发的公司是非常幸运的有一个或者两个人正在知道这个东西。</p>
+<p>当时请当心 – 像多层嵌套的 blocks,不必要的使用多线程可能让一个工程变得难以理解对维护你代码的人来说。线程可能引入一些难以捉摸的 bugs，将永远不出现知道你网络非常慢，或者代码运行在一个更快（或更慢）的设备上，或一个不同数量的核的芯片上时。小心测试，尽量使用 <code>Instruments</code> （或者你自己的观察）来确定引入多线程真的有很大改进。</p>
+<p>一个有用的特征使用操作时在这里没涉及到就是依赖（ <code>dependency</code> ）。你可以给一个操作添加一个或者更多的操作的依赖。这个操作不会开始直到它所有依赖的操作完成时。例如：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MyDownloadOperation is a subclass of NSOperation</span></span><br><span class="line"><span class="keyword">let</span> downloadOperation <span class="operator">=</span> <span class="type">MyDownloadOperation</span>()</span><br><span class="line"><span class="comment">// MyFilterOperation  is a subclass of NSOperation</span></span><br><span class="line"><span class="keyword">let</span> filterOperation <span class="operator">=</span> <span class="type">MyFilterOperation</span>()</span><br><span class="line"></span><br><span class="line">filterOperation.addDependency(downloadOperation)</span><br></pre></td></tr></table></figure>
 
 <p>移除依赖：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filterOperation.removeDependency(downloadOperation)</span><br></pre></td></tr></table></figure>
 
 <p>这个工程是否能使用依赖简化呢？把你学到的新技能用起来试一试 ：]<br>有件非常重要的事需要注意的就是一个依赖操作将仍然启动假如它依赖的操作被取消，还有它将自然完成。你需要牢记在心。</p>
-<p>假如你有任何评论或者问题关于这个教程或者<code>NSOperations</code>,请加<a target="_blank" rel="noopener" href="https://github.com/wangruofeng/Github_Blog/pulls">Pull request</a>。</p>
+<p>假如你有任何评论或者问题关于这个教程或者 <code>NSOperations</code> ,请加<a target="_blank" rel="noopener" href="https://github.com/wangruofeng/Github_Blog/pulls">Pull request</a>。</p>
 <p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -705,7 +706,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 21:11:34" itemprop="dateModified" datetime="2024-11-02T21:11:34+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -748,7 +749,7 @@
 <li>远程事件</li>
 </ul>
 <h3 id="谁能处理触摸事件"><a href="#谁能处理触摸事件" class="headerlink" title="谁能处理触摸事件?"></a>谁能处理触摸事件?</h3><p>响应者对象</p>
-<p>在 iOS 中不是任何对象都能处理事件,只有继承了 <code>UIResponder</code> 的对象才能接收并处理事件.我们称之为响应者对象.</p>
+<p>在 iOS 中不是任何对象都能处理事件,只有继承了  <code>UIResponder</code>  的对象才能接收并处理事件.我们称之为响应者对象.</p>
 <p><code>UIApplication</code>、<code>UIViewController</code>、<code>UIView</code> 都继承自 <code>UIResponder</code>,因此它们都是响应者对象,都能够接收并处理事件.</p>
 <h3 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h3><p>UIResponder 内部提供了方法来处理事件</p>
 <ol>
@@ -876,6 +877,7 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIGestureRecognizerState</span>) &#123;</span><br><span class="line">    <span class="comment">// 没有触摸事件发生，所有手势识别的默认状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStatePossible</span>,</span><br><span class="line">    <span class="comment">// 一个手势已经开始但尚未改变或者完成时</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateBegan</span>,</span><br><span class="line">    <span class="comment">// 手势状态改变</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateChanged</span>,</span><br><span class="line">    <span class="comment">// 手势完成</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateEnded</span>,</span><br><span class="line">    <span class="comment">// 手势取消，恢复至 Possible 状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateCancelled</span>,</span><br><span class="line">    <span class="comment">// 手势失败，恢复至 Possible 状态</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateFailed</span>,</span><br><span class="line">    <span class="comment">// 识别到手势识别</span></span><br><span class="line">    <span class="built_in">UIGestureRecognizerStateRecognized</span> = <span class="built_in">UIGestureRecognizerStateEnded</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -926,7 +928,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:47:34" itemprop="dateModified" datetime="2024-11-02T20:47:34+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -944,7 +946,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>439</span>
+              <span>440</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -964,21 +966,21 @@
 
       
           <blockquote>
-<p>记录iOS各种重要里程碑事件</p>
+<p>记录 iOS 各种重要里程碑事件</p>
 </blockquote>
-<h3 id="私有成员变量的实现"><a href="#私有成员变量的实现" class="headerlink" title="私有成员变量的实现"></a>私有成员变量的实现</h3><p>1.0 时代，在.h文件采用<code>@private</code>关键词</p>
+<h3 id="私有成员变量的实现"><a href="#私有成员变量的实现" class="headerlink" title="私有成员变量的实现"></a>私有成员变量的实现</h3><p>1.0 时代，在.h 文件采用 <code>@private</code> 关键词</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">@private</span></span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2.0 时代 通过在.m文件通过<code>匿名Category</code></p>
+<p>2.0 时代 通过在.m 文件通过 <code>匿名Category</code> </p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSInteger</span> value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
-<p>3.0 时代 2013 年的 WWDC 允许在 .m 的 <code>@implementation </code>中</p>
+<p>3.0 时代 2013 年的 WWDC 允许在 .m 的  <code>@implementation </code> 中</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span> </span>&#123;</span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="ARC推出"><a href="#ARC推出" class="headerlink" title="ARC推出"></a>ARC推出</h3><p>2011</p>
-<h3 id="自动生成getter和setter方法的-synthesize"><a href="#自动生成getter和setter方法的-synthesize" class="headerlink" title="自动生成getter和setter方法的@synthesize"></a>自动生成getter和setter方法的<code>@synthesize</code></h3><p>2012</p>
-<h3 id="AutoLayout引入"><a href="#AutoLayout引入" class="headerlink" title="AutoLayout引入"></a>AutoLayout引入</h3><p>iOS 6.0</p>
+<h3 id="ARC-推出"><a href="#ARC-推出" class="headerlink" title="ARC 推出"></a>ARC 推出</h3><p>2011</p>
+<h3 id="自动生成-getter-和-setter-方法的-synthesize"><a href="#自动生成-getter-和-setter-方法的-synthesize" class="headerlink" title="自动生成 getter 和 setter 方法的 @synthesize"></a>自动生成 getter 和 setter 方法的 <code>@synthesize</code></h3><p>2012</p>
+<h3 id="AutoLayout-引入"><a href="#AutoLayout-引入" class="headerlink" title="AutoLayout 引入"></a>AutoLayout 引入</h3><p>iOS 6.0</p>
 <h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><ul>
 <li><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/404495.htm">WWDC</a> 1.0 版本发布 – 2014.06.02 </li>
 <li>Swift 2.0发布   – 2015.08.07</li>
@@ -1186,6 +1188,7 @@
 <li>WebKit</li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -1236,7 +1239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:31:46" itemprop="dateModified" datetime="2024-11-02T20:31:46+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1273,33 +1276,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="UIImag构造方式"><a href="#UIImag构造方式" class="headerlink" title="UIImag构造方式"></a>UIImag构造方式</h2><p>UIImag构造方式大致有4种方式</p>
+          <h2 id="UIImag-构造方式"><a href="#UIImag-构造方式" class="headerlink" title="UIImag 构造方式"></a>UIImag 构造方式</h2><p>UIImag 构造方式大致有4种方式</p>
 <ul>
-<li>从本地bundle中加载 <code>imageNamed:</code>，传入一个bundle的文件名即可</li>
-<li>从本地一个文件路径读取 <code>imageWithContentsOfFile:</code>，需要传一个文件的文件路径path</li>
-<li>通过二进制数据<code>NSData</code>来创建<code>imageWithData:</code></li>
-<li>通过一个<code>CoreGraphics</code>的<code>CGImageRef</code>来创建，<code>initWithCGImage:</code></li>
-<li>通过一个<code>CoreImage</code>的<code>CIImage</code>来创建<code>initWithCIImage</code></li>
+<li>从本地 bundle 中加载  <code>imageNamed:</code> ，传入一个 bundle 的文件名即可</li>
+<li>从本地一个文件路径读取  <code>imageWithContentsOfFile:</code> ，需要传一个文件的文件路径 path</li>
+<li>通过二进制数据 <code>NSData</code> 来创建 <code>imageWithData:</code> </li>
+<li>通过一个 <code>CoreGraphics</code> 的 <code>CGImageRef</code> 来创建， <code>initWithCGImage:</code> </li>
+<li>通过一个 <code>CoreImage</code> 的 <code>CIImage</code> 来创建 <code>initWithCIImage</code></li>
 </ul>
-<p>通过查阅Apple官网文档我们发现有2个这样的方法，今天就来一探究竟</p>
+<p>通过查阅 Apple 官网文档我们发现有2个这样的方法，今天就来一探究竟</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCIImage:(<span class="built_in">CIImage</span> *)ciImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCIImage:(<span class="built_in">CIImage</span> *)ciImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0);</span><br></pre></td></tr></table></figure>
 
-<p>2个类方法2个实例方法都是类似，这里以<code>CGImageRef</code>为例</p>
+<p>2个类方法2个实例方法都是类似，这里以 <code>CGImageRef</code> 为例</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li><p>新建的Xcode工程选择single Application</p>
+<li><p>新建的 Xcode 工程选择 single Application</p>
 </li>
-<li><p>在storyboard中拖一个<code>UIImageView</code>设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置<code>UIImageView</code>的<code>contentMode</code>为<code>Aspect Fit</code>方便查看以免变形</p>
+<li><p>在 storyboard 中拖一个 <code>UIImageView</code> 设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置 <code>UIImageView</code> 的 <code>contentMode</code> 为 <code>Aspect Fit</code> 方便查看以免变形</p>
 </li>
-<li><p>在<code>UIImageView</code>下发放一个<code>UIButton</code>控件方便后面好对图片进行旋转操作</p>
+<li><p>在 <code>UIImageView</code> 下发放一个 <code>UIButton</code> 控件方便后面好对图片进行旋转操作</p>
 </li>
-<li><p>在viewController中建立一个<code>UIImageView</code>引用,拉出一个rotate按钮的<code>IBAction</code></p>
-<p> 现在大概界面大概这样<br> <img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezhnagzyhpj20x7105doj.jpg" alt="UIImageOrientation效果图"></p>
+<li><p>在 viewController 中建立一个 <code>UIImageView</code> 引用,拉出一个 rotate 按钮的 <code>IBAction</code> </p>
+<p> 现在大概界面大概这样<br> <img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezhnagzyhpj20x7105doj.jpg" alt="UIImageOrientation 效果图"></p>
 </li>
 <li><p>下面我们实现<br><code>- (IBAction)rotateImage:(id)sender &#123;&#125;</code>这个方法</p>
 <blockquote>
-<p>在这里我们想通过点击按钮实现图片旋转<br> 为了方便使用我们使用Category的方式实现<br> 新建一个UIImage的分类取名叫Rotate</p>
+<p>在这里我们想通过点击按钮实现图片旋转<br> 为了方便使用我们使用 Category 的方式实现<br> 新建一个 UIImage 的分类取名叫 Rotate</p>
 </blockquote>
 <blockquote>
 <p>这里需要传一张要处理的图片和一个待处理成的图片方向</p>
@@ -1308,15 +1311,15 @@
 </ol>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">    + (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage orientation:(<span class="built_in">UIImageOrientation</span>)orientation&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *newImage = [<span class="built_in">UIImage</span> imageWithCGImage:oldImage.CGImage scale:<span class="number">1</span> orientation:orientation];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *orientationStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">switch</span> (orientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUp&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDown&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeft&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRight&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUpMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDownMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeftMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRightMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;current orientation: %@&quot;</span>,orientationStr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在button点击事件触发时的这样使用</p>
+<p>在 button 点击事件触发时的这样使用</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)rotateImage:(<span class="type">id</span>)sender &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *oldImage = <span class="keyword">self</span>.imgView.image;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *rotatedImage = [<span class="built_in">UIImage</span> rotateImage:oldImage orientation:<span class="built_in">UIImageOrientationLeft</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imgView.image = rotatedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>点击按钮测试发现第一次没问题，但是重逢点击无效<br>原来<code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code>方法执行原理是执行前通过 <code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code>接口先判断当前图片的方向是否为将要旋转的方向，如果是就直接返回不做处理，如果不是再作旋转处理，也就是说这个方法并没有实际上旋转image的数据，只是用一个枚举标记旋转的状态</p>
-<p>如果我们想每次旋转需要直接改变原始image的数据该怎么办呢？<br>在这里我们通过<code>CGBitmapContext</code>,使用<code>CGContextRotateCTM</code>来设置旋转，再把UIImage通过<code>drawInRect</code>重新绘制出来，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>获得处理后的图片</p>
+<p>点击按钮测试发现第一次没问题，但是重逢点击无效<br>原来 <code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code> 方法执行原理是执行前通过  <code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code> 接口先判断当前图片的方向是否为将要旋转的方向，如果是就直接返回不做处理，如果不是再作旋转处理，也就是说这个方法并没有实际上旋转 image 的数据，只是用一个枚举标记旋转的状态</p>
+<p>如果我们想每次旋转需要直接改变原始 image 的数据该怎么办呢？<br>在这里我们通过 <code>CGBitmapContext</code> ,使用 <code>CGContextRotateCTM</code> 来设置旋转，再把 UIImage 通过 <code>drawInRect</code> 重新绘制出来，通过 <code>UIGraphicsGetImageFromCurrentImageContext</code> 获得处理后的图片</p>
 <p>下面是具体实现</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)fixedRotation&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.imageOrientation == <span class="built_in">UIImageOrientationUp</span>) <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">    <span class="built_in">CGAffineTransform</span> transform = <span class="built_in">CGAffineTransformIdentity</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="number">0</span>, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, -M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.height, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Now we draw the underlying CGImage into a new context, applying the transform</span></span><br><span class="line">    <span class="comment">// calculated above.</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height,</span><br><span class="line">                                             <span class="built_in">CGImageGetBitsPerComponent</span>(<span class="keyword">self</span>.CGImage), <span class="number">0</span>,</span><br><span class="line">                                             <span class="built_in">CGImageGetColorSpace</span>(<span class="keyword">self</span>.CGImage),</span><br><span class="line">                                             <span class="built_in">CGImageGetBitmapInfo</span>(<span class="keyword">self</span>.CGImage));</span><br><span class="line">    <span class="built_in">CGContextConcatCTM</span>(ctx, transform);</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            <span class="comment">// Grr...</span></span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.height,<span class="keyword">self</span>.size.width), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.width,<span class="keyword">self</span>.size.height), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// And now we just create a new UIImage from the drawing context</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> cgimg = <span class="built_in">CGBitmapContextCreateImage</span>(ctx);</span><br><span class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageWithCGImage:cgimg];</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(ctx);</span><br><span class="line">    <span class="built_in">CGImageRelease</span>(cgimg);</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>现在再优化一下原来<code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
+<p>现在再优化一下原来 <code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code>  方法,修改成这样</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage orientation:(<span class="built_in">UIImageOrientation</span>)orientation&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *newImage = [<span class="built_in">UIImage</span> imageWithCGImage:oldImage.CGImage scale:<span class="number">1</span> orientation:orientation];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//fix original Image with gived orientation.</span></span><br><span class="line">    <span class="built_in">UIImage</span> *fixedRotationImage = [newImage fixedRotation];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *orientationStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">switch</span> (orientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUp&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDown&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeft&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRight&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUpMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDownMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeftMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRightMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;current orientation: %@&quot;</span>,orientationStr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fixedRotationImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 现在再测试一下，well，It‘s OK。</p>
@@ -1327,6 +1330,7 @@
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/8915630/ios-uiimageview-how-to-handle-uiimage-image-orientation">ios-uiimageview-how-to-handle-uiimage-image-orientation</a></li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -1377,7 +1381,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:35:11" itemprop="dateModified" datetime="2024-11-02T20:35:11+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1415,58 +1419,59 @@
 
       
           <h4 id="这是什么？"><a href="#这是什么？" class="headerlink" title="这是什么？"></a>这是什么？</h4><blockquote>
-<p>此文将讲解通过形状图层<code>CAShaperLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现动画绘制路径<code>CGPath</code>,此文是<a target="_blank" rel="noopener" href="http://oleb.net/">By Ole Begemann</a>创建于December 18, 2010,当时是发布iOS SDK 4.2时<code>CAShapeLayer</code>新增加的两个属性<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW16">strokeStart</a>和<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW15">strokeEnd</a>,这两个值是两个浮点数取值范围0.0~1.0,用来表明形状图层所指向的路径在绘制开始和结束路径中的相对位置。</p>
+<p>此文将讲解通过形状图层 <code>CAShaperLayer</code> 的 <code>strokeStart</code> 和 <code>strokeEnd</code> 来实现动画绘制路径 <code>CGPath</code> ,此文是<a target="_blank" rel="noopener" href="http://oleb.net/">By Ole Begemann</a>创建于 December 18, 2010,当时是发布 iOS SDK 4.2时 <code>CAShapeLayer</code> 新增加的两个属性<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW16">strokeStart</a>和<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW15">strokeEnd</a>,这两个值是两个浮点数取值范围0.0~1.0,用来表明形状图层所指向的路径在绘制开始和结束路径中的相对位置。</p>
 </blockquote>
 <p><code>strokeStart</code>默认值是0.0，<code>strokeEnd</code>默认值是1.0，显然这会导致形状图层的路径将一整个被绘制。假如，你想说，如果设置了layer.strokeEnd &#x3D; 0.5f,只让她绘制前半部分，那该多好。</p>
-<p>真正有趣的事情是这些接口都是可动画的。通过动画绘制<code>strokeEnd</code>从0.0到1.0在几秒内，我们就能很容易自己绘制路径像下面这样写：</p>
+<p>真正有趣的事情是这些接口都是可动画的。通过动画绘制 <code>strokeEnd</code> 从0.0到1.0在几秒内，我们就能很容易自己绘制路径像下面这样写：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CABasicAnimation</span> *pathAnimation = [<span class="built_in">CABasicAnimation</span> animationWithKeyPath:<span class="string">@&quot;strokeEnd&quot;</span>];</span><br><span class="line">pathAnimation.duration = <span class="number">10.0</span>;</span><br><span class="line">pathAnimation.fromValue = [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">0.0</span>f];</span><br><span class="line">pathAnimation.toValue = [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">1.0</span>f];</span><br><span class="line">[<span class="keyword">self</span>.pathLayer addAnimation:pathAnimation forKey:<span class="string">@&quot;strokeEndAnimation&quot;</span>];</span><br></pre></td></tr></table></figure>
 
-<p>最后，再添加第二个图层包含一个铅笔图片，使用关键帧动画<code> CAKeyframeAnimation</code>来让它随着这个路径以相同的速度绘制，就可以达到完美的错觉效果：</p>
+<p>最后，再添加第二个图层包含一个铅笔图片，使用关键帧动画 <code> CAKeyframeAnimation</code> 来让它随着这个路径以相同的速度绘制，就可以达到完美的错觉效果：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAKeyframeAnimation</span> *penAnimation = [<span class="built_in">CAKeyframeAnimation</span> animationWithKeyPath:<span class="string">@&quot;position&quot;</span>];</span><br><span class="line">penAnimation.duration = <span class="number">10.0</span>;</span><br><span class="line">penAnimation.path = <span class="keyword">self</span>.pathLayer.path;</span><br><span class="line">penAnimation.calculationMode = kCAAnimationPaced;</span><br><span class="line">[<span class="keyword">self</span>.penLayer addAnimation:penAnimation forKey:<span class="string">@&quot;penAnimation&quot;</span>];</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">绘制普通路径效果视频</a></p>
 <p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">下载地址</a></p>
-<p>这个对文本一样有效；我们只需要把字符转化成<code>CGPath</code>。<code>Core Text</code>提供了那样的功能的函数，<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/Carbon/Reference/CTFontRef/Reference/reference.html#//apple_ref/c/func/CTFontCreatePathForGlyph">CTFontCreatePathForGlyph( )</a>。为了使用它，我们需要创建一个带属性的字符串用我们想要渲染的文本，先把它们分割成行在分割成一个个字符。在把所有的字符转换成路径后，我们以子路径方式把它添加到一个单个的<code>CGPath</code>路径中。更多细节可以查看<a target="_blank" rel="noopener" href="http://www.codeproject.com/script/Membership/View.aspx?mid=2887692">Ohmu</a>写的<a target="_blank" rel="noopener" href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">Low-level text rendering</a>这篇文章。结果看以来非常的炫酷：</p>
+<p>这个对文本一样有效；我们只需要把字符转化成 <code>CGPath</code> 。 <code>Core Text</code> 提供了那样的功能的函数，<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/Carbon/Reference/CTFontRef/Reference/reference.html#//apple_ref/c/func/CTFontCreatePathForGlyph">CTFontCreatePathForGlyph( )</a>。为了使用它，我们需要创建一个带属性的字符串用我们想要渲染的文本，先把它们分割成行在分割成一个个字符。在把所有的字符转换成路径后，我们以子路径方式把它添加到一个单个的 <code>CGPath</code> 路径中。更多细节可以查看<a target="_blank" rel="noopener" href="http://www.codeproject.com/script/Membership/View.aspx?mid=2887692">Ohmu</a>写的<a target="_blank" rel="noopener" href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">Low-level text rendering</a>这篇文章。结果看以来非常的炫酷：</p>
 <p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">绘制文字路径效果视频</a></p>
 <p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">下载地址</a></p>
-<p>从Github上获得<a target="_blank" rel="noopener" href="http://github.com/ole/Animated-Paths">iPad版的样品工程</a></p>
+<p>从 Github 上获得<a target="_blank" rel="noopener" href="http://github.com/ole/Animated-Paths">iPad 版的样品工程</a></p>
 <h4 id="你将学到的知识点"><a href="#你将学到的知识点" class="headerlink" title="你将学到的知识点"></a>你将学到的知识点</h4><ul>
-<li>使用<code>CAShapeLayer</code>的<code>strokeStart</code>和<code>strokeEnd</code>来实现路径动画,比较高级复杂的效果像google的下拉刷新转圈就可以从这里引申去实现。</li>
-<li><code>CABasicAnimation</code>和<code>CABasicAnimation</code>使用</li>
-<li>深入理解<code>CAShapeLayer</code>和<code>CALayer</code></li>
-<li>通过文本创建路径，核心函数<code>CTFontCreatePathForGlyph()</code></li>
+<li>使用 <code>CAShapeLayer</code> 的 <code>strokeStart</code> 和 <code>strokeEnd</code> 来实现路径动画,比较高级复杂的效果像 google 的下拉刷新转圈就可以从这里引申去实现。</li>
+<li><code>CABasicAnimation</code> 和 <code>CABasicAnimation</code> 使用</li>
+<li>深入理解 <code>CAShapeLayer</code> 和 <code>CALayer</code> </li>
+<li>通过文本创建路径，核心函数 <code>CTFontCreatePathForGlyph()</code></li>
 </ul>
 <h4 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAShapeLayer</span> *pathLayer = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">pathLayer.frame = <span class="keyword">self</span>.animationLayer.bounds;</span><br><span class="line">pathLayer.bounds = pathRect;</span><br><span class="line">pathLayer.geometryFlipped = <span class="literal">YES</span>;</span><br><span class="line">pathLayer.path = path.CGPath;</span><br><span class="line">pathLayer.strokeColor = [[<span class="built_in">UIColor</span> blackColor] <span class="built_in">CGColor</span>];</span><br><span class="line">pathLayer.fillColor = <span class="literal">nil</span>;</span><br><span class="line">pathLayer.lineWidth = <span class="number">10.0</span>f;</span><br><span class="line">pathLayer.lineJoin = kCALineJoinBevel;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.animationLayer addSublayer:pathLayer];</span><br></pre></td></tr></table></figure>
 
-<p>有一点非常重要，CALayer在iOS系统中相对坐标系是以屏幕左上<code>top-left</code>为坐标原点的，在Mac OS X上以坐下<code>bottom-left</code>为坐标原点,但是可以通过<code>CALayer</code>的接口<code>geometryFlipped</code>垂直翻转坐标系，这个值默认是<code>NO</code>，设置成<code>YES</code>就可以把坐标系转换成左下<code>bottom-left</code>了，这里作者使用的左下<code>bottom-left</code>的坐标系。</p>
+<p>有一点非常重要，CALayer 在 iOS 系统中相对坐标系是以屏幕左上 <code>top-left</code> 为坐标原点的，在 Mac OS X 上以坐下 <code>bottom-left</code> 为坐标原点,但是可以通过 <code>CALayer</code> 的接口 <code>geometryFlipped</code> 垂直翻转坐标系，这个值默认是 <code>NO</code> ，设置成 <code>YES</code> 就可以把坐标系转换成左下 <code>bottom-left</code> 了，这里作者使用的左下 <code>bottom-left</code> 的坐标系。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">getter</span>=isGeometryFlipped) <span class="type">BOOL</span> geometryFlipped;</span><br></pre></td></tr></table></figure>
 <p>关于这个属性使用时需要特别注意</p>
 <ol>
 <li>翻转会同时作用于它的子图层</li>
-<li>即使这个属性设置成<code>YES</code>,图片的<code>orientation</code>仍然是不变的（也就是说当设置<code>flipped=YES</code>和<code>flipped=NO</code>时一个<code>CGImageRef</code>储存在<code>contents</code>接口中的内容将会显示一致，赋值并不会真正变换底层的图层）</li>
+<li>即使这个属性设置成 <code>YES</code> ,图片的 <code>orientation</code> 仍然是不变的（也就是说当设置 <code>flipped=YES</code> 和 <code>flipped=NO</code> 时一个 <code>CGImageRef</code> 储存在 <code>contents</code> 接口中的内容将会显示一致，赋值并不会真正变换底层的图层）</li>
 </ol>
-<h4 id="pathLayer动画实现原理"><a href="#pathLayer动画实现原理" class="headerlink" title="pathLayer动画实现原理"></a>pathLayer动画实现原理</h4><ol>
-<li>先创建一个动画用的图层<code>animationLayer</code>类型<code>CALayer</code>，用来充当动画的画布。</li>
-<li>创建真正的路径图层<code>pathLayer</code>类型为<code>CAShapeLayer</code>,让它的坐标系垂直翻转，并且让图层宽高同时向内收缩100个点,通过<code>CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)</code>实现</li>
-<li>把<code>pathLayer</code>添加到<code>animationLayer</code>的子图层中去</li>
-<li>创建一个铅笔图层<code>penLayer</code>类型为<code>CALayer</code>,把它添加到<code>pathLayer</code>去</li>
-<li>对<code>pathLayer</code>添加<code>CABasicAnimation</code>动画，动画属性为<code>strokeEnd</code></li>
-<li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
+<h4 id="pathLayer-动画实现原理"><a href="#pathLayer-动画实现原理" class="headerlink" title="pathLayer 动画实现原理"></a>pathLayer 动画实现原理</h4><ol>
+<li>先创建一个动画用的图层 <code>animationLayer</code> 类型 <code>CALayer</code> ，用来充当动画的画布。</li>
+<li>创建真正的路径图层 <code>pathLayer</code> 类型为 <code>CAShapeLayer</code> ,让它的坐标系垂直翻转，并且让图层宽高同时向内收缩100个点,通过 <code>CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)</code> 实现</li>
+<li>把 <code>pathLayer</code> 添加到 <code>animationLayer</code> 的子图层中去</li>
+<li>创建一个铅笔图层 <code>penLayer</code> 类型为 <code>CALayer</code> ,把它添加到 <code>pathLayer</code> 去</li>
+<li>对 <code>pathLayer</code> 添加 <code>CABasicAnimation</code> 动画，动画属性为 <code>strokeEnd</code> </li>
+<li>对 <code>penLayer</code> 添加 <code>CAKeyframeAnimation</code> 动画，动画属性为 <code>position</code></li>
 </ol>
-<h4 id="textLayer动画实现原理"><a href="#textLayer动画实现原理" class="headerlink" title="textLayer动画实现原理"></a>textLayer动画实现原理</h4><ol>
-<li>先创建一个动画用的图层<code>animationLayer</code>类型<code>CALayer</code>，用来充当动画的画布</li>
-<li>Create path from text,See:<a target="_blank" rel="noopener" href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">http://www.codeproject.com/KB/iPhone/Glyph.aspx</a>，最终保存到一个类型为<code>CGMutablePathRef</code>的letter中</li>
-<li>通过letter来创建文字<code>UIBezierPath</code>类型的<code>path</code></li>
-<li>通过path再创建<code>CAShapeLayer</code>pathLayer,并且把pathLayer添加到<code>animationLayer</code>中去</li>
-<li>创建一个铅笔图层<code>penLayer</code>类型为<code>CALayer</code>,把它添加到<code>pathLayer</code>去</li>
-<li>对<code>pathLayer</code>添加<code>CABasicAnimation</code>动画，动画属性为<code>strokeEnd</code></li>
-<li>对<code>penLayer</code>添加<code>CAKeyframeAnimation</code>动画，动画属性为<code>position</code></li>
+<h4 id="textLayer-动画实现原理"><a href="#textLayer-动画实现原理" class="headerlink" title="textLayer 动画实现原理"></a>textLayer 动画实现原理</h4><ol>
+<li>先创建一个动画用的图层 <code>animationLayer</code> 类型 <code>CALayer</code> ，用来充当动画的画布</li>
+<li>Create path from text,See:<a target="_blank" rel="noopener" href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">http://www.codeproject.com/KB/iPhone/Glyph.aspx</a>，最终保存到一个类型为 <code>CGMutablePathRef</code> 的 letter 中</li>
+<li>通过 letter 来创建文字 <code>UIBezierPath</code> 类型的 <code>path</code> </li>
+<li>通过 path 再创建 <code>CAShapeLayer</code> pathLayer,并且把 pathLayer 添加到 <code>animationLayer</code> 中去</li>
+<li>创建一个铅笔图层 <code>penLayer</code> 类型为 <code>CALayer</code> ,把它添加到 <code>pathLayer</code> 去</li>
+<li>对 <code>pathLayer</code> 添加 <code>CABasicAnimation</code> 动画，动画属性为 <code>strokeEnd</code> </li>
+<li>对 <code>penLayer</code> 添加 <code>CAKeyframeAnimation</code> 动画，动画属性为 <code>position</code></li>
 </ol>
-<h4 id="修复一处bug"><a href="#修复一处bug" class="headerlink" title="修复一处bug"></a>修复一处bug</h4><p>重复点击<code>UISegmentedControl</code>导致铅笔消失，这是设置了<code> penAnimation.delegate = self;</code>在代理方法里面没有判断结束直接将设置<code>self.penLayer.hidden = YES</code>，导致连续切换时铅笔不见了，要修复这个bug只需加一个判断<code>   if (flag)   self.penLayer.hidden = YES;</code>即可,这样的意思是只有当动画完成时才设置<code>self.penLayer.hidden</code>的值，好了现在已经非常完美了，快去动手自己试试吧！🍺</p>
+<h4 id="修复一处-bug"><a href="#修复一处-bug" class="headerlink" title="修复一处 bug"></a>修复一处 bug</h4><p>重复点击 <code>UISegmentedControl</code> 导致铅笔消失，这是设置了 <code> penAnimation.delegate = self;</code> 在代理方法里面没有判断结束直接将设置 <code>self.penLayer.hidden = YES</code> ，导致连续切换时铅笔不见了，要修复这个 bug 只需加一个判断<code>   if (flag)   self.penLayer.hidden = YES;</code>即可,这样的意思是只有当动画完成时才设置<code>self.penLayer.hidden</code>的值，好了现在已经非常完美了，快去动手自己试试吧！🍺</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/">原文链接</a></li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -1517,7 +1522,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:40:00" itemprop="dateModified" datetime="2024-11-02T20:40:00+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1535,7 +1540,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>785</span>
+              <span>786</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1560,28 +1565,28 @@
 <li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/384f80cdc57b/latest_articles">lp_马建成</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/7ba5d9065301/latest_articles">seedante
 </a></li>
-<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/960f3b94323a/latest_articles">大灰灰iOS</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/960f3b94323a/latest_articles">大灰灰 iOS</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/56475732c6e9/latest_articles">StrongX</a></li>
 </ul>
 <h2 id="国内个人"><a href="#国内个人" class="headerlink" title="国内个人"></a>国内个人</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://onevcat.com/?from=inf&wvr=5&loc=infblog">猫神onevcat</a> – 地球人都知道</li>
+<li><a target="_blank" rel="noopener" href="http://onevcat.com/?from=inf&wvr=5&loc=infblog">猫神 onevcat</a> – 地球人都知道</li>
 <li><a target="_blank" rel="noopener" href="http://blog.devtang.com/">唐巧</a>–猿题库作者</li>
 <li><a target="_blank" rel="noopener" href="http://blog.txx.im/?from=inf&wvr=5&loc=infblog">虾神</a>–话说你们晓得虾神年纪多大么？反正我是觉得白活了。90后太厉害了。</li>
 <li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">sunnyxx</a> – <a target="_blank" rel="noopener" href="https://github.com/forkingdog/FDFullscreenPopGesture">FDFullscreenPopGesture</a>作者，值得关注</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/nixzhu/dev-blog">nixzhu</a>–有几篇翻译的文章质量不错</li>
 <li><a target="_blank" rel="noopener" href="http://beyondvincent.com/">破船之家</a>–这让我想起，喝上一杯朗姆酒🍺</li>
-<li><a target="_blank" rel="noopener" href="http://limboy.me/">Limboy</a> – 蘑菇街一位资深iOS程序员</li>
-<li><a target="_blank" rel="noopener" href="http://macshuo.com/?page_id=93">MacTalk-池建强的随想录</a>–Mac开发大牛</li>
-<li><a target="_blank" rel="noopener" href="http://www.xuanyusong.com/">雨松MOMO</a>–专注移动互联网，专注Unity3D游戏开发,国内最早开发Unity3d的大神之一</li>
-<li><a target="_blank" rel="noopener" href="http://yulingtianxia.com/">玉令天下的博客</a> – 关于runtime的资料整理得非常不错</li>
-<li><a target="_blank" rel="noopener" href="http://chun.tips/">Chun Tips</a> – 对Runtime,RunLoop,AutoLayout讲解得非常详细 ❤️</li>
+<li><a target="_blank" rel="noopener" href="http://limboy.me/">Limboy</a> – 蘑菇街一位资深 iOS 程序员</li>
+<li><a target="_blank" rel="noopener" href="http://macshuo.com/?page_id=93">MacTalk-池建强的随想录</a>–Mac 开发大牛</li>
+<li><a target="_blank" rel="noopener" href="http://www.xuanyusong.com/">雨松 MOMO</a>–专注移动互联网，专注 Unity3D 游戏开发,国内最早开发 Unity3d 的大神之一</li>
+<li><a target="_blank" rel="noopener" href="http://yulingtianxia.com/">玉令天下的博客</a> – 关于 runtime 的资料整理得非常不错</li>
+<li><a target="_blank" rel="noopener" href="http://chun.tips/">Chun Tips</a> – 对 Runtime,RunLoop,AutoLayout 讲解得非常详细 ❤️</li>
 <li><a target="_blank" rel="noopener" href="http://blog.treney.com/">鹏威の博客</a> – 非常炫酷的博客，值得学习</li>
-<li><a target="_blank" rel="noopener" href="https://www.mgenware.com/blog/">mgenware</a> – 往全栈方向发展ing</li>
+<li><a target="_blank" rel="noopener" href="https://www.mgenware.com/blog/">mgenware</a> – 往全栈方向发展 ing</li>
 </ul>
 <h2 id="国外个人"><a href="#国外个人" class="headerlink" title="国外个人"></a>国外个人</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.mikeash.com/">mikeash</a>–白天飞行员，晚上程序员 ：] just this guy, you know?</li>
 <li><a target="_blank" rel="noopener" href="https://www.shinobicontrols.com/blog">shinobicontrols</a>–iOS 最新 API 以及新功能用法</li>
-<li><a target="_blank" rel="noopener" href="http://iosdevelopertips.com/user-interface/custom-visual-calendar-control-for-ios.html">iosdevelopertips</a>–教程配合Demo让你学习成长立竿见影</li>
+<li><a target="_blank" rel="noopener" href="http://iosdevelopertips.com/user-interface/custom-visual-calendar-control-for-ios.html">iosdevelopertips</a>–教程配合 Demo 让你学习成长立竿见影</li>
 <li><a target="_blank" rel="noopener" href="http://iosdevweekly.com/">iosdevweekly</a>–很棒的个人技术博客网，已发表230篇文章</li>
 <li><a target="_blank" rel="noopener" href="http://ios-goodies.com/">ios-goodies</a>–iOS,UI,UX,Objective-c,Swift,Xcode</li>
 <li><a target="_blank" rel="noopener" href="http://nshipster.cn/authors/mattt-thompson/">mattt-thompson</a> – 不用解释</li>
@@ -1589,11 +1594,11 @@
 <li><a target="_blank" rel="noopener" href="http://www.thinkandbuild.it/">thinkandbuild</a>–《Introduction To 3D Drawing in CoreAnimtion》作者</li>
 <li><a target="_blank" rel="noopener" href="http://robb.is/">robb.is</a>–《How to build a nice Hamburger transition in swift》作者</li>
 <li><a target="_blank" rel="noopener" href="http://commandshift.co.uk/">commandshift</a>–不多说，质量极高</li>
-<li><a target="_blank" rel="noopener" href="http://indieambitions.com/">indieambitions</a>–raywenderlich常驻作者之一的blog，非常赞。</li>
-<li><a target="_blank" rel="noopener" href="http://nvie.com/">nvie</a>–国外一个大神的blog，讲得比较杂，git，ios，python都有涉猎，但是每篇都很精彩。</li>
-<li><a target="_blank" rel="noopener" href="http://stuartkhall.com/">stuartkhall</a>–很多关于app上线运营之类的blog，值得一看。</li>
-<li><a target="_blank" rel="noopener" href="http://blog.ittybittyapps.com/">ittybittyapps</a>–神器Reveal的作者的blog。</li>
-<li><a target="_blank" rel="noopener" href="http://adoptioncurve.net/">adoptioncurve</a>–更新极快，当时iOS8还没出几个周，作者就写了篇sizeclass解析。非常棒</li>
+<li><a target="_blank" rel="noopener" href="http://indieambitions.com/">indieambitions</a>–raywenderlich 常驻作者之一的 blog，非常赞。</li>
+<li><a target="_blank" rel="noopener" href="http://nvie.com/">nvie</a>–国外一个大神的 blog，讲得比较杂，git，ios，python 都有涉猎，但是每篇都很精彩。</li>
+<li><a target="_blank" rel="noopener" href="http://stuartkhall.com/">stuartkhall</a>–很多关于 app 上线运营之类的 blog，值得一看。</li>
+<li><a target="_blank" rel="noopener" href="http://blog.ittybittyapps.com/">ittybittyapps</a>–神器 Reveal 的作者的 blog。</li>
+<li><a target="_blank" rel="noopener" href="http://adoptioncurve.net/">adoptioncurve</a>–更新极快，当时 iOS8还没出几个周，作者就写了篇 sizeclass 解析。非常棒</li>
 <li><a target="_blank" rel="noopener" href="http://ciechanowski.me/">ciechanowski</a>–各种数学上几何变化</li>
 <li><a target="_blank" rel="noopener" href="https://www.bignerdranch.com/blog/">bignerdranch</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.cocoawithlove.com/">cocoawithlove</a>–2008-2011的老文章，现在没怎么跟新了</li>
@@ -1601,22 +1606,22 @@
 <li><a target="_blank" rel="noopener" href="http://www.g8production.com/">g8production</a></li>
 <li><a target="_blank" rel="noopener" href="http://lucida.me/about/">lucida</a> – 我比较佩服一名程序员，想学算法找他推荐咯😁</li>
 </ul>
-<h2 id="团体blog"><a href="#团体blog" class="headerlink" title="团体blog"></a>团体blog</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://blog.ibireme.com/">ibireme</a>–最近很🔥的YYKit的作者</li>
-<li><a target="_blank" rel="noopener" href="http://tech.glowing.com/cn/">Glow技术团队</a></li>
+<h2 id="团体-blog"><a href="#团体-blog" class="headerlink" title="团体 blog"></a>团体 blog</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.ibireme.com/">ibireme</a>–最近很🔥的 YYKit 的作者</li>
+<li><a target="_blank" rel="noopener" href="http://tech.glowing.com/cn/">Glow 技术团队</a></li>
 <li><a target="_blank" rel="noopener" href="http://tech.meituan.com/">美团点评技术团队</a></li>
 </ul>
-<h2 id="优质iOS学习资源"><a href="#优质iOS学习资源" class="headerlink" title="优质iOS学习资源"></a>优质iOS学习资源</h2><ul>
+<h2 id="优质-iOS-学习资源"><a href="#优质-iOS-学习资源" class="headerlink" title="优质 iOS 学习资源"></a>优质 iOS 学习资源</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/">github</a>–这个不用我说吧</li>
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/">stackoverflow</a>–最专业的问答社区</li>
-<li><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/">raywenderlich</a>–iOS界的百科全书</li>
+<li><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/">raywenderlich</a>–iOS 界的百科全书</li>
 <li><a target="_blank" rel="noopener" href="http://nshipster.com/">nshipster</a>–里面文章质量非常的高，最喜欢的几个网站之一<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworkting</a>的作者<a target="_blank" rel="noopener" href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a>–经常出没</li>
-<li><a target="_blank" rel="noopener" href="http://nshipster.cn/">nshipster中国</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.objc.io/">objc.io</a>–这个也不用多说了，Raywenderlich是百科全书的话，这个就是深入深入再深入</li>
-<li><a target="_blank" rel="noopener" href="http://objcio.cn/">objc中国</a></li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/">nshipster 中国</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.objc.io/">objc.io</a>–这个也不用多说了，Raywenderlich 是百科全书的话，这个就是深入深入再深入</li>
+<li><a target="_blank" rel="noopener" href="http://objcio.cn/">objc 中国</a></li>
 <li><a target="_blank" rel="noopener" href="https://realm.io/">realm.io</a>–一个跨平台的移动数据库引擎</li>
-<li><a target="_blank" rel="noopener" href="http://tutsplus.com/">tutsplus</a>–也是包罗万象的一个网站，有web ios ui，不比Raywenderlich逊色。</li>
-<li><a target="_blank" rel="noopener" href="https://maniacdev.com/">maniacdev</a>–类似Raywenderlich，文章质量高，而且涵盖面广</li>
+<li><a target="_blank" rel="noopener" href="http://tutsplus.com/">tutsplus</a>–也是包罗万象的一个网站，有 web ios ui，不比 Raywenderlich 逊色。</li>
+<li><a target="_blank" rel="noopener" href="https://maniacdev.com/">maniacdev</a>–类似 Raywenderlich，文章质量高，而且涵盖面广</li>
 <li><a target="_blank" rel="noopener" href="https://www.appcoda.com/">Appcoda</a> – 技术类学习网站，里面的技术更新挺及时的</li>
 </ul>
 <h2 id="中文网站"><a href="#中文网站" class="headerlink" title="中文网站"></a>中文网站</h2><ul>
@@ -1627,15 +1632,16 @@
 </ul>
 <h2 id="Swift："><a href="#Swift：" class="headerlink" title="Swift："></a>Swift：</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://wiki.jikexueyuan.com/project/swift/">介紹 | 《The Swift Programming Language》中文版</a></li>
-<li><a target="_blank" rel="noopener" href="http://swifter.tips/">Swift必备Tips</a> – 猫神的杰作</li>
-<li><a target="_blank" rel="noopener" href="http://letsswift.com/swift-site-index/">Let’s Swift </a> – Swift站点导航</li>
-<li><a target="_blank" rel="noopener" href="https://objectivec2swift.com/#/converter/code">Swiftify | Objective-C to Swift Converter </a> – 辅助将旧的* Objective-C代码转成Swift。</li>
+<li><a target="_blank" rel="noopener" href="http://swifter.tips/">Swift 必备 Tips</a> – 猫神的杰作</li>
+<li><a target="_blank" rel="noopener" href="http://letsswift.com/swift-site-index/">Let’s Swift </a> – Swift 站点导航</li>
+<li><a target="_blank" rel="noopener" href="https://objectivec2swift.com/#/converter/code">Swiftify | Objective-C to Swift Converter </a> – 辅助将旧的* Objective-C 代码转成 Swift。</li>
 <li><a target="_blank" rel="noopener" href="https://swift.org/">Swift.org</a> – Apple Swift 官网</li>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/swift/blog/">Swift - Blog</a> – Apple Swift 官方博客</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/CocoaChina-editors/Welcome-to-Swift">CocoaChina小组翻译的Swift版本</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.tutorialspoint.com/swift/swift_environment.htm">tutorialspoint</a> – 有一些Swift教程</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CocoaChina-editors/Welcome-to-Swift">CocoaChina 小组翻译的 Swift 版本</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.tutorialspoint.com/swift/swift_environment.htm">tutorialspoint</a> – 有一些 Swift 教程</li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -1686,7 +1692,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:41:42" itemprop="dateModified" datetime="2024-11-02T20:41:42+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1704,7 +1710,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>291</span>
+              <span>292</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1725,17 +1731,18 @@
       
           <h3 id="autoreleasing-修饰符"><a href="#autoreleasing-修饰符" class="headerlink" title="__autoreleasing 修饰符"></a>__autoreleasing 修饰符</h3><p>将对象赋值给附有 __autoreleasing 修饰符的变量等同于 ARC 无效时调用对象的 autorelease 方法。我们通过以下源代码来看一下</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">    <span class="type">id</span> __autoreleasing obj  = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>该源代码主要将NSObject 类对象注册到autoreleasepool 中，可作如下变换：</p>
+<p>该源代码主要将 NSObject 类对象注册到 autoreleasepool 中，可作如下变换：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 编译器的模拟代码 */</span></span><br><span class="line"><span class="type">id</span> pool = objc_autoreleasePoolPush();</span><br><span class="line"><span class="type">id</span> obj = objc_msgSend(<span class="built_in">NSObject</span>, <span class="keyword">@selector</span>(alloc));</span><br><span class="line">objc_msgSend(obj, <span class="keyword">@selector</span>(init));</span><br><span class="line">objc_autorelease(obj);</span><br><span class="line">objc_autoreleasePoolPop(pool);</span><br></pre></td></tr></table></figure>
 
-<p>这与苹果的autorelease 实现中的说明（参考1.2.7 节）完全相同。虽然 ARC 有效和无效时，其在源代码上的表现有所不同，但 autorelease 的功能完全一样。</p>
+<p>这与苹果的 autorelease 实现中的说明（参考1.2.7 节）完全相同。虽然 ARC 有效和无效时，其在源代码上的表现有所不同，但 autorelease 的功能完全一样。</p>
 <p>在 alloc&#x2F;new&#x2F;copy&#x2F;mutableCopy 方法群之外的方法中使用注册到 autoreleasepool 中的对象会如何呢？下面我们来看看 NSMutableArray 类的 array 类方法。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">    <span class="type">id</span> __autoreleasing obj = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这与前面的源代码有何不同呢？</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 编译器的模拟代码 */</span></span><br><span class="line"><span class="type">id</span> pool = objc_autoreleasePoolPush();</span><br><span class="line"><span class="type">id</span> obj = objc_msgSend(<span class="built_in">NSMutableArray</span>, <span class="keyword">@selector</span>(array));</span><br><span class="line">objc_retainAutoreleasedReturnValue(obj);</span><br><span class="line">objc_autorelease(obj);</span><br><span class="line">objc_autoreleasePoolPop(pool);</span><br></pre></td></tr></table></figure>
-<p>虽然持有对象的方法从alloc 方法变为objc_retainAutoreleasedReturnValue 函数， 但注册autoreleasepool 的方法没有改变，仍是objc_autorelease 函数。</p>
+<p>虽然持有对象的方法从 alloc 方法变为 objc_retainAutoreleasedReturnValue 函数， 但注册 autoreleasepool 的方法没有改变，仍是 objc_autorelease 函数。</p>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -1786,7 +1793,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:43:05" itemprop="dateModified" datetime="2024-11-02T20:43:05+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1830,103 +1837,104 @@
 </ul>
 <p>重复发布这个主题已经说明了同编译器保存健康关系的重要性,像任何草稿一样，作为一个实践者的效率取决于他们怎样对待他们的工具，你照顾好它们，它们反过来也会对你有好处。</p>
 <p> <code>__attribute__</code>是一个编译器的指令在声明的时候指明了一些参数，这些参数允许更多的检查错误和高级的优化。</p>
-<p> 语法关键字是<code>__attribute__</code>紧跟2套圆括号（双圆括号让出现的宏更容易辨认，特别是在有多个属性的时候）。在括号内部是一个以逗号分隔的属性列表，<code>__attribute__</code>指令被放在函数，变量和类型声明后面。</p>
+<p> 语法关键字是 <code>__attribute__</code> 紧跟2套圆括号（双圆括号让出现的宏更容易辨认，特别是在有多个属性的时候）。在括号内部是一个以逗号分隔的属性列表， <code>__attribute__</code> 指令被放在函数，变量和类型声明后面。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// Return the square of a number</span></span><br><span class="line"><span class="type">int</span> square(<span class="type">int</span> n) __attribute__((<span class="keyword">const</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Declare the availability of a particular API</span></span><br><span class="line"><span class="type">void</span> f(<span class="type">void</span>)</span><br><span class="line">  __attribute__((availability(macosx,introduced=<span class="number">10.4</span>,deprecated=<span class="number">10.6</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Send printf-like message to stderr and exit</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> die(<span class="keyword">const</span> <span class="type">char</span> *format, ...)</span><br><span class="line">  __attribute__((noreturn, format(printf, <span class="number">1</span>, <span class="number">2</span>)));</span><br></pre></td></tr></table></figure>
 
-<p>假如这个让你想起ISO C语言的 <code>#pragma</code>,你就不会感到孤单了。</p>
-<p>实际上，当<code>__attribute__</code>被第一次引入到<code>GCC</code>编译器时，它面临一些阻力，有人建议使用专用的<code>#pragma</code>因为相同的目的。</p>
-<p>这里，然而，有2个非常好的理由为什么<code>__attribute__</code>被添加进来</p>
+<p>假如这个让你想起 ISO C 语言的  <code>#pragma</code> ,你就不会感到孤单了。</p>
+<p>实际上，当 <code>__attribute__</code> 被第一次引入到 <code>GCC</code> 编译器时，它面临一些阻力，有人建议使用专用的 <code>#pragma</code> 因为相同的目的。</p>
+<p>这里，然而，有2个非常好的理由为什么 <code>__attribute__</code> 被添加进来</p>
 <blockquote>
 <ul>
-<li>从一个宏中产生<code>#pragma</code>命令几乎是不能的（在C99 _Pragma 预算符以前）。</li>
-<li>这里没人知道相同的<code>#pragma</code>在另一个编译器中可能的意思。</li>
+<li>从一个宏中产生 <code>#pragma</code> 命令几乎是不能的（在 C99 _Pragma 预算符以前）。</li>
+<li>这里没人知道相同的 <code>#pragma</code> 在另一个编译器中可能的意思。</li>
 </ul>
 </blockquote>
 <p> 引用<a target="_blank" rel="noopener" href="http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">GCC Documentation for Function Attributes</a></p>
 <blockquote>
 <ul>
-<li>这里有2个原因被应用到几乎所有的应用推荐使用<code>#pragma</code>,这犯了一个低级错误就是把<code>#pragma</code>使用到任何地方。</li>
+<li>这里有2个原因被应用到几乎所有的应用推荐使用 <code>#pragma</code> ,这犯了一个低级错误就是把 <code>#pragma</code> 使用到任何地方。</li>
 </ul>
 </blockquote>
-<p> 确实，假如你在苹果的框架中和牛逼工程师的开源项目中的头文件看一下现代的<code>Objective-c</code>–<code>__attribute__</code>被大量使用。（相反，<code>#pragma</code>的主要声明名声来着这些天是装饰:<code>#pragma mark</code>）</p>
+<p> 确实，假如你在苹果的框架中和牛逼工程师的开源项目中的头文件看一下现代的 <code>Objective-c</code> – <code>__attribute__</code> 被大量使用。（相反， <code>#pragma</code> 的主要声明名声来着这些天是装饰: <code>#pragma mark</code> ）</p>
 <p> 所以为了以后不费力，我们还是先看一下最重要的属性：</p>
 <hr>
 <h3 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h3><p><strong>format</strong></p>
 <blockquote>
-<p><code>format</code>属性指定了一个函数像<code>printf</code>,<code>scanf</code>,<code>strftime</code>或者<code>strfmo</code>风格的参数，这个参数应该是可以进行类型检查的一个格式化字符串。</p>
+<p> <code>format</code> 属性指定了一个函数像 <code>printf</code> , <code>scanf</code> , <code>strftime</code> 或者 <code>strfmo</code> 风格的参数，这个参数应该是可以进行类型检查的一个格式化字符串。</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span></span><br><span class="line">my_printf (<span class="type">void</span> *my_object, <span class="keyword">const</span> <span class="type">char</span> *my_format, ...)</span><br><span class="line">  __attribute__((format(printf, <span class="number">2</span>, <span class="number">3</span>)));</span><br></pre></td></tr></table></figure>
 
-<p>Objective-C程序员也可使用<code>__NSString__</code>来格式化来做到相同的格式化规则，像在<code>NNString</code>中通过 <code>+stringWithFormat:</code> 和 <code>NSLog()</code>格式化字符串一样。</p>
+<p>Objective-C 程序员也可使用 <code>__NSString__</code> 来格式化来做到相同的格式化规则，像在 <code>NNString</code> 中通过 <code> </code>+stringWithFormat:<code>  </code> 和 <code> NSLog()</code>格式化字符串一样。</p>
 <p><strong>nonnull</strong></p>
 <blockquote>
-<p>这个<code>nonnull</code>属性指定了某些函数的参数必须是非空的指针。</p>
+<p>这个 <code>nonnull</code> 属性指定了某些函数的参数必须是非空的指针。</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">void</span> *</span><br><span class="line">my_memcpy (<span class="type">void</span> *dest, <span class="keyword">const</span> <span class="type">void</span> *src, size_t len)</span><br><span class="line">  __attribute__((<span class="keyword">nonnull</span> (<span class="number">1</span>, <span class="number">2</span>)));</span><br></pre></td></tr></table></figure>
 
-<p>使用<code>nonnull</code>编码期望这个值遵守一个明确的约定中，这样能帮助捕获潜伏在任何代码调用的NULL指针bugs，请记住：<br><code>编译时的错误 &gt;&gt;  运行时的错误。</code></p>
+<p>使用 <code>nonnull</code> 编码期望这个值遵守一个明确的约定中，这样能帮助捕获潜伏在任何代码调用的 NULL 指针 bugs，请记住：<br><code>编译时的错误 &gt;&gt;  运行时的错误。</code></p>
 <p><strong>noreturn</strong></p>
 <blockquote>
-<p>一些标准库函数，例如<code>abort</code>和<code>exit</code>,是不能返回的。GCC自动知道这些东西，这个noreturn属性用于指定任何其他函数永远不会返回的情况。</p>
+<p>一些标准库函数，例如 <code>abort</code> 和 <code>exit</code> ,是不能返回的。GCC 自动知道这些东西，这个 noreturn 属性用于指定任何其他函数永远不会返回的情况。</p>
 </blockquote>
-<p>例如，AFNetworking 使用<code>noreturn</code>属性在它的<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/blob/1.1.0/AFNetworking/AFURLConnectionOperation.m#L157">网络请求线程进入点的方法</a>里面,这个方法用在当大量产生专用的网络的线程里用来保证分离的线程持续执行在应用的整个生命周期中。</p>
+<p>例如，AFNetworking 使用 <code>noreturn</code> 属性在它的<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/blob/1.1.0/AFNetworking/AFURLConnectionOperation.m#L157">网络请求线程进入点的方法</a>里面,这个方法用在当大量产生专用的网络的线程里用来保证分离的线程持续执行在应用的整个生命周期中。</p>
 <p><strong>pure&#x2F;const</strong></p>
 <blockquote>
-<p><code>pure</code>属性指定了一个函数除了返回值没有副作用，例如它的返回值仅仅依赖参数和&#x2F;或者全局变量。这样的函数可以用公共子表达式消除并且循环优化就像一个算数操作符那样。</p>
+<p> <code>pure</code> 属性指定了一个函数除了返回值没有副作用，例如它的返回值仅仅依赖参数和&#x2F;或者全局变量。这样的函数可以用公共子表达式消除并且循环优化就像一个算数操作符那样。</p>
 </blockquote>
 <blockquote>
-<p><code>pure</code>属性指定了一个函数不会检查任何值除了它们的参数，并且返回值没有副作用。注意到一个函数有一个指针参数并且需呀检查数据的指向不能声明成<code>const</code>。同样的，一个函数调用一个非<code>nonst</code>函数通常不能为<code>const</code>,一个<code>const</code>函数返回<code>void</code>并没有什么意义。</p>
+<p> <code>pure</code> 属性指定了一个函数不会检查任何值除了它们的参数，并且返回值没有副作用。注意到一个函数有一个指针参数并且需呀检查数据的指向不能声明成 <code>const</code> 。同样的，一个函数调用一个非 <code>nonst</code> 函数通常不能为 <code>const</code> ,一个 <code>const</code> 函数返回 <code>void</code> 并没有什么意义。</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> square(<span class="type">int</span> n) __attribute__((<span class="keyword">const</span>));</span><br></pre></td></tr></table></figure>
 
 <p><code>pure</code>和<code>const</code>是两个执行在一个函数式编程惯例中的参数为了允许有效性能优化。<code>const</code>可以被认为是严格形式的<code>pure</code>因为它不依赖全局变量或者指针。</p>
-<p>例如，因为一个函数声明为<code>const</code>的结果并不依赖任何东西除了传进来的参数。函数的结果能够缓存那个结果并且当函数被调用时返回，这样的函数叫做相同的组合参数（也就是说，我们知道一个数字的平方是一个常量，所以我们仅仅需要只计算它一次)。</p>
+<p>例如，因为一个函数声明为 <code>const</code> 的结果并不依赖任何东西除了传进来的参数。函数的结果能够缓存那个结果并且当函数被调用时返回，这样的函数叫做相同的组合参数（也就是说，我们知道一个数字的平方是一个常量，所以我们仅仅需要只计算它一次)。</p>
 <p><strong>unused</strong></p>
 <blockquote>
-<p>这个属性，附着在一个函数后面，意味着那个函数很可能不会被使用，GCC不会对这个函数产生警告。</p>
+<p>这个属性，附着在一个函数后面，意味着那个函数很可能不会被使用，GCC 不会对这个函数产生警告。</p>
 </blockquote>
-<p>用<code>__unused</code>关键词可以获得相同的效果，声明这个在方法实现中不会被使用的参数中。知道那以后一些上下文就可以允许编译器来做相应的优化。你很可能喜欢在delegate方法实现李勉使用<code>__unused</code>,因为协议频繁的提高更多的上下文比通常必要的情况，为了满足大量的潜在使用案例。</p>
-<h3 id="LLVM"><a href="#LLVM" class="headerlink" title="LLVM"></a>LLVM</h3><p>像GCC的很多特征一样，Clang也支持<code>__attribute__</code>,添加到它自己的小范围的扩展。为了检查某个属性的可用性，你可以直接使用<code>__has_attribute</code>属性。</p>
+<p>用 <code>__unused</code> 关键词可以获得相同的效果，声明这个在方法实现中不会被使用的参数中。知道那以后一些上下文就可以允许编译器来做相应的优化。你很可能喜欢在 delegate 方法实现李勉使用 <code>__unused</code> ,因为协议频繁的提高更多的上下文比通常必要的情况，为了满足大量的潜在使用案例。</p>
+<h3 id="LLVM"><a href="#LLVM" class="headerlink" title="LLVM"></a>LLVM</h3><p>像 GCC 的很多特征一样，Clang 也支持 <code>__attribute__</code> ,添加到它自己的小范围的扩展。为了检查某个属性的可用性，你可以直接使用 <code>__has_attribute</code> 属性。</p>
 <p><strong>availability</strong></p>
 <blockquote>
-<p>Clang引进了availability属性，这个可以被取代在声明描述的生命周期中声明相对于操作系统的版本。思考对一个简单函数f：的函数声明</p>
+<p>Clang 引进了 availability 属性，这个可以被取代在声明描述的生命周期中声明相对于操作系统的版本。思考对一个简单函数 f：的函数声明</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> f(<span class="type">void</span>) __attribute__((availability(macosx,introduced=<span class="number">10.4</span>,deprecated=<span class="number">10.6</span>,obsoleted=<span class="number">10.7</span>)));</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><code>availability</code>属性声明f在OS X老虎系统中被引入，在OS X雪豹系统中被弃用，在OS X 山狮系统中被废弃。</p>
+<p> <code>availability</code> 属性声明 f 在 OS X 老虎系统中被引入，在 OS X 雪豹系统中被弃用，在 OS X 山狮系统中被废弃。</p>
 </blockquote>
 <blockquote>
-<p>这个信息被Clang用来决定什么时候使用f：函数式安全的，例如，假如Clang在OS X 美洲豹系统上编译，调用f()函数将成功。假如Clang在OS X雪豹系统中编译，函数调用将成功但是Clang会发出一个警告指明这个函数被弃用了。最后，假如Clang被引进编译OS X山狮系统的代码，函数调用将失败，因为f()函数已经不再可用了。</p>
+<p>这个信息被 Clang 用来决定什么时候使用 f：函数式安全的，例如，假如 Clang 在 OS X 美洲豹系统上编译，调用 f()函数将成功。假如 Clang 在 OS X 雪豹系统中编译，函数调用将成功但是 Clang 会发出一个警告指明这个函数被弃用了。最后，假如 Clang 被引进编译 OS X 山狮系统的代码，函数调用将失败，因为 f()函数已经不再可用了。</p>
 </blockquote>
 <blockquote>
-<p><code>availability</code>属性是一个逗号分隔的列表以平台名开始然后引入一些定语列举出生命周期内的重要里程碑事件附加额外的信息（以任何顺序）。</p>
+<p> <code>availability</code> 属性是一个逗号分隔的列表以平台名开始然后引入一些定语列举出生命周期内的重要里程碑事件附加额外的信息（以任何顺序）。</p>
 </blockquote>
 <ul>
 <li>introduced：声明被引入的第一个版本</li>
-<li>deprecated：声明被弃用的第一个版本，这意味着用户应该把这个API移走</li>
+<li>deprecated：声明被弃用的第一个版本，这意味着用户应该把这个 API 移走</li>
 <li>obsoleted： 声明被废弃的第一个版本，这意味着它将被完全移除并且不能再使用</li>
 <li>unavailable：声明在这个平台上将永远不可用</li>
-<li>message：额外的消息将被Clang提供当忽略一个警告或者一个错误在使用一个被弃用或者被废弃的声明。对引导用户替换APIs很有用。</li>
+<li>message：额外的消息将被 Clang 提供当忽略一个警告或者一个错误在使用一个被弃用或者被废弃的声明。对引导用户替换 APIs 很有用。</li>
 </ul>
 <blockquote>
-<p>在声明时可以使用多个availability属性，每个对应不同的平台，仅当availability属性对应相应的目标平台被使用的时候，任何其他才将被忽略。假如没有availability 属性指定可用性对现在的目标平台，availability 属性将被忽略。</p>
+<p>在声明时可以使用多个 availability 属性，每个对应不同的平台，仅当 availability 属性对应相应的目标平台被使用的时候，任何其他才将被忽略。假如没有 availability 属性指定可用性对现在的目标平台，availability 属性将被忽略。</p>
 </blockquote>
 <h3 id="支持的平台"><a href="#支持的平台" class="headerlink" title="支持的平台"></a>支持的平台</h3><ul>
-<li>ios：苹果的iOS操作系统。最小的部署目标被指定通过<code>-mios-version-min=*version*</code>或者<code>-miphoneos-version-min=*version*</code>命令行参数。</li>
-<li>macosx：苹果的OS X 操作系统，最小的部署目标被指定通过<code>-mmacosx-version-min=*version*</code>命令行参数</li>
+<li>ios：苹果的 iOS 操作系统。最小的部署目标被指定通过 <code>-mios-version-min=*version*</code> 或者 <code>-miphoneos-version-min=*version*</code> 命令行参数。</li>
+<li>macosx：苹果的 OS X 操作系统，最小的部署目标被指定通过 <code>-mmacosx-version-min=*version*</code> 命令行参数</li>
 </ul>
 <p><strong>overloadable</strong></p>
 <blockquote>
-<p>Clang提供对C++函数在C中重载的支持。在C中函数重载被引进使用<code>overloadable</code>属性。例如，一个可能提供一个重载版本的<code>tgsin</code>函数来精确执行相关的标准函数计算<code>float</code>,<code>double</code>,<code>long double</code>的正弦值：</p>
+<p>Clang 提供对 C++函数在 C 中重载的支持。在 C 中函数重载被引进使用 <code>overloadable</code> 属性。例如，一个可能提供一个重载版本的 <code>tgsin</code> 函数来精确执行相关的标准函数计算 <code>float</code> , <code>double</code> , <code>long double</code> 的正弦值：</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="type">float</span> __attribute__((overloadable)) tgsin(<span class="type">float</span> x) &#123; <span class="keyword">return</span> sinf(x); &#125;</span><br><span class="line"><span class="type">double</span> __attribute__((overloadable)) tgsin(<span class="type">double</span> x) &#123; <span class="keyword">return</span> sin(x); &#125;</span><br><span class="line"><span class="type">long</span> <span class="type">double</span> __attribute__((overloadable)) tgsin(<span class="type">long</span> <span class="type">double</span> x) &#123; <span class="keyword">return</span> sinl(x); &#125;</span><br></pre></td></tr></table></figure>
-<p>请注意<code>overloadable</code>只对函数起作用。你可以重载方法声明在某种范围内通过使用通用的返回值和参数类型，想<code>id</code>或者<code>void *</code>.</p>
+<p>请注意 <code>overloadable</code> 只对函数起作用。你可以重载方法声明在某种范围内通过使用通用的返回值和参数类型，想 <code>id</code> 或者 <code>void *</code> .</p>
 <hr>
 <p>上下文是国王当它遇到编译器优化时。通过提供限制在怎样解析你的代码，增加你参数尽可能高效代码的可能性。遇到编译器把你打断，这将是一项奖励。</p>
-<p>还有<code>__attribute__</code>并不仅仅对编译器有用：下一个人看代码也将感谢这些额外的上下文。所以多走几英尺远将对你的合作中和接替者或者从现在算2年以后的你(那个时候你已经忘记了所以的事情关于这份代码)自己有用</p>
+<p>还有 <code>__attribute__</code> 并不仅仅对编译器有用：下一个人看代码也将感谢这些额外的上下文。所以多走几英尺远将对你的合作中和接替者或者从现在算2年以后的你(那个时候你已经忘记了所以的事情关于这份代码)自己有用</p>
 <p>你付出了多少爱,最终你会得到多少爱。</p>
 <p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
@@ -1977,7 +1985,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-02 20:20:51" itemprop="dateModified" datetime="2024-11-02T20:20:51+08:00">2024-11-02</time>
+                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2014,7 +2022,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="NSRunLoop-是什么？"><a href="#NSRunLoop-是什么？" class="headerlink" title="NSRunLoop 是什么？"></a>NSRunLoop 是什么？</h2><p>在 Cocoa 中，每个线程( <code>NSThread</code> )对象中内部都有一个 RunLoop( <code>NSRunLoop</code> ) 对象用来循环处理输入事件.</p>
+          <h2 id="NSRunLoop-是什么？"><a href="#NSRunLoop-是什么？" class="headerlink" title="NSRunLoop 是什么？"></a>NSRunLoop 是什么？</h2><p>在 Cocoa 中，每个线程(  <code>NSThread</code>  )对象中内部都有一个 RunLoop(  <code>NSRunLoop</code>  ) 对象用来循环处理输入事件.</p>
 <p><em>NSRunloop 并不真的是一个 loop，在 Apple 的文档中也提到了需要自己写 while 或者 for 语句来实现,类似下面：</em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(running)&#123;</span><br><span class="line">    [[<span class="built_in">NSRunLoop</span> currentRunLoop] runMode:<span class="built_in">NSDefaultRunLoopMode</span> beforeDate:[<span class="built_in">NSDate</span> distantFuture]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -2032,7 +2040,7 @@
 <blockquote>
 <p>Timer sources deliver events to their handler routines but do not cause the RunLoop to exit.*</p>
 </blockquote>
-<p>创建 NSTimer 添加到 RunLoop 中的时候，这里需要注意的是， <code>NSTimer</code> 默认是处于 <code>NSDefaultRunloopMode</code> ，这也就可以解释为什么如果你在你的控制器中添加了一个 timer 定时刷新你的界面，而你在拖动视图的时候 timer 不回 fire，因为这个时候你的 runloop 是 <code>NSEventTrackingRunloopMode</code> ,在这个 mode 下 timer 不会 fire。</p>
+<p>创建 NSTimer 添加到 RunLoop 中的时候，这里需要注意的是，  <code>NSTimer</code>  默认是处于  <code>NSDefaultRunloopMode</code>  ，这也就可以解释为什么如果你在你的控制器中添加了一个 timer 定时刷新你的界面，而你在拖动视图的时候 timer 不回 fire，因为这个时候你的 runloop 是  <code>NSEventTrackingRunloopMode</code>  ,在这个 mode 下 timer 不会 fire。</p>
 <ol start="2">
 <li>input source input source 主要是一些异步的事件，比如来自其它线程或者其它 app 的消息。</li>
 </ol>
@@ -2048,17 +2056,17 @@
 </ol>
 </li>
 <li>Connection 模式<ol>
-<li>定义： <code>NSConnectionReplyMode</code> (Cocoa)</li>
-<li>描述：处理 <code>NSConnection</code> 对象相关事件，系统内部使用，这个 mode 表明 <code>NSConnection</code> 对象等待 reply,用户基本不会使用。</li>
+<li>定义：  <code>NSConnectionReplyMode</code>  (Cocoa)</li>
+<li>描述：处理  <code>NSConnection</code>  对象相关事件，系统内部使用，这个 mode 表明  <code>NSConnection</code>  对象等待 reply,用户基本不会使用。</li>
 </ol>
 </li>
 <li>Modal 模式<ol>
-<li>定义： <code>NSModalPanelRunLoopMode</code> (Cocoa)</li>
+<li>定义：  <code>NSModalPanelRunLoopMode</code>  (Cocoa)</li>
 <li>描述：处理 modal panels 事件,需要等待处理的 input source 为 modal panel 时设置，比如 NSSavePanel 和 NSOpenPanel。</li>
 </ol>
 </li>
 <li>Event tracking 模式<ol>
-<li>定义： <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/index.html#//apple_ref/doc/uid/TP40006728-CH3-SW38">UITrackingRunLoopMode </a>(iOS) <code>NSEventTrackingRunLoopMode</code> (cocoa)</li>
+<li>定义： <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/index.html#//apple_ref/doc/uid/TP40006728-CH3-SW38">UITrackingRunLoopMode </a>(iOS)  <code>NSEventTrackingRunLoopMode</code>  (cocoa)</li>
 <li>描述：使用该模式来处理用户界面相关的事件,例如在拖动 loop 或其他 user interface tracking loops 时处于此种模式下，在此模式下会限制输入事件的处理。例如，当手指按住 UITableView 拖动时就会处于此模式。</li>
 </ol>
 </li>
@@ -2076,13 +2084,13 @@
 <p>NSTimer 的例子: 在一个 UITableViewController 中启动一个 0.2s 的循环定时器，在定时器到期时更新一个计数器，并显示在 label 上。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)viewDidLoad &#123;</span><br><span class="line"></span><br><span class="line">    label =[[<span class="built_in">UILabel</span> alloc]initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">10</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">50</span>)];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:label];</span><br><span class="line">    count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSTimer</span> *timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval: <span class="number">0.2</span></span><br><span class="line">                                                      target: <span class="keyword">self</span></span><br><span class="line">                                                    selector: <span class="keyword">@selector</span>(incrementCounter:)</span><br><span class="line">                                                    userInfo: <span class="literal">nil</span></span><br><span class="line">                                                     repeats: <span class="literal">YES</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)incrementCounter:(<span class="built_in">NSTimer</span> *)theTimer</span><br><span class="line">&#123;</span><br><span class="line">    count++; </span><br><span class="line">    label.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%zd&quot;</span>,count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在正常情况下，可看到每隔 0.2s，label 上显示的数字 +1,但当你拖动或按住 tableView 时，label 上的数字不再更新，当你手指离开时，label 上的数字继续更新。当你拖动 <code>UItableView</code> 时，当前线程 RunLoop 处于 <code>UIEventTrackingRunLoopMode</code> 模式，在这种模式下，不处理定时器事件，即定时器无法 fire,label 上的数字也就无法更新。 解决方法，一种方法是在另外的线程中处理定时器事件，可把 Timer 加入到 <code>NSOperation</code> 中在另一个线程中调度;还有一种方法时修改 Timer 运行的 RunLoop 模式，将其加入到 <code>UITrackingRunLoopMode</code> 模式或 <code>NSRunLoopCommonModes</code> 模式中。 即</p>
+<p>在正常情况下，可看到每隔 0.2s，label 上显示的数字 +1,但当你拖动或按住 tableView 时，label 上的数字不再更新，当你手指离开时，label 上的数字继续更新。当你拖动  <code>UItableView</code>  时，当前线程 RunLoop 处于  <code>UIEventTrackingRunLoopMode</code>  模式，在这种模式下，不处理定时器事件，即定时器无法 fire,label 上的数字也就无法更新。 解决方法，一种方法是在另外的线程中处理定时器事件，可把 Timer 加入到  <code>NSOperation</code>  中在另一个线程中调度;还有一种方法时修改 Timer 运行的 RunLoop 模式，将其加入到  <code>UITrackingRunLoopMode</code>  模式或  <code>NSRunLoopCommonModes</code>  模式中。 即</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunLoop</span> currentRunLoop] addTimer:timer forMode:<span class="built_in">UITrackingRunLoopMode</span>];</span><br></pre></td></tr></table></figure>
 
 <p>或</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSRunLoop</span> currentRunLoop] addTimer:timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br></pre></td></tr></table></figure>
 
-<p>另外一种是放到 <code>NSThread</code> 中</p>
+<p>另外一种是放到  <code>NSThread</code>  中</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)viewDidLoad&#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;主线程 %@&quot;</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(newThread) object:<span class="literal">nil</span>];</span><br><span class="line">    [thread start];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)newThread&#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">        </span><br><span class="line">        [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">2.0</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(timer_callback) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</span><br><span class="line">        </span><br><span class="line">        [[<span class="built_in">NSRunLoop</span> currentRunLoop] run];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)timer_callback&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;Timer %@&quot;</span>, [<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>NSURLConnection</code> 也是如此，见 <a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage">SDWebImage </a>中的描述,以及 <a target="_blank" rel="noopener" href="https://github.com/rs/SDWebImage/blob/master/SDWebImage/SDWebImageDownloader.m">SDWebImageDownloader.m </a>代码中的实现。修改 NSURLConnection 的运行模式可使用 <a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSURLConnection_Class/Reference/Reference.html#//apple_ref/occ/instm/NSURLConnection/scheduleInRunLoop:forMode:">scheduleInRunLoop:forMode: </a>方法。</p>
@@ -2099,6 +2107,7 @@
 <li><a target="_blank" rel="noopener" href="http://billwang1990.github.io/blog/2013/12/30/nsrunloop-issue/">关于 NSRunloop 的学习和理解</a></li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed -->
 
       
     </div>
