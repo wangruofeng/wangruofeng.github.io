@@ -1887,7 +1887,7 @@ brew install chisel
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 14:10:25" itemprop="dateModified" datetime="2024-11-03T14:10:25+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 14:37:51" itemprop="dateModified" datetime="2024-11-03T14:37:51+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1926,27 +1926,27 @@ brew install chisel
       
           <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>移动应用风靡的今天，大家越来越觉得，一个 App 的处理事情的效率至关重要，包括一些细节处理，像 <code>本地化</code> （<strong>localization</strong>）和 <code>辅助功能</code> （<strong>accessibility</strong>）的支持是高品质的应用和其它应用区分开的两个特性，今天我们来聊聊一个增加用户体验和效率的功能– <code>编辑操作</code> ### 编辑操作</p>
 <h4 id="标准编辑动作"><a href="#标准编辑动作" class="headerlink" title="标准编辑动作"></a>标准编辑动作</h4><h5 id="处理复制，剪切，删除和粘贴命令"><a href="#处理复制，剪切，删除和粘贴命令" class="headerlink" title="处理复制，剪切，删除和粘贴命令"></a>处理复制，剪切，删除和粘贴命令</h5><ul>
-<li><code>复制</code> （**copy:**）</li>
-<li><code>剪切</code> （**cut:**）</li>
-<li><code>删除</code> （**delete:**）</li>
-<li><code>粘贴</code> （**paste:**）</li>
+<li><code>复制</code> （copy:）</li>
+<li><code>剪切</code> （cut:）</li>
+<li><code>删除</code> （delete:）</li>
+<li><code>粘贴</code> （paste:）</li>
 </ul>
 <h5 id="处理选择命令"><a href="#处理选择命令" class="headerlink" title="处理选择命令"></a>处理选择命令</h5><ul>
-<li><code>选择</code> （**select:**）</li>
-<li><code>全选</code> （**selectAll:**）</li>
+<li><code>选择</code> （select:）</li>
+<li><code>全选</code> （selectAll:）</li>
 </ul>
 <h5 id="富文本编辑命令"><a href="#富文本编辑命令" class="headerlink" title="富文本编辑命令"></a>富文本编辑命令</h5><ul>
-<li><code>加粗</code> （**toggleBoldface:**）</li>
-<li><code>斜体</code> （**toggleItalics:**）</li>
-<li><code>下划线</code> （**toggleUnderline:**）</li>
+<li><code>加粗</code> （toggleBoldface:）</li>
+<li><code>斜体</code> （toggleItalics:）</li>
+<li><code>下划线</code> （toggleUnderline:）</li>
 </ul>
 <h5 id="改变书写方向命令"><a href="#改变书写方向命令" class="headerlink" title="改变书写方向命令"></a>改变书写方向命令</h5><ul>
-<li><code>书写方向左到右</code> （**makeTextWritingDirectionLeftToLeft:**）</li>
-<li><code>书写方向右到左</code> （**makeTextWritingDirectionRightToLeft:**）</li>
+<li><code>书写方向左到右</code> （makeTextWritingDirectionLeftToLeft:）</li>
+<li><code>书写方向右到左</code> （makeTextWritingDirectionRightToLeft:）</li>
 </ul>
 <h5 id="改变文本尺寸命令"><a href="#改变文本尺寸命令" class="headerlink" title="改变文本尺寸命令"></a>改变文本尺寸命令</h5><ul>
-<li><code>变大</code> （**increaseSize:**）</li>
-<li><code>变小</code> （**decreaseSize:**）</li>
+<li><code>变大</code> （increaseSize:）</li>
+<li><code>变小</code> （decreaseSize:）</li>
 </ul>
 <h3 id="实现-label-的复制粘贴功能"><a href="#实现-label-的复制粘贴功能" class="headerlink" title="实现 label 的复制粘贴功能"></a>实现 label 的复制粘贴功能</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RFLabel.h</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">RFLabel</span> : <span class="title">UILabel</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// RFLabel.m</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">RFLabel</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">BOOL</span>)canBecomeFirstResponder &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">BOOL</span>)canPerformAction:(SEL)action</span><br><span class="line">              withSender:(<span class="type">id</span>)sender</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (action == <span class="keyword">@selector</span>(<span class="keyword">copy</span>:) || action == <span class="keyword">@selector</span>(paste:));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - UIResponderStandardEditActions</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)<span class="keyword">copy</span>:(<span class="type">id</span>)sender &#123;</span><br><span class="line">    [[<span class="built_in">UIPasteboard</span> generalPasteboard] setString:<span class="keyword">self</span>.text];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)paste:(<span class="type">id</span>)sender &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *toBePastedString = [[<span class="built_in">UIPasteboard</span> generalPasteboard] string];</span><br><span class="line">    <span class="keyword">self</span>.text = toBePastedString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
@@ -1966,12 +1966,12 @@ brew install chisel
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title action:(SEL)action <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br></pre></td></tr></table></figure>
 
 <h3 id="UITableView-和-UICollectionView"><a href="#UITableView-和-UICollectionView" class="headerlink" title="UITableView 和 UICollectionView"></a>UITableView 和 UICollectionView</h3><p> <code>UITableView</code> 和 <code>UICollectionView</code> 可以在cell上调出编辑菜单,其实任何自定义的 <code>UIView</code> 都能实现， <code>UIViewController</code> 的子类只是以不同的方式实现而已。为了让 <code>UITableView</code> 和 <code>UICollectionView</code> 也能实现，你需要使用一些额外的方法否则屏幕上不会显示任何东西。这些方法给予了你更多的控制在显示指定的上下文菜单基于你将要显示在 <code>UITableView</code> 和 <code>UICollectionView</code> 的内容。</p>
-<h4 id="UITableViewDelegate-方法"><a href="#UITableViewDelegate-方法" class="headerlink" title="UITableViewDelegate 方法"></a><strong>UITableViewDelegate</strong> 方法</h4><ul>
+<h4 id="UITableViewDelegate-方法"><a href="#UITableViewDelegate-方法" class="headerlink" title="UITableViewDelegate 方法"></a>UITableViewDelegate 方法</h4><ul>
 <li>– tableView:shouldShowMenuForRowAtIndexPath:</li>
 <li>– tableView:canPerformAction:forRowAtIndexPath:withSender:</li>
 <li>– tableView:performAction:forRowAtIndexPath:withSender:</li>
 </ul>
-<h4 id="UICollectionViewDelegate-方法"><a href="#UICollectionViewDelegate-方法" class="headerlink" title="UICollectionViewDelegate 方法"></a><strong>UICollectionViewDelegate</strong> 方法</h4><ul>
+<h4 id="UICollectionViewDelegate-方法"><a href="#UICollectionViewDelegate-方法" class="headerlink" title="UICollectionViewDelegate 方法"></a>UICollectionViewDelegate 方法</h4><ul>
 <li>– collectionView:shouldShowMenuForItemAtIndexPath:</li>
 <li>– collectionView:canPerformAction:forItemAtIndexPath:withSender:</li>
 <li>– collectionView:performAction:forItemAtIndexPath:withSender:</li>
