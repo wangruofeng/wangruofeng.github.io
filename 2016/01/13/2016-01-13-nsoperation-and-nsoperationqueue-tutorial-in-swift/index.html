@@ -28,21 +28,21 @@
 <meta property="og:site_name" content="王若风的技术博客">
 <meta property="og:description" content="译自 Written by  Richard Turton — on October 7, 2014 原文链接：http:&#x2F;&#x2F;www.raywenderlich.com&#x2F;76341&#x2F;use-nsoperation-nsoperationqueue-swift 译者@oneruofeng   Post info: Updated for Xcode 7.1 and Swift 2.1 – 1 Ja">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/64124373gw1ezk45qmdigj205x08wdga.jpg">
-<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/64124373gw1ezk4seggwgj20jg0a0ta0.jpg">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/64124373gw1ezk5dwtbhuj20go03n0t2.jpg">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/64124373gw1ezk6m9a5xzj20i20nm416.jpg">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/64124373gw1ezk75nd4bdj20i206yq3q.jpg">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/64124373gw1ezkc6fh23sj205x08wdga.jpg">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/64124373gw1ezkdl5q55nj20jg09qq4h.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_01.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_02.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_03.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_04.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_05.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_06.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_07.jpg">
+<meta property="og:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_09.jpg">
 <meta property="article:published_time" content="2016-01-12T21:18:36.000Z">
-<meta property="article:modified_time" content="2024-11-03T05:32:35.303Z">
+<meta property="article:modified_time" content="2024-11-03T06:26:13.825Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="翻译">
 <meta property="article:tag" content="NSOperation">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg">
+<meta name="twitter:image" content="https://blog.wangruofeng007.com/images/operation_queue/operation_queue_01.jpg">
 
 <link rel="canonical" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-nsoperation-and-nsoperationqueue-tutorial-in-swift/">
 
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 14:26:13" itemprop="dateModified" datetime="2024-11-03T14:26:13+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,16 +289,12 @@
 <p>一种实现并发操作在 iOS 是通过 <code>NSOperation</code> 和 <code>NSOperationQueue</code> 这两个类。在这个教程中，你将学会怎样使用它们！你将从一个没有使用并发的 App 开始，所以它将出现的非常迟钝和无响应。然后你将重做你的应用给它们添加并发操作并且–希望–呈现一个更加响应良好的可交互界面给用户！</p>
 <h3 id="我们开始吧"><a href="#我们开始吧" class="headerlink" title="我们开始吧"></a>我们开始吧</h3><p>这份样品工程的总的目标的就是展示一个滤镜处理过的图片的表视图。图片将从网络上下载，经过一个滤镜处理后，然后在表视图中显示。</p>
 <p>下面是这个 app 模型的示意图</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" alt="app 模型的示意图"></p>
-<!--
-<img src = "http://ww2.sinaimg.cn/mw690/64124373gw1ezk3rh3ebyj20i20nmq4k.jpg" with= 300 height = 600>-->
-
-
+<p><img src="/images/operation_queue/operation_queue_01.jpg" alt="app 模型的示意图"></p>
 <h3 id="第一个版本尝试"><a href="#第一个版本尝试" class="headerlink" title="第一个版本尝试"></a>第一个版本尝试</h3><p>下载你将在这个教程中使用的<a target="_blank" rel="noopener" href="http://cdn5.raywenderlich.com/wp-content/uploads/2014/10/ClassicPhotos-Starter63.zip">第一个版本的项目</a></p>
 <blockquote>
 <p>注意：所以的图片来自<a target="_blank" rel="noopener" href="http://sxc.hu/"> stock.xchng.</a>。一下图片在数据源故意错误命名，以便这里有些例子是图片下载失败好处理失败的情况。</p>
 </blockquote>
-<p>构建并且运行这个工程，最终你将看到这个 app 运行起来显示一列照片。尝试滚动这个列表，很痛苦，不是吗？<br><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk45qmdigj205x08wdga.jpg" alt="list of photoes"></p>
+<p>构建并且运行这个工程，最终你将看到这个 app 运行起来显示一列照片。尝试滚动这个列表，很痛苦，不是吗？<br><img src="/images/operation_queue/operation_queue_02.jpg" alt="list of photoes"></p>
 <p><em>传统的相册，运行缓慢</em></p>
 <p>所有的操作都发生在 <code>ListViewController.swift</code> 里，并且最主要的是发生在 <code>tableView(_:cellForRowAtIndexPath:)</code> 方法里。看一下那个方法和注释这里有两件相当集中的事情需要思考：</p>
 <ol>
@@ -309,7 +305,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lazy</span> <span class="keyword">var</span> photos <span class="operator">=</span> <span class="type">NSDictionary</span>(contentsOfURL:dataSourceURL)</span><br></pre></td></tr></table></figure>
 
 <p>所有的工作发生在应用的主线程。由于主线程也负责用户交互，让它一直忙于从网络下载东西和给图片加滤镜消磨掉了响应中的 app。你可以通过使用 Xcode 的仪表测量视图获得这样一个快速的概述。你可以通过显示 <code>调试导航</code> (Commnad+6)接入这个仪表视图,让后选择 <code>CPU</code> 当 app 正在运行的时候。</p>
-<p><img src="http://ww4.sinaimg.cn/mw690/64124373gw1ezk4seggwgj20jg0a0ta0.jpg" alt="gauges"></p>
+<p><img src="/images/operation_queue/operation_queue_03.jpg" alt="gauges"></p>
 <p><em>Xcode 的仪表视图表明，主线程的任务非常重</em></p>
 <p>你会看到那些所有的长钉在 <code>Thread 1</code> ，那就是 app 的主线程。更多详细的信息你可以运行 app 的 <code>Instruments</code> ,但是那个在<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?p=23037"> whole other tutorial :].</a>中</p>
 <p>是时候考虑怎样改善一下你的用户体验了！</p>
@@ -326,7 +322,7 @@
 <p><code>Foundation</code> 框架包含了一个叫做 <code>NSThread</code> 的类，这让我们处理事情更容易，但是用 <code>NSThread</code> 管理多个线程仍是一件令人头疼的事情。 <code>NSOperation</code> 和 <code>NSOperationQueue</code> 是为了最大化简化处理多线程的更高级的类。</p>
 </blockquote>
 <p>在这个图解中，你会看到进程，线程和任务之间的关系：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk5dwtbhuj20go03n0t2.jpg" alt="the relationship between a process, threads, and tasks"></p>
+<p><img src="/images/operation_queue/operation_queue_04.jpg" alt="the relationship between a process, threads, and tasks"></p>
 <p><em>进程，线程和任务</em></p>
 <p>正如你所见，一个进程可以包涵多个执行的线程，每个线程能够同时执行多个任务。</p>
 <p>在这个图集中, <code>thread 2</code> 执行文件的读的工作，同时 <code>thread 1</code> 执行 UI 相关的代码。这和你应该怎样在 iOS 中构建你的代码（主线程执行任何和 UI 相关的工作，第二线程应当执行慢的或者长时间运行的耗时操作例如读取文件，接入网络等等）有点相似。</p>
@@ -341,14 +337,14 @@
 </ul>
 <p>这个教程将使用 <code>NSOperation</code> ,因为你将处理一个列表为了好的表现并且由于它大量的消耗的资源你需要能够取消一个操作针对某个图片，假如用户已经将那张图片滚出屏幕。即使这些操作在后台线程，假如这里有一打事情在队列里等着它们去处理，这将表现得跟糟糕。</p>
 <h3 id="重构-App-Model"><a href="#重构-App-Model" class="headerlink" title="重构 App Model"></a>重构 App Model</h3><p>是时候重构开始的非多线程的模型了！假如你仔细观察先前的模型，你会发现这里有三个可以被改进的线程受困区域。通过切割这三个区域让后把他们放在单独的线程里，主线程的压力将得到缓解并且能够保持和用户交互。</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk6m9a5xzj20i20nm416.jpg" alt="NSOperation_model_improved"></p>
+<p><img src="/images/operation_queue/operation_queue_05.jpg" alt="NSOperation_model_improved"></p>
 <p><em>改进后的 model</em></p>
 <p>为了摆脱你应用的瓶颈，你需要一个指定一个线程来响应你的用户时间，一个线程专注于下载资源和图片，一个线程执行图片滤镜操作。在新的模型中，app 从主线程启动让后载入一个空的表视图。同时，app 启动第二个线程开始下载数据资源。</p>
 <p>一旦数据资源下载完成，你将通知表视图重新载入。这些事情必须在主线程完成，因为它涉及到用户界面相关的操作。从这一点来说，表视图知道有多少行，并且它知道他将显示图片的 URL 地址，但是她不知道它是否真的有图片！假如你立即开始下载所有的图片在这个点上，这可能导致效率极其低下，因为你不需要一次性把所有图片下载完！</p>
 <p>为了让这个变得更好我们能够做什么？</p>
 <p>一个更好的模型就是可交互的行在屏幕范围内可见时才开始下载图片。所以你的代码开始将询问表视图有多少行可见。因此，代码应该直到这里有一个未加滤镜的图片等待处理时才开始处理图片加滤镜操作。</p>
 <p>为了使 app 更加快速响应，代码将要让图片一旦下载完毕立即显示。让后才开始进行图片加滤镜操作，让后更新 UI 界面来显示已经经过滤镜处理后的图片。下面的图标显示了这个过程的控制流：</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/64124373gw1ezk75nd4bdj20i206yq3q.jpg" alt="Control Flow"></p>
+<p><img src="/images/operation_queue/operation_queue_06.jpg" alt="Control Flow"></p>
 <p><em>Cotroll Flow</em></p>
 <p>为了获得这些对象，你需要跟踪这张图片现在是否正在被下载，一旦完成下载，假如图片的滤镜被应用上。你需要跟跟踪每个操作的状态，它是否正在下载中或者执行滤镜操作，以便你能够取消，暂停或者恢复每个操作当用户滚动的时候。</p>
 <p>Okey！ 现在你准备好开始码代码了！ :]</p>
@@ -428,7 +424,7 @@
 </ol>
 <p>过滤图片的方法遵循下面相同的类型，除了它使用 <code>ImageFiltration</code> 和 <code>filtrationsInProgress</code> 来跟踪操作。作为经验，你应该尝试不要重复这个区域的代码 :]</p>
 <p>你做到了！你的工程完成了。构建让后运行看有什么改进在操作上！当你滚动表视图的时候，app 并没有停止，还是像它们变得可见一样继续下载图片和给图片加滤镜操作。</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezkc6fh23sj205x08wdga.jpg" alt="classicphotos-stalled-screenshot"></p>
+<p><img src="/images/operation_queue/operation_queue_07.jpg" alt="classicphotos-stalled-screenshot"></p>
 <p><em>原来的图片，现在可以滚动了</em></p>
 <p>是不是很酷？你能看到随做你的进步让你的应用更易于响应能做出的努力 –对用户来说更有趣！</p>
 <h3 id="细微的调整"><a href="#细微的调整" class="headerlink" title="细微的调整"></a>细微的调整</h3><p>你已经随着这个教程走过漫长的路！你的小项目现在反应灵敏表明了在原来的版本基础上有很多改进。然而，这里任然有一些遗留的细节我们需要考虑。你是想成为一名伟大的程序员，而不仅仅是一名优秀的程序员！</p>
@@ -460,7 +456,7 @@
 <li>遍历那些将要开始的操作，然后对他们每个调用 <code>startOperationsForPhotoRecord</code> 。</li>
 </ol>
 <p>构建运行然后你发现一个更流畅，资源管理德更好的应用！给你自己一轮掌声！</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/64124373gw1ezkdl5q55nj20jg09qq4h.jpg" alt="improved app"></p>
+<p><img src="/images/operation_queue/operation_queue_09.jpg" alt="improved app"></p>
 <p><em>原来的相册，载入东西一次一个</em></p>
 <p>注意到当你完成滚动表视图，在可见区域行的 cell 的图片立即开始处理。</p>
 <h3 id="何去何从？"><a href="#何去何从？" class="headerlink" title="何去何从？"></a>何去何从？</h3><p>这里是<a target="_blank" rel="noopener" href="http://cdn2.raywenderlich.com/wp-content/uploads/2014/10/ClassicPhotos-Final63.zip">completed version of the project</a>。</p>
