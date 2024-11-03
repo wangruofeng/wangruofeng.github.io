@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta property="og:type" content="article">
@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_13.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/flutter_tips_s2/flutter_tips_14.png">
 <meta property="article:published_time" content="2020-09-16T18:51:21.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.928Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.305Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Flutter">
 <meta name="twitter:card" content="summary">
@@ -247,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,29 +289,32 @@
 
 
 
-<h2 id="提高-flutter-attach-的成功率"><a href="#提高-flutter-attach-的成功率" class="headerlink" title="提高 flutter attach 的成功率"></a>提高 flutter attach 的成功率</h2><h3 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h3><p>断开 wifi，执行 flutter attach，attach 成功后再链接 wifi</p>
-<h3 id="方案2"><a href="#方案2" class="headerlink" title="方案2"></a>方案2</h3><p>通过指定设备 uuid 进行 attach</p>
+<h2 id="提高-flutter-attach-的成功率"><a href="#提高-flutter-attach-的成功率" class="headerlink" title="提高 flutter attach 的成功率"></a>提高 flutter attach 的成功率</h2><h3 id="方案-1"><a href="#方案-1" class="headerlink" title="方案 1"></a>方案 1</h3><p>断开 wifi，执行 flutter attach，attach 成功后再链接 wifi</p>
+<h3 id="方案-2"><a href="#方案-2" class="headerlink" title="方案 2"></a>方案 2</h3><p>通过指定设备 uuid 进行 attach</p>
 <ol>
 <li>通过 <code>flutter devices</code> 查找已链接设备列表，获取链接设备的 uuid</li>
-<li><code>flutter attach -d &lt;#uuid#&gt;</code>  指定想要 attach 的设备进行连接，例如 <code>flutter attach -d AE5D772C-6D56-43AD-83F2-0554257B16C4</code></li>
+<li><code>flutter attach -d &lt;#uuid#&gt;</code> 指定想要 attach 的设备进行连接，例如 <code>flutter attach -d AE5D772C-6D56-43AD-83F2-0554257B16C4</code> <img src="/images/flutter_tips_s2/flutter_attach.jpg" alt="Xnip2020-09-17_02-35-23"></li>
 </ol>
-<p><img src="/images/flutter_tips_s2/flutter_attach.jpg" alt="Xnip2020-09-17_02-35-23"></p>
-<h3 id="方案3"><a href="#方案3" class="headerlink" title="方案3"></a>方案3</h3><p>通过指定应用的 app-id 进行 attach</p>
+<h3 id="方案-3"><a href="#方案-3" class="headerlink" title="方案 3"></a>方案 3</h3><p>通过指定应用的 app-id 进行 attach</p>
 <ol>
 <li>同一 wifi 环境下如果有多台相同项目设备连接中，找到你需要 attach 的 app-id 进行连接</li>
-<li>执行： <code>flutter attach --app-id &lt;#app_id#&gt; </code> 例如： <code>flutter attach --app-id com.xxx.xxx</code></li>
+<li>执行： <code>flutter attach --app-id &lt;#app_id#&gt; </code> 例如： <code>flutter attach --app-id com.xxx.xxx</code> ## 从 package 中加载 json 文件</li>
 </ol>
-<h2 id="从-package-中加载-json-文件"><a href="#从-package-中加载-json-文件" class="headerlink" title="从 package 中加载 json 文件"></a>从 package 中加载 json 文件</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>例如我这里有一个 flutter 的 demo 项目叫 <code>flutter_demo_package_json_load</code> ，在根目录通过命令： <code>flutter create --template=package json_test_package</code> ,创建了一个名为 <code>json_test_package</code> 的 package，在 package 的 assets 中有一个为 test2.json 文件，现在需要在 package 中加载到改文件。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>例如我这里有一个 flutter 的 demo 项目叫 <code>flutter_demo_package_json_load</code> ，在根目录通过命令： <code>flutter create --template=package json_test_package</code> ,创建了一个名为 <code>json_test_package</code> 的 package，在 package 的 assets 中有一个为 test2.json 文件，现在需要在 package 中加载到改文件。</p>
 <h3 id="从工程加载-json"><a href="#从工程加载-json" class="headerlink" title="从工程加载 json"></a>从工程加载 json</h3><p>对于普通项目的 json 文件，加载方式如下：</p>
 <ol>
 <li><p>在项目中添加 json 文件，例如项目的 assets 下有一个名为 test1.json 的文件</p>
 </li>
 <li><p>我们在 yaml 中添加如下依赖</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只加载 assets 下的 test1.json 文件</span></span><br><span class="line"><span class="attr">assets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">assets/test1.json</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="comment"># 加载 assets 下的所有文件</span></span><br><span class="line"> <span class="attr">assets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">assets/</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>通过 rootBundle 加载</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;<span class="built_in">String</span>&gt; _loadFromProjectAsset() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">// json file in project,is ok</span></span><br><span class="line">  <span class="keyword">return</span> rootBundle.loadString(<span class="string">&quot;assets/test1.json&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
+  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只加载 assets 下的 test1.json 文件</span></span><br><span class="line"><span class="attr">assets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">assets/test1.json</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="comment"># 加载 assets 下的所有文件</span></span><br><span class="line"> <span class="attr">assets:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">assets/</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过 rootBundle 加载</li>
+</ol>
+  <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;<span class="built_in">String</span>&gt; _loadFromProjectAsset() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">// json file in project,is ok</span></span><br><span class="line">  <span class="keyword">return</span> rootBundle.loadString(<span class="string">&quot;assets/test1.json&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>但是对于 package 下面 json 文件上面的方法失效了，使用上面的方法加载将会报错，错误信息如下：</p>
 <p><img src="/images/flutter_tips_s2/flutter_tips_15.png" alt="image-20200917144141986"></p>
 <p>错误原因是资源路径不对，加载不到，因为 rootBundle 类没有提供 package name 的参数，我们只能把 package name 信息放在资源路径里面。</p>
@@ -322,9 +325,8 @@
 <ol>
 <li>第一步和上面一样，将 json 文件添加到工程中，假如这里我们 package 里面的 json 文件名为 test2.json</li>
 <li>在 yaml 中添加如下依赖<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只加载 assets 下的 test2.json 文件</span></span><br><span class="line"><span class="attr">assets:</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">assets/test2.json</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="comment"># 加载 assets 下的所有文件</span></span><br><span class="line"><span class="attr">assets:</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">assets/</span></span><br></pre></td></tr></table></figure></li>
-<li>通过 rootBundle 加载，但是 path 的格式为  <code>packages/&lt;#package_name#&gt;/&lt;#file_path#&gt;</code></li>
+<li>通过 rootBundle 加载，但是 path 的格式为 <code>packages/&lt;#package_name#&gt;/&lt;#file_path#&gt;</code> 这里为</li>
 </ol>
-<p>这里为</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// json file in package,this is work</span></span><br><span class="line">Future&lt;<span class="built_in">String</span>&gt; _loadFromPackageAsset() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="comment">// 【importance】 packag json file need use this formate:</span></span><br><span class="line">  <span class="comment">//  `packages/$package/$assetName` </span></span><br><span class="line">  <span class="keyword">return</span> rootBundle.loadString(<span class="string">&quot;packages/json_test_package/assets/test2.json&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>通过 <code>DefaultAssetBundle</code> 也是一样可以</p>
@@ -338,28 +340,24 @@
 </li>
 <li><p>具体支持的 lint 规则参考 <a target="_blank" rel="noopener" href="https://dart-lang.github.io/linter/lints/">https://dart-lang.github.io/linter/lints/</a></p>
 </li>
-<li><p>目前有3类已经定义的常用规则</p>
+<li><p>目前有 3 类已经定义的常用规则</p>
+</li>
+</ul>
 <blockquote>
 <p>Many lints are included in various predefined rulesets:</p>
 </blockquote>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/dart-lang/pedantic">pedantic</a> for rules enforced internally at Google</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/tenhobi/effective_dart">effective_dart</a> for rules corresponding to the <a target="_blank" rel="noopener" href="https://dart.dev/guides/language/effective-dart">Effective Dart</a> style guide</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/flutter/flutter/blob/master/packages/flutter/lib/analysis_options_user.yaml">flutter</a> for rules used in  <code>flutter analyze</code></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/flutter/flutter/blob/master/packages/flutter/lib/analysis_options_user.yaml">flutter</a> for rules used in <code>flutter analyze</code>  * 推荐使用 google 团队内部的规则库 pedantic</li>
 </ul>
-</li>
-<li><p>推荐使用 google 团队内部的规则库 pedantic</p>
 <ul>
-<li>在 yaml 里面添加依赖  <code>pedantic: ^1.8.0+1</code></li>
+<li>在 yaml 里面添加依赖 <code>pedantic: ^1.8.0+1</code> * 在 <code>analysis_options.yaml</code> 里面引入使用</li>
 </ul>
-</li>
-<li><p>在 <code>analysis_options.yaml</code> 里面引入使用</p>
 <blockquote>
-<p> <code>include: package:pedantic/analysis_options.1.8.0.yaml</code></p>
+<p><code>include: package:pedantic/analysis_options.1.8.0.yaml</code> ### 使用</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>配置好 <code>analysis_options.yaml</code> 文件的规则后,执行 <code>flutter analyse</code> 命令将对你整个项目或者 package 的代码进行静态分析</p>
+<p>配置好 <code>analysis_options.yaml</code> 文件的规则后,执行 <code>flutter analyse</code> 命令将对你整个项目或者 package 的代码进行静态分析</p>
 <h3 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h3><ul>
 <li>根据提示修复</li>
 </ul>
@@ -367,14 +365,14 @@
 <ul>
 <li>利用 VSCode 快速修复</li>
 </ul>
-<p>在提示有问题的代码的地方 <code>Ctrl +.</code> , 就会自动弹出快速修复，比如图中为增加 <code>const</code> 标识。 是不是快多了。<img src="/images/flutter_tips_s2/flutter_analyse_1.png" alt="flutter_analyse_1"><img src="/images/flutter_tips_s2/flutter_analyse_2.png" alt="屏幕快照 2020-09-17 上午2.24.55"></p>
+<p>在提示有问题的代码的地方 <code>Ctrl +.</code> , 就会自动弹出快速修复，比如图中为增加 <code>const</code> 标识。 是不是快多了。<img src="/images/flutter_tips_s2/flutter_analyse_1.png" alt="flutter_analyse_1"><img src="/images/flutter_tips_s2/flutter_analyse_2.png" alt="屏幕快照 2020-09-17 上午 2.24.55"></p>
 <h3 id="参考配置"><a href="#参考配置" class="headerlink" title="参考配置"></a>参考配置</h3><p>当然你还可以根据你的需要定制自己的静态分析规则，下面是最近使用的一套配置，仅供你参考：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://gist.github.com/wangruofeng/1451c04c0149fc229a726d819b3135c2">analysis_options.yaml 参考配置</a></p>
 </blockquote>
 <h2 id="dartfmt-命令"><a href="#dartfmt-命令" class="headerlink" title="dartfmt 命令"></a>dartfmt 命令</h2><ul>
-<li><code>dartfmt ./ -w</code>  静态分析代码，并尝试自动修复</li>
-<li><code>dartfmt ./ -n</code>  静态分析代码，不会修复代码</li>
+<li><code>dartfmt ./ -w</code> 静态分析代码，并尝试自动修复</li>
+<li><code>dartfmt ./ -n</code> 静态分析代码，不会修复代码</li>
 </ul>
 <h2 id="DevTool-介绍"><a href="#DevTool-介绍" class="headerlink" title="DevTool 介绍"></a>DevTool 介绍</h2><p>flutter 提供了一个 devTool 系列工具，方便开发者进行调试，查看日志，网络请求，性能等信息，更多信息请参考<a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/tools/devtools/overview">DevTools</a></p>
 <h3 id="Install-DevTools"><a href="#Install-DevTools" class="headerlink" title="Install DevTools"></a>Install DevTools</h3><ul>
@@ -417,7 +415,7 @@
 <p><img src="/images/flutter_tips_s2/flutter_tips_07.png" alt="image-20200917150559335"></p>
 <p>控制台输出以下内容</p>
 <p><img src="/images/flutter_tips_s2/flutter_tips_08.png" alt="image-20200917150622481"></p>
-<p>例如这里我们在这个文件107行直接下一个断点，代码执行到时会触发断点</p>
+<p>例如这里我们在这个文件 107 行直接下一个断点，代码执行到时会触发断点</p>
 <p><img src="/images/flutter_tips_s2/flutter_tips_09.png" alt="image-20200917150821892"></p>
 <p>此时工具栏变成下面的样式</p>
 <p><img src="/images/flutter_tips_s2/flutter_tips_10.png" alt="image-20200917150846708"></p>
@@ -429,24 +427,26 @@
 </li>
 <li><p>选择 main.dart 文件</p>
 </li>
-<li><p>执行 cmd+shift+p,呼出 VSCode 命令面板，输入 <code>&gt;attach to flutter onDevice</code> </p>
-<p><img src="/images/flutter_tips_s2/flutter_tips_11.png" alt="image-20200917153401365"></p>
-<p>选择下面的对应的命令执行</p>
+<li><p>执行 cmd+shift+p,呼出 VSCode 命令面板，输入 <code>&gt;attach to flutter onDevice</code>  <img src="/images/flutter_tips_s2/flutter_tips_11.png" alt="image-20200917153401365"></p>
+</li>
+</ol>
+<p> 选择下面的对应的命令执行</p>
 <blockquote>
 <p>如果 attach 不上请断开 wifi 重试</p>
 </blockquote>
-</li>
-<li><p>Attach 成功的话会显示下面一条悬浮工具栏和纯 flutter 相比里面多了一个类似插头的按钮</p>
-<p><img src="/images/flutter_tips_s2/flutter_tips_12.png" alt="image-20200917153656732"></p>
-<p>Debug Console 控制台也会输出下面信息</p>
-<p><img src="/images/flutter_tips_s2/flutter_tips_13.png" alt="image-20200917153719698"></p>
-</li>
+<ol start="5">
+<li>Attach 成功的话会显示下面一条悬浮工具栏和纯 flutter 相比里面多了一个类似插头的按钮</li>
+</ol>
+<p> <img src="/images/flutter_tips_s2/flutter_tips_12.png" alt="image-20200917153656732"></p>
+<p> Debug Console 控制台也会输出下面信息</p>
+<p> <img src="/images/flutter_tips_s2/flutter_tips_13.png" alt="image-20200917153719698"></p>
+<ol start="5">
 <li><p>剩下的调试和上面 DevTool 介绍的流程一致</p>
 </li>
 <li><p>在这个项目里面可以直接对引用到的代码进行断点调试</p>
-<p><img src="/images/flutter_tips_s2/flutter_tips_14.png" alt="image-20200917154306797"></p>
 </li>
 </ol>
+<p> <img src="/images/flutter_tips_s2/flutter_tips_14.png" alt="image-20200917154306797"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><p><a target="_blank" rel="noopener" href="https://pub.dev/packages/analyzer">analyzer</a></p>
 </li>
@@ -459,8 +459,9 @@
 <li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/63914819/how-to-access-assets-in-package">How to access assets in package</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/tools/devtools/overview">DevTools</a></p>
-<!-- processed --></li>
+</li>
 </ul>
+<!-- processed 2 -->
 
     </div>
 
@@ -559,7 +560,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E9%AB%98-flutter-attach-%E7%9A%84%E6%88%90%E5%8A%9F%E7%8E%87"><span class="nav-number">1.</span> <span class="nav-text">提高 flutter attach 的成功率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%881"><span class="nav-number">1.1.</span> <span class="nav-text">方案1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%882"><span class="nav-number">1.2.</span> <span class="nav-text">方案2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%883"><span class="nav-number">1.3.</span> <span class="nav-text">方案3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-package-%E4%B8%AD%E5%8A%A0%E8%BD%BD-json-%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">从 package 中加载 json 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E5%B7%A5%E7%A8%8B%E5%8A%A0%E8%BD%BD-json"><span class="nav-number">2.2.</span> <span class="nav-text">从工程加载 json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E-package-%E5%8A%A0%E8%BD%BD-json"><span class="nav-number">2.3.</span> <span class="nav-text">从 package 加载 json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flutter-analyse"><span class="nav-number">3.</span> <span class="nav-text">flutter analyse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.1.</span> <span class="nav-text">配置步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D"><span class="nav-number">3.3.</span> <span class="nav-text">修复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE"><span class="nav-number">3.4.</span> <span class="nav-text">参考配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dartfmt-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">dartfmt 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DevTool-%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">DevTool 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-DevTools"><span class="nav-number">5.1.</span> <span class="nav-text">Install DevTools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Launch-the-DevTools-application-server"><span class="nav-number">5.2.</span> <span class="nav-text">Launch the DevTools application server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-an-application-to-debug"><span class="nav-number">5.3.</span> <span class="nav-text">Start an application to debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-DevTools-and-connect-to-the-target-app"><span class="nav-number">5.4.</span> <span class="nav-text">Open DevTools and connect to the target app</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flutter-%E8%B0%83%E8%AF%95"><span class="nav-number">6.</span> <span class="nav-text">flutter 调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF-flutter-%E9%A1%B9%E7%9B%AE"><span class="nav-number">6.1.</span> <span class="nav-text">纯 flutter 项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E9%A1%B9%E7%9B%AE-%E5%8E%9F%E7%94%9F-flutter"><span class="nav-number">6.2.</span> <span class="nav-text">混合项目(原生+flutter)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E9%AB%98-flutter-attach-%E7%9A%84%E6%88%90%E5%8A%9F%E7%8E%87"><span class="nav-number">1.</span> <span class="nav-text">提高 flutter attach 的成功率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-1"><span class="nav-number">1.1.</span> <span class="nav-text">方案 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-2"><span class="nav-number">1.2.</span> <span class="nav-text">方案 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-3"><span class="nav-number">1.3.</span> <span class="nav-text">方案 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.4.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E5%B7%A5%E7%A8%8B%E5%8A%A0%E8%BD%BD-json"><span class="nav-number">1.5.</span> <span class="nav-text">从工程加载 json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E-package-%E5%8A%A0%E8%BD%BD-json"><span class="nav-number">1.6.</span> <span class="nav-text">从 package 加载 json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flutter-analyse"><span class="nav-number">2.</span> <span class="nav-text">flutter analyse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.1.</span> <span class="nav-text">配置步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D"><span class="nav-number">2.2.</span> <span class="nav-text">修复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">参考配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dartfmt-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">dartfmt 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DevTool-%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">DevTool 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-DevTools"><span class="nav-number">4.1.</span> <span class="nav-text">Install DevTools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Launch-the-DevTools-application-server"><span class="nav-number">4.2.</span> <span class="nav-text">Launch the DevTools application server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-an-application-to-debug"><span class="nav-number">4.3.</span> <span class="nav-text">Start an application to debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-DevTools-and-connect-to-the-target-app"><span class="nav-number">4.4.</span> <span class="nav-text">Open DevTools and connect to the target app</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flutter-%E8%B0%83%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">flutter 调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%AF-flutter-%E9%A1%B9%E7%9B%AE"><span class="nav-number">5.1.</span> <span class="nav-text">纯 flutter 项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E9%A1%B9%E7%9B%AE-%E5%8E%9F%E7%94%9F-flutter"><span class="nav-number">5.2.</span> <span class="nav-text">混合项目(原生+flutter)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

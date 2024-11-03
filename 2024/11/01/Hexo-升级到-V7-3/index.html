@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta name="description" content="最近换了台 Apple M2 电脑，整个软件都进行重装，Hexo 年久失修，在设置的时候出现很多警告 ⚠️，看了一下日志主要原因是以前版本依赖的 node 版本太低了，还有相关依赖库因为太旧有不少安全漏洞，查了一下 Hexo 最新发布的为 7.3 版本 ，于是打算整体迁移一下。">
@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/hexo_update/hexo.webp">
 <meta property="article:published_time" content="2024-11-01T06:04:25.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.924Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.303Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,7 +247,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>782</span>
+              <span>783</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@
 <span id="more"></span>
 
 
-<h1 id="安装-Hexo-7-3"><a href="#安装-Hexo-7-3" class="headerlink" title="安装 Hexo 7.3"></a>安装 Hexo 7.3</h1><p>首先 Hexo 的安装可以用 brew 了。使用  <code>brew install hexo</code>  安装，安装好之后 Hexo 在  <code>/opt/homebrew/Cellar/hexo/7.3.0</code>  下。</p>
+<h1 id="安装-Hexo-7-3"><a href="#安装-Hexo-7-3" class="headerlink" title="安装 Hexo 7.3"></a>安装 Hexo 7.3</h1><p>首先 Hexo 的安装可以用 brew 了。使用 <code>brew install hexo</code> 安装，安装好之后 Hexo 在 <code>/opt/homebrew/Cellar/hexo/7.3.0</code> 下。</p>
 <p>使用 Hexo 的如下指令完成建站</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
@@ -283,13 +283,13 @@
 <p>配置主题：由于我定制过 Next 主题，就直接把旧项目的主题直接拷贝到新项目的 themes&#x2F;next 目录即可。如果是第一次建站需要在 themes 目录下把 <a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">Next</a> clone 下来：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next.git next</span><br></pre></td></tr></table></figure>
 
-<p>配置  <code>_config.yml</code>  主题为 next：</p>
+<p>配置 <code>_config.yml</code> 主题为 next：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure>
 
 <p>配置语言：在 <code>_config.yml</code> 中更新博客语言配置，默认为英语</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br></pre></td></tr></table></figure>
 
-<p>配置链接风格：修改  <code>_config.yml</code>  的 permalink 生成格式，这里配置成短链风格，如下内容：</p>
+<p>配置链接风格：修改 <code>_config.yml</code> 的 permalink 生成格式，这里配置成短链风格，如下内容：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认风格</span></span><br><span class="line"><span class="comment"># permalink: :year/:month/:day/:title/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将文章 url 风格调整成短链风</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink/</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="配置分类"><a href="#配置分类" class="headerlink" title="配置分类"></a>配置分类</h1><p>这步配置可以参考[这个帖子](<a target="_blank" rel="noopener" href="https://tohugo.com/2021/01/26/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/Hexo">https://tohugo.com/2021/01/26/工具配置/Hexo</a> 添加分类及标签（在 Next 主题下）&#x2F;)</p>
@@ -312,25 +312,25 @@
 <p>编辑 <code>index.md</code> 在文件中添加 type: “tags”</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line"><span class="built_in">date</span>: 2024-11-02 13:44:19</span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
-<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="站内搜索"><a href="#站内搜索" class="headerlink" title="站内搜索"></a>站内搜索</h2><p>安装  <code>hexo-generator-searchdb</code>  插件</p>
+<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="站内搜索"><a href="#站内搜索" class="headerlink" title="站内搜索"></a>站内搜索</h2><p>安装 <code>hexo-generator-searchdb</code> 插件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
 
-<p>在  <code>_config.yml</code>  中添加配置：</p>
+<p>在 <code>_config.yml</code> 中添加配置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># search</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h2><p>安装  <code>npm install hexo-word-counter</code>  插件 , <a target="_blank" rel="noopener" href="https://hexo-next.readthedocs.io/zh-cn/latest/next/advanced/%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1/">参考</a></p>
+<h2 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h2><p>安装 <code>npm install hexo-word-counter</code> 插件 , <a target="_blank" rel="noopener" href="https://hexo-next.readthedocs.io/zh-cn/latest/next/advanced/%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1/">参考</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-word-counter</span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
 
 <h2 id="发布插件"><a href="#发布插件" class="headerlink" title="发布插件"></a>发布插件</h2><p>然后需要在 blog 根目录下安装以下插件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-<p>因为我在  <code>config.yml</code>  中配置好了 deploy 信息：</p>
+<p>因为我在 <code>config.yml</code> 中配置好了 deploy 信息：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">message:</span> <span class="string">&quot;Site updated: <span class="template-variable">&#123;&#123; now(&#x27;YYYY-MM-DD HH:mm&#x27;) &#125;&#125;</span>&quot;</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">    <span class="attr">github:</span> <span class="string">git@github.com:wangruofeng/wangruofeng.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发布新文章</span></span><br><span class="line">hexo new <span class="string">&quot;My New Post&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预览</span></span><br><span class="line">hexo s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成文件到 public 目录</span></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布到 Github Pages</span></span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除缓存</span></span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
 
-<p>需要注意，如果改了文件发布的话，要先  <code>hexo g</code>  ，然后再  <code>hexo d</code>  。</p>
-<!-- processed -->
+<p>需要注意，如果改了文件发布的话，要先 <code>hexo g</code> ，然后再 <code>hexo d</code> 。</p>
+<!-- processed 2 -->
 
     </div>
 

@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta name="description" content="前言此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。 App 常见崩溃 数组下标越界 字典构造与修改 NSAttributedString 相关 呈现一个空控制器 unrecognized selector 操作 tableView 数据 Push 到同一个控制器多次  1.数组下标越界示例代码： 12345- (void)testArrayOutOfBo">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="前言此文是基于这些年工作中项目里面常见崩溃的一些总结，整理出来方便查阅，希望对大家都有所帮助。 App 常见崩溃 数组下标越界 字典构造与修改 NSAttributedString 相关 呈现一个空控制器 unrecognized selector 操作 tableView 数据 Push 到同一个控制器多次  1.数组下标越界示例代码： 12345- (void)testArrayOutOfBo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-10-23T15:18:01.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.931Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.307Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="奔溃分析">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -331,13 +331,7 @@
 </ul>
 <p>以上就是工作中常见的异常崩溃以及处理方案，下面的异常分类内容来自 <code>Apple</code> 的官方文档，有兴趣的可以查阅。☕️</p>
 <h3 id="Apple-官方常见异常类型-Exception-types"><a href="#Apple-官方常见异常类型-Exception-types" class="headerlink" title="Apple 官方常见异常类型(Exception types)"></a>Apple 官方常见异常类型(Exception types)</h3><ol>
-<li>访问一块坏内存 <code>[EXC_BAD_ACCESS] // SIGSEGV // SIGBUS]</code> </li>
-<li>异常退出 <code>[EXC_CRASH // SIGABRT]</code> </li>
-<li>追踪受限 <code>[EXC_BREAKPOINT // SIGTRAP]</code> </li>
-<li>非法指令 <code>[EXC_BAD_INSTRUCTION // SIGILL]</code> </li>
-<li>被保护的资源遭到侵害 <code>[EXC_GUARD]</code> </li>
-<li>资源限制 <code>[EXC_RESOURCE]</code> </li>
-<li>其他异常类型</li>
+<li>访问一块坏内存 <code>[EXC_BAD_ACCESS] // SIGSEGV // SIGBUS]</code> 2. 异常退出 <code>[EXC_CRASH // SIGABRT]</code> 3. 追踪受限 <code>[EXC_BREAKPOINT // SIGTRAP]</code> 4. 非法指令 <code>[EXC_BAD_INSTRUCTION // SIGILL]</code> 5. 被保护的资源遭到侵害 <code>[EXC_GUARD]</code> 6. 资源限制 <code>[EXC_RESOURCE]</code> 7. 其他异常类型</li>
 </ol>
 <h4 id="1-访问一块坏内存-Bad-Memory-Access"><a href="#1-访问一块坏内存-Bad-Memory-Access" class="headerlink" title="1.访问一块坏内存(Bad Memory Access)"></a>1.访问一块坏内存(Bad Memory Access)</h4><p>当程序试图接入无效内容或者尝试以不被允许的方式接入由于内存的保护等级(例如，尝试写入只读的内存)。 <code>Exception Subtype</code> 字段包含一个<strong>kern_return_t</strong>结构体用来描述错误和不正确接入的内存地址。</p>
 <p>下面是一些调试坏内存接入导致崩溃的建议：</p>
@@ -358,7 +352,7 @@
 <p>查看<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/technotes/tn2151/_index.html#//apple_ref/doc/uid/DTS40008184-CH1-STACKTRACE">Backtraces</a>来决发生定异常条件的位置。额外的信息可能已经在设备的控制台打印出来了。你应该修改崩溃处的代码来优雅的处理 <code>runtime</code> 错误。例如，使用<a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html">Optional Binding</a>而不是强制解包一个可选变量。</p>
 <h4 id="4-非法指令（Illegal-Instruction）"><a href="#4-非法指令（Illegal-Instruction）" class="headerlink" title="4.非法指令（Illegal Instruction）"></a>4.非法指令（Illegal Instruction）</h4><p>进程尝试执行一个非法或者未定义的指令。进程可能已经尝试跳进到一个无效的地址通过一个配置错误的函数指针。在 <code>Intel</code> 处理器中， <code>ud2</code> 操作码导致一个<strong>EXC_BAD_INSTRUCTION</strong>异常，但是它通常被用来困住进程达到调试的目的。 <code>Swift</code> 代码在 <code>Intel</code> 处理器中将以这种异常终结，假如在 <code>runtime</code> 位置条件发生。更多详情查看<strong>Trace Trap</strong>。</p>
 <h4 id="5-被保护的资源遭到侵害（Guarded-Resource-Violation）"><a href="#5-被保护的资源遭到侵害（Guarded-Resource-Violation）" class="headerlink" title="5.被保护的资源遭到侵害（Guarded Resource Violation）"></a>5.被保护的资源遭到侵害（Guarded Resource Violation）</h4><p>进程侵犯一个被保护的资源。系统库可能某个文件的描述器成 <code>guarded</code> ，在那以后，所有不正常的操作在这些描述器上都将触发一个<strong>EXC_GUARD</strong>异常（当它想操作在这些文件描述器上，系统可以使用特殊的 <code>guarded</code> 标记的私有 APIs）。这可以帮你向下快速追踪问题，例如关闭一个已经被系库打开的文件描述器。例如，假如一个 app 关闭文件秒杀器通过使用截图 <code>SQLite</code> 文件到一个 <code>Core Data</code> 存储， <code>Core Data</code> 将会在随后诡异的崩溃。<strong>guard exception</strong>将让这些问题尽早引起你的注意，这样也让他们变得更容易调试。</p>
-<p>崩溃报告来自新版的 <code>iOS</code> 包含了人类可读的详细信息关于引起 <code>EXC_GUARD</code> 异常的操作在 <code>Exception Subtype</code> 和 <code>Exception Message</code> 字段中。在来自 <code>macOS</code> 或者老版本的 <code>iOS</code> 的崩溃报告中，这些信息被编码到第一个 <code> Exception Code</code> 就像一个分解成如下的位段：</p>
+<p>崩溃报告来自新版的 <code>iOS</code> 包含了人类可读的详细信息关于引起 <code>EXC_GUARD</code> 异常的操作在 <code>Exception Subtype</code> 和 <code>Exception Message</code> 字段中。在来自 <code>macOS</code> 或者老版本的 <code>iOS</code> 的崩溃报告中，这些信息被编码到第一个 <code>Exception Code</code> 就像一个分解成如下的位段：</p>
 <ul>
 <li><strong>[63:61] - Guard Type</strong>：被保护的资源类型。 <code>0x2</code> 代表一个文件描述器资源。</li>
 <li><strong>[60:32] - Flavor</strong>：侵害被处罚时的条件<ul>
@@ -375,10 +369,10 @@
 <li><p>异常子类型 <code>MEMORY</code> 表明进程已经越过系统应用的内存限制。这可能是一个终结的先兆由于超额的使用内存。</p>
 </li>
 <li><p>异常子类型 <code>WAKEUPS</code> 表明在进程中的线程每秒被唤醒太多次，这强制 <code>CPU</code> 非常频繁的唤醒消耗电池寿命。</p>
-<p>  典型的，这个通过由线程与线程的通信产生（通常是使用 <code>peformSelector:onThread:</code> 或 <code>dispatch_async</code> ）,那样无意的发生了远远超出它正常应该的切换频率。因为通信的协调发生得非常频繁而出发此类的异常，这个通常和多个后台线程有着相似 <code>Backtraces</code>  – 表明那些地方发生过通信。</p>
+<p>  典型的，这个通过由线程与线程的通信产生（通常是使用 <code>peformSelector:onThread:</code> 或 <code>dispatch_async</code> ）,那样无意的发生了远远超出它正常应该的切换频率。因为通信的协调发生得非常频繁而出发此类的异常，这个通常和多个后台线程有着相似 <code>Backtraces</code> – 表明那些地方发生过通信。</p>
 </li>
 </ul>
-<h4 id="7-其他异常类型（Other-Exception-Types）"><a href="#7-其他异常类型（Other-Exception-Types）" class="headerlink" title="7.其他异常类型（Other Exception Types）"></a>7.其他异常类型（Other Exception Types）</h4><p>一些崩溃报告可能含有一个未命名的 <code>Exception Type</code> ，将以一个16进制的值（例如，00000020）的形式打印。假如你的设备收到了一个这样的崩溃报告，直接查看 <code>Exception Codes</code> 字段寻找更多的信息。</p>
+<h4 id="7-其他异常类型（Other-Exception-Types）"><a href="#7-其他异常类型（Other-Exception-Types）" class="headerlink" title="7.其他异常类型（Other Exception Types）"></a>7.其他异常类型（Other Exception Types）</h4><p>一些崩溃报告可能含有一个未命名的 <code>Exception Type</code> ，将以一个 16 进制的值（例如，00000020）的形式打印。假如你的设备收到了一个这样的崩溃报告，直接查看 <code>Exception Codes</code> 字段寻找更多的信息。</p>
 <ul>
 <li><p>异常代码 <code>0xbaaaaaad</code> 表明记录是整个系统的 <code>stackshot</code> ，不是一个崩溃报告。为了获得一个 <code>stackshot</code> ，按 <code>Home</code> 键和任意音量键。这些记录经常被用户偶然创建，并不表明是一个错误。</p>
 </li>
@@ -400,7 +394,7 @@
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/technotes/tn2151/_index.html">Understanding and Analyzing Application Crash Reports</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AnalyzingCrashReports/AnalyzingCrashReports.html">Analyzing Crash Reports</a></li>
 </ul>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 

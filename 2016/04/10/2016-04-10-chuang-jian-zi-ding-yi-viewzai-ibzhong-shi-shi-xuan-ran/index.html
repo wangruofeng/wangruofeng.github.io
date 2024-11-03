@@ -18,22 +18,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="曾想自定义的 View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在 Xcode6终于让你可以轻松的做到。 你不用编译就能实时预览，现在配置自定义界面方便多了， IBInspectable 和 IBDesignable 使它成为可能。 IBInspectableIBInspectable属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity insp">
+        <meta name="description" content="曾想自定义的 View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在 Xcode6 终于让你可以轻松的做到。 你不用编译就能实时预览，现在配置自定义界面方便多了， IBInspectable 和 IBDesignable 使它成为可能。 IBInspectable IBInspectable 属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="创建自定义 View 在 IB 中实时渲染">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2016/04/10/2016-04-10-chuang-jian-zi-ding-yi-viewzai-ibzhong-shi-shi-xuan-ran/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="曾想自定义的 View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在 Xcode6终于让你可以轻松的做到。 你不用编译就能实时预览，现在配置自定义界面方便多了， IBInspectable 和 IBDesignable 使它成为可能。 IBInspectableIBInspectable属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity insp">
+<meta property="og:description" content="曾想自定义的 View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在 Xcode6 终于让你可以轻松的做到。 你不用编译就能实时预览，现在配置自定义界面方便多了， IBInspectable 和 IBDesignable 使它成为可能。 IBInspectable IBInspectable 属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity i">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_01.jpg">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_02.jpg">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_03.jpg">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/ib_Inspectable/ib_04.jpg">
 <meta property="article:published_time" content="2016-04-10T05:22:56.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.891Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.286Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="IB">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>746</span>
+              <span>747</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -269,14 +269,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>曾想自定义的 View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在 Xcode6终于让你可以轻松的做到。</p>
+        <p>曾想自定义的 View，可以像系统自带属性一样，并且实时渲染，动态更新内容，现在在 Xcode6 终于让你可以轻松的做到。</p>
 <p>你不用编译就能实时预览，现在配置自定义界面方便多了， <code>IBInspectable</code> 和 <code>IBDesignable</code> 使它成为可能。</p>
-<h3 id="IBInspectable"><a href="#IBInspectable" class="headerlink" title="IBInspectable"></a>IBInspectable</h3><p><code>IBInspectable</code>属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity inspector）中访问，这些属性在Interface Builder整合到Xcode。可以通过它来配置Nib，Xib，storyboard实例中的任何键值编码（key-value-coded）属性：</p>
+<h3 id="IBInspectable"><a href="#IBInspectable" class="headerlink" title="IBInspectable"></a>IBInspectable</h3><p> <code>IBInspectable</code> 属性提供访问旧功能的新方法：用户自定义的运行时属性。从目前的身份检查器（identity inspector）中访问，这些属性在Interface Builder整合到Xcode。可以通过它来配置Nib，Xib，storyboard实例中的任何键值编码（key-value-coded）属性：</p>
 <p><img src="/images/ib_Inspectable/ib_01.jpg" alt="runtime Attributes setting"></p>
-<p>以前想实现，只能点+号手动添加例如想给 <code>UIView</code> 添加一个圆角半径，设置 Key Path 为：layer.cornerRadius,type 为 Number ，Value 为4，如果使用 <code>IBInspectable</code> 只需要在 <code>@property</code>  声明后加上 IBInspectable（或者 swift 加上 <code>@IBInspectable</code> ），就可以在 IB 的观察面板中（inspector pannel）里直接编辑。其他交由 Xcode 自动完成，属性名字会自动分组，名称从驼峰（camel-）转换成 title-模式。</p>
+<p>以前想实现，只能点+号手动添加例如想给 <code>UIView</code> 添加一个圆角半径，设置 Key Path 为：layer.cornerRadius,type 为 Number ，Value 为 4，如果使用 <code>IBInspectable</code> 只需要在 <code>@property</code> 声明后加上 IBInspectable（或者 swift 加上 <code>@IBInspectable</code> ），就可以在 IB 的观察面板中（inspector pannel）里直接编辑。其他交由 Xcode 自动完成，属性名字会自动分组，名称从驼峰（camel-）转换成 title-模式。</p>
 <p><img src="/images/ib_Inspectable/ib_02.jpg" alt="inspector pannel"></p>
 <p>目前可检查属性支持</p>
-<p><img src="/images/ib_Inspectable/ib_03.jpg" alt="supported  types"></p>
+<p><img src="/images/ib_Inspectable/ib_03.jpg" alt="supported types"></p>
 <p>备注 :</p>
 <ol>
 <li><p>经本人亲测，除 <code>NSNumber</code> , <code>NSRange</code> 不会产生观察面板属性， <code>NSRange</code> 不会在 runtime Attributes 中自动添加，其他都会自动生成。</p>
@@ -293,9 +293,9 @@
 <p>有了这个功能，一个设计师或者开放人员可以轻松调整自定义的控件呈现。任何改变，都将立即呈现，有的想 <code>Swift</code> 里面的 playground 功能，实现：<strong>所见即所得</strong>。</p>
 <p>由于在 Interface Builder 中呈现自定义视图不会有应用程序的完整上下文，你可能需要生成模拟数据以便显示，例如一个默认用户头像图片或仿制的天气数据。有两种方法可以为这个特殊的上下文添加代码：</p>
 <ol>
-<li><p><code>prepareForInterfaceBuilder()</code>  :此方法与你代码的其余部分一起编译，但只有当视图正在准备在 Interface Builder 显示时执行</p>
+<li><p><code>prepareForInterfaceBuilder()</code> :此方法与你代码的其余部分一起编译，但只有当视图正在准备在 Interface Builder 显示时执行</p>
 </li>
-<li><p>TARGET_INTERFACE_BUILDER:#if TARGET_INTERFACE_BUILDER 预处宏,在  <code>Objective-C</code>  或  <code>Swift</code>  下都是工作的，它会视情况编译正确代码</p>
+<li><p>TARGET_INTERFACE_BUILDER:#if TARGET_INTERFACE_BUILDER 预处宏,在 <code>Objective-C</code> 或 <code>Swift</code> 下都是工作的，它会视情况编译正确代码</p>
 </li>
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> !TARGET_INTERFACE_BUILDE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// this code will run in the app it self</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#els</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// this code will execute only in IB</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
@@ -310,7 +310,7 @@
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/xyzyzyxyz/IBInspectable_IBDesignable_Demo_1.0/tree/master">IBInspectable_IBDesignable_Demo</a></li>
 </ul>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 

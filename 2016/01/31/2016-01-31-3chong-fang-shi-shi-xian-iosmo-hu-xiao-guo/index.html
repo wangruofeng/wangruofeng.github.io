@@ -18,20 +18,20 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="介绍 iOS 中以下四种方式实现：  CoreImage 中的模糊滤镜 UIImage + ImageEffects 的 category 模糊效果 iOS8中 UIVisualEffectView 模糊效果 iOS7以后通过 UIToolBar 实现模糊效果  CoreImage 中的模糊滤镜实现CoreImage主要通过CIFilter这个类来实现。 这个类支持的滤镜多达14类，每个类又细分多">
+        <meta name="description" content="介绍 iOS 中以下四种方式实现：  CoreImage 中的模糊滤镜 UIImage + ImageEffects 的 category 模糊效果 iOS8 中 UIVisualEffectView 模糊效果 iOS7 以后通过 UIToolBar 实现模糊效果  CoreImage 中的模糊滤镜实现 CoreImage 主要通过 CIFilter 这个类来实现。 这个类支持的滤镜多达 14 类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4 种方式实现 iOS 模糊效果">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2016/01/31/2016-01-31-3chong-fang-shi-shi-xian-iosmo-hu-xiao-guo/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="介绍 iOS 中以下四种方式实现：  CoreImage 中的模糊滤镜 UIImage + ImageEffects 的 category 模糊效果 iOS8中 UIVisualEffectView 模糊效果 iOS7以后通过 UIToolBar 实现模糊效果  CoreImage 中的模糊滤镜实现CoreImage主要通过CIFilter这个类来实现。 这个类支持的滤镜多达14类，每个类又细分多">
+<meta property="og:description" content="介绍 iOS 中以下四种方式实现：  CoreImage 中的模糊滤镜 UIImage + ImageEffects 的 category 模糊效果 iOS8 中 UIVisualEffectView 模糊效果 iOS7 以后通过 UIToolBar 实现模糊效果  CoreImage 中的模糊滤镜实现 CoreImage 主要通过 CIFilter 这个类来实现。 这个类支持的滤镜多达 14 类">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/img_blur.jpg">
 <meta property="og:image" content="https://github.com/wangruofeng/BlurEffectDemo/raw/master/sample.png">
 <meta property="article:published_time" content="2016-01-31T15:12:52.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.908Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.295Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="特效">
 <meta name="twitter:card" content="summary">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,7 +248,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>705</span>
+              <span>706</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -271,11 +271,11 @@
 <ul>
 <li><code>CoreImage</code> 中的模糊滤镜</li>
 <li><code>UIImage + ImageEffects</code> 的 category 模糊效果</li>
-<li>iOS8中 <code>UIVisualEffectView</code> 模糊效果</li>
-<li>iOS7以后通过 <code>UIToolBar</code> 实现模糊效果</li>
+<li>iOS8 中 <code>UIVisualEffectView</code> 模糊效果</li>
+<li>iOS7 以后通过 <code>UIToolBar</code> 实现模糊效果</li>
 </ul>
-<h3 id="CoreImage-中的模糊滤镜实现"><a href="#CoreImage-中的模糊滤镜实现" class="headerlink" title="CoreImage 中的模糊滤镜实现"></a><code>CoreImage</code> 中的模糊滤镜实现</h3><p><code>CoreImage</code>主要通过<code>CIFilter</code>这个类来实现。</p>
-<p>这个类支持的滤镜多达14类，每个类又细分多款滤镜：</p>
+<h3 id="CoreImage-中的模糊滤镜实现"><a href="#CoreImage-中的模糊滤镜实现" class="headerlink" title="CoreImage 中的模糊滤镜实现"></a><code>CoreImage</code> 中的模糊滤镜实现</h3><p> <code>CoreImage</code> 主要通过 <code>CIFilter</code> 这个类来实现。</p>
+<p>这个类支持的滤镜多达 14 类，每个类又细分多款滤镜：</p>
 <ol>
 <li>CICategoryBlur<ul>
 <li>CIBoxBlur</li>
@@ -331,7 +331,7 @@
 <p>这里封装了一个区域模糊效果的方法</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (UIImage *)blurImageAtFrame:(CGRect)frame;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="iOS8中-UIVisualEffectView-模糊效果"><a href="#iOS8中-UIVisualEffectView-模糊效果" class="headerlink" title="iOS8中 UIVisualEffectView 模糊效果"></a>iOS8中 <code>UIVisualEffectView</code> 模糊效果</h3><p>这个效果只支持 iOS8.0以上的版本，通过 <code>UIVisualEffectView</code> 来实现。</p>
+<h3 id="iOS8-中-UIVisualEffectView-模糊效果"><a href="#iOS8-中-UIVisualEffectView-模糊效果" class="headerlink" title="iOS8 中 UIVisualEffectView 模糊效果"></a>iOS8 中 <code>UIVisualEffectView</code> 模糊效果</h3><p>这个效果只支持 iOS8.0 以上的版本，通过 <code>UIVisualEffectView</code> 来实现。</p>
 <p><strong>Sample Code：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 1.创建模糊 view</span><br><span class="line">   UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];</span><br><span class="line">   </span><br><span class="line">   // 2.设置尺寸</span><br><span class="line">   effectView.frame = CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, 200);</span><br><span class="line">   </span><br><span class="line">   // 3.添加到 view 当中</span><br><span class="line">   [self.view addSubview:effectView];</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
 
@@ -348,7 +348,7 @@
 </a> – 本文效果 Demo</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/UIVisualEffects_Objective-c">UIVisualEffects_Objective-c</a> – 详细介绍 <code>UIVisualEffects</code> 的使用</li>
 </ul>
-<h3 id="iOS7以后通过-UIToolBar-实现模糊效果"><a href="#iOS7以后通过-UIToolBar-实现模糊效果" class="headerlink" title="iOS7以后通过 UIToolBar 实现模糊效果"></a>iOS7以后通过 <code>UIToolBar</code> 实现模糊效果</h3><p>在 iOS7以后， <code>UINavigationBar</code> 和 <code>UIToolBar</code> 自带毛玻璃模糊效果，可以通过手动创建 <code>UIToolBar</code> 对象，然后添加到 view 中实现，UIToolBar 区域就可以实现动态毛玻璃模糊效果。</p>
+<h3 id="iOS7-以后通过-UIToolBar-实现模糊效果"><a href="#iOS7-以后通过-UIToolBar-实现模糊效果" class="headerlink" title="iOS7 以后通过 UIToolBar 实现模糊效果"></a>iOS7 以后通过 <code>UIToolBar</code> 实现模糊效果</h3><p>在 iOS7 以后， <code>UINavigationBar</code> 和 <code>UIToolBar</code> 自带毛玻璃模糊效果，可以通过手动创建 <code>UIToolBar</code> 对象，然后添加到 view 中实现，UIToolBar 区域就可以实现动态毛玻璃模糊效果。</p>
 <p>例如在一个状态栏后方添加一个模糊 view,可以在控制器中这样实现，假设没有导航栏</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIToolbar *statusBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];</span><br><span class="line">[self.view addSubview:statusBar];</span><br></pre></td></tr></table></figure>
 
@@ -359,7 +359,7 @@
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/prerelease/ios/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html">Core Image Filter Reference</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/UIImageBlur">UIImageBlur</a></li>
 </ul>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 
@@ -458,7 +458,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CoreImage-%E4%B8%AD%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%BB%A4%E9%95%9C%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">CoreImage 中的模糊滤镜实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIImage-ImageEffects-%E7%9A%84-category-%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">UIImage + ImageEffects 的 category 模糊效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS8%E4%B8%AD-UIVisualEffectView-%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">iOS8中 UIVisualEffectView 模糊效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS7%E4%BB%A5%E5%90%8E%E9%80%9A%E8%BF%87-UIToolBar-%E5%AE%9E%E7%8E%B0%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">iOS7以后通过 UIToolBar 实现模糊效果</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CoreImage-%E4%B8%AD%E7%9A%84%E6%A8%A1%E7%B3%8A%E6%BB%A4%E9%95%9C%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">CoreImage 中的模糊滤镜实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIImage-ImageEffects-%E7%9A%84-category-%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">UIImage + ImageEffects 的 category 模糊效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS8-%E4%B8%AD-UIVisualEffectView-%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">iOS8 中 UIVisualEffectView 模糊效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS7-%E4%BB%A5%E5%90%8E%E9%80%9A%E8%BF%87-UIToolBar-%E5%AE%9E%E7%8E%B0%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">iOS7 以后通过 UIToolBar 实现模糊效果</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

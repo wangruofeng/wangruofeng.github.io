@@ -18,15 +18,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="写在最前比起设计模式，个人认为这3条原则更加重要：  DRY（Don’t Repeat Yourself）：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。 KISS（Keep It Simple, Stupid）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让 BUG 不容易隐藏">
+        <meta name="description" content="写在最前比起设计模式，个人认为这 3 条原则更加重要：  DRY（Don’t Repeat Yourself）：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。 KISS（Keep It Simple, Stupid）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让 BUG 不容易">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式 与 Flutter">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2024/11/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%8E-Flutter/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="写在最前比起设计模式，个人认为这3条原则更加重要：  DRY（Don’t Repeat Yourself）：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。 KISS（Keep It Simple, Stupid）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让 BUG 不容易隐藏">
+<meta property="og:description" content="写在最前比起设计模式，个人认为这 3 条原则更加重要：  DRY（Don’t Repeat Yourself）：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。 KISS（Keep It Simple, Stupid）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让 BUG 不容易">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/design_pattern_cover.webp">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.png">
@@ -58,7 +58,7 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/template_method.png">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/design_pattern_flutter/visitor.png">
 <meta property="article:published_time" content="2024-11-02T08:38:31.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.916Z">
+<meta property="article:modified_time" content="2024-11-03T05:54:13.974Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Flutter">
 <meta name="twitter:card" content="summary">
@@ -257,7 +257,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:54:13" itemprop="dateModified" datetime="2024-11-03T13:54:13+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,7 +294,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="写在最前"><a href="#写在最前" class="headerlink" title="写在最前"></a>写在最前</h1><p>比起设计模式，个人认为这3条原则更加重要：</p>
+        <h1 id="写在最前"><a href="#写在最前" class="headerlink" title="写在最前"></a>写在最前</h1><p>比起设计模式，个人认为这 3 条原则更加重要：</p>
 <ul>
 <li>DRY（<strong>Don’t Repeat Yourself）</strong>：尽量在项目中减少重复的代码行，重复的方法，重复的模块。其实许多设计原则和模式最本质的思想都是在消除重复。</li>
 <li>KISS（<strong>Keep It Simple, Stupid</strong>）：让代码简单直接，用简单的方法解决复杂的问题，保持代码可读性和可维护性，足够简单，也就意味着很容易读懂，这就让 BUG 不容易隐藏且更容易修复。</li>
@@ -303,7 +303,7 @@
 <p><img src="/images/design_pattern_flutter/design_pattern_cover.webp"></p>
 <span id="more"></span>
 
-<h1 id="设计模式历史"><a href="#设计模式历史" class="headerlink" title="设计模式历史"></a>设计模式历史</h1><p>1994 年， 埃里希·伽玛、 约翰·弗利赛德斯、 拉尔夫·约翰逊、 理查德·赫尔姆这四位作者出版了 《**<a target="_blank" rel="noopener" href="https://refactoringguru.cn/gof-book">设计模式： 可复用面向对象软件的基础</a>**》 一书， 将设计模式的概念应用到程序开发领域中。 </p>
+<h1 id="设计模式历史"><a href="#设计模式历史" class="headerlink" title="设计模式历史"></a>设计模式历史</h1><p>1994 年， 埃里希·伽玛、 约翰·弗利赛德斯、 拉尔夫·约翰逊、 理查德·赫尔姆这四位作者出版了 《<a target="_blank" rel="noopener" href="https://refactoringguru.cn/gof-book">设计模式： 可复用面向对象软件的基础</a>》 一书， 将设计模式的概念应用到程序开发领域中。 </p>
 <p>该书提供了 <strong>23</strong> 个模式来解决面向对象程序设计中的各种问题， 很快便成为了畅销书。</p>
 <p>由于书名太长， 人们将其简称为 “四人组 （Gang of Four， GoF） 的书”， 并且很快进一步简化为 “GoF 的书”。</p>
 <h1 id="三大类设计模式"><a href="#三大类设计模式" class="headerlink" title="三大类设计模式"></a><strong>三大类设计模式</strong></h1><p>根据其意图或目的，可以分为三种主要的模式类别：</p>
@@ -318,7 +318,7 @@
 </blockquote>
 <p><img src="/images/design_pattern_flutter/singleton.png" alt=" "></p>
 <ul>
-<li><strong>单例</strong> （Sin­gle­ton） 类声明了一个名为  <code>get­Instance</code> 的静态方法来返回其所属类的一个相同实例。</li>
+<li><strong>单例</strong> （Sin­gle­ton） 类声明了一个名为 <code>get­Instance</code> 的静态方法来返回其所属类的一个相同实例。</li>
 <li>单例的构造函数必须对客户端 （Client） 代码隐藏。 调用 <code>get­Instance</code> 方法必须是获取单例对象的唯一方式。</li>
 </ul>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  Singleton._();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">late</span> <span class="keyword">final</span> Singleton _instance = Singleton._();</span><br><span class="line">  <span class="keyword">static</span> Singleton <span class="keyword">get</span> instance =&gt; _instance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -329,8 +329,8 @@
 <blockquote>
 <p><strong>简单工厂模式</strong> 不在 23 种 GoF 设计模式中，却是我们最常使用的一种编程方式。</p>
 </blockquote>
-<p>主要涉及到一个特殊的方法，专门用来提供我们想要的实例对象（对象工厂），我们可以将这个方法放到一个单独的类  <code>SimpleFactory</code>  中，如下：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleFactory</span> </span>&#123;</span><br><span class="line">  <span class="comment">/// <span class="language-markdown">工厂方法</span></span></span><br><span class="line">  <span class="keyword">static</span> Product createProduct(<span class="built_in">int</span> type) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> Product1();</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> Product2();</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> Product3();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String?</span> name;</span><br><span class="line">  <span class="built_in">String?</span> color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product1</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 1&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;red&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类2</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product2</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 2&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;green&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类3</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product3</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 3&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;blue&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要涉及到一个特殊的方法，专门用来提供我们想要的实例对象（对象工厂），我们可以将这个方法放到一个单独的类 <code>SimpleFactory</code> 中，如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleFactory</span> </span>&#123;</span><br><span class="line">  <span class="comment">/// <span class="language-markdown">工厂方法</span></span></span><br><span class="line">  <span class="keyword">static</span> Product createProduct(<span class="built_in">int</span> type) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> Product1();</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> Product2();</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> Product3();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String?</span> name;</span><br><span class="line">  <span class="built_in">String?</span> color;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类 1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product1</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 1&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;red&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类 2</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product2</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 2&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;green&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类 3</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product3</span> <span class="keyword">implements</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> name = <span class="string">&#x27;Product 3&#x27;</span>;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String?</span> color = <span class="string">&#x27;blue&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>当我们想要在代码中获取对应的类型对象时，只需要通过这个方法传入想要的类型值即可，我们不必关心生产如何被生产以及哪个对象被选择的具体逻辑：</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Product product = SimpleFactory.createProduct(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
@@ -350,18 +350,14 @@
 <ul>
 <li><strong>产品</strong> （Prod­uct） 将会对接口进行声明。 对于所有由创建者及其子类构建的对象， 这些接口都是通用的。</li>
 <li><strong>具体产品</strong> （Con­crete Prod­ucts） 是产品接口的不同实现。</li>
-<li><strong>创建者</strong> （Cre­ator） 类声明返回产品对象的工厂方法。 该方法的返回对象类型必须与产品接口相匹配。<ul>
+<li><strong>创建者</strong> （Cre­ator） 类声明返回产品对象的工厂方法。 该方法的返回对象类型必须与产品接口相匹配。</li>
 <li>你可以将工厂方法声明为抽象方法， 强制要求每个子类以不同方式实现该方法。 或者， 你也可以在基础工厂方法中返回默认产品类型。</li>
 <li>注意， 尽管它的名字是创建者， 但它最主要的职责并<strong>不是</strong>创建产品。 一般来说， 创建者类包含一些与产品相关的核心业务逻辑。 工厂方法将这些逻辑处理从具体产品类中分离出来。 打个比方， 大型软件开发公司拥有程序员培训部门。 但是， 这些公司的主要工作还是编写代码， 而非生产程序员。</li>
-</ul>
-</li>
-<li><strong>具体创建者</strong> （Con­crete Cre­ators） 将会重写基础工厂方法， 使其返回不同类型的产品。<ul>
+<li><strong>具体创建者</strong> （Con­crete Cre­ators） 将会重写基础工厂方法， 使其返回不同类型的产品。</li>
 <li>注意， 并不一定每次调用工厂方法都会<strong>创建</strong>新的实例。 工厂方法也可以返回缓存、 对象池或其他来源的已有对象。</li>
 </ul>
-</li>
-</ul>
 <p><strong>Flutter Demo 应用</strong> </p>
-<p>在 Flutter 中，Widget 就属于 Product 抽象类，每一个具体实现的  Widget 都属于 Con­crete Prod­uct。</p>
+<p>在 Flutter 中，Widget 就属于 Product 抽象类，每一个具体实现的 Widget 都属于 Con­crete Prod­uct。</p>
 <p>假如我们需要区分 Android 、iOS 等平台来显示不同的对话框：</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomDialog</span> </span>&#123;</span><br><span class="line">  Widget create(BuildContext context);</span><br><span class="line"></span><br><span class="line">  Future&lt;T?&gt; <span class="keyword">show</span>&lt;T&gt;(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> dialog = create(context);</span><br><span class="line">    <span class="keyword">return</span> showDialog(context: context, builder: (context) =&gt; dialog);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AndroidAlertDialog</span> <span class="keyword">extends</span> <span class="title">CustomDialog</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget create(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> AlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IOSAlertDialog</span> <span class="keyword">extends</span> <span class="title">CustomDialog</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget create(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> CupertinoAlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">void</span> test(BuildContext context) &#123;</span><br><span class="line">  <span class="comment">// final dialog = AndroidAlertDialog();</span></span><br><span class="line">  <span class="keyword">final</span> dialog = IOSAlertDialog();</span><br><span class="line">  dialog.<span class="keyword">show</span>(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -394,19 +390,19 @@
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Dart</span><br><span class="line"><span class="comment">// Material 风格组件工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaterialWidgetsFactory</span> <span class="keyword">extends</span> <span class="title">IWidgetsFactory</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createButton(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> ElevatedButton(</span><br><span class="line">      child: <span class="keyword">const</span> Text(<span class="string">&#x27;text&#x27;</span>),</span><br><span class="line">      onPressed: () &#123;&#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createDialog(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> AlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Cupertino 风格组件工厂</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CupertinoWidgetsFactory</span> <span class="keyword">extends</span> <span class="title">IWidgetsFactory</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createButton(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> CupertinoButton(</span><br><span class="line">      child: <span class="keyword">const</span> Text(<span class="string">&#x27;text&#x27;</span>),</span><br><span class="line">      onPressed: () &#123;&#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget createDialog(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">const</span> CupertinoAlertDialog();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>这样，在 Android 平台上我们使用  <code>MaterialWidgetsFactory</code> ，在 iOS 平台上使用  <code>CupertinoWidgetsFactory</code> ，就能使用对应平台的 widget，想要适配更多平台只需要再继承  <code>IWidgetsFactory</code>  实现对应平台的工厂类即可。</li>
+<li>这样，在 Android 平台上我们使用 <code>MaterialWidgetsFactory</code> ，在 iOS 平台上使用 <code>CupertinoWidgetsFactory</code> ，就能使用对应平台的 widget，想要适配更多平台只需要再继承 <code>IWidgetsFactory</code> 实现对应平台的工厂类即可。</li>
 </ol>
 <p>至此，我们可以发现，作为创建型模式，这三类工厂模式主要工作就是以不同的方式创建对象，但他们各有特点：简单工厂模式抽象的是 <strong>生产对象</strong>，工厂模式抽象的是 <strong>类方法</strong>，抽象工厂模式抽象的则是 <strong>生产对象的工厂</strong>，如何使用就见仁见智了。</p>
 <ol>
 <li><h2 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式 (Prototype)"></a><strong>原型模式 (Prototype)</strong></h2></li>
 </ol>
 <blockquote>
-<p> <strong>原型模式</strong>是一种创建型设计模式， 使你能够复制已有对象， 而又无需使代码依赖它们所属的类。</p>
+<p><strong>原型模式</strong>是一种创建型设计模式， 使你能够复制已有对象， 而又无需使代码依赖它们所属的类。</p>
 <p><strong>Demo</strong>: <a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/proxy">https://github.com/FlutterOpen/design_patterns/tree/master/lib/page/proxy</a></p>
 </blockquote>
 <p><img src="/images/design_pattern_flutter/prototype.png" alt=" "></p>
 <ul>
-<li><strong>原型</strong> （Pro­to­type） 接口将对克隆方法进行声明。 在绝大多数情况下， 其中只会有一个名为  <code>clone</code> 的方法。</li>
+<li><strong>原型</strong> （Pro­to­type） 接口将对克隆方法进行声明。 在绝大多数情况下， 其中只会有一个名为 <code>clone</code> 的方法。</li>
 <li><strong>具体原型</strong> （Con­crete Pro­to­type） 类将实现克隆方法。 除了将原始对象的数据复制到克隆体中之外， 该方法有时还需处理克隆过程中的极端情况， 例如克隆关联对象和梳理递归依赖等等。</li>
 <li><strong>客户端</strong> （Client） 可以复制实现了原型接口的任何对象。</li>
 </ul>
@@ -650,7 +646,7 @@
 <ul>
 <li><strong>发布者</strong> （Pub­lish­er） 会向其他对象发送值得关注的事件。 事件会在发布者自身状态改变或执行特定行为后发生。 发布者中包含一个允许新订阅者加入和当前订阅者离开列表的订阅构架。</li>
 <li>当新事件发生时， 发送者会遍历订阅列表并调用每个订阅者对象的通知方法。 该方法是在订阅者接口中声明的。</li>
-<li><strong>订阅者</strong> （Sub­scriber） 接口声明了通知接口。 在绝大多数情况下， 该接口仅包含一个  <code>update</code> 方法。 该方法可以拥有多个参数， 使发布者能在更新时传递事件的详细信息。</li>
+<li><strong>订阅者</strong> （Sub­scriber） 接口声明了通知接口。 在绝大多数情况下， 该接口仅包含一个 <code>update</code> 方法。 该方法可以拥有多个参数， 使发布者能在更新时传递事件的详细信息。</li>
 <li><strong>具体订阅者</strong> （Con­crete Sub­scribers） 可以执行一些操作来回应发布者的通知。 所有具体订阅者类都实现了同样的接口， 因此发布者不需要与具体类相耦合。</li>
 <li>订阅者通常需要一些上下文信息来正确地处理更新。 因此， 发布者通常会将一些上下文数据作为通知方法的参数进行传递。 发布者也可将自身作为参数进行传递， 使订阅者直接获取所需的数据。</li>
 <li><strong>客户端</strong> （Client） 会分别创建发布者和订阅者对象， 然后为订阅者注册发布者更新。</li>
@@ -659,7 +655,7 @@
 <ul>
 <li>Stream 可以被看作是 Dart 语言原生支持的观察者模式的典型模型之一</li>
 <li>ChangeNotifier 大概是 Flutter 中实现观察者模式最典型的例子</li>
-<li>Flutter 中每个 Navigator 对象都接受一个 NavigatorObserver 对象的数组，在实际开发过程中，我们可以通过根组件  <code>MaterialApp</code>  (或  <code>CupertinoPageRoute</code> ) 的  <code>navigatorObservers</code>  属性传递给根 Navigator 组件，用于观察根 Navigator 的路由行为，这一组 NavigatorObserver 对象就是一系列的路由观察者。</li>
+<li>Flutter 中每个 Navigator 对象都接受一个 NavigatorObserver 对象的数组，在实际开发过程中，我们可以通过根组件 <code>MaterialApp</code> (或 <code>CupertinoPageRoute</code> ) 的 <code>navigatorObservers</code> 属性传递给根 Navigator 组件，用于观察根 Navigator 的路由行为，这一组 NavigatorObserver 对象就是一系列的路由观察者。</li>
 </ul>
 <p>更多参考： <a target="_blank" rel="noopener" href="https://flutter.cn/community/tutorials/observer-pattern-in-flutter-n-dart">https://flutter.cn/community/tutorials/observer-pattern-in-flutter-n-dart</a></p>
 <ol>
@@ -715,7 +711,7 @@
 </blockquote>
 <p><img src="/images/design_pattern_flutter/template_method.png" alt=" "></p>
 <ol>
-<li><p><strong>抽象类</strong> （Abstract­Class） 会声明作为算法步骤的方法， 以及依次调用它们的实际模板方法。 算法步骤可以被声明为  <code>抽象</code> 类型， 也可以提供一些默认实现。</p>
+<li><p><strong>抽象类</strong> （Abstract­Class） 会声明作为算法步骤的方法， 以及依次调用它们的实际模板方法。 算法步骤可以被声明为 <code>抽象</code> 类型， 也可以提供一些默认实现。</p>
 </li>
 <li><p><strong>具体类</strong> （Concrete­Class） 可以重写所有步骤， 但不能重写模板方法自身。</p>
 </li>
@@ -726,14 +722,16 @@
 </blockquote>
 <p><img src="/images/design_pattern_flutter/visitor.png" alt=" "></p>
 <ol>
-<li><strong>访问者</strong> （Visitor） 接口声明了一系列以对象结构的具体元素为参数的访问者方法。 如果编程语言支持重载， 这些方法的名称可以是相同的， 但是其参数一定是不同的。</li>
-<li><strong>具体访问者</strong> （Concrete Visitor） 会为不同的具体元素类实现相同行为的几个不同版本。</li>
-<li><strong>元素</strong> （Element） 接口声明了一个方法来 “接收” 访问者。 该方法必须有一个参数被声明为访问者接口类型。</li>
-<li><strong>具体元素</strong> （Concrete Element） 必须实现接收方法。 该方法的目的是根据当前元素类将其调用重定向到相应访问者的方法。 请注意， 即使元素基类实现了该方法， 所有子类都必须对其进行重写并调用访问者对象中的合适方法。</li>
-<li><strong>客户端</strong> （Client） 通常会作为集合或其他复杂对象 （例如一个**<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/composite">组合</a>**树） 的代表。 客户端通常不知晓所有的具体元素类， 因为它们会通过抽象接口与集合中的对象进行交互。</li>
-</ol>
-<p>Demo：null</p>
-<ol>
+<li><p><strong>访问者</strong> （Visitor） 接口声明了一系列以对象结构的具体元素为参数的访问者方法。 如果编程语言支持重载， 这些方法的名称可以是相同的， 但是其参数一定是不同的。</p>
+</li>
+<li><p><strong>具体访问者</strong> （Concrete Visitor） 会为不同的具体元素类实现相同行为的几个不同版本。</p>
+</li>
+<li><p><strong>元素</strong> （Element） 接口声明了一个方法来 “接收” 访问者。 该方法必须有一个参数被声明为访问者接口类型。</p>
+</li>
+<li><p><strong>具体元素</strong> （Concrete Element） 必须实现接收方法。 该方法的目的是根据当前元素类将其调用重定向到相应访问者的方法。 请注意， 即使元素基类实现了该方法， 所有子类都必须对其进行重写并调用访问者对象中的合适方法。</p>
+</li>
+<li><p><strong>客户端</strong> （Client） 通常会作为集合或其他复杂对象 （例如一个<a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/composite">组合</a>树） 的代表。 客户端通常不知晓所有的具体元素类， 因为它们会通过抽象接口与集合中的对象进行交互。</p>
+</li>
 <li><h2 id="解释器模式-Interpreter"><a href="#解释器模式-Interpreter" class="headerlink" title="解释器模式 Interpreter"></a>解释器模式 Interpreter</h2></li>
 </ol>
 <blockquote>
@@ -743,7 +741,7 @@
 <li><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns">https://refactoringguru.cn/design-patterns</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/FlutterOpen/design_patterns">https://github.com/FlutterOpen/design_patterns</a></li>
 </ol>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 

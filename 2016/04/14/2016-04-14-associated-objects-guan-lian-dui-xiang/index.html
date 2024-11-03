@@ -18,18 +18,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-        <meta name="description" content="Associated Objects 介绍&lt;objc&#x2F;runtime.h&gt;中的函数号称是iOS中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。 就像和魔鬼做交易一样常常让人怀着巨大的恐惧。 历史对象关联（或称为关联引用）本来是 Objective-C 2.0 运行时的一个特性，起始于 O">
+        <meta name="description" content="Associated Objects 介绍 &lt;objc&#x2F;runtime.h&gt; 中的函数号称是iOS中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。 就像和魔鬼做交易一样常常让人怀着巨大的恐惧。 历史对象关联（或称为关联引用）本来是 Objective-C 2.0 运行时的一个特性，起始于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Associated Objects 关联对象">
 <meta property="og:url" content="https://blog.wangruofeng007.com/2016/04/14/2016-04-14-associated-objects-guan-lian-dui-xiang/index.html">
 <meta property="og:site_name" content="王若风的技术博客">
-<meta property="og:description" content="Associated Objects 介绍&lt;objc&#x2F;runtime.h&gt;中的函数号称是iOS中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。 就像和魔鬼做交易一样常常让人怀着巨大的恐惧。 历史对象关联（或称为关联引用）本来是 Objective-C 2.0 运行时的一个特性，起始于 O">
+<meta property="og:description" content="Associated Objects 介绍 &lt;objc&#x2F;runtime.h&gt; 中的函数号称是iOS中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。 就像和魔鬼做交易一样常常让人怀着巨大的恐惧。 历史对象关联（或称为关联引用）本来是 Objective-C 2.0 运行时的一个特性，起始于">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-04-14T15:56:39.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.925Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.304Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Runtime">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>899</span>
+              <span>900</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -264,33 +264,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Associated-Objects-介绍"><a href="#Associated-Objects-介绍" class="headerlink" title="Associated Objects 介绍"></a>Associated Objects 介绍</h2><p><code>&lt;objc/runtime.h&gt;</code>中的函数号称是<strong>iOS</strong>中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。</p>
+        <h2 id="Associated-Objects-介绍"><a href="#Associated-Objects-介绍" class="headerlink" title="Associated Objects 介绍"></a>Associated Objects 介绍</h2><p> <code>&lt;objc/runtime.h&gt;</code> 中的函数号称是<strong>iOS</strong>中最后一把神兵利刃，具有其他方式做不到的，能为应用和框架提供强大功能的能力。但使用不当也可能废掉代码的,一切代码和逻辑都可能被异常糟糕的副作用影响。</p>
 <p>就像和魔鬼做交易一样常常让人怀着巨大的恐惧。</p>
 <h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>对象关联（或称为关联引用）本来是 <code>Objective-C 2.0</code> 运行时的一个特性，起始于 <code>OS X Snow Leopard</code> 和 <code>iOS4</code> 。</p>
-<p>核心函数3个 – 允许将任何键值在允许时关联到对象上</p>
+<p>核心函数 3 个 – 允许将任何键值在允许时关联到对象上</p>
 <ul>
 <li>objc_setAssociatedObject</li>
 <li>objc_getAssociatedObject</li>
 <li>objc_removeAssociatedObjects</li>
 </ul>
 <p>这有什么用呢？这允许开发者对<strong>已经存在的类在扩展中添加自定义的属性</strong></p>
-<h2 id="实现的3种方式"><a href="#实现的3种方式" class="headerlink" title="实现的3种方式"></a>实现的3种方式</h2><ul>
-<li><code>static char</code> </li>
-<li><code>selector</code> </li>
-<li><code>_cmd_</code></li>
+<h2 id="实现的-3-种方式"><a href="#实现的-3-种方式" class="headerlink" title="实现的 3 种方式"></a>实现的 3 种方式</h2><ul>
+<li><code>static char</code> * <code>selector</code> * <code>_cmd_</code> ### 使用 <code>static char</code> 实现</li>
 </ul>
-<h3 id="使用-static-char-实现"><a href="#使用-static-char-实现" class="headerlink" title="使用  static char  实现"></a>使用  <code>static char</code>  实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
+<p><strong>NSObject+AssociatedObject.h</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="type">id</span> associatedObject;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p><strong>NSObject+AssociatedObject.m</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="type">char</span> kAssociatedObjectKey;</span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>,&amp;kAssociatedObjectKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setAssociatedObject:(<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;kAssociatedObjectKey, associatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用-selector-实现"><a href="#使用-selector-实现" class="headerlink" title="使用  selector  实现"></a>使用  <code>selector</code>  实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
+<h3 id="使用-selector-实现"><a href="#使用-selector-实现" class="headerlink" title="使用 selector 实现"></a>使用 <code>selector</code> 实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="type">id</span> associatedObject;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>NSObject+AssociatedObject.m</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(associatedObject));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)setAssociatedObject:(<span class="type">id</span>)associatedObject</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(associatedObject), associatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用-cmd-实现"><a href="#使用-cmd-实现" class="headerlink" title="使用  _cmd_  实现"></a>使用  <code>_cmd_</code>  实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
+<h3 id="使用-cmd-实现"><a href="#使用-cmd-实现" class="headerlink" title="使用 _cmd_ 实现"></a>使用 <code>_cmd_</code> 实现</h3><p><strong>NSObject+AssociatedObject.h</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">AssociatedObject</span>)</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="type">id</span> associatedObject;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>NSObject+AssociatedObject.m</strong></p>
@@ -327,7 +325,7 @@
 </tbody></table>
 <hr>
 <blockquote>
-<p> <code>OBJC_ASSOCIATION_ASSIGN</code> 类型关联对象的弱引用不代表<strong>weak</strong>的弱引用，行为上更像 <code>unsafe_unretained</code> 属性。</p>
+<p><code>OBJC_ASSOCIATION_ASSIGN</code> 类型关联对象的弱引用不代表<strong>weak</strong>的弱引用，行为上更像 <code>unsafe_unretained</code> 属性。</p>
 </blockquote>
 <h2 id="对象销毁时间"><a href="#对象销毁时间" class="headerlink" title="对象销毁时间"></a>对象销毁时间</h2><p>被关联的对象在声明周期内比对象本身释放要晚很多，在对象调用 <code>-dealloc</code> 中的 <code>object_dispose()</code> 中释放。</p>
 <h2 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h2><p>你或许想要使用 <code>objc_removeAssociatedObjects（）</code> 来进行删除操作，但官方文档不建议手动调用这个函数。</p>
@@ -366,7 +364,7 @@
 <li><a target="_blank" rel="noopener" href="http://blog.leichunfeng.com/blog/2015/06/26/objective-c-associated-objects-implementation-principle/">Objective-C Associated Objects 的实现原理</a>– 雷纯峰的技术博客</li>
 <li><a target="_blank" rel="noopener" href="http://www.sebastianrehnby.com/blog/2013/01/24/associated-objects-by-example/">Associated Objects by Example</a> – Sebastian Rehnby</li>
 </ul>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 
@@ -465,7 +463,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Associated-Objects-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Associated Objects 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%9A%843%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">实现的3种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-static-char-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.1.</span> <span class="nav-text">使用  static char  实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-selector-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">使用  selector  实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cmd-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.3.</span> <span class="nav-text">使用  _cmd_  实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="nav-number">4.</span> <span class="nav-text">关联对象的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E9%94%80%E6%AF%81%E6%97%B6%E9%97%B4"><span class="nav-number">5.</span> <span class="nav-text">对象销毁时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">删除属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%A7%80%E6%A0%B7%E4%BE%8B"><span class="nav-number">7.</span> <span class="nav-text">优秀样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">应用举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIImagePickerController-%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9%E5%9B%9E%E8%B0%83"><span class="nav-number">8.1.</span> <span class="nav-text">UIImagePickerController 图片选择回调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UIImagePickerController-RFBlocks-h"><span class="nav-number">8.1.1.</span> <span class="nav-text">UIImagePickerController+RFBlocks.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIImagePickerController-RFBlocks-m"><span class="nav-number">8.1.2.</span> <span class="nav-text">UIImagePickerController+RFBlocks.m</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIButton-%E6%8C%89%E9%92%AE%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83"><span class="nav-number">8.2.</span> <span class="nav-text">UIButton 按钮事件回调</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UIButton-RFBlcoks-h"><span class="nav-number">8.2.0.1.</span> <span class="nav-text">UIButton+RFBlcoks.h</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UIButton-RFBlcoks-m"><span class="nav-number">8.2.0.2.</span> <span class="nav-text">UIButton+RFBlcoks.m</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Associated-Objects-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Associated Objects 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%9A%84-3-%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">实现的 3 种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-selector-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.1.</span> <span class="nav-text">使用 selector 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cmd-%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">使用 _cmd_ 实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="nav-number">4.</span> <span class="nav-text">关联对象的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E9%94%80%E6%AF%81%E6%97%B6%E9%97%B4"><span class="nav-number">5.</span> <span class="nav-text">对象销毁时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">删除属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%A7%80%E6%A0%B7%E4%BE%8B"><span class="nav-number">7.</span> <span class="nav-text">优秀样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">应用举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIImagePickerController-%E5%9B%BE%E7%89%87%E9%80%89%E6%8B%A9%E5%9B%9E%E8%B0%83"><span class="nav-number">8.1.</span> <span class="nav-text">UIImagePickerController 图片选择回调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UIImagePickerController-RFBlocks-h"><span class="nav-number">8.1.1.</span> <span class="nav-text">UIImagePickerController+RFBlocks.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIImagePickerController-RFBlocks-m"><span class="nav-number">8.1.2.</span> <span class="nav-text">UIImagePickerController+RFBlocks.m</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIButton-%E6%8C%89%E9%92%AE%E4%BA%8B%E4%BB%B6%E5%9B%9E%E8%B0%83"><span class="nav-number">8.2.</span> <span class="nav-text">UIButton 按钮事件回调</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UIButton-RFBlcoks-h"><span class="nav-number">8.2.0.1.</span> <span class="nav-text">UIButton+RFBlcoks.h</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UIButton-RFBlcoks-m"><span class="nav-number">8.2.0.2.</span> <span class="nav-text">UIButton+RFBlcoks.m</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

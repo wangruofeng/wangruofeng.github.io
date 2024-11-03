@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta property="og:type" content="article">
@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/baner_hexo.jpg">
 <meta property="article:published_time" content="2019-11-10T10:16:11.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.933Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.308Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,12 @@
         <p><img src="/images/baner_hexo.jpg" alt="hexo"></p>
 <span id="more"></span>
 
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近准备更新博客（以前的基于 Octopress），去写的时候突然发现以前的博客跑不起来了…倒腾了一下，在执行博客更新时 <code>rake generate</code> ，一直报错，错误出现在高亮解析模块  <code>Pygments</code> ，尝试升级 <code>jekyll</code> 但是和它相关的依赖模块还是有问题。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近准备更新博客（以前的基于 Octopress），去写的时候突然发现以前的博客跑不起来了…倒腾了一下，在执行博客更新时 <code>rake generate</code> ，一直报错，错误出现在高亮解析模块 <code>Pygments</code> ，尝试升级 <code>jekyll</code> 但是和它相关的依赖模块还是有问题。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  Octopress git:(source) ✗ rake generate</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Generating Site with Jekyll</span></span></span><br><span class="line">Configuration file: /Users/wangruofeng/Documents/Git Repositories/Octopress/_config.yml</span><br><span class="line">            Source: source</span><br><span class="line">       Destination: public</span><br><span class="line">      Generating... </span><br><span class="line">jekyll 2.5.3 | Error:  Pygments can&#x27;t parse unknown language: objective-c.</span><br></pre></td></tr></table></figure>
 
 
 
-<p>后面去<a target="_blank" rel="noopener" href="http://octopress.org/">Octopress</a>官网查了了，发现上次更新还是<a target="_blank" rel="noopener" href="http://octopress.org/2015/01/15/octopress-3.0-is-coming/">2015.01.15</a>的事了，后续也没有更新，于是觉得这个不太靠谱，准备换一个，调研了一下，发现使用 hexo 的挺多，于是开始捣腾起来…</p>
+<p>后面去 <a target="_blank" rel="noopener" href="http://octopress.org/">Octopress</a> 官网查了了，发现上次更新还是 <a target="_blank" rel="noopener" href="http://octopress.org/2015/01/15/octopress-3.0-is-coming/">2015.01.15</a> 的事了，后续也没有更新，于是觉得这个不太靠谱，准备换一个，调研了一下，发现使用 hexo 的挺多，于是开始捣腾起来…</p>
 <h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><p>准备 node 和 git 环境， 首先，安装 <a target="_blank" rel="noopener" href="https://nodejs.org/en/">NodeJS</a>，因为 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 是基于 Node.js 驱动的一款博客框架。</p>
 <p>在命令行中输入相应命令验证是否成功，如果成功会有相应的版本号。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  myBlog git:(master) ✗ git version</span><br><span class="line">git version 2.24.0</span><br><span class="line">➜  myBlog git:(master) ✗ node -v</span><br><span class="line">v12.13.0</span><br><span class="line">➜  myBlog git:(master) ✗ npm -v</span><br><span class="line">6.12.0</span><br></pre></td></tr></table></figure>
@@ -335,18 +335,18 @@
 
 
 
-<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><h3 id="1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined"><a href="#1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined" class="headerlink" title="1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined"></a>1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</h3><p>解决方案是 将你工程下的 _config.yml (这个不是主题的_config.yml) 文件里面的  <code>auto_detect</code>  设置为 false。</p>
+<h2 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h2><h3 id="1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined"><a href="#1-Hexo-TypeError-Cannot-set-property-‘lastIndex’-of-undefined" class="headerlink" title="1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined"></a>1. Hexo: TypeError: Cannot set property ‘lastIndex’ of undefined</h3><p>解决方案是 将你工程下的 _config.yml (这个不是主题的_config.yml) 文件里面的 <code>auto_detect</code> 设置为 false。</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">tab_replace:</span></span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效"><a href="#2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效" class="headerlink" title="2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效"></a>2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</h3><p>使用 hexo 的命令  <code>hexo clean</code> ,清除一下。</p>
+<h3 id="2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效"><a href="#2-修改完-hexo-目录下的-config-yml-文件-重新-generate-文件不生效" class="headerlink" title="2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效"></a>2.修改完 hexo 目录下的 _config.yml 文件 重新 generate 文件不生效</h3><p>使用 hexo 的命令 <code>hexo clean</code> ,清除一下。</p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/1913">运行 hexo g 出错 #1913</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24422335">有哪些好看的 Hexo 主题？</a></li>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/post/5c4730c9f265da61616efeec">超详细 Hexo+Github Page 搭建技术博客教程【持续更新】</a></li>
 </ul>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 

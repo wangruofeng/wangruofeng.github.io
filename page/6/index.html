@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta name="description" content="王若风的技术博客">
@@ -225,7 +225,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,24 +278,24 @@ FROM table_name
 WHERE SINGLE VALUE MATCHTING EXPRESSION;
 </code></pre>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的实例演示了 SQLite 布尔表达式的用法：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY = 10000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           James        24          Houston   10000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 James 24 Houston 10000.0
 </code></pre>
 <h4 id="SQLite-数值表达式"><a href="#SQLite-数值表达式" class="headerlink" title="SQLite - 数值表达式"></a>SQLite - 数值表达式</h4><p>这些表达式用来执行查询中的任何数学运算。语法如下：</p>
-<pre><code>SELECT numerical_expression as  OPERATION_NAME
+<pre><code>SELECT numerical_expression as OPERATION_NAME
 [FROM table_name WHERE CONDITION] ;
 </code></pre>
 <p>在这里，numerical_expression 用于数学表达式或任何公式。下面的实例演示了 SQLite 数值表达式的用法：</p>
@@ -308,7 +308,7 @@ RECORDS = 7
 </code></pre>
 <hr>
 <h4 id="SQLite-日期表达式"><a href="#SQLite-日期表达式" class="headerlink" title="SQLite - 日期表达式"></a>SQLite - 日期表达式</h4><p>日期表达式返回当前系统日期和时间值，这些表达式将被用于各种数据操作。</p>
-<pre><code>sqlite&gt;  SELECT CURRENT_TIMESTAMP;
+<pre><code>sqlite&gt; SELECT CURRENT_TIMESTAMP;
 CURRENT_TIMESTAMP = 2016-01-13 16:29:56
 </code></pre>
 <h4 id="SQLite-Where-子句"><a href="#SQLite-Where-子句" class="headerlink" title="SQLite Where 子句"></a>SQLite Where 子句</h4><p>SQLite 的 WHERE 子句用于指定从一个表或多个表中获取数据的条件。</p>
@@ -323,63 +323,63 @@ WHERE [condition]
 </code></pre>
 <p><strong>实例</strong></p>
 <p>您还可以使用比较或逻辑运算符指定条件，比如 &gt;、&lt;、&#x3D;、LIKE、NOT，等等。假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的实例演示了 SQLite 逻辑运算符的用法。下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
 <p>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;&#x3D; 25 OR SALARY &gt;&#x3D; 65000;</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 不为 NULL 的所有记录，结果显示所有的记录，意味着没有一个记录的 AGE 等于 NULL：</p>
-<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制（不区分大小写）：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME LIKE &#39;Ki%&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+6 Kim 22 South-Hall 45000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制（区分大小写）：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME GLOB &#39;Ki*&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+6 Kim 22 South-Hall 45000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 的值为 25 或 27 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IN ( 25, 27 );
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="SQLite-AND-OR-运算符"><a href="#SQLite-AND-OR-运算符" class="headerlink" title="SQLite AND&#x2F;OR 运算符"></a>SQLite AND&#x2F;OR 运算符</h4><p>SQLite 的 AND 和 OR 运算符用于编译多个条件来缩小在 SQLite 语句中所选的数据。这两个运算符被称为连接运算符。</p>
 <p>这些运算符为同一个 SQLite 语句中不同的运算符之间的多个比较提供了可能。</p>
@@ -394,22 +394,22 @@ WHERE [condition1] AND [condition2]...AND [conditionN];
 <p>您可以使用 AND 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，所有由 AND 分隔的条件都必须为真（TRUE）。</p>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="OR-运算符"><a href="#OR-运算符" class="headerlink" title="OR 运算符"></a>OR 运算符</h4><p>OR 运算符也用于结合一个 SQL 语句的 WHERE 子句中的多个条件。使用 OR 运算符时，只要当条件中任何一个为真（true）时，整个条件为真（true）。例如，只要当 condition1 或 condition2 有一个为真（true）时，[condition1] OR [condition2] 为真（true）</p>
 <p><strong>语法</strong></p>
@@ -421,24 +421,24 @@ WHERE [condition1] OR [condition2]...OR [conditionN]
 <p>您可以使用 OR 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，只要任何一个由 OR 分隔的条件为真（TRUE）即可。</p>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 OR SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="SQLite-Update-语句"><a href="#SQLite-Update-语句" class="headerlink" title="SQLite Update 语句"></a>SQLite Update 语句</h4><p>SQLite 的 **UPDATE **查询用于修改表中已有的记录。可以使用带有 WHERE 子句的 UPDATE 查询来更新选定行，否则所有的行都会被更新。</p>
 <hr>
@@ -452,46 +452,46 @@ WHERE [condition];
 <hr>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面是一个实例，它会更新 ID 为 6 的客户地址：</p>
 <pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = &#39;Texas&#39; WHERE ID = 6;
 </code></pre>
 <p>现在，COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          Texas       45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 Texas 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>如果您想修改 COMPANY 表中 ADDRESS 和 SALARY 列的所有值，则不需要使用 WHERE 子句，UPDATE 查询如下：</p>
 <pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = &#39;Texas&#39;, SALARY = 20000.00;
 </code></pre>
 <p>现在，COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          Texas       20000.0
-2           Allen       25          Texas       20000.0
-3           Teddy       23          Texas       20000.0
-4           Mark        25          Texas       20000.0
-5           David       27          Texas       20000.0
-6           Kim         22          Texas       20000.0
-7           James       24          Texas       20000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 Texas 20000.0
+2 Allen 25 Texas 20000.0
+3 Teddy 23 Texas 20000.0
+4 Mark 25 Texas 20000.0
+5 David 27 Texas 20000.0
+6 Kim 22 Texas 20000.0
+7 James 24 Texas 20000.0
 </code></pre>
 <p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -542,7 +542,7 @@ WHERE [condition];
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -643,8 +643,8 @@ sqlite&gt; select 10 / 5;
 10 / 5 = 2
 
 
-sqlite&gt; select 12 %  5;
-12 %  5 = 2
+sqlite&gt; select 12 % 5;
+12 % 5 = 2
 </code></pre>
 <h4 id="SQLite-比较运算符"><a href="#SQLite-比较运算符" class="headerlink" title="SQLite 比较运算符"></a>SQLite 比较运算符</h4><p>假设变量 a&#x3D;10，变量 b&#x3D;20，则：</p>
 <table>
@@ -707,15 +707,15 @@ sqlite&gt; select 12 %  5;
 </tr>
 </tbody></table>
 <p><strong>实例</strong><br>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的实例演示了各种 SQLite 比较运算符的用法。</p>
 <blockquote>
@@ -723,44 +723,44 @@ sqlite&gt; select 12 %  5;
 </blockquote>
 <p>下面的 SELECT 语句列出了 SALARY 大于 50,000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY &gt; 50000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 SALARY 等于 20,000.00 的所有记录：</p>
-<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE SALARY = 20000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-3           Teddy       23          Norway      20000.0
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY = 20000;
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+3 Teddy 23 Norway 20000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 SALARY 不等于 20,000.00 的所有记录：</p>
-<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE SALARY != 20000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY != 20000;
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 SALARY 不等于 20,000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY &lt;&gt; 20000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 SALARY 大于等于 65,000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="SQLite-逻辑运算符"><a href="#SQLite-逻辑运算符" class="headerlink" title="SQLite 逻辑运算符"></a>SQLite 逻辑运算符</h4><p>下面是 SQLite 中所有的逻辑运算符列表。</p>
 <table>
@@ -828,76 +828,76 @@ ID          NAME        AGE         ADDRESS     SALARY
 </tr>
 </tbody></table>
 <p><strong>实例</strong><br>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的实例演示了 SQLite 逻辑运算符的用法。<br>下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 OR SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 不为 NULL 的所有记录，结果显示所有的记录，意味着没有一个记录的 AGE 等于 NULL：</p>
-<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME LIKE &#39;Ki%&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+6 Kim 22 South-Hall 45000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME GLOB &#39;Ki*&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+6 Kim 22 South-Hall 45000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 的值为 25 或 27 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IN ( 25, 27 );
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 的值既不是 25 也不是 27 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE NOT IN ( 25, 27 );
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-3           Teddy       23          Norway      20000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+3 Teddy 23 Norway 20000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句使用 SQL 子查询，子查询查找 SALARY &gt; 65000 的带有 AGE 字段的所有记录，后边的 WHERE 子句与 EXISTS 运算符一起使用，列出了外查询中的 AGE 存在于子查询返回的结果中的所有记录：</p>
 <pre><code>sqlite&gt; SELECT AGE FROM COMPANY
-        WHERE EXISTS (SELECT AGE FROM COMPANY WHERE SALARY &gt; 65000);
+ WHERE EXISTS (SELECT AGE FROM COMPANY WHERE SALARY &gt; 65000);
 AGE
 ----------
 32
@@ -910,10 +910,10 @@ AGE
 </code></pre>
 <p>下面的 SELECT 语句使用 SQL 子查询，子查询查找 SALARY &gt; 65000 的带有 AGE 字段的所有记录，后边的 WHERE 子句与 &gt; 运算符一起使用，列出了外查询中的 AGE 大于子查询返回的结果中的年龄的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY
-        WHERE AGE &gt; (SELECT AGE FROM COMPANY WHERE SALARY &gt; 65000);
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
+ WHERE AGE &gt; (SELECT AGE FROM COMPANY WHERE SALARY &gt; 65000);
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
 </code></pre>
 <h4 id="SQLite-位运算符"><a href="#SQLite-位运算符" class="headerlink" title="SQLite 位运算符"></a>SQLite 位运算符</h4><p>位运算符作用于位，并逐位执行操作。真值表 &amp; 和 | 如下：</p>
 <table>
@@ -956,7 +956,7 @@ ID          NAME        AGE         ADDRESS     SALARY
 <hr>
 <p>A&amp;B &#x3D; 0000 1100</p>
 <p>A|B &#x3D; 0011 1101</p>
-<p>~A  &#x3D; 1100 0011</p>
+<p>~A &#x3D; 1100 0011</p>
 <p>下表中列出了 SQLite 语言支持的位运算符。假设变量 A&#x3D;60，变量 B&#x3D;13，则：</p>
 <table>
 <thead>
@@ -1001,21 +1001,21 @@ sqlite&gt; select 60 | 13;
 sqlite&gt; select 60 &amp; 13;
 60 &amp; 13 = 12
 
-sqlite&gt; select  60 ^ 13;
+sqlite&gt; select 60 ^ 13;
 10 * 20 = 200
 
 
-sqlite&gt;  select  (~60);
+sqlite&gt; select (~60);
 (~60) = -61
 
-sqlite&gt;  select  (60 &lt;&lt; 2);
+sqlite&gt; select (60 &lt;&lt; 2);
 (60 &lt;&lt; 2) = 240
 
-sqlite&gt;  select  (60 &gt;&gt; 2);
+sqlite&gt; select (60 &gt;&gt; 2);
 (60 &gt;&gt; 2) = 15
 </code></pre>
 <p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -1066,7 +1066,7 @@ sqlite&gt;  select  (60 &gt;&gt; 2);
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1107,7 +1107,7 @@ sqlite&gt;  select  (60 &gt;&gt; 2);
 <hr>
 <p><strong>语法</strong></p>
 <p>INSERT INTO 语句有两种基本语法，如下所示：</p>
-<pre><code>INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)]  
+<pre><code>INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)] 
 VALUES (value1, value2, value3,...valueN);
 </code></pre>
 <p>在这里，column1, column2,…columnN 是要插入数据的表中的列的名称。<br>如果要为表中的所有列添加值，您也可以不需要在 SQLite 查询中指定列名称。但要确保值的顺序与列在表中的顺序一致。SQLite 的 INSERT INTO 语法如下：</p>
@@ -1117,11 +1117,11 @@ VALUES (value1, value2, value3,...valueN);
 <p><strong>实例</strong></p>
 <p>假设您已经在 testDB.db 中创建了 COMPANY 表，如下所示：</p>
 <pre><code>sqlite&gt; CREATE TABLE COMPANY(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           TEXT    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50),
-   SALARY         REAL
+ ID INT PRIMARY KEY NOT NULL,
+ NAME TEXT NOT NULL,
+ AGE INT NOT NULL,
+ ADDRESS CHAR(50),
+ SALARY REAL
 );
 </code></pre>
 <p>现在，下面的语句将在 COMPANY 表中创建六个记录：</p>
@@ -1147,21 +1147,21 @@ VALUES (6, &#39;Kim&#39;, 22, &#39;South-Hall&#39;, 45000.00 );
 <pre><code>INSERT INTO COMPANY VALUES (7, &#39;James&#39;, 24, &#39;Houston&#39;, 10000.00 );
 </code></pre>
 <p>上面的所有语句将在 COMPANY 表中创建下列记录。下一章会教您如何从一个表中显示所有这些记录。</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <h4 id="使用一个表来填充另一个表"><a href="#使用一个表来填充另一个表" class="headerlink" title="使用一个表来填充另一个表"></a>使用一个表来填充另一个表</h4><p>您可以通过在一个有一组字段的表上使用 select 语句，填充数据到另一个表中。下面是语法：</p>
 <pre><code>INSERT INTO first_table_name [(column1, column2, ... columnN)]
-   SELECT column1, column2, ...columnN
-   FROM second_table_name
-   [WHERE condition];
+ SELECT column1, column2, ...columnN
+ FROM second_table_name
+ [WHERE condition];
 </code></pre>
 <h4 id="SQLite-Select-语句"><a href="#SQLite-Select-语句" class="headerlink" title="SQLite Select 语句"></a>SQLite Select 语句</h4><p>SQLite 的 SELECT 语句用于从 SQLite 数据库表中获取数据，以结果表的形式返回数据。这些结果表也被称为结果集。</p>
 <hr>
@@ -1175,15 +1175,15 @@ VALUES (6, &#39;Kim&#39;, 22, &#39;South-Hall&#39;, 45000.00 );
 <hr>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面是一个实例，使用 SELECT 语句获取并显示所有这些记录。在这里，前三个命令被用来设置正确格式化的输出。</p>
 <pre><code>sqlite&gt;.header on
@@ -1191,29 +1191,29 @@ sqlite&gt;.mode column
 sqlite&gt; SELECT * FROM COMPANY;
 </code></pre>
 <p>最后，将得到以下的结果：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>如果只想获取 COMPANY 表中指定的字段，则使用下面的查询：</p>
 <pre><code>sqlite&gt; SELECT ID, NAME, SALARY FROM COMPANY;
 </code></pre>
 <p>上面的查询会产生以下结果：</p>
-<pre><code>ID          NAME        SALARY
-----------  ----------  ----------
-1           Paul        20000.0
-2           Allen       15000.0
-3           Teddy       20000.0
-4           Mark        65000.0
-5           David       85000.0
-6           Kim         45000.0
-7           James       10000.0
+<pre><code>ID NAME SALARY
+---------- ---------- ----------
+1 Paul 20000.0
+2 Allen 15000.0
+3 Teddy 20000.0
+4 Mark 65000.0
+5 David 85000.0
+6 Kim 45000.0
+7 James 10000.0
 </code></pre>
 <hr>
 <p><strong>设置输出列的宽度</strong></p>
@@ -1222,15 +1222,15 @@ sqlite&gt; SELECT * FROM COMPANY;
 sqlite&gt;SELECT * FROM COMPANY;
 </code></pre>
 <p>上面的 .width 命令设置第一列的宽度为 10，第二列的宽度为 20，第三列的宽度为 10。因此上述 SELECT 语句将得到以下结果：</p>
-<pre><code>ID          NAME                  AGE         ADDRESS     SALARY
-----------  --------------------  ----------  ----------  ----------
-1           Paul                  32          California  20000.0
-2           Allen                 25          Texas       15000.0
-3           Teddy                 23          Norway      20000.0
-4           Mark                  25          Rich-Mond   65000.0
-5           David                 27          Texas       85000.0
-6           Kim                   22          South-Hall  45000.0
-7           James                 24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- -------------------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p><strong>Schema 信息</strong><br>因为所有的点命令只在 SQLite 提示符中可用，所以当您进行带有 SQLite 的编程时，您要使用下面的带有 sqlite_master 表的 SELECT 语句来列出所有在数据库中创建的表：</p>
 <pre><code>sqlite&gt; SELECT tbl_name FROM sqlite_master WHERE type = &#39;table&#39;;
@@ -1245,15 +1245,15 @@ COMPANY
 </code></pre>
 <p>假设在 testDB.db 中已经存在唯一的 COMPANY 表，则将产生以下结果：</p>
 <pre><code>CREATE TABLE COMPANY(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           TEXT    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50),
-   SALARY         REAL
+ ID INT PRIMARY KEY NOT NULL,
+ NAME TEXT NOT NULL,
+ AGE INT NOT NULL,
+ ADDRESS CHAR(50),
+ SALARY REAL
 )
 </code></pre>
 <p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -1304,7 +1304,7 @@ COMPANY
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1412,7 +1412,7 @@ COMPANY
 </tr>
 </thead>
 <tbody><tr>
-<td>INT <br> INTEGERTINYINT <br> SMALLINT <br> MEDIUMINT <br> BIGINT <br> UNSIGNED BIG INT <br> INT2 <br> INT8  <br></td>
+<td>INT <br> INTEGERTINYINT <br> SMALLINT <br> MEDIUMINT <br> BIGINT <br> UNSIGNED BIG INT <br> INT2 <br> INT8 <br></td>
 <td>INTEGER</td>
 </tr>
 <tr>
@@ -1473,9 +1473,9 @@ sqlite&gt;
 </code></pre>
 <p>上面的命令将在当前目录下创建一个文件 testDB.db。该文件将被 SQLite 引擎用作数据库。如果您已经注意到 sqlite3 命令在成功创建数据库文件之后，将提供一个 sqlite&gt; 提示符。<br>一旦数据库被创建，您就可以使用 SQLite 的 .databases 命令来检查它是否在数据库列表中，如下所示：</p>
 <pre><code>sqlite&gt;.databases
-seq  name             file                                                      
+seq name file 
 ---- ---------------- --------------------------------------------
-0    main             /Users/wangruofeng/Documents/SQLitePractice/testDB.db
+0 main /Users/wangruofeng/Documents/SQLitePractice/testDB.db
 </code></pre>
 <p>您可以使用 SQLite .quit 命令退出 sqlite 提示符，如下所示：</p>
 <pre><code>sqlite&gt;.quit
@@ -1501,15 +1501,15 @@ $
 </code></pre>
 <p>使用 SQLite .database 命令来显示附加的数据库。</p>
 <pre><code>sqlite&gt; .database
-seq  name             file
----  ---------------  ----------------------
-0    main             /home/sqlite/testDB.db
-2    test             /home/sqlite/testDB.db
+seq name file
+--- --------------- ----------------------
+0 main /home/sqlite/testDB.db
+2 test /home/sqlite/testDB.db
 </code></pre>
 <p>数据库名称 main 和 temp 被保留用于主数据库和存储临时表及其他临时数据对象的数据库。这两个数据库名称可用于每个数据库连接，且不应该被用于附加，否则将得到一个警告消息，如下所示：</p>
-<pre><code>sqlite&gt;  ATTACH DATABASE &#39;testDB.db&#39; as &#39;TEMP&#39;;
+<pre><code>sqlite&gt; ATTACH DATABASE &#39;testDB.db&#39; as &#39;TEMP&#39;;
 Error: database TEMP is already in use
-sqlite&gt;  ATTACH DATABASE &#39;testDB.db&#39; as &#39;main&#39;;
+sqlite&gt; ATTACH DATABASE &#39;testDB.db&#39; as &#39;main&#39;;
 Error: database main is already in use
 </code></pre>
 <hr>
@@ -1525,21 +1525,21 @@ Error: database main is already in use
 <p><strong>实例</strong></p>
 <p>假设在前面的章节中您已经创建了一个数据库，并给它附加了 ‘test’ 和 ‘currentDB’，使用 .database&#x2F;.databases 命令，我们可以看到：</p>
 <pre><code>sqlite&gt; .databases
-seq  name             file
----  ---------------  ----------------------
-0    main             /home/sqlite/testDB.db
-2    test             /home/sqlite/testDB.db
-3    currentDB        /home/sqlite/testDB.db
+seq name file
+--- --------------- ----------------------
+0 main /home/sqlite/testDB.db
+2 test /home/sqlite/testDB.db
+3 currentDB /home/sqlite/testDB.db
 </code></pre>
 <p>现在，让我们尝试把 ‘currentDB’ 从 testDB.db 中分离出来，如下所示：</p>
 <pre><code>sqlite&gt; DETACH DATABASE &#39;currentDB&#39;;
 </code></pre>
 <p>现在，如果检查当前附加的数据库，您会发现，testDB.db 仍与 ‘test’ 和 ‘main’ 保持连接。</p>
 <pre><code>sqlite&gt; .databases
-seq  name             file
----  ---------------  ----------------------
-0    main             /home/sqlite/testDB.db
-2    test             /home/sqlite/testDB.db
+seq name file
+--- --------------- ----------------------
+0 main /home/sqlite/testDB.db
+2 test /home/sqlite/testDB.db
 </code></pre>
 <hr>
 <h4 id="SQLite-创建表"><a href="#SQLite-创建表" class="headerlink" title="SQLite 创建表"></a>SQLite 创建表</h4><p>SQLite 的 CREATE TABLE 语句用于在任何给定的数据库创建一个新表。创建基本表，涉及到命名表、定义列及每一列的数据类型。</p>
@@ -1547,43 +1547,43 @@ seq  name             file
 <p><strong>语法</strong></p>
 <p>CREATE TABLE 语句的基本语法如下：</p>
 <pre><code>CREATE TABLE database_name.table_name(
-   column1 datatype  PRIMARY KEY(one or more columns),
-   column2 datatype,
-   column3 datatype,
-   .....
-   columnN datatype,
+ column1 datatype PRIMARY KEY(one or more columns),
+ column2 datatype,
+ column3 datatype,
+ .....
+ columnN datatype,
 );
 </code></pre>
 <p>CREATE TABLE 是告诉数据库系统创建一个新表的关键字。CREATE TABLE 语句后跟着表的唯一的名称或标识。您也可以选择指定带有 table_name 的 <em>database_name</em>。</p>
 <p><strong>实例</strong></p>
 <p>下面是一个实例，它创建了一个 COMPANY 表，ID 作为主键，NOT NULL 的约束表示在表中创建纪录时这些字段不能为 NULL：</p>
 <pre><code>sqlite&gt; CREATE TABLE COMPANY(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           TEXT    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50),
-   SALARY         REAL
+ ID INT PRIMARY KEY NOT NULL,
+ NAME TEXT NOT NULL,
+ AGE INT NOT NULL,
+ ADDRESS CHAR(50),
+ SALARY REAL
 );
 </code></pre>
 <p>让我们再创建一个表，我们将在随后章节的练习中使用：</p>
 <pre><code>sqlite&gt; CREATE TABLE DEPARTMENT(
-   ID INT PRIMARY KEY      NOT NULL,
-   DEPT           CHAR(50) NOT NULL,
-   EMP_ID         INT      NOT NULL
+ ID INT PRIMARY KEY NOT NULL,
+ DEPT CHAR(50) NOT NULL,
+ EMP_ID INT NOT NULL
 );
 </code></pre>
 <p>您可以使用 SQLIte 命令中的 .tables&#x2F;.table 命令来验证表是否已成功创建，该命令用于列出附加数据库中的所有表。</p>
 <pre><code>sqlite&gt; .tables
-COMPANY          DEPARTMENT       TEST.COMPANY     TEST.DEPARTMENT
+COMPANY DEPARTMENT TEST.COMPANY TEST.DEPARTMENT
 </code></pre>
 <p>在这里，可以看到 COMPANY 表出现两次，一个是主数据库的 COMPANY 表，一个是为 testDB.db 创建的 ‘test’ 别名的 test.COMPANY 表。您可以使用 SQLite .schema 命令得到表的完整信息，如下所示：</p>
 <pre><code>sqlite&gt;.schema COMPANY
 CREATE TABLE COMPANY(
-   ID INT PRIMARY KEY     NOT NULL,
-   NAME           TEXT    NOT NULL,
-   AGE            INT     NOT NULL,
-   ADDRESS        CHAR(50),
-   SALARY         REAL
+ ID INT PRIMARY KEY NOT NULL,
+ NAME TEXT NOT NULL,
+ AGE INT NOT NULL,
+ ADDRESS CHAR(50),
+ SALARY REAL
 );
 </code></pre>
 <h4 id="SQLite-删除表"><a href="#SQLite-删除表" class="headerlink" title="SQLite 删除表"></a>SQLite 删除表</h4><p>SQLite 的 DROP TABLE 语句用来删除表定义及其所有相关数据、索引、触发器、约束和该表的权限规范。</p>
@@ -1598,7 +1598,7 @@ CREATE TABLE COMPANY(
 <p><strong>实例</strong></p>
 <p>让我们先确认 COMPANY 表已经存在，然后我们将其从数据库中删除。</p>
 <pre><code>sqlite&gt; .tables
-COMPANY       test.COMPANY
+COMPANY test.COMPANY
 </code></pre>
 <p>这意味着 COMPANY 表已存在数据库中，接下来让我们把它从数据库中删除，如下：</p>
 <pre><code>sqlite&gt; DROP TABLE COMPANY;
@@ -1610,7 +1610,7 @@ sqlite&gt;
 </code></pre>
 <p>显示结果为空，意味着已经成功从数据库删除表。</p>
 <p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -1661,7 +1661,7 @@ sqlite&gt;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1704,7 +1704,7 @@ sqlite&gt;
 <li>不需要一个单独的服务器进程或操作的系统（无服务器的）。</li>
 <li>SQLite 不需要配置，这意味着不需要安装或管理。</li>
 <li>一个完整的 SQLite 数据库是存储在一个单一的跨平台的磁盘文件。</li>
-<li>SQLite 是非常小的，是轻量级的，完全配置时小于 400KiB，省略可选功能配置时小于250KiB。</li>
+<li>SQLite 是非常小的，是轻量级的，完全配置时小于 400KiB，省略可选功能配置时小于 250KiB。</li>
 <li>SQLite 是自给自足的，这意味着不需要任何外部的依赖。</li>
 <li>SQLite 事务是完全兼容 ACID 的，允许从多个进程或线程安全访问。</li>
 <li>SQLite 支持 SQL92（SQL2）标准的大多数查询语言的功能。</li>
@@ -1793,8 +1793,8 @@ ANALYZE database_name.table_name;
 </code></pre>
 <p>SQLite AND&#x2F;OR 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  CONDITION-1 &#123;AND|OR&#125; CONDITION-2;
+FROM table_name
+WHERE CONDITION-1 &#123;AND|OR&#125; CONDITION-2;
 </code></pre>
 <p>SQLite ALTER TABLE 语句：</p>
 <pre><code>ALTER TABLE table_name ADD COLUMN column_def...;
@@ -1810,8 +1810,8 @@ BEGIN EXCLUSIVE TRANSACTION;
 </code></pre>
 <p>SQLite BETWEEN 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  column_name BETWEEN val-1 AND val-2;
+FROM table_name
+WHERE column_name BETWEEN val-1 AND val-2;
 </code></pre>
 <p>SQLite COMMIT 语句：</p>
 <pre><code>COMMIT;
@@ -1826,25 +1826,25 @@ ON table_name ( column1, column2,...columnN);
 </code></pre>
 <p>SQLite CREATE TABLE 语句：</p>
 <pre><code>CREATE TABLE table_name(
-   column1 datatype,
-   column2 datatype,
-   column3 datatype,
-   .....
-   columnN datatype,
-   PRIMARY KEY( one or more columns )
+ column1 datatype,
+ column2 datatype,
+ column3 datatype,
+ .....
+ columnN datatype,
+ PRIMARY KEY( one or more columns )
 );
 </code></pre>
 <p>SQLite CREATE TRIGGER 语句：</p>
 <pre><code>CREATE TRIGGER database_name.trigger_name
 BEFORE INSERT ON table_name FOR EACH ROW
 BEGIN
-   stmt1;
-   stmt2;
-   ....
+ stmt1;
+ stmt2;
+ ....
 END;
 </code></pre>
 <p>SQLite CREATE VIEW 语句：</p>
-<pre><code>CREATE VIEW database_name.view_name  AS
+<pre><code>CREATE VIEW database_name.view_name AS
 SELECT statement....;
 </code></pre>
 <p>SQLite CREATE VIRTUAL TABLE 语句：</p>
@@ -1856,19 +1856,19 @@ CREATE VIRTUAL TABLE database_name.table_name USING fts3( );
 <pre><code>COMMIT;
 SQLite COUNT 子句：
 SELECT COUNT(column_name)
-FROM   table_name
-WHERE  CONDITION;
+FROM table_name
+WHERE CONDITION;
 </code></pre>
 <p>SQLite DELETE 语句：</p>
 <pre><code>DELETE FROM table_name
-WHERE  &#123;CONDITION&#125;;
+WHERE &#123;CONDITION&#125;;
 </code></pre>
 <p>SQLite DETACH DATABASE 语句：</p>
 <pre><code>DETACH DATABASE &#39;Alias-Name&#39;;
 </code></pre>
 <p>SQLite DISTINCT 子句：</p>
 <pre><code>SELECT DISTINCT column1, column2....columnN
-FROM   table_name;
+FROM table_name;
 </code></pre>
 <p>SQLite DROP INDEX 语句：</p>
 <pre><code>DROP INDEX database_name.index_name;
@@ -1884,8 +1884,8 @@ FROM   table_name;
 </code></pre>
 <p>SQLite EXISTS 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  column_name EXISTS (SELECT * FROM   table_name );
+FROM table_name
+WHERE column_name EXISTS (SELECT * FROM table_name );
 </code></pre>
 <p>SQLite EXPLAIN 语句：</p>
 <pre><code>EXPLAIN INSERT statement...;
@@ -1894,19 +1894,19 @@ EXPLAIN QUERY PLAN SELECT statement...;
 </code></pre>
 <p>SQLite GLOB 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  column_name GLOB &#123; PATTERN &#125;;
+FROM table_name
+WHERE column_name GLOB &#123; PATTERN &#125;;
 </code></pre>
 <p>SQLite GROUP BY 子句：</p>
 <pre><code>SELECT SUM(column_name)
-FROM   table_name
-WHERE  CONDITION
+FROM table_name
+WHERE CONDITION
 GROUP BY column_name;
 </code></pre>
 <p>SQLite HAVING 子句：</p>
 <pre><code>SELECT SUM(column_name)
-FROM   table_name
-WHERE  CONDITION
+FROM table_name
+WHERE CONDITION
 GROUP BY column_name
 HAVING (arithematic function condition);
 </code></pre>
@@ -1916,23 +1916,23 @@ VALUES ( value1, value2....valueN);
 </code></pre>
 <p>SQLite IN 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  column_name IN (val-1, val-2,...val-N);
+FROM table_name
+WHERE column_name IN (val-1, val-2,...val-N);
 </code></pre>
 <p>SQLite Like 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  column_name LIKE &#123; PATTERN &#125;;
+FROM table_name
+WHERE column_name LIKE &#123; PATTERN &#125;;
 </code></pre>
 <p>SQLite NOT IN 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  column_name NOT IN (val-1, val-2,...val-N);
+FROM table_name
+WHERE column_name NOT IN (val-1, val-2,...val-N);
 </code></pre>
 <p>SQLite ORDER BY 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  CONDITION
+FROM table_name
+WHERE CONDITION
 ORDER BY column_name &#123;ASC|DESC&#125;;
 </code></pre>
 <p>SQLite PRAGMA 语句：</p>
@@ -1961,23 +1961,23 @@ ROLLBACK TO SAVEPOINT savepoint_name;
 <pre><code>SAVEPOINT savepoint_name;
 SQLite SELECT 语句：
 SELECT column1, column2....columnN
-FROM   table_name;
+FROM table_name;
 </code></pre>
 <p>SQLite UPDATE 语句：</p>
 <pre><code>UPDATE table_name
 SET column1 = value1, column2 = value2....columnN=valueN
-[ WHERE  CONDITION ];
+[ WHERE CONDITION ];
 </code></pre>
 <p>SQLite VACUUM 语句：</p>
 <pre><code>VACUUM;
 </code></pre>
 <p>SQLite WHERE 子句：</p>
 <pre><code>SELECT column1, column2....columnN
-FROM   table_name
-WHERE  CONDITION;
+FROM table_name
+WHERE CONDITION;
 </code></pre>
 <p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -2028,7 +2028,7 @@ WHERE  CONDITION;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2046,7 +2046,7 @@ WHERE  CONDITION;
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>664</span>
+              <span>665</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2111,12 +2111,12 @@ WHERE  CONDITION;
 <li>关于 Podfile 文件编辑时，第三方版本号的各种写法:</li>
 </ol>
 </blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>      		 <span class="comment"># 不显式指定依赖库版本，表示每次都获取最新版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;2.0&#x27;</span>        <span class="comment"># 只使用2.0版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&gt;2.0&#x27;</span>       <span class="comment"># 使用高于2.0的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&gt;=2.0&#x27;</span>      <span class="comment"># 使用大于或等于2.0的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&lt;2.0&#x27;</span>       <span class="comment"># 使用小于2.0的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&lt;=2.0&#x27;</span>      <span class="comment"># 使用小于或等于2.0的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;~&gt;0.1.2&#x27;</span>    <span class="comment"># 使用大于等于0.1.2但小于0.2的版本，相当于&gt;=0.1.2并且&lt;0.2.0</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;~&gt;0.1&#x27;</span>      <span class="comment"># 使用大于等于0.1但小于1.0的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;~&gt;0&#x27;</span>        <span class="comment"># 高于0的版本，写这个限制和什么都不写是一个效果，都表示使用最新版本</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>      		 <span class="comment"># 不显式指定依赖库版本，表示每次都获取最新版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;2.0&#x27;</span>        <span class="comment"># 只使用 2.0 版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&gt;2.0&#x27;</span>       <span class="comment"># 使用高于 2.0 的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&gt;=2.0&#x27;</span>      <span class="comment"># 使用大于或等于 2.0 的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&lt;2.0&#x27;</span>       <span class="comment"># 使用小于 2.0 的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;&lt;=2.0&#x27;</span>      <span class="comment"># 使用小于或等于 2.0 的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;~&gt;0.1.2&#x27;</span>    <span class="comment"># 使用大于等于 0.1.2 但小于 0.2 的版本，相当于&gt;=0.1.2 并且&lt;0.2.0</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;~&gt;0.1&#x27;</span>      <span class="comment"># 使用大于等于 0.1 但小于 1.0 的版本</span></span><br><span class="line">pod <span class="string">&#x27;AFNetworking&#x27;</span>, <span class="string">&#x27;~&gt;0&#x27;</span>        <span class="comment"># 高于 0 的版本，写这个限制和什么都不写是一个效果，都表示使用最新版本</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://semver.org/">语义化版本 2.0.0</a></li>
 </ul>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -2167,7 +2167,7 @@ WHERE  CONDITION;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:41:38" itemprop="dateModified" datetime="2024-11-03T13:41:38+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2185,7 +2185,7 @@ WHERE  CONDITION;
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>716</span>
+              <span>717</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2211,14 +2211,10 @@ WHERE  CONDITION;
 <li>传输的数据量小, 这主要是因为受 URL 长度限制。</li>
 </ul>
 <h3 id="URL-长度限制"><a href="#URL-长度限制" class="headerlink" title="URL 长度限制"></a>URL 长度限制</h3><p> 在 http 协议中，其实并没有对 url 长度作出限制，往往 url 的最大长度和用户浏览器和 Web 服务器有关，不一样的浏览器，能接受的最大长度往往是不一样的，当然，不一样的 Web 服务器能够处理的最大长度的 URL 的能力也是不一样的。</p>
-<pre><code>IE 浏览器对 URL 的最大限制为2083个字符，如果超过这个数字，提交按钮没有任何反应；
-
-Firefox 浏览器 URL 的长度限制为65,536个字符；
-
-Apache(Server)能够接受的最大 URL 长度为8192个字符；
-
-如果浏览器的编码为 UTF8的话，一个汉字最终编码后的字符长度为9个字符。
-</code></pre>
+<p> IE 浏览器对 URL 的最大限制为 2083 个字符，如果超过这个数字，提交按钮没有任何反应；</p>
+<p> Firefox 浏览器 URL 的长度限制为 65,536 个字符；</p>
+<p> Apache(Server)能够接受的最大 URL 长度为 8192 个字符；</p>
+<p> 如果浏览器的编码为 UTF8 的话，一个汉字最终编码后的字符长度为 9 个字符。</p>
 <p>GET 请求示例</p>
 <p><img src="/images/post_get/requst_01.webp" alt="GetRequest"></p>
 <h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><ul>
@@ -2235,23 +2231,20 @@ Apache(Server)能够接受的最大 URL 长度为8192个字符；
 <li><p>实例化 URL( 网络资源 ) ;</p>
 </li>
 <li><p>根据 URL 建立 URLRequest ( 网络请求 ) ;</p>
-<p> 默认为 GET 请求; 对于 POST 请求,  需要创建请求的数据体 .</p>
-</li>
-<li><p>利用 URLConnection 发送网络请求(发送请求并获得结果) ;</p>
 </li>
 </ol>
-<p>NSURLConnection 提供了两个静态方法可以直接以同步或异步的方式向服务器发送网络请求.   	</p>
-<pre><code>同步请求:
-sendSynchronousRequest : returningResponse : error :
+<p> 默认为 GET 请求; 对于 POST 请求, 需要创建请求的数据体 .</p>
+<ol start="3">
+<li>利用 URLConnection 发送网络请求(发送请求并获得结果) ;</li>
+</ol>
+<p>NSURLConnection 提供了两个静态方法可以直接以同步或异步的方式向服务器发送网络请求. 	</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">同步请求:</span><br><span class="line">sendSynchronousRequest : returningResponse : error :</span><br><span class="line"></span><br><span class="line">异步请求:</span><br><span class="line">sendAsynchronousRequest : queue : completionHandler :</span><br></pre></td></tr></table></figure>
 
-异步请求:
-sendAsynchronousRequest : queue : completionHandler :
-</code></pre>
 <p>在网络请求过程中, 接收数据的过程实际上是通过 NSURLConnectionDataDelegate 来实现的, 常用代理方法包括:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 服务器开始返回数据</span></span><br><span class="line">- (<span class="type">void</span>)connection:didReceiveResponse:</span><br><span class="line"><span class="comment">// 收到服务器返回的数据，本方法会被调用多次</span></span><br><span class="line">- (<span class="type">void</span>)connection:didReceiveData:</span><br><span class="line"><span class="comment">// 数据接收完毕，做数据的最后处理</span></span><br><span class="line">- (<span class="type">void</span>)connectionDidFinishLoading:</span><br><span class="line"><span class="comment">// 网络连接错误</span></span><br><span class="line">- (<span class="type">void</span>)connection:didFailWithError:</span><br></pre></td></tr></table></figure>
 
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -2302,7 +2295,7 @@ sendAsynchronousRequest : queue : completionHandler :
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2320,7 +2313,7 @@ sendAsynchronousRequest : queue : completionHandler :
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>439</span>
+              <span>440</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2339,21 +2332,19 @@ sendAsynchronousRequest : queue : completionHandler :
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="HTTP-POST-使用注意事项："><a href="#HTTP-POST-使用注意事项：" class="headerlink" title="HTTP POST  使用注意事项："></a><code>HTTP POST</code>  使用注意事项：</h4><ul>
-<li>http Body 中的 NSData 编码方式要用 <code>NSASCIIStringEncoding</code> 而不是 <code>NSUTF8StringEncoding</code> </li>
-<li>通过<br>  <code>NSString *postLength = [NSString stringWithFormat:@&quot;%d&quot;,[postData length]];</code>		<br>计算数据的长度</li>
+          <h4 id="HTTP-POST-使用注意事项："><a href="#HTTP-POST-使用注意事项：" class="headerlink" title="HTTP POST 使用注意事项："></a><code>HTTP POST</code> 使用注意事项：</h4><ul>
+<li>http Body 中的 NSData 编码方式要用 <code>NSASCIIStringEncoding</code> 而不是 <code>NSUTF8StringEncoding</code> * 通过<br> <code>NSString *postLength = [NSString stringWithFormat:@&quot;%d&quot;,[postData length]];</code> 计算数据的长度</li>
 </ul>
 <h4 id="POST-参数设置"><a href="#POST-参数设置" class="headerlink" title="POST 参数设置"></a>POST 参数设置</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置 header Content-Length</span></span><br><span class="line">[request setValue:postLength forHTTPHeaderField:<span class="string">@&quot;Content-Length&quot;</span>];</span><br><span class="line"><span class="comment">//设置 header contentType</span></span><br><span class="line">[request setValue:<span class="string">@&quot;application/x-www-form-urlencoded&quot;</span> forHTTPHeaderField:<span class="string">@&quot;Current-Type&quot;</span>];</span><br><span class="line"><span class="comment">//设置 body</span></span><br><span class="line">[request setHTTPBody:postData];</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>备注:普通 <code>post</code> 的 <code>header</code> 的 <code>Current-Type</code> 为 <code>application/x-www-form-urlencoded</code> </p>
+<p>备注:普通 <code>post</code> 的 <code>header</code> 的 <code>Current-Type</code> 为 <code>application/x-www-form-urlencoded</code> #### Multipart Forms POST 参数设置</p>
 </blockquote>
-<h4 id="Multipart-Forms-POST-参数设置"><a href="#Multipart-Forms-POST-参数设置" class="headerlink" title="Multipart Forms POST 参数设置"></a>Multipart Forms POST 参数设置</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置 header contentType</span></span><br><span class="line"><span class="built_in">NSString</span> *contentType = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;multipart/form-data; boundary=%@&quot;</span>, boundary];</span><br><span class="line">[request addValue:contentType forHTTPHeaderField:<span class="string">@&quot;Content-Type&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置 body contentType</span></span><br><span class="line">[body appendData:[<span class="string">@&quot;Content-Type: application/octet-stream\r\n\r\n&quot;</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>]];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置 header contentType</span></span><br><span class="line"><span class="built_in">NSString</span> *contentType = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;multipart/form-data; boundary=%@&quot;</span>, boundary];</span><br><span class="line">[request addValue:contentType forHTTPHeaderField:<span class="string">@&quot;Content-Type&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置 body contentType</span></span><br><span class="line">[body appendData:[<span class="string">@&quot;Content-Type: application/octet-stream\r\n\r\n&quot;</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>]];</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>备注: <code>Multipart Forms</code> 的 <code>header</code> 的 <code>Current-Type</code> 为 <code>multipart/form-data</code> </p>
+<p>备注: <code>Multipart Forms</code> 的 <code>header</code> 的 <code>Current-Type</code> 为 <code>multipart/form-data</code> request body like this</p>
 </blockquote>
-<p>request body like this</p>
 <pre><code>    --YOUR_BOUNDARY_STRING
     Content-Disposition: form-data; name=&quot;photo&quot;; filename=&quot;calm.jpg&quot;
     Content-Type: image/jpeg
@@ -2383,10 +2374,10 @@ sendAsynchronousRequest : queue : completionHandler :
 <li><a target="_blank" rel="noopener" href="http://nthn.me/posts/2012/objc-multipart-forms.html">Sending Multipart Forms with Objective-C</a></li>
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/24250475/post-multipart-form-data-with-objective-c">POST multipart&#x2F;form-data with Objective-C</a></li>
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/15749486/sending-an-http-post-request-on-ios">Sending an HTTP POST request on iOS</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.w3.org/Protocols/rfc1341/7_2_Multipart.html">The Multipart Content-Type–w3规范</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3.org/Protocols/rfc1341/7_2_Multipart.html">The Multipart Content-Type–w3 规范</a></li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -2437,7 +2428,7 @@ sendAsynchronousRequest : queue : completionHandler :
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2480,16 +2471,15 @@ sendAsynchronousRequest : queue : completionHandler :
 <li>Abstract Factory (抽象工厂模式）</li>
 <li>Simple Factory（简单工厂模式）</li>
 </ul>
-<p><code>参考 GoF《Design Patterns》一书</code></p>
-<p>GOF 是这样描述工厂模式的：</p>
+<p> <code>参考 GoF《Design Patterns》一书</code> GOF 是这样描述工厂模式的：</p>
 <blockquote>
 <p>“Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.”</p>
 </blockquote>
 <blockquote>
 <p>在基类中定义创建对象的一个接口，让子类决定实例化哪个类。工厂方法让一个类的实例化延迟到子类中进行。</p>
 </blockquote>
-<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p>  严格的说，简单工厂模式并不是 23 种常用的设计模式之一，它只算工厂模式的一个特殊实现。简单工厂模式在实际中的应用相对于其他 2 个工厂模式用的还是相对少得多，因为它只适应很多简单的情况，最最重要的是它违背了我们在概述中说的开放-封闭原则。因为每次你要新添加一个功能，都需要在生 switch-case 语句（或者 if-else 语句）中去修改代码，添加分支条件</p>
-<p>  简单工厂模式角色分配：</p>
+<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p> 严格的说，简单工厂模式并不是 23 种常用的设计模式之一，它只算工厂模式的一个特殊实现。简单工厂模式在实际中的应用相对于其他 2 个工厂模式用的还是相对少得多，因为它只适应很多简单的情况，最最重要的是它违背了我们在概述中说的开放-封闭原则。因为每次你要新添加一个功能，都需要在生 switch-case 语句（或者 if-else 语句）中去修改代码，添加分支条件</p>
+<p> 简单工厂模式角色分配：</p>
 <ol>
 <li><p>Creator（产品创建者）<br>简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。</p>
 </li>
@@ -2513,7 +2503,7 @@ sendAsynchronousRequest : queue : completionHandler :
 
 <p>这就是简单工厂方法，把所有的创建交给 creator,creator 通过 switch-case(或者 if-else)语句来选择具体创建的对象。简单明了。但是就如上面所说，它最致命的问题的违背了开放-封闭原则。每次你要新添加一个功能，都要修改 factor 里面的 createPhone 代码。 但是工厂方法模式可以解决这个问题。</p>
 <h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>个人觉得工厂方法模式在工厂模式家族中是用的最多模式。上面说过了，如果简单工厂模式，要添加一个新功能，比如我现在要增加 WinPhone 的生产，那么我要修改 PhoneFactory 中的 createPhone 中的分支判断条件。这违背了开放-封闭原则，那为什么不能将创建方法放到子类中呢？<br>工厂方法的定义就是：定义一个用于创建对象的接口，让子类决定实例化哪一个类，工厂方法使一个类的实例化延迟到其子类。</p>
-<p>  工厂方法模式角色：</p>
+<p> 工厂方法模式角色：</p>
 <ol>
 <li>抽象工厂(Creator)角色：是工厂方法模式的核心，与应用程序无关。任何在模式中创建的对象的工厂类必须实现这个接口。</li>
 <li>具体工厂(Concrete Creator)角色：这是实现抽象工厂接口的具体工厂类，包含与应用程序密切相关的逻辑，并且受到应用程序调用以创建产品对象。</li>
@@ -2570,7 +2560,7 @@ sendAsynchronousRequest : queue : completionHandler :
 <li><a target="_blank" rel="noopener" href="http://www.bobmccune.com/2011/04/08/automagic-factories-in-objective-c/">Automagic Factories in Objective-C</a>–bobmccune</li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>
@@ -2621,7 +2611,7 @@ sendAsynchronousRequest : queue : completionHandler :
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:40:58" itemprop="dateModified" datetime="2024-11-03T13:40:58+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2639,7 +2629,7 @@ sendAsynchronousRequest : queue : completionHandler :
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>918</span>
+              <span>919</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2661,24 +2651,24 @@ sendAsynchronousRequest : queue : completionHandler :
           <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每个 iOS 应用程序都有个专门用来更新显示 UI 界面、处理用户触摸事件的主线程，因此不能将其他太耗时的操作放在主线程中执行，不然会造成主线程堵塞(出现卡机现象)，带来极坏的用户体验。一般的解决方案就是将那些耗时的操作放到另外一个线程中去执行，多线程编程是防止主线程堵塞，增加运行效率的最佳方法。</p>
 <p>iOS 中有 3 种常见的多线程编程方法</p>
 <ol>
-<li><p><code>NSThread</code><br>这种方法需要管理线程的生命周期、同步、加锁问题，会导致一定的性能开销</p>
+<li><p><code>NSThread</code> 这种方法需要管理线程的生命周期、同步、加锁问题，会导致一定的性能开销</p>
 </li>
-<li><p><code>NSOperation</code> 和 <code>NSOperationQueue</code><br>是基于 OC 实现的。NSOperation 以面向对象的方式封装了需要执行的操作，然后可以将这个操作放到一个 NSOperationQueue 中去异步执行。不必关心线程管理、同步等问题。</p>
+<li><p><code>NSOperation</code> 和 <code>NSOperationQueue</code> 是基于 OC 实现的。NSOperation 以面向对象的方式封装了需要执行的操作，然后可以将这个操作放到一个 NSOperationQueue 中去异步执行。不必关心线程管理、同步等问题。</p>
 </li>
-<li><p><code>Grand Centeral Dispatch</code><br>简称 GCD，iOS4 才开始支持，是纯 C 语言的 API。自 iPad2 开始，苹果设备开始有了双核 CPU，为了充分利用这 2 个核，GCD 提供了一些新特性来支持多核并行编程</p>
+<li><p><code>Grand Centeral Dispatch</code> 简称 GCD，iOS4 才开始支持，是纯 C 语言的 API。自 iPad2 开始，苹果设备开始有了双核 CPU，为了充分利用这 2 个核，GCD 提供了一些新特性来支持多核并行编程</p>
 </li>
 </ol>
 <p>这篇文章简单介绍 <code>NSThread 这</code> 个类，一个 <code>NSThread</code> 实例就代表着一条线程</p>
 <h2 id="获取当前线程"><a href="#获取当前线程" class="headerlink" title="获取当前线程"></a>获取当前线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br></pre></td></tr></table></figure>
 
-<h2 id="获取主线程"><a href="#获取主线程" class="headerlink" title="获取主线程"></a>获取主线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *main = [<span class="built_in">NSThread</span> mainThread];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;主线程:%@&quot;</span>, main);    </span><br></pre></td></tr></table></figure>
+<h2 id="获取主线程"><a href="#获取主线程" class="headerlink" title="获取主线程"></a>获取主线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *main = [<span class="built_in">NSThread</span> mainThread];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;主线程:%@&quot;</span>, main);    </span><br></pre></td></tr></table></figure>
 
 <p>打印结果是：</p>
-<pre><code>2013-04-18 21:36:38.599 thread[7499:c07] 主线程:&lt;NSThread: 0x71434e0&gt;&#123;name = (null), num = 1&#125;
-</code></pre>
+<p> 2013-04-18 21:36:38.599 thread[7499:c07] 主线程:&lt;NSThread: 0x71434e0&gt;{name &#x3D; (null), num &#x3D; 1}</p>
 <p>num 相当于线程的 id，主线程的 num 是为 1 的</p>
-<h2 id="NSThread-的创建"><a href="#NSThread-的创建" class="headerlink" title="NSThread 的创建"></a>NSThread 的创建</h2><h3 id="a-动态方法"><a href="#a-动态方法" class="headerlink" title="a.动态方法"></a>a.动态方法</h3><pre><code>- (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;
-</code></pre>
+<h2 id="NSThread-的创建"><a href="#NSThread-的创建" class="headerlink" title="NSThread 的创建"></a>NSThread 的创建</h2><h3 id="a-动态方法"><a href="#a-动态方法" class="headerlink" title="a.动态方法"></a>a.动态方法</h3><ul>
+<li>(id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;</li>
+</ul>
 <p>在第 2 行创建了一条新线程，然后在第 4 行调用 <code>start</code> 方法启动线程，线程启动后会调用 self 的 <code>run:</code> 方法，并且将@”mj”作为方法参数</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化线程</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(run:) object:<span class="string">@&quot;mj&quot;</span>] autorelease];</span><br><span class="line"><span class="comment">// 开启线程</span></span><br><span class="line">[thread start];</span><br></pre></td></tr></table></figure>
 
@@ -2686,8 +2676,7 @@ sendAsynchronousRequest : queue : completionHandler :
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)run:(<span class="built_in">NSString</span> *)string &#123;</span><br><span class="line">     <span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了 run:方法-参数：%@，当前线程：%@&quot;</span>, string, current);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>打印结果为：</p>
-<pre><code>2013-04-18 21:40:33.102 thread[7542:3e13] 执行了 run:方法-参数：mj，当前线程：&lt;NSThread: 0x889e8d0&gt;&#123;name = (null), num = 3&#125;
-</code></pre>
+<p> 2013-04-18 21:40:33.102 thread[7542:3e13] 执行了 run:方法-参数：mj，当前线程：&lt;NSThread: 0x889e8d0&gt;{name &#x3D; (null), num &#x3D; 3}</p>
 <p>可以发现，这条线程的 num 值为 3，说明不是主线程，主线程的 num 为 1</p>
 <h3 id="b-静态方法"><a href="#b-静态方法" class="headerlink" title="b.静态方法"></a>b.静态方法</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">void</span>)detachNewThreadSelector:(SEL)selector toTarget:(<span class="type">id</span>)target withObject:(<span class="type">id</span>)argument;</span><br></pre></td></tr></table></figure>
 
@@ -2716,7 +2705,7 @@ sendAsynchronousRequest : queue : completionHandler :
 <li>缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁会有一定的系统开销</li>
 </ol>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed -->
+<!-- processed 2 -->
 
       
     </div>

@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta name="description" content="SQL 表达式表达式是一个或多个值、运算符和计算值的 SQL 函数的组合。 SQL 表达式与公式类似，都写在查询语言中。您还可以使用特定的数据集来查询数据库。  语法 假设 SELECT 语句的基本语法如下： SELECT column1, column2, columnN FROM table_name WHERE [CONTION | EXPRESSION];  有不同类型的 SQLite 表">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="SQL 表达式表达式是一个或多个值、运算符和计算值的 SQL 函数的组合。 SQL 表达式与公式类似，都写在查询语言中。您还可以使用特定的数据集来查询数据库。  语法 假设 SELECT 语句的基本语法如下： SELECT column1, column2, columnN FROM table_name WHERE [CONTION | EXPRESSION];  有不同类型的 SQLite 表">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-01-13T17:35:50.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.911Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.296Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="SQLite">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,24 +280,24 @@ FROM table_name
 WHERE SINGLE VALUE MATCHTING EXPRESSION;
 </code></pre>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的实例演示了 SQLite 布尔表达式的用法：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE SALARY = 10000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           James        24          Houston   10000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 James 24 Houston 10000.0
 </code></pre>
 <h4 id="SQLite-数值表达式"><a href="#SQLite-数值表达式" class="headerlink" title="SQLite - 数值表达式"></a>SQLite - 数值表达式</h4><p>这些表达式用来执行查询中的任何数学运算。语法如下：</p>
-<pre><code>SELECT numerical_expression as  OPERATION_NAME
+<pre><code>SELECT numerical_expression as OPERATION_NAME
 [FROM table_name WHERE CONDITION] ;
 </code></pre>
 <p>在这里，numerical_expression 用于数学表达式或任何公式。下面的实例演示了 SQLite 数值表达式的用法：</p>
@@ -310,7 +310,7 @@ RECORDS = 7
 </code></pre>
 <hr>
 <h4 id="SQLite-日期表达式"><a href="#SQLite-日期表达式" class="headerlink" title="SQLite - 日期表达式"></a>SQLite - 日期表达式</h4><p>日期表达式返回当前系统日期和时间值，这些表达式将被用于各种数据操作。</p>
-<pre><code>sqlite&gt;  SELECT CURRENT_TIMESTAMP;
+<pre><code>sqlite&gt; SELECT CURRENT_TIMESTAMP;
 CURRENT_TIMESTAMP = 2016-01-13 16:29:56
 </code></pre>
 <h4 id="SQLite-Where-子句"><a href="#SQLite-Where-子句" class="headerlink" title="SQLite Where 子句"></a>SQLite Where 子句</h4><p>SQLite 的 WHERE 子句用于指定从一个表或多个表中获取数据的条件。</p>
@@ -325,63 +325,63 @@ WHERE [condition]
 </code></pre>
 <p><strong>实例</strong></p>
 <p>您还可以使用比较或逻辑运算符指定条件，比如 &gt;、&lt;、&#x3D;、LIKE、NOT，等等。假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的实例演示了 SQLite 逻辑运算符的用法。下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
 <p>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;&#x3D; 25 OR SALARY &gt;&#x3D; 65000;</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 不为 NULL 的所有记录，结果显示所有的记录，意味着没有一个记录的 AGE 等于 NULL：</p>
-<pre><code>sqlite&gt;  SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IS NOT NULL;
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制（不区分大小写）：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME LIKE &#39;Ki%&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+6 Kim 22 South-Hall 45000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 NAME 以 ‘Ki’ 开始的所有记录，’Ki’ 之后的字符不做限制（区分大小写）：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE NAME GLOB &#39;Ki*&#39;;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-6           Kim         22          South-Hall  45000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+6 Kim 22 South-Hall 45000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 的值为 25 或 27 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE IN ( 25, 27 );
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="SQLite-AND-OR-运算符"><a href="#SQLite-AND-OR-运算符" class="headerlink" title="SQLite AND&#x2F;OR 运算符"></a>SQLite AND&#x2F;OR 运算符</h4><p>SQLite 的 AND 和 OR 运算符用于编译多个条件来缩小在 SQLite 语句中所选的数据。这两个运算符被称为连接运算符。</p>
 <p>这些运算符为同一个 SQLite 语句中不同的运算符之间的多个比较提供了可能。</p>
@@ -396,22 +396,22 @@ WHERE [condition1] AND [condition2]...AND [conditionN];
 <p>您可以使用 AND 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，所有由 AND 分隔的条件都必须为真（TRUE）。</p>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 且工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 AND SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="OR-运算符"><a href="#OR-运算符" class="headerlink" title="OR 运算符"></a>OR 运算符</h4><p>OR 运算符也用于结合一个 SQL 语句的 WHERE 子句中的多个条件。使用 OR 运算符时，只要当条件中任何一个为真（true）时，整个条件为真（true）。例如，只要当 condition1 或 condition2 有一个为真（true）时，[condition1] OR [condition2] 为真（true）</p>
 <p><strong>语法</strong></p>
@@ -423,24 +423,24 @@ WHERE [condition1] OR [condition2]...OR [conditionN]
 <p>您可以使用 OR 运算符来结合 N 个数量的条件。SQLite 语句需要执行的动作是，无论是事务或查询，只要任何一个由 OR 分隔的条件为真（TRUE）即可。</p>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面的 SELECT 语句列出了 AGE 大于等于 25 或工资大于等于 65000.00 的所有记录：</p>
 <pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE &gt;= 25 OR SALARY &gt;= 65000;
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
+ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
 </code></pre>
 <h4 id="SQLite-Update-语句"><a href="#SQLite-Update-语句" class="headerlink" title="SQLite Update 语句"></a>SQLite Update 语句</h4><p>SQLite 的 **UPDATE **查询用于修改表中已有的记录。可以使用带有 WHERE 子句的 UPDATE 查询来更新选定行，否则所有的行都会被更新。</p>
 <hr>
@@ -454,46 +454,46 @@ WHERE [condition];
 <hr>
 <p><strong>实例</strong></p>
 <p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          South-Hall  45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>下面是一个实例，它会更新 ID 为 6 的客户地址：</p>
 <pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = &#39;Texas&#39; WHERE ID = 6;
 </code></pre>
 <p>现在，COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          California  20000.0
-2           Allen       25          Texas       15000.0
-3           Teddy       23          Norway      20000.0
-4           Mark        25          Rich-Mond   65000.0
-5           David       27          Texas       85000.0
-6           Kim         22          Texas       45000.0
-7           James       24          Houston     10000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 Texas 45000.0
+7 James 24 Houston 10000.0
 </code></pre>
 <p>如果您想修改 COMPANY 表中 ADDRESS 和 SALARY 列的所有值，则不需要使用 WHERE 子句，UPDATE 查询如下：</p>
 <pre><code>sqlite&gt; UPDATE COMPANY SET ADDRESS = &#39;Texas&#39;, SALARY = 20000.00;
 </code></pre>
 <p>现在，COMPANY 表有以下记录：</p>
-<pre><code>ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-1           Paul        32          Texas       20000.0
-2           Allen       25          Texas       20000.0
-3           Teddy       23          Texas       20000.0
-4           Mark        25          Texas       20000.0
-5           David       27          Texas       20000.0
-6           Kim         22          Texas       20000.0
-7           James       24          Texas       20000.0
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 Texas 20000.0
+2 Allen 25 Texas 20000.0
+3 Teddy 23 Texas 20000.0
+4 Mark 25 Texas 20000.0
+5 David 27 Texas 20000.0
+6 Kim 22 Texas 20000.0
+7 James 24 Texas 20000.0
 </code></pre>
 <p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 

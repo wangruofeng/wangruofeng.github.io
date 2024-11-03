@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta name="description" content="记录 iOS 各种重要里程碑事件  私有成员变量的实现1.0 时代，在.h 文件采用 @private 关键词 1234@interface ViewController : UIViewController &#123;    @private    NSInteger _value;&#125;  2.0 时代 通过在.m 文件通过 匿名Category  12345@interface V">
@@ -29,7 +29,7 @@
 <meta property="og:description" content="记录 iOS 各种重要里程碑事件  私有成员变量的实现1.0 时代，在.h 文件采用 @private 关键词 1234@interface ViewController : UIViewController &#123;    @private    NSInteger _value;&#125;  2.0 时代 通过在.m 文件通过 匿名Category  12345@interface V">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-01-12T20:46:48.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.929Z">
+<meta property="article:modified_time" content="2024-11-03T05:43:30.263Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="历史事件">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:43:30" itemprop="dateModified" datetime="2024-11-03T13:43:30+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>440</span>
+              <span>441</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -273,16 +273,15 @@
 <p>2.0 时代 通过在.m 文件通过 <code>匿名Category</code> </p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSInteger</span> value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
-<p>3.0 时代 2013 年的 WWDC 允许在 .m 的  <code>@implementation </code> 中</p>
+<p>3.0 时代 2013 年的 WWDC 允许在 .m 的 <code>@implementation </code> 中</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span> </span>&#123;</span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <h3 id="ARC-推出"><a href="#ARC-推出" class="headerlink" title="ARC 推出"></a>ARC 推出</h3><p>2011</p>
-<h3 id="自动生成-getter-和-setter-方法的-synthesize"><a href="#自动生成-getter-和-setter-方法的-synthesize" class="headerlink" title="自动生成 getter 和 setter 方法的 @synthesize"></a>自动生成 getter 和 setter 方法的 <code>@synthesize</code></h3><p>2012</p>
-<h3 id="AutoLayout-引入"><a href="#AutoLayout-引入" class="headerlink" title="AutoLayout 引入"></a>AutoLayout 引入</h3><p>iOS 6.0</p>
+<h3 id="自动生成-getter-和-setter-方法的-synthesize-2012"><a href="#自动生成-getter-和-setter-方法的-synthesize-2012" class="headerlink" title="自动生成 getter 和 setter 方法的 @synthesize 2012"></a>自动生成 getter 和 setter 方法的 <code>@synthesize</code> 2012</h3><h3 id="AutoLayout-引入"><a href="#AutoLayout-引入" class="headerlink" title="AutoLayout 引入"></a>AutoLayout 引入</h3><p>iOS 6.0</p>
 <h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><ul>
 <li><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/404495.htm">WWDC</a> 1.0 版本发布 – 2014.06.02 </li>
-<li>Swift 2.0发布   – 2015.08.07</li>
+<li>Swift 2.0 发布 – 2015.08.07</li>
 <li>Open Source – 2015.12.04</li>
 </ul>
 <h3 id="Size-Classes"><a href="#Size-Classes" class="headerlink" title="Size Classes"></a>Size Classes</h3><p>iOS 8.0</p>
@@ -487,7 +486,7 @@
 <li>WebKit</li>
 </ul>
 <p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 
@@ -586,7 +585,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">私有成员变量的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARC-%E6%8E%A8%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">ARC 推出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90-getter-%E5%92%8C-setter-%E6%96%B9%E6%B3%95%E7%9A%84-synthesize"><span class="nav-number">3.</span> <span class="nav-text">自动生成 getter 和 setter 方法的 @synthesize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AutoLayout-%E5%BC%95%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">AutoLayout 引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift"><span class="nav-number">5.</span> <span class="nav-text">Swift</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Size-Classes"><span class="nav-number">6.</span> <span class="nav-text">Size Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blocks"><span class="nav-number">7.</span> <span class="nav-text">Blocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C-2-0"><span class="nav-number">8.</span> <span class="nav-text">Objective-C 2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watch-OS"><span class="nav-number">9.</span> <span class="nav-text">Watch OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-API-Differences"><span class="nav-number">10.</span> <span class="nav-text">iOS API Differences</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-2-1-to-iOS-2-2-API-Differences"><span class="nav-number">10.1.</span> <span class="nav-text">iOS 2.1 to iOS 2.2 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-2-2-to-iOS-3-0-API-Differences"><span class="nav-number">10.2.</span> <span class="nav-text">iOS 2.2 to iOS 3.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-3-2-to-iOS-4-0-API-Differences"><span class="nav-number">10.3.</span> <span class="nav-text">iOS 3.2 to iOS 4.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-4-3-to-iOS-5-0-API-Differences"><span class="nav-number">10.4.</span> <span class="nav-text">iOS 4.3 to iOS 5.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-to-iOS-6-0-API-Differences"><span class="nav-number">10.5.</span> <span class="nav-text">5.1 to iOS 6.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-to-iOS-7-0-API-Differences"><span class="nav-number">10.6.</span> <span class="nav-text">6.1 to iOS 7.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-7-1-to-iOS-8-0-API-Differences"><span class="nav-number">10.7.</span> <span class="nav-text">iOS 7.1 to iOS 8.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-8-3-to-iOS-9-0-API-Differences"><span class="nav-number">10.8.</span> <span class="nav-text">iOS 8.3 to iOS 9.0 API Differences</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">私有成员变量的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARC-%E6%8E%A8%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">ARC 推出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90-getter-%E5%92%8C-setter-%E6%96%B9%E6%B3%95%E7%9A%84-synthesize-2012"><span class="nav-number">3.</span> <span class="nav-text">自动生成 getter 和 setter 方法的 @synthesize 2012</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AutoLayout-%E5%BC%95%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">AutoLayout 引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift"><span class="nav-number">5.</span> <span class="nav-text">Swift</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Size-Classes"><span class="nav-number">6.</span> <span class="nav-text">Size Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blocks"><span class="nav-number">7.</span> <span class="nav-text">Blocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C-2-0"><span class="nav-number">8.</span> <span class="nav-text">Objective-C 2.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watch-OS"><span class="nav-number">9.</span> <span class="nav-text">Watch OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-API-Differences"><span class="nav-number">10.</span> <span class="nav-text">iOS API Differences</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-2-1-to-iOS-2-2-API-Differences"><span class="nav-number">10.1.</span> <span class="nav-text">iOS 2.1 to iOS 2.2 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-2-2-to-iOS-3-0-API-Differences"><span class="nav-number">10.2.</span> <span class="nav-text">iOS 2.2 to iOS 3.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-3-2-to-iOS-4-0-API-Differences"><span class="nav-number">10.3.</span> <span class="nav-text">iOS 3.2 to iOS 4.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-4-3-to-iOS-5-0-API-Differences"><span class="nav-number">10.4.</span> <span class="nav-text">iOS 4.3 to iOS 5.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-to-iOS-6-0-API-Differences"><span class="nav-number">10.5.</span> <span class="nav-text">5.1 to iOS 6.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-to-iOS-7-0-API-Differences"><span class="nav-number">10.6.</span> <span class="nav-text">6.1 to iOS 7.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-7-1-to-iOS-8-0-API-Differences"><span class="nav-number">10.7.</span> <span class="nav-text">iOS 7.1 to iOS 8.0 API Differences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS-8-3-to-iOS-9-0-API-Differences"><span class="nav-number">10.8.</span> <span class="nav-text">iOS 8.3 to iOS 9.0 API Differences</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

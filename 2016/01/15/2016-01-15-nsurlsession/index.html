@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
         <meta name="description" content="本文翻译自 http:&#x2F;&#x2F;www.raywenderlich.com&#x2F;51127&#x2F;nsurlsession-tutorial 原作者： Charlie Fulton 译者：@oneruofeng 注意：这是一篇来自我们作为即将发布 iOS 7 Feast的一部分iOS 7 by Tutorials的简短版本的章节。我们希望你们喜欢。 每一个新的 iOS 版本发布都会包含一些极好的新的网络 APIs">
@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/nsurlsession/nsurlsession_17.jpg">
 <meta property="og:image" content="https://blog.wangruofeng007.com/images/nsurlsession/nsurlsession_18.jpg">
 <meta property="article:published_time" content="2016-01-15T10:15:01.000Z">
-<meta property="article:modified_time" content="2024-11-03T03:05:50.902Z">
+<meta property="article:modified_time" content="2024-11-03T05:32:35.292Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="翻译">
 <meta property="article:tag" content="NSURLSession">
@@ -248,7 +248,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 11:05:50" itemprop="dateModified" datetime="2024-11-03T11:05:50+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,21 +289,19 @@
 <p>原作者： Charlie Fulton</p>
 <p>译者：<a target="_blank" rel="noopener" href="https://twitter.com/oneruofeng">@oneruofeng</a></p>
 <p>注意：这是一篇来自我们作为即将发布<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?p=49762"> iOS 7 Feast</a>的一部分<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?page_id=48020">iOS 7 by Tutorials</a>的简短版本的章节。我们希望你们喜欢。</p>
-<p>每一个新的 iOS 版本发布都会包含一些极好的新的网络 APIs，iOS7也不例外，在 iOS7中，Apple 引入了 <code>NSURLSession</code> ,这是为了取代 <code>NSURLConnection</code> 作为偏好的网络请求的一系列类。</p>
+<p>每一个新的 iOS 版本发布都会包含一些极好的新的网络 APIs，iOS7 也不例外，在 iOS7 中，Apple 引入了 <code>NSURLSession</code> ,这是为了取代 <code>NSURLConnection</code> 作为偏好的网络请求的一系列类。</p>
 <p>在这个 <code>NSURLSession</code> 的教程中，你将了解到这个新类究竟是什么，为什么你要使用它以及你怎样使用它，它和以前的类库比较而言怎样，最后最重要的是：获得一个整合到一个真正的 App 的实践。</p>
 <p>请注意：这个课程是假设你熟悉基本的网络概念。假如网络对你来说完全是新的，你仍然可以跟我一起一步一步的学习，但是可能有些你不熟悉的概念需要需要自己查询在这个过程中。</p>
-<h4 id="为什么使用-NSURLSession"><a href="#为什么使用-NSURLSession" class="headerlink" title="为什么使用 NSURLSession"></a>为什么使用 <code>NSURLSession</code></h4><p>为什么你要使用 <code>NSURLSession</code> ? 饿，因为它可以带给你一些好处和优势相比以前的：</p>
-<ul>
+<h4 id="为什么使用-NSURLSession-为什么你要使用-NSURLSession-饿，因为它可以带给你一些好处和优势相比以前的："><a href="#为什么使用-NSURLSession-为什么你要使用-NSURLSession-饿，因为它可以带给你一些好处和优势相比以前的：" class="headerlink" title="为什么使用 NSURLSession 为什么你要使用 NSURLSession ? 饿，因为它可以带给你一些好处和优势相比以前的："></a>为什么使用 <code>NSURLSession</code> 为什么你要使用 <code>NSURLSession</code> ? 饿，因为它可以带给你一些好处和优势相比以前的：</h4><ul>
 <li><strong>后台上传和下载</strong> ： 当你创建 <code>NSURLSession</code> 的时候你只需配置一个选项即可，你便可以进行所有的后台网络任务。这将有对你的电池寿命有利，它支持 <code>UIKit</code> 多任务并且当切换线程的时候使用相同的代理模型。</li>
 <li><strong>使你的网络操作可以暂停和恢复</strong> ：你稍后将会看到，任何使用 <code>NSURLSession</code> API 的网络任务都可以被暂停，停止，重新开始。而没有使用 <code>NSOperation</code> 子类的必要。</li>
 <li><strong>可配置的容器</strong>：对于放进里面的请求而言每一个 <code>NSURLSession</code> 都是可配置的。例如，假如你需要设置一个 HTTP header 选项，你只需要设置一次然后每个在 session 中的请求就都会有相同的配置了。</li>
-<li><strong>可子类化和私密存储</strong>：  <code>NSURLSession</code> 是可子类化的并且你可以配置一个 session 用来作为私密存储在某个会话中。这允许你拥有私密存储对象在全局状态下。</li>
+<li><strong>可子类化和私密存储</strong>： <code>NSURLSession</code> 是可子类化的并且你可以配置一个 session 用来作为私密存储在某个会话中。这允许你拥有私密存储对象在全局状态下。</li>
 <li><strong>优化的授权处理机制</strong>：授权被完成基于某个特定的连接。当使用 <code>NSURLConnection</code> 的时候假如发生了一处授权改变，这个改变将返回一个随意的请求，你不能确定你具体得到的那个。使用 <code>NSURLSession</code> 的话，代理回来处理授权。</li>
 <li><strong>丰富的代理模型</strong>： <code>NSURLConnection</code> 有些基于 block 的同步方法，然而代理就不能使用它们了。当一个请求建立了无论它是成功还是失败，哪怕需要授权。使用 <code>NSURLSession</code> 就就可以混合接入，使用基于 block 的异步方法同时也可以设置代理来处理授权。</li>
 <li><strong>通过文件系统上传和下载</strong>：苹果鼓励把（文件内容）数据跟(URL 和一些设置)元数据分开。</li>
 </ul>
-<h4 id="NSURLSession-vs-NSURLConnection"><a href="#NSURLSession-vs-NSURLConnection" class="headerlink" title="NSURLSession  vs  NSURLConnection"></a><code>NSURLSession</code>  vs  <code>NSURLConnection</code></h4><p>“哇哦， <code>NSURLSession</code> 听起来很复杂呀！”,你可能这么想。”我可能还是继续使用我的老朋友 <code>NSURLConnection</code> 。”</p>
-<p>别担心–使用 <code>NSURLSession</code> 使用起来其实和它的前辈 <code>NSURLConnection</code> 一样简单对于简单的任务来说。例如，让我来看一个在获取伦敦最新的天气的一个简单网络请求，通过它来获取 JSON 数据的例子。</p>
+<h4 id="NSURLSession-vs-NSURLConnection-“哇哦，-NSURLSession-听起来很复杂呀！”-你可能这么想。”我可能还是继续使用我的老朋友-NSURLConnection-。”"><a href="#NSURLSession-vs-NSURLConnection-“哇哦，-NSURLSession-听起来很复杂呀！”-你可能这么想。”我可能还是继续使用我的老朋友-NSURLConnection-。”" class="headerlink" title="NSURLSession vs NSURLConnection “哇哦， NSURLSession 听起来很复杂呀！”,你可能这么想。”我可能还是继续使用我的老朋友 NSURLConnection 。”"></a><code>NSURLSession</code> vs <code>NSURLConnection</code> “哇哦， <code>NSURLSession</code> 听起来很复杂呀！”,你可能这么想。”我可能还是继续使用我的老朋友 <code>NSURLConnection</code> 。”</h4><p>别担心–使用 <code>NSURLSession</code> 使用起来其实和它的前辈 <code>NSURLConnection</code> 一样简单对于简单的任务来说。例如，让我来看一个在获取伦敦最新的天气的一个简单网络请求，通过它来获取 JSON 数据的例子。</p>
 <p>假设你用这个 <code>NSString</code> 来构造这个 <code>NSURL</code> :</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *londonWeatherUrl = <span class="string">@&quot;http://api.openweathermap.org/data/2.5/weather?q=London,uk&quot;</span>;</span><br></pre></td></tr></table></figure>
 
@@ -315,37 +313,36 @@
 
 <p>注意你并不需要指定它运行在那个队列中。除了你特别指定，这个调用将会在后台线程。你可能很难注意到这两者之间有什么不同，它就是故意这样的。Apple 提到打算使用 <code>dataTaskWithURL</code> 来取代在 <code>NSURLConnection</code> 中的 <code>sendAsynchronousRequest</code> 。</p>
 <p>所有从根本上来讲–对于简单的任务使用 <code>NSURLSession</code> 就和使用 <code>NSURLConnection</code> 一样简单，并且它还有一些列额外的定制功能当你需要它的时候。</p>
-<h4 id="NSURLSession-vs-AFNetworking"><a href="#NSURLSession-vs-AFNetworking" class="headerlink" title="NSURLSession  vs  AFNetworking"></a><code>NSURLSession</code>  vs  <code>AFNetworking</code></h4><p>不提到 <code>AFNetworking</code> 框架就谈不上谈论网络编程。这个事在 <code>iOS/OS X</code> 上最流行的框架，有杰出的 <code>Mattt Thompson</code> 创建。</p>
-<blockquote>
+<h4 id="NSURLSession-vs-AFNetworking-不提到-AFNetworking-框架就谈不上谈论网络编程。这个事在-iOS-OS-X-上最流行的框架，有杰出的-Mattt-Thompson-创建。"><a href="#NSURLSession-vs-AFNetworking-不提到-AFNetworking-框架就谈不上谈论网络编程。这个事在-iOS-OS-X-上最流行的框架，有杰出的-Mattt-Thompson-创建。" class="headerlink" title="NSURLSession vs AFNetworking 不提到 AFNetworking 框架就谈不上谈论网络编程。这个事在 iOS/OS X 上最流行的框架，有杰出的 Mattt Thompson 创建。"></a><code>NSURLSession</code> vs <code>AFNetworking</code> 不提到 <code>AFNetworking</code> 框架就谈不上谈论网络编程。这个事在 <code>iOS/OS X</code> 上最流行的框架，有杰出的 <code>Mattt Thompson</code> 创建。</h4><blockquote>
 <p>注意：想了解更多关于 <code>AFNetworking</code> ,请检出在<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">https://github.com/AFNetworking/AFNetworking</a>的 github 页面。我们也有一个关于它的课程：<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/30445/afnetworking-crash-course">http://www.raywenderlich.com/30445/afnetworking-crash-course</a></p>
 </blockquote>
-<p>下面是的使用 <code>AFNetworking</code>  1.x 版本处理相同的数据任务的代码：</p>
+<p>下面是的使用 <code>AFNetworking</code> 1.x 版本处理相同的数据任务的代码：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:</span><br><span class="line">                         [<span class="built_in">NSURL</span> URLWithString:londonWeatherUrl]];</span><br><span class="line"></span><br><span class="line">AFJSONRequestOperation *operation =</span><br><span class="line">[AFJSONRequestOperation JSONRequestOperationWithRequest:request</span><br><span class="line">    success:^(<span class="built_in">NSURLRequest</span>  *request,</span><br><span class="line">              <span class="built_in">NSHTTPURLResponse</span>  *response,</span><br><span class="line">              <span class="type">id</span> JSON) &#123;</span><br><span class="line">    <span class="comment">// handle response</span></span><br><span class="line">&#125; failure:<span class="literal">nil</span>];</span><br><span class="line">[operation start];</span><br></pre></td></tr></table></figure>
 
 <p>使用 <code>AFNetworking</code> 的一个好处是处理响应的数据的数据根据类型被归类。使用 <code>AFJSONRequestOperation</code> (或者诸如 <code>XML</code> 和 plist 相似的类),成功 block 已经被解析根据响应并且为你返回你想要的数据。使用 <code>NSURLSession</code> 你将收到一个 <code>NSData</code> 对象在 <code>completion handler</code> ,所有你只需要把 <code>NSData</code> 转换成 <code>JOSN</code> 或者其他形式。</p>
 <blockquote>
-<p>注意：你能够很方便的把数据从 <code>NSData</code> 转换成 <code>JSON</code> 使用在 iOS 5引入的 <code>NSJSONSerialization</code> 这个类。如果你想了解更多，请查看23章的 iOS 5 教程，“Working with JSON”。</p>
+<p>注意：你能够很方便的把数据从 <code>NSData</code> 转换成 <code>JSON</code> 使用在 iOS 5 引入的 <code>NSJSONSerialization</code> 这个类。如果你想了解更多，请查看 23 章的 iOS 5 教程，“Working with JSON”。</p>
 </blockquote>
 <p>你或许想知道你是应该使用 <code>AFNetworking</code> 还是仅仅是继续使用 <code>NSURLSession</code> 。</p>
 <p>就个人而言，我认为对于简单的需求最好还是继续使用 <code>NSURLSession</code> –这样可以避免不必要的引入一个第三方库在你的工程中。另外，使用新的代理，配置，和基于很多添加到 <code>AFNetworking</code> 中的的“遗失特征”现在都被包括了的 API 的任务。</p>
-<p>然而，假如你想使用一些在 <code>AFNetworking</code> 中2.0版本的新特性，诸如序列化和将来对<br><code>UIKit</code>的整合（添加到<code>UIIImageView</code>分类中），然后这样很难争辩不使用它！</p>
+<p>然而，假如你想使用一些在 <code>AFNetworking</code> 中 2.0 版本的新特性，诸如序列化和将来对<br> <code>UIKit</code> 的整合（添加到 <code>UIIImageView</code> 分类中），然后这样很难争辩不使用它！</p>
 <blockquote>
-<p>注意：在 <code>AFNetworking</code> 2.0分支中，它们已经转换到使用 <code>NSURLSession</code> 。更多信息看这篇帖子：<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-2.0-Migration-Guide">https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-2.0-Migration-Guide</a></p>
+<p>注意：在 <code>AFNetworking</code> 2.0 分支中，它们已经转换到使用 <code>NSURLSession</code> 。更多信息看这篇帖子：<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-2.0-Migration-Guide">https://github.com/AFNetworking/AFNetworking/wiki/AFNetworking-2.0-Migration-Guide</a></p>
 </blockquote>
-<h4 id="介绍-Byte-Club"><a href="#介绍-Byte-Club" class="headerlink" title="介绍 Byte Club"></a>介绍 Byte Club</h4><p>在这篇 <code>NSURLSession</code> 教程中，你将探索这个新的 API 通过构建一篇日记好图片分享 app 基于 <code> Dropbox Core API</code> ,因为是顶级机密组织因此姑且命名它 <code>Byte Club</code> 。</p>
+<h4 id="介绍-Byte-Club"><a href="#介绍-Byte-Club" class="headerlink" title="介绍 Byte Club"></a>介绍 Byte Club</h4><p>在这篇 <code>NSURLSession</code> 教程中，你将探索这个新的 API 通过构建一篇日记好图片分享 app 基于 <code>Dropbox Core API</code> ,因为是顶级机密组织因此姑且命名它 <code>Byte Club</code> 。</p>
 <p>考虑到这个课程是你接受到 <code>Byte Club</code> 的官方邀请！什么是你可能会问到的关于 <code>Byte Club</code> 的第一条规则？没人谈论 <code>Byte Club</code> –除了那些足够炫酷的人将会阅读这个教程。并且那些 Android 用户完全不知道；他们被他们俩的生活劫持了。 ：]</p>
 <p>开始构建 app 迎战下一个章节，将充当被 <code>Byte Club</code> 组织邀请。</p>
 <p>主要到这个教程是假设你对基本的网络有基本的了解在先前的版本 iOS。它非常有用假如你已经使用过诸如 <code>NSURLConnection</code> 或者 <code>NSURLSession</code> 在过去。假如在 iOS 方面你是网络方面的新手，在继续这个课程之前你应该查询我们的 iOS 学徒系列作为最初的开发者。</p>
-<h4 id="现在开始吧"><a href="#现在开始吧" class="headerlink" title="现在开始吧"></a>现在开始吧</h4><p><code>Byte Club</code>是iOS 开发者专有的组织，一起来加入挑战你的编程吧。由于每个成员都是远程工作，在这个挑战中有一个是跨越世界，成员通过分享他们“战场”的全景照片也能找到它的乐趣。</p>
+<h4 id="现在开始吧"><a href="#现在开始吧" class="headerlink" title="现在开始吧"></a>现在开始吧</h4><p> <code>Byte Club</code> 是iOS 开发者专有的组织，一起来加入挑战你的编程吧。由于每个成员都是远程工作，在这个挑战中有一个是跨越世界，成员通过分享他们“战场”的全景照片也能找到它的乐趣。</p>
 <p>例如，下面是 Ray 的办公场所的全景照片：<br><img src="/images/nsurlsession/nsurlsession_01.jpg" alt="Ray&#39;s office setup"></p>
 <blockquote>
 <p>注意：你可能想创建你自己办公室的全景照片–它很有趣，在这个课程的后续中我们将会处理。</p>
 </blockquote>
 <blockquote>
-<p>在 iOS 7中，你可以通过打开相机选择一个叫 <code>Pano</code> （全景）的标签照一张全景照片。</p>
+<p>在 iOS 7 中，你可以通过打开相机选择一个叫 <code>Pano</code> （全景）的标签照一张全景照片。</p>
 </blockquote>
 <blockquote>
-<p>加入你喜欢那张，把它设置成你锁屏界面的墙纸通过打开 <code>设置</code> 让后选择 <code>墙纸</code>   \选择墙纸 \我的全景照片。</p>
+<p>加入你喜欢那张，把它设置成你锁屏界面的墙纸通过打开 <code>设置</code> 让后选择 <code>墙纸</code> \选择墙纸 \我的全景照片。</p>
 </blockquote>
 <p>当然- <code>Byte Club </code> 有它自己的 app，我们来见证奇迹。你可以和其他成员使用 app 来完成编程挑战或者分享全景照片。在幕后，这是通过网络实现-明确的说，就是通过 <code>Dropbox API</code> 来分享文件。</p>
 <h4 id="开始的工程概述"><a href="#开始的工程概述" class="headerlink" title="开始的工程概述"></a>开始的工程概述</h4><p>首先，下载<a target="_blank" rel="noopener" href="http://cdn1.raywenderlich.com/downloads/ByteClub_Starter.zip">教程开始的工程</a>。</p>
@@ -353,33 +350,25 @@
 <p>在 Xcode 中打开工程让后在你设备或者模拟器上运行，你应该看到像下面这样：</p>
 <p><img src="/images/nsurlsession/nsurlsession_02.jpg" alt="networking2"></p>
 <p>然而你还并不能登录它-你不得不先配置 app，你将做一点。</p>
-<p>下一步打开 <code>Main.storyboard</code> 纵览一下整个 app 的设计：</p>
+<p>下一步打开 <code>Main.storyboard </code> 纵览一下整个 app 的设计：</p>
 <p><img src="/images/nsurlsession/nsurlsession_03.jpg" alt="networking2"></p>
-<p>这是一个最基本的使用2个标签的的 TabBarController app：一个是为了挑战编程，另<br>一个是为了放全景照片。这里也有预先让用户登录到 app 中的一步。你将要配置登录在你创建完 <code>Dropbox</code> 平台下的 App 后。</p>
+<p>这是一个最基本的使用 2 个标签的的 TabBarController app：一个是为了挑战编程，另<br>一个是为了放全景照片。这里也有预先让用户登录到 app 中的一步。你将要配置登录在你创建完 <code>Dropbox</code> 平台下的 App 后。</p>
 <p>感到很轻松浏览一下 App 剩余的部分并且找到到目前为止相似的地方。你将会注意到除了授权组件，这里没有检索挑战编程或者全景照片的网络代码-那就是你的工作！</p>
-<h4 id="创建一个新的-Dropbox-平台-App"><a href="#创建一个新的-Dropbox-平台-App" class="headerlink" title="创建一个新的 Dropbox 平台 App"></a>创建一个新的 <code>Dropbox</code> 平台 App</h4><p>为了开始你的新的 <code>Dropbox</code>  App,打开 Dropbox App 位于<a target="_blank" rel="noopener" href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>的控制台</p>
+<h4 id="创建一个新的-Dropbox-平台-App"><a href="#创建一个新的-Dropbox-平台-App" class="headerlink" title="创建一个新的 Dropbox 平台 App"></a>创建一个新的 <code>Dropbox</code> 平台 App</h4><p>为了开始你的新的 <code>Dropbox</code> App,打开 Dropbox App 位于<a target="_blank" rel="noopener" href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>的控制台</p>
 <p>用你的 <code>Dropbox</code> 账号登录，假如没有，没问题：马上创建一个免费的 Dropbox 账号。假如这是你第一次使用 Dropbox 的 API，你需要通知 Dropbox 的条款和条件。</p>
 <p>经过这个法定的材料以后就是上路了，选择创建 App 选项。将呈现给你一系列问题-提供下面的答案</p>
 <ul>
-<li>What type of app do you want to create?<ul>
+<li>What type of app do you want to create?</li>
 <li>Choose: <strong>Dropbox API app</strong></li>
-</ul>
-</li>
-<li>What type of data does your app need to store on Dropbox?<ul>
+<li>What type of data does your app need to store on Dropbox?</li>
 <li>Choose: <strong>Files and Datastore</strong></li>
-</ul>
-</li>
-<li>Can your app be limited to its own, private folder?<ul>
+<li>Can your app be limited to its own, private folder?</li>
 <li>Choose: <strong>No – My App needs access to files already on Dropbox</strong></li>
-</ul>
-</li>
-<li>What type of files does your app need access to?<ul>
+<li>What type of files does your app need access to?</li>
 <li>Choose: <strong>All File Types</strong></li>
 </ul>
-</li>
-</ul>
 <p>最终，为你的 App 准备一个名字，选择什么并没有关系只有它是唯一的。假如你选择了一个别人已经在使用的名字 <code>Dropbox </code> 将会告诉你。你的屏幕应该看起来像下面这样：</p>
-<p><img src="/images/nsurlsession/nsurlsession_04.jpg" alt="networking3">    </p>
+<p><img src="/images/nsurlsession/nsurlsession_04.jpg" alt="networking3"> </p>
 <p>点击 <code>Create App</code> ，你将开始上路了！</p>
 <p>下一个屏幕你将看到显示到屏幕中的包含 <strong>App key</strong> 和 <strong>App secret</strong> :</p>
 <p><img src="/images/nsurlsession/nsurlsession_05.jpg" alt="networking5"></p>
@@ -387,7 +376,7 @@
 <p>打开 <code>Dropbox.m</code> 文件找到下面这些行：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">warning</span> INSERT YOUR OWN API KEY and SECRET HERE</span></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *apiKey = <span class="string">@&quot;YOUR_KEY&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *appSecret = <span class="string">@&quot;YOUR_SECRET&quot;</span>;</span><br></pre></td></tr></table></figure>
 
-<p>填写你的 app key 和 secret，让后删除 #warning line，现在你可以关闭 <code>Dropbox</code>  Web App 页面。</p>
+<p>填写你的 app key 和 secret，让后删除 #warning line，现在你可以关闭 <code>Dropbox</code> Web App 页面。</p>
 <p>下面，创建一个文件夹在你 Dropbox 主文件下的根目录给它命一个你想要的名字。假如你把这个文件夹个和其他的 Dropbox 用户分享，发送他们在构建 Byte Club App 的时候，他们将能够创建笔记并且能够上传所有人都能看得见的照片。</p>
 <p>在 Dropbox.m 中找打下面这些行：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">warning</span> THIS FOLDER MUST BE CREATED AT THE TOP LEVEL OF YOUR DROPBOX FOLDER, you can then share this folder with others</span></span><br><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> appFolder = <span class="string">@&quot;byteclub&quot;</span>;</span><br></pre></td></tr></table></figure>
@@ -397,15 +386,15 @@
 <p>去在<a target="_blank" rel="noopener" href="https://www.dropbox.com/developers/apps">https://www.dropbox.com/developers/apps</a>Dropbox app 的控制台。点击你 app 名称。然后点击 <code>Enable Additional Users</code> 按钮。将出现一个状态对话框表明你已经增加了你的用户限制。点击 Okay 关闭对话框。你的 App 页面将像下面这样显示：</p>
 <p><img src="/images/nsurlsession/nsurlsession_06.jpg" alt="networking5"></p>
 <blockquote>
-<p>注意：你可能注意到当你正在开发你的 app 的时候，你可以接入多达100个用户。当你准备发布 app 销售的时候，你必须申请生产状态，你可以通过点击 <code>Apply for production</code> 按钮来发送给 <code>Dropbox</code> 一些额外的信息。</p>
+<p>注意：你可能注意到当你正在开发你的 app 的时候，你可以接入多达 100 个用户。当你准备发布 app 销售的时候，你必须申请生产状态，你可以通过点击 <code>Apply for production</code> 按钮来发送给 <code>Dropbox</code> 一些额外的信息。</p>
 </blockquote>
 <blockquote>
 <p>Dropbox 将随后审核你的 App 来确保它遵守指南，假如所有的一切进行得顺利的话，你将打开你的 app 的 API 接入无线的用户。</p>
 </blockquote>
 <h4 id="Dropbox-授权-概览"><a href="#Dropbox-授权-概览" class="headerlink" title="Dropbox 授权: 概览"></a>Dropbox 授权: 概览</h4><p>假如你曾经使用过第三方 <code>twitter</code> 客服端 app，像 <code>TweetBot</code> ,你将会熟悉 <code>OAuth</code> 授权处理步骤从一个用户的角度。 <code>OAuth</code> 授权接入过程对你 app 来说是完全一样的。</p>
-<p>构建运行你的 app，按照步骤登录。你将看到一个有2个标签的空白屏幕，一个是 Notes，一个是 PanoPhotos，如下图显示：</p>
+<p>构建运行你的 app，按照步骤登录。你将看到一个有 2 个标签的空白屏幕，一个是 Notes，一个是 PanoPhotos，如下图显示：</p>
 <p><img src="/images/nsurlsession/nsurlsession_07.jpg" alt="networking7"></p>
-<p><code>OAuth</code>授权发生在3和高级的步骤：</p>
+<p> <code>OAuth</code> 授权发生在3和高级的步骤：</p>
 <ol>
 <li>获取用来处理剩下的授权一个 OAuth 请求 token。这是请求 token。</li>
 <li>一个 web 页面被呈现到用户面前通过他们的 web 浏览器。没有这一步的用户授权，对你的应用想获取一个第三步中的接入 token 几乎不可能。</li>
@@ -421,7 +410,7 @@
 <ul>
 <li><strong>defaultSessionConfiguration</strong> - 创建一个使用全局缓存，cookie 的配置对象和凭证存储的对象。这个配置会使你的会话最像 <code>NSURLConnection</code> 。</li>
 <li><strong>ephemeralSessionConfiguration</strong> - 这个配置是用来作为‘私有的’会话并且不会持久化存储缓存，cookie，或者信用存储对象。</li>
-<li><strong>backgroundSessionConfiguration</strong> - 当你想要从远程推送或者当 app 被暂时挂起时进行网络业务使用这个这个配置。参考17章和18章在<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?page_id=48020"> iOS 7 by Tutorials</a>, <code>Beginning and Intermediate Multitasking</code> ,有更详细的讲解。</li>
+<li><strong>backgroundSessionConfiguration</strong> - 当你想要从远程推送或者当 app 被暂时挂起时进行网络业务使用这个这个配置。参考 17 章和 18 章在<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?page_id=48020"> iOS 7 by Tutorials</a>, <code>Beginning and Intermediate Multitasking</code> ,有更详细的讲解。</li>
 </ul>
 <p>一旦你创建一个 <code>NSURLSessionConfiguration</code> 对象，你就可以在它上面设置各种接口像这样：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURLSessionConfiguration</span> *sessionConfig =</span><br><span class="line">[<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line">sessionConfig.allowsCellularAccess = <span class="literal">NO</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">[sessionConfig setHTTPAdditionalHeaders:</span><br><span class="line">          @&#123;<span class="string">@&quot;Accept&quot;</span>: <span class="string">@&quot;application/json&quot;</span>&#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line">sessionConfig.timeoutIntervalForRequest = <span class="number">30.0</span>;</span><br><span class="line">sessionConfig.timeoutIntervalForResource = <span class="number">60.0</span>;</span><br><span class="line">sessionConfig.HTTPMaximumConnectionsPerHost = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
@@ -432,7 +421,7 @@
 <li>这些接口将配置资源或者请求超时时间。你也可以限制你的 app 对你的主机只能有一个网络连接。</li>
 </ol>
 <p>这些仅仅是你能配置的一些东西，确保检查所有列表的文档。</p>
-<h4 id="NSURLSession"><a href="#NSURLSession" class="headerlink" title="NSURLSession"></a>NSURLSession</h4><p><code>NSURLSession</code>被设计成替代<code>NSURLConnection</code>的API。Sessions做了他们的工作通过他们的部下，也就是非常出名的<code>NSURLSessionTask</code>对象。使用<code>NSURLSession</code>你能够创建任务使用基于block的便利方法，设置一个代理，或者同时两者。例如，假如你想要下载一张<br>图片（ *challenge hint *）,你就需要创建一个 <code>NSURLSessionDownloadTask</code> 。</p>
+<h4 id="NSURLSession"><a href="#NSURLSession" class="headerlink" title="NSURLSession"></a>NSURLSession</h4><p> <code>NSURLSession</code> 被设计成替代 <code>NSURLConnection</code> 的API。Sessions做了他们的工作通过他们的部下，也就是非常出名的 <code>NSURLSessionTask</code> 对象。使用 <code>NSURLSession</code> 你能够创建任务使用基于block的便利方法，设置一个代理，或者同时两者。例如，假如你想要下载一张<br>图片（ *challenge hint *）,你就需要创建一个 <code>NSURLSessionDownloadTask</code> 。</p>
 <p>第一步，你需要创建(会话)session。 这里有一个例子：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">NSString</span> *imageUrl =</span><br><span class="line"><span class="string">@&quot;http://www.raywenderlich.com/images/store/iOS7_PDFonly_280@2x_authorTBA.png&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="built_in">NSURLSessionConfiguration</span> *sessionConfig =</span><br><span class="line">  [<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="built_in">NSURLSession</span> *session =</span><br><span class="line">  [<span class="built_in">NSURLSession</span> sessionWithConfiguration:sessionConfig</span><br><span class="line">                                delegate:<span class="keyword">self</span></span><br><span class="line">                           delegateQueue:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
 
@@ -447,17 +436,14 @@
 
 <p>Ah ha!现在这个看起来有点像网络代码！</p>
 <ol>
-<li><p>任务总是被 sessions 创建。任务一旦被基于 block 的方法创建。记住你仍然可以使用 <code>NSURLSessionDownloadDelegate</code> 来跟踪下载进度。所以你将获得最好的两个单词！（ *hint for challenge *）</p>
+<li>任务总是被 sessions 创建。任务一旦被基于 block 的方法创建。记住你仍然可以使用 <code>NSURLSessionDownloadDelegate</code> 来跟踪下载进度。所以你将获得最好的两个单词！（ *hint for challenge *）</li>
+</ol>
 <p> -URLSession:downloadTask<br> :didWriteData:totalBytesWritten<br> :totalBytesExpectedToWrite:</p>
-</li>
-<li><p>这里你使用在  <code>completion handler</code> 提供的本地变量来获取一个指向图片的指针。</p>
-</li>
-<li><p>最终你能够，例如，更新  <code>UIIImageView</code> 的图片来显示新的文件。(hint hint ☺)</p>
-</li>
-<li><p>你总得自己启动任务！</p>
-</li>
-<li><p>记住我在前面所说的，一个会话也可以创建将要发送消息给代理方法来通知你完成等的任务。</p>
-</li>
+<ol start="2">
+<li>这里你使用在 <code>completion handler</code> 提供的本地变量来获取一个指向图片的指针。</li>
+<li>最终你能够，例如，更新 <code>UIIImageView</code> 的图片来显示新的文件。(hint hint ☺)</li>
+<li>你总得自己启动任务！</li>
+<li>记住我在前面所说的，一个会话也可以创建将要发送消息给代理方法来通知你完成等的任务。</li>
 </ol>
 <p>应该长成这样，使用相同的会话从上面：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">NSURLSessionDownloadTask</span> *getImageTask =</span><br><span class="line">  [session downloadTaskWithURL:[<span class="built_in">NSURL</span> URLWithString:imageUrl]];</span><br><span class="line"></span><br><span class="line">[getImageTask resume];</span><br></pre></td></tr></table></figure>
@@ -475,19 +461,19 @@
 <p>正如你所见， <code>NSURLSessionTask</code> 是一匹通过网络来干活的真实的驮马。</p>
 <h4 id="NSURLSessionTask"><a href="#NSURLSessionTask" class="headerlink" title="NSURLSessionTask"></a>NSURLSessionTask</h4><p>目前为止你已经知道 <code>NSURLSessionDataTask</code> 和 <code>NSURLSessionDownloadTask</code> 怎样使用了。这两个的任务是来自他们共同的基类 <code>NSURLSessionTask</code> ，你可以在这类看到：</p>
 <p><img src="/images/nsurlsession/nsurlsession_09.jpg" alt="networking13"></p>
-<p><code>NSURLSessionTask</code>在你的会话中是任务的基类；他们只能通过一个会话创建并且它们是下面子类中的一个。</p>
+<p> <code>NSURLSessionTask</code> 在你的会话中是任务的基类；他们只能通过一个会话创建并且它们是下面子类中的一个。</p>
 <h4 id="NSURLSessionDataTask"><a href="#NSURLSessionDataTask" class="headerlink" title="NSURLSessionDataTask"></a>NSURLSessionDataTask</h4><p>这个任务发起 HTTP GET 请求来从服服务器拉取数据。数据被返回以 NSData 的形式返回。你应该在随后将其把这个数据转换成正确的数据类型比如 <code>XML</code> , <code>JSON</code> ,UIImage，plist 等等。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSURLSessionDataTask</span> *jsonData = [session dataTaskWithURL:yourNSURL</span><br><span class="line">      completionHandler:^(<span class="built_in">NSData</span>  *data,</span><br><span class="line">                          <span class="built_in">NSURLResponse</span>  *response,</span><br><span class="line">                          <span class="built_in">NSError</span>  *error) &#123;</span><br><span class="line">        <span class="comment">// handle NSData</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
-<h4 id="NSURLSessionUploadTask"><a href="#NSURLSessionUploadTask" class="headerlink" title="NSURLSessionUploadTask"></a>NSURLSessionUploadTask</h4><p>使用这个类当你需要上传一些东西到 web 服务器时，使用 HTTP  <code>POST</code>  或者  <code>PUT</code>  命令。任务带来也允许你监视网络状况当它正在传输的时候。</p>
+<h4 id="NSURLSessionUploadTask"><a href="#NSURLSessionUploadTask" class="headerlink" title="NSURLSessionUploadTask"></a>NSURLSessionUploadTask</h4><p>使用这个类当你需要上传一些东西到 web 服务器时，使用 HTTP <code>POST</code> 或者 <code>PUT</code> 命令。任务带来也允许你监视网络状况当它正在传输的时候。</p>
 <p>上传一张图片：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *imageData = <span class="built_in">UIImageJPEGRepresentation</span>(image, <span class="number">0.6</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSURLSessionUploadTask</span> *uploadTask =</span><br><span class="line">  [upLoadSession uploadTaskWithRequest:request</span><br><span class="line">                              fromData:imageData];</span><br></pre></td></tr></table></figure>
 
 <p>在这类任务被创建从一个会话中并且图片以 NSData 的形式上传。这里也可以通使用一个文件或者流的方法来进行上传。</p>
-<h4 id="NSURLSessionDownloadTask"><a href="#NSURLSessionDownloadTask" class="headerlink" title="NSURLSessionDownloadTask"></a>NSURLSessionDownloadTask</h4><p><code>NSURLSessionDownloadTask</code>让通过远程服务下载文件变得超级简单，并且可以暂停和恢复下载只要你想。这个子类有别于其他两个。</p>
+<h4 id="NSURLSessionDownloadTask"><a href="#NSURLSessionDownloadTask" class="headerlink" title="NSURLSessionDownloadTask"></a>NSURLSessionDownloadTask</h4><p> <code>NSURLSessionDownloadTask</code> 让通过远程服务下载文件变得超级简单，并且可以暂停和恢复下载只要你想。这个子类有别于其他两个。</p>
 <ul>
 <li>这个类型的任务直接写入一个临时文件。</li>
-<li>在下载会话中将调用 <code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:</code> 来更新状态信息。</li>
+<li>在下载会话中将调用 <code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite: </code> 来更新状态信息。</li>
 <li>当任务完成时， <code>URLSession:downloadTask:didFinishDownloadingToURL: </code> 被调用。这就是你该保存文件从临时位置到一个永久位置的时候。</li>
 <li>当下载失败或者取消时，你可以让数据重新开始下载。</li>
 </ul>
@@ -499,7 +485,7 @@
 <p>这就是！既然你已经知道了 <code>NSURLSession</code> 系列的主要类，让我们尝试一下。</p>
 <h4 id="Sharing-notes-with-NSURLSession"><a href="#Sharing-notes-with-NSURLSession" class="headerlink" title="Sharing notes with NSURLSession"></a>Sharing notes with NSURLSession</h4><p>OK，这不是死亡诗社，这是 <code>Byte Club</code> !是时候开始看看一下这个的网络代码在起作用了。</p>
 <p>你需要一个方法来给 <code>Byte Club</code> 的其他成员发送消息。既然你已经设置了接入 token，下一步就是实例化 <code>NSURLSesssion</code> 对象，让后调用你的第一个 Dropbox API。</p>
-<h5 id="Creating-an-NSURLSession"><a href="#Creating-an-NSURLSession" class="headerlink" title="Creating an NSURLSession"></a>Creating an NSURLSession</h5><p>添加下面的接口到 <strong>NotesViewController.m</strong> 文件，就在 NSArray  *notes 行的后面：</p>
+<h5 id="Creating-an-NSURLSession"><a href="#Creating-an-NSURLSession" class="headerlink" title="Creating an NSURLSession"></a>Creating an NSURLSession</h5><p>添加下面的接口到 <strong>NotesViewController.m</strong> 文件，就在 NSArray *notes 行的后面：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSURLSession</span> *session;</span><br></pre></td></tr></table></figure>
 
 <p>你将创造所有你的下属从上面的 session 中。</p>
@@ -508,7 +494,7 @@
 
 <p>下面是上面代码注释的注释的解释：</p>
 <ol>
-<li>你的 app 调用  <code>initWithCoder</code> 当你实例化一个控制器从一个故事版中;因此这是一个完美的时刻初始化和创建 <code>NSURLSession</code> 。你并不想积极缓存或者持久化这里，所有你使用 <code>ephemeralSessionConfiguration</code> 便利方法，它返回一个没有持久化缓存，cookies，或者认证存储的会话。这是一个”私有浏览”配置。</li>
+<li>你的 app 调用 <code>initWithCoder</code> 当你实例化一个控制器从一个故事版中;因此这是一个完美的时刻初始化和创建 <code>NSURLSession</code> 。你并不想积极缓存或者持久化这里，所有你使用 <code>ephemeralSessionConfiguration</code> 便利方法，它返回一个没有持久化缓存，cookies，或者认证存储的会话。这是一个”私有浏览”配置。</li>
 <li>下一步，你添加授权 HTTP 头道配置对象中。apiAuthorizationHeader 是一个我写的辅助方法，返回一个字符串，以授权制定的格式。这个字符串包含 access token，token secret 和你的 Dropbox App API 秘钥。记住这是必要的因为每个对 Dropbox API 的调用都需要被授权。</li>
 <li>最后，你使用上面的配置创建了 <code>NSURLSession</code> 。</li>
 </ol>
@@ -522,7 +508,7 @@
 <p>这个方法的目标是检索在 app 的 Dropbox 文件下的文件列表。让我们来重温一下这是怎样工作的一步步。</p>
 <ol>
 <li>在 Dropbox 中，你能看到一个文件夹的内容通过进行一个已经授权的 <code>GET</code> 请求到某个特别的 URL - 像 <a target="_blank" rel="noopener" href="https://api.dropbox.com/1/metadata/dropbox/byteclub">https://api.dropbox.com/1/metadata/dropbox/byteclub</a>. 我已经创建了一个便利的方法在 Dropbox 类中来为你产生这个 URL。</li>
-<li><code>NSURLSession</code> 用便利构造方法来简单的创建各种类型的任务。这是你创建的一个数据任务为了执行一个 GET 请求到那个 URL。当请求完成时，你的 <code>completionHandler</code>  block 被调用。一会儿你将添加一下代码到这里。</li>
+<li><code>NSURLSession</code> 用便利构造方法来简单的创建各种类型的任务。这是你创建的一个数据任务为了执行一个 GET 请求到那个 URL。当请求完成时，你的 <code>completionHandler</code> block 被调用。一会儿你将添加一下代码到这里。</li>
 <li>记住一个任务默认是一个 <code>暂停</code> 的状态,因此你需要调用恢复方法来启动运行。</li>
 </ol>
 <p>那就是所有你需要做的来开始一个 <code>GET</code> 请求-现在让我们添加代码到解析的结果中。添加下面的这些行到”TUDO 1”注释的后面:</p>
@@ -530,7 +516,7 @@
 
 <p>下面是两个主要的部分:</p>
 <ol>
-<li><p>你知道你已经发送一个 HTTP 请求，所以响应将是一个 HTTPP 响应。因此这里你可以抛出 <code>NSURLResponse</code> 到一个 <code>NSHTTPURLRequest</code> 响应以便你能够接入到接口的状态码。<br>假如你收到了一个 HTTP 状态码200，然后一切正常。</p>
+<li><p>你知道你已经发送一个 HTTP 请求，所以响应将是一个 HTTPP 响应。因此这里你可以抛出 <code>NSURLResponse</code> 到一个 <code>NSHTTPURLRequest</code> 响应以便你能够接入到接口的状态码。<br>假如你收到了一个 HTTP 状态码 200，然后一切正常。</p>
 <p> HTTP 错误码举例：</p>
 <ul>
 <li>400 - 输入参数错误。错误消息将表明那个和为什么错误。</li>
@@ -538,13 +524,13 @@
 <li>403 - 错误的授权请求（错误的用户键，坏的随机数，时间戳过期…）。不信的是，重新授权用户在这里并没有用。</li>
 <li>404 - 指定路径下的文件或者文件夹没找到。</li>
 <li>405 - 未知的请求方法（通常应该是 GET 或者 POST）。</li>
-<li>429 - 你的 app 发送太多请求超出了限制的速率，429能够触发在每个 app 或者每个用户根部。</li>
-<li>503 - 假如响应包括重发后的头，这就意味做你的 <code>OAuth</code>  1.0 app 正在被限速。否则，这个表明了一个短暂的服务器错误，并且你的 app 应该重新发送这这个请求。</li>
+<li>429 - 你的 app 发送太多请求超出了限制的速率，429 能够触发在每个 app 或者每个用户根部。</li>
+<li>503 - 假如响应包括重发后的头，这就意味做你的 <code>OAuth</code> 1.0 app 正在被限速。否则，这个表明了一个短暂的服务器错误，并且你的 app 应该重新发送这这个请求。</li>
 <li>507 - 用户超出 Dropbox 储存配额。</li>
 <li>5xx - 服务器错误。</li>
 </ul>
 </li>
-<li><p>Dropbox API 返回 JSON 类型的数据。所有你收到一个200的响应，然后应该把数据转发成 JSON 使用 iOS 的构建 JSON 序列化的方法。了解更多关于 JSON 和 NSJSONSerialization，查看第23章在  <code>iOS 5 by Tutorials</code> ,”Working with JSON.”</p>
+<li><p>Dropbox API 返回 JSON 类型的数据。所有你收到一个 200 的响应，然后应该把数据转发成 JSON 使用 iOS 的构建 JSON 序列化的方法。了解更多关于 JSON 和 NSJSONSerialization，查看第 23 章在 <code>iOS 5 by Tutorials</code> ,”Working with JSON.”</p>
 </li>
 </ol>
 <p>JSON 数据返回从 Dropbox 将看起来像下面这样：</p>
@@ -556,11 +542,10 @@
 
 <p>这里有两部分：</p>
 <ol>
-<li><p>你拉取数组对象从“contents”键中，让后循环便利数组。每个数组入口是一个文件，所以你创建一个相应的 <code>DBFile</code> 文件模型为每一个文件。</p>
-<p> <code>DBFile</code>是一个我为你创建的辅助类，为了拉取信息从一个JSON字典到一个文件中 - 轻轻一瞥就能看到它是怎样工作的。</p>
-<p> 当你完成时，你添加所有的笔记到 <code>self.notes</code> 接口中。表视图被设置来显示数组中的任何记录。</p>
-</li>
+<li>你拉取数组对象从“contents”键中，让后循环便利数组。每个数组入口是一个文件，所以你创建一个相应的 <code>DBFile</code> 文件模型为每一个文件。</li>
 </ol>
+<p> <code>DBFile</code> 是一个我为你创建的辅助类，为了拉取信息从一个JSON字典到一个文件中 - 轻轻一瞥就能看到它是怎样工作的。</p>
+<p> 当你完成时，你添加所有的笔记到 <code>self.notes</code> 接口中。表视图被设置来显示数组中的任何记录。</p>
 <p>既然你的表视图数据源已经更新了，你需要重载表的数据。无论何时你正在处理异步网络请求时，你必须保证更新 UIKit 在主线程。</p>
 <p>机敏的读者将会注意到在上述代码中没有错误处理；假如你感觉你像一个哭丧女（大多数 Byte Club 都是！）添加一些代码在这里（在随后的代码块中你将添加），代码在错误和警告用户的时候将重试。</p>
 <p>构建运行你的 app；你应该看你添加到你的 <code>Dropbox</code> 文件夹的文件是否显示在列表中，就像下面例子一样显示：</p>
@@ -574,9 +559,9 @@
 <p>打开 <code>NotesViewController.m </code> ,添加下面这行到 <code>prepareForSegue:sender:</code> 中，就在 <code>showNote.delegate = self</code> 行的后面；</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showNote.session = _session;</span><br></pre></td></tr></table></figure>
 
-<p><code>NoteDetailsViewController</code>已经有一个<code>NSURLSession</code>的接口名字叫做<code>session</code>,因此你能够设置它在<code>prepareForSegue:sender: </code>载入之前。</p>
+<p> <code>NoteDetailsViewController</code> 已经有一个 <code>NSURLSession</code> 的接口名字叫做 <code>session</code> ,因此你能够设置它在 <code>prepareForSegue:sender: </code> 载入之前。</p>
 <p>现在 detail view controller 将获得相同的 <code>NSURLSession</code> ,所有 detail view controller 能够使用它来进行 DropBox 的 API 调用。</p>
-<p><code>Cancel</code>和<code>Done</code>按钮已经呈现在你的app中；你只需要添加一些在他们背后保存或者取消在尚未完工的笔记逻辑。</p>
+<p> <code>Cancel</code> 和 <code>Done</code> 按钮已经呈现在你的app中；你只需要添加一些在他们背后保存或者取消在尚未完工的笔记逻辑。</p>
 <p>在 <code>NoteDetailsViewController.m</code> ,找到下面这一行在 <code>(IBAction)done:(id)sender:</code> 方法中：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// - UPLOAD FILE TO DROPBOX - //</span></span><br><span class="line">    [<span class="keyword">self</span>.delegate noteDetailsViewControllerDoneWithDetails:<span class="keyword">self</span>];</span><br></pre></td></tr></table></figure>
 
@@ -588,7 +573,7 @@
 <li>为了上传一个文件到 Dropbox，你需要再次使用某个 API URL。就像先前你需要一个 URL 来列出在一个文件夹中的文件，我已经构造了一个辅助方法来为你产生 URL。你可以在这里调用。</li>
 <li>下一步是你的老朋友 <code>NSMutableURLRequest</code> ,新的 APIs 能够同时使用普通的 URL 是和 <code>NSURLRequest</code> 对象，但是这里你需要可变的形式来使 Dropbox API 让它的请求变成 PUT 请求。设置 HTTP 方法作为 PUT 发信号给 Dropbox 来让它为你创建一个新的文件。</li>
 <li>下一步是将文本从你的 <code>UITextView</code> 编码成 NSData 对象。</li>
-<li>既然你已经创建好了请求和 NSData 数据，你下一步就是创建一个 <code>NSURLSessionUploadTask</code> 然后设置 <code>completion handler</code>  block.一旦成功，你就调用代理方法 <code> noteDetailsViewControllerDoneWithDetails:</code> 来关闭呈现的内容。在生产级别的应用中你可以回传一个新的 BDFile 给代理然后同步你需要持久化的数据。为了这个应用，你只需要刷新 <code>NotesViewController </code> 用一个网络调用。</li>
+<li>既然你已经创建好了请求和 NSData 数据，你下一步就是创建一个 <code>NSURLSessionUploadTask</code> 然后设置 <code>completion handler</code> block.一旦成功，你就调用代理方法 <code>noteDetailsViewControllerDoneWithDetails:</code> 来关闭呈现的内容。在生产级别的应用中你可以回传一个新的 BDFile 给代理然后同步你需要持久化的数据。为了这个应用，你只需要刷新 <code>NotesViewController </code> 用一个网络调用。</li>
 <li>再次提到，所有的任务以暂停的状态被创建，所以你必须调用恢复来启动他们。</li>
 </ol>
 <p>构建然后运行你的 App，点击笔记标签上的+号。在 <code>challenge name</code> 字段上输入你的名字，输入一些文本在 <code>note</code> 字段想 Ray 发布一份挑战书，和下面的例子相似：</p>
@@ -619,12 +604,8 @@
 <p>下载这些 我们为你放在一起的<a target="_blank" rel="noopener" href="http://cdn4.raywenderlich.com/downloads/ByteClub_photos.zip">全景照片</a>。解压文件，拷贝到你的 app 在 Dropbox 目录下的照片目录。你文件夹的内容应该和下面一样：</p>
 <p><img src="/images/nsurlsession/nsurlsession_16.jpg" alt="networking20"></p>
 <p>Dropbox 和核心 API 可以提供照片的缩略图；使用一个 UITableView cell 这听起来想一件非常完美的事。</p>
-<p>打开 <code> PhotosViewController.m</code> 然后在 <code>“GO GET THUMBNAILS</code> 注释后面添加下面的代码到 <code>tableView:cellForRowAtIndexPath: </code> </p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIApplication</span> sharedApplication].networkActivityIndicatorVisible = <span class="literal">YES</span>;</span><br><span class="line"><span class="built_in">NSURLSessionDataTask</span> *dataTask = [_session dataTaskWithURL:url</span><br><span class="line">  completionHandler:^(<span class="built_in">NSData</span>  *data, <span class="built_in">NSURLResponse</span>  *response,</span><br><span class="line">  <span class="built_in">NSError</span>  *error) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!error) &#123;</span><br><span class="line">      <span class="built_in">UIImage</span>  *image = [[<span class="built_in">UIImage</span> alloc] initWithData:data];</span><br><span class="line">      photo.thumbNail = image;</span><br><span class="line">      <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [<span class="built_in">UIApplication</span> sharedApplication].networkActivityIndicatorVisible = <span class="literal">NO</span>;</span><br><span class="line">        cell.thumbnailImage.image = photo.thumbNail;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// HANDLE ERROR //</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码显示了照片的缩略图图在表视图的 cell 中…或者至少它会是，假如 <code>_photoThumbnails</code> 现在不是空的话。</p>
-<p>找到 <code>refreshPhotos</code> 用下面的实现替换：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)refreshPhotos</span><br><span class="line">&#123;</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] setNetworkActivityIndicatorVisible:<span class="literal">YES</span>];</span><br><span class="line">    <span class="built_in">NSString</span>  *photoDir = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;https://api.dropbox.com/1/search/dropbox/%@/photos?query=.jpg&quot;</span>,appFolder];</span><br><span class="line">    <span class="built_in">NSURL</span>  *url = [<span class="built_in">NSURL</span> URLWithString:photoDir];</span><br><span class="line"></span><br><span class="line">    [[ _session dataTaskWithURL:url completionHandler:^(<span class="built_in">NSData</span></span><br><span class="line">       *data, <span class="built_in">NSURLResponse</span>  *response, <span class="built_in">NSError</span>  *error) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!error) &#123;</span><br><span class="line">            <span class="built_in">NSHTTPURLResponse</span>  *httpResp =</span><br><span class="line">             (<span class="built_in">NSHTTPURLResponse</span>*) response;</span><br><span class="line">            <span class="keyword">if</span> (httpResp.statusCode == <span class="number">200</span>) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">NSError</span>  *jsonError;</span><br><span class="line">                <span class="built_in">NSArray</span>  *filesJSON = [<span class="built_in">NSJSONSerialization</span>  </span><br><span class="line">                  JSONObjectWithData:data                                                                     </span><br><span class="line">                  options:<span class="built_in">NSJSONReadingAllowFragments</span>                                                                           </span><br><span class="line">                  error:&amp;jsonError];</span><br><span class="line">                <span class="built_in">NSMutableArray</span>  *dbFiles =</span><br><span class="line">                  [[<span class="built_in">NSMutableArray</span> alloc] init];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!jsonError) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">NSDictionary</span>  *fileMetadata <span class="keyword">in</span></span><br><span class="line">                      filesJSON) &#123;</span><br><span class="line">                        DBFile  *file = [[DBFile alloc]</span><br><span class="line">                          initWithJSONData:fileMetadata];</span><br><span class="line">                        [dbFiles addObject:file];</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    [dbFiles sortUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="type">id</span> obj1, <span class="type">id</span> obj2) &#123;</span><br><span class="line">                        <span class="keyword">return</span> [obj1 compare:obj2];</span><br><span class="line">                    &#125;];</span><br><span class="line"></span><br><span class="line">                     _photoThumbnails = dbFiles;</span><br><span class="line"></span><br><span class="line">                    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                        [[<span class="built_in">UIApplication</span> sharedApplication] setNetworkActivityIndicatorVisible:<span class="literal">NO</span>];</span><br><span class="line">                        [<span class="keyword">self</span>.tableView reloadData];</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// HANDLE BAD RESPONSE //</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// ALWAYS HANDLE ERRORS :-] //</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;] resume];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打开 <code>PhotosViewController.m</code> 然后在 <code>“GO GET THUMBNAILS</code> 注释后面添加下面的代码到 <code>tableView:cellForRowAtIndexPath: </code> &#96;&#96;&#96;objc<br>[UIApplication sharedApplication].networkActivityIndicatorVisible &#x3D; YES;<br>NSURLSessionDataTask *dataTask &#x3D; [_session dataTaskWithURL:url<br>  completionHandler:^(NSData  *data, NSURLResponse  *response,<br>  NSError  *error) {<br>    if (!error) {<br>      UIImage  *image &#x3D; [[UIImage alloc] initWithData:data];<br>      photo.thumbNail &#x3D; image;<br>      dispatch_async(dispatch_get_main_queue(), ^{<br>        [UIApplication sharedApplication].networkActivityIndicatorVisible &#x3D; NO;<br>        cell.thumbnailImage.image &#x3D; photo.thumbNail;<br>      });<br>    } else {<br>      &#x2F;&#x2F; HANDLE ERROR &#x2F;&#x2F;<br>    }<br>}];<br>[dataTask resume];</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">上面的代码显示了照片的缩略图图在表视图的 cell 中...或者至少它会是，假如 `_photoThumbnails` 现在不是空的话。</span><br><span class="line"></span><br><span class="line">找到 `refreshPhotos` 用下面的实现替换：</span><br><span class="line"></span><br><span class="line">```objc</span><br><span class="line">- (void)refreshPhotos</span><br><span class="line">&#123;</span><br><span class="line">    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];</span><br><span class="line">    NSString  *photoDir = [NSString stringWithFormat:@&quot;https://api.dropbox.com/1/search/dropbox/%@/photos?query=.jpg&quot;,appFolder];</span><br><span class="line">    NSURL  *url = [NSURL URLWithString:photoDir];</span><br><span class="line"></span><br><span class="line">    [[ _session dataTaskWithURL:url completionHandler:^(NSData</span><br><span class="line">       *data, NSURLResponse  *response, NSError  *error) &#123;</span><br><span class="line">        if (!error) &#123;</span><br><span class="line">            NSHTTPURLResponse  *httpResp =</span><br><span class="line">             (NSHTTPURLResponse*) response;</span><br><span class="line">            if (httpResp.statusCode == 200) &#123;</span><br><span class="line"></span><br><span class="line">                NSError  *jsonError;</span><br><span class="line">                NSArray  *filesJSON = [NSJSONSerialization  </span><br><span class="line">                  JSONObjectWithData:data                                                                     </span><br><span class="line">                  options:NSJSONReadingAllowFragments                                                                           </span><br><span class="line">                  error:&amp;jsonError];</span><br><span class="line">                NSMutableArray  *dbFiles =</span><br><span class="line">                  [[NSMutableArray alloc] init];</span><br><span class="line"></span><br><span class="line">                if (!jsonError) &#123;</span><br><span class="line">                    for (NSDictionary  *fileMetadata in</span><br><span class="line">                      filesJSON) &#123;</span><br><span class="line">                        DBFile  *file = [[DBFile alloc]</span><br><span class="line">                          initWithJSONData:fileMetadata];</span><br><span class="line">                        [dbFiles addObject:file];</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    [dbFiles sortUsingComparator:^NSComparisonResult(id obj1, id obj2) &#123;</span><br><span class="line">                        return [obj1 compare:obj2];</span><br><span class="line">                    &#125;];</span><br><span class="line"></span><br><span class="line">                     _photoThumbnails = dbFiles;</span><br><span class="line"></span><br><span class="line">                    dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];</span><br><span class="line">                        [self.tableView reloadData];</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                // HANDLE BAD RESPONSE //</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // ALWAYS HANDLE ERRORS :-] //</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;] resume];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这个和你早期载入挑战笔记时写的代码很像。这次，API 调用来查找在 <code>photos</code> 目录的内容，并且只会以.jpg 拓展的文件。</p>
 <p>既然 <code>_photoThumbnails</code> 数组已经填充好了，缩略图将出现在表视图中并且异步更新。</p>
@@ -653,11 +634,11 @@
 <li>开始任务–额，抱歉，是恢复任务。</li>
 </ol>
 <p>既然代理已经设置了，你就可以实现 <code>NSURLSessionTaskDelegate</code> 方法来更新进度视图。</p>
-<p>添加下面的代码到 <code> PhotosViewController.m</code> 文件末尾：</p>
+<p>添加下面的代码到 <code>PhotosViewController.m</code> 文件末尾：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - NSURLSessionTaskDelegate methods</span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)URLSession:(<span class="built_in">NSURLSession</span> *)session</span><br><span class="line">  task:(<span class="built_in">NSURLSessionTask</span> *)task</span><br><span class="line">  didSendBodyData:(int64_t)bytesSent</span><br><span class="line">  totalBytesSent:(int64_t)totalBytesSent</span><br><span class="line">  totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [ _progress setProgress:</span><br><span class="line">          (<span class="type">double</span>)totalBytesSent /</span><br><span class="line">          (<span class="type">double</span>)totalBytesExpectedToSend animated:<span class="literal">YES</span>];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面的代理方法将定期报告信息给调用者关于上传任务的信息。它同时会更新 <code>UIProgressView</code> （ _progress）的进度以便显示 totalBytesSent&#x2F;totalBytesExpectedToSend,这比显示一个完成的百分比跟有意义（也更极客）。</p>
-<p>剩下唯一的事就是当上传任务结束时指示一下。添加下面的代码到 <code> PhotosViewController.m</code> 文件末尾：</p>
+<p>剩下唯一的事就是当上传任务结束时指示一下。添加下面的代码到 <code>PhotosViewController.m</code> 文件末尾：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)URLSession:(<span class="built_in">NSURLSession</span> *)session task:(<span class="built_in">NSURLSessionTask</span> *)task didCompleteWithError:(<span class="built_in">NSError</span> *)error</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        [[<span class="built_in">UIApplication</span> sharedApplication] setNetworkActivityIndicatorVisible:<span class="literal">NO</span>];</span><br><span class="line">         _uploadView.hidden = <span class="literal">YES</span>;</span><br><span class="line">        [ _progress setProgress:<span class="number">0.5</span>];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!error) &#123;</span><br><span class="line">        <span class="comment">// 2</span></span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            [<span class="keyword">self</span> refreshPhotos];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Alert for error</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里没有很多代码，但是它执行了两项非常重要的任务：</p>
@@ -668,7 +649,7 @@
 <p>构建运行你的 app，导航到 <code>PanoPhotos</code> 标签，点击照相图标选择一张照片。</p>
 <p><img src="/images/nsurlsession/nsurlsession_17.jpg" alt="networking22"></p>
 <blockquote>
-<p>注意：假如你说使用模拟器测试 app，很显然你不能用你的 Mac 拍照，所有仅仅是拷贝一张全景照片<br>给模拟器然后上传。这样做，可以确保没有其他的 Xcode 工程现在连接到这个模拟器，在 Xcode 中选择 <strong>Xcode   Open Developer Tool   iOS Simulator</strong>。</p>
+<p>注意：假如你说使用模拟器测试 app，很显然你不能用你的 Mac 拍照，所有仅仅是拷贝一张全景照片<br>给模拟器然后上传。这样做，可以确保没有其他的 Xcode 工程现在连接到这个模拟器，在 Xcode 中选择 <strong>Xcode Open Developer Tool iOS Simulator</strong>。</p>
 </blockquote>
 <blockquote>
 <p>从 Finder 中拖拽一张全景照片带模拟器中，在模拟器中图片将会在 Safari 中打开。长按图片然后保存图片到图库中。</p>
@@ -677,7 +658,7 @@
 <p><img src="/images/nsurlsession/nsurlsession_18.jpg" alt="networking23"></p>
 <p>你可能注意到一张图片上传需要花一些时间由于上传任务设置了 <code>better quality</code> 缩放因子。对于那些 A 类性格的人，你应该提供一个取消函数假如上传花费太长的时间。</p>
 <p>取消按钮在 <code>uploadView</code> 已经被封装起来在故事板中，所有你只需实现清楚逻辑来杀死下载操作就行。</p>
-<p>用下面的代码替换 <code> PhotosViewController.m</code> 的 <code>cancelUpload: </code> ：</p>
+<p>用下面的代码替换 <code>PhotosViewController.m</code> 的 <code>cancelUpload: </code> ：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)cancelUpload:(<span class="type">id</span>)sender &#123;    </span><br><span class="line">    <span class="keyword">if</span> ( _uploadTask.state == <span class="built_in">NSURLSessionTaskStateRunning</span>) &#123;</span><br><span class="line">        [ _uploadTask cancel];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在这类你会看到，取消一个任务相当简单就是调用一个取消方法。</p>
@@ -685,10 +666,9 @@
 <p>就这样– <code>Byte Club</code> 完成了！</p>
 <h4 id="何去何从？"><a href="#何去何从？" class="headerlink" title="何去何从？"></a>何去何从？</h4><p>这里是<a target="_blank" rel="noopener" href="http://cdn5.raywenderlich.com/downloads/ByteClub_Completed.zip">完成的工程</a>在这个 <code>NSURLSession</code> 教程中。</p>
 <p>假如你做到这一步，恭喜你可以享受到 <code>Byte Club</code> 的时光！不要告诉任何 <code>Android</code> 的小伙伴们！ :]<br>你现在能够处理在你 app 需要的任何网络任务了。</p>
-<p>假如你喜欢这个课程，你可能想要查阅我们的新书<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?page_id=48020"> iOS 7 by Tutorials</a>,这是这本书的一个简略版本，这本书几乎涵盖了在 iOS 7中最新和最多的 APIs，这些你应该清楚的知道作为一个开发者。</p>
+<p>假如你喜欢这个课程，你可能想要查阅我们的新书<a target="_blank" rel="noopener" href="http://www.raywenderlich.com/?page_id=48020"> iOS 7 by Tutorials</a>,这是这本书的一个简略版本，这本书几乎涵盖了在 iOS 7 中最新和最多的 APIs，这些你应该清楚的知道作为一个开发者。</p>
 <p>我几乎忘记了…</p>
-<pre><code>/slap &lt;you the reader&gt; have been slapped around a bit with a large trout.
-</code></pre>
+<p> &#x2F;slap <you the reader> have been slapped around a bit with a large trout.</p>
 <p>（不要问我为什么 hehe！😄）</p>
 <p>假如你有任何问题或者评论关于这个教程或者 <code>NSURLSession</code> ,请加入到下面的论坛讨论！</p>
 <p>参考资料：</p>
@@ -697,7 +677,7 @@
 <li><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/51127/nsurlsession-tutorial">NSURLSession Tutorial</a></li>
 </ul>
 <p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed -->
+<!-- processed 2 -->
 
     </div>
 
@@ -797,7 +777,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8-NSURLSession"><span class="nav-number">1.</span> <span class="nav-text">为什么使用 NSURLSession</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession-vs-NSURLConnection"><span class="nav-number">2.</span> <span class="nav-text">NSURLSession  vs  NSURLConnection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession-vs-AFNetworking"><span class="nav-number">3.</span> <span class="nav-text">NSURLSession  vs  AFNetworking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-Byte-Club"><span class="nav-number">4.</span> <span class="nav-text">介绍 Byte Club</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%B0%E5%9C%A8%E5%BC%80%E5%A7%8B%E5%90%A7"><span class="nav-number">5.</span> <span class="nav-text">现在开始吧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%9A%84%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="nav-number">6.</span> <span class="nav-text">开始的工程概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84-Dropbox-%E5%B9%B3%E5%8F%B0-App"><span class="nav-number">7.</span> <span class="nav-text">创建一个新的 Dropbox 平台 App</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dropbox-%E6%8E%88%E6%9D%83-%E6%A6%82%E8%A7%88"><span class="nav-number">8.</span> <span class="nav-text">Dropbox 授权: 概览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession-%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">NSURLSession 的一系列类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionConfiguration"><span class="nav-number">10.</span> <span class="nav-text">NSURLSessionConfiguration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession"><span class="nav-number">11.</span> <span class="nav-text">NSURLSession</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionTask"><span class="nav-number">12.</span> <span class="nav-text">NSURLSessionTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionDataTask"><span class="nav-number">13.</span> <span class="nav-text">NSURLSessionDataTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionUploadTask"><span class="nav-number">14.</span> <span class="nav-text">NSURLSessionUploadTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionDownloadTask"><span class="nav-number">15.</span> <span class="nav-text">NSURLSessionDownloadTask</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0%E5%85%A8%E9%83%A8"><span class="nav-number">15.1.</span> <span class="nav-text">上述全部</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sharing-notes-with-NSURLSession"><span class="nav-number">16.</span> <span class="nav-text">Sharing notes with NSURLSession</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Creating-an-NSURLSession"><span class="nav-number">16.1.</span> <span class="nav-text">Creating an NSURLSession</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GET-Notes-through-the-Dropbox-API"><span class="nav-number">16.2.</span> <span class="nav-text">GET Notes through the Dropbox API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POST-Notes-through-the-Dropbox-API"><span class="nav-number">16.3.</span> <span class="nav-text">POST Notes through the Dropbox API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-NSURLSessionTask-%E4%BB%A3%E7%90%86%E5%8F%91%E9%80%81%E7%85%A7%E7%89%87"><span class="nav-number">17.</span> <span class="nav-text">使用 NSURLSessionTask 代理发送照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E4%B8%80%E5%BC%A0%E5%85%A8%E6%99%AF%E7%85%A7%E7%89%87"><span class="nav-number">18.</span> <span class="nav-text">上传一张全景照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E5%8E%BB%E4%BD%95%E4%BB%8E%EF%BC%9F"><span class="nav-number">19.</span> <span class="nav-text">何去何从？</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8-NSURLSession-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E8%A6%81%E4%BD%BF%E7%94%A8-NSURLSession-%E9%A5%BF%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%AE%83%E5%8F%AF%E4%BB%A5%E5%B8%A6%E7%BB%99%E4%BD%A0%E4%B8%80%E4%BA%9B%E5%A5%BD%E5%A4%84%E5%92%8C%E4%BC%98%E5%8A%BF%E7%9B%B8%E6%AF%94%E4%BB%A5%E5%89%8D%E7%9A%84%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">为什么使用 NSURLSession 为什么你要使用 NSURLSession ? 饿，因为它可以带给你一些好处和优势相比以前的：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession-vs-NSURLConnection-%E2%80%9C%E5%93%87%E5%93%A6%EF%BC%8C-NSURLSession-%E5%90%AC%E8%B5%B7%E6%9D%A5%E5%BE%88%E5%A4%8D%E6%9D%82%E5%91%80%EF%BC%81%E2%80%9D-%E4%BD%A0%E5%8F%AF%E8%83%BD%E8%BF%99%E4%B9%88%E6%83%B3%E3%80%82%E2%80%9D%E6%88%91%E5%8F%AF%E8%83%BD%E8%BF%98%E6%98%AF%E7%BB%A7%E7%BB%AD%E4%BD%BF%E7%94%A8%E6%88%91%E7%9A%84%E8%80%81%E6%9C%8B%E5%8F%8B-NSURLConnection-%E3%80%82%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">NSURLSession vs NSURLConnection “哇哦， NSURLSession 听起来很复杂呀！”,你可能这么想。”我可能还是继续使用我的老朋友 NSURLConnection 。”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession-vs-AFNetworking-%E4%B8%8D%E6%8F%90%E5%88%B0-AFNetworking-%E6%A1%86%E6%9E%B6%E5%B0%B1%E8%B0%88%E4%B8%8D%E4%B8%8A%E8%B0%88%E8%AE%BA%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E3%80%82%E8%BF%99%E4%B8%AA%E4%BA%8B%E5%9C%A8-iOS-OS-X-%E4%B8%8A%E6%9C%80%E6%B5%81%E8%A1%8C%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%8C%E6%9C%89%E6%9D%B0%E5%87%BA%E7%9A%84-Mattt-Thompson-%E5%88%9B%E5%BB%BA%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">NSURLSession vs AFNetworking 不提到 AFNetworking 框架就谈不上谈论网络编程。这个事在 iOS&#x2F;OS X 上最流行的框架，有杰出的 Mattt Thompson 创建。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-Byte-Club"><span class="nav-number">4.</span> <span class="nav-text">介绍 Byte Club</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%B0%E5%9C%A8%E5%BC%80%E5%A7%8B%E5%90%A7"><span class="nav-number">5.</span> <span class="nav-text">现在开始吧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E7%9A%84%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="nav-number">6.</span> <span class="nav-text">开始的工程概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84-Dropbox-%E5%B9%B3%E5%8F%B0-App"><span class="nav-number">7.</span> <span class="nav-text">创建一个新的 Dropbox 平台 App</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dropbox-%E6%8E%88%E6%9D%83-%E6%A6%82%E8%A7%88"><span class="nav-number">8.</span> <span class="nav-text">Dropbox 授权: 概览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession-%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">NSURLSession 的一系列类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionConfiguration"><span class="nav-number">10.</span> <span class="nav-text">NSURLSessionConfiguration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSession"><span class="nav-number">11.</span> <span class="nav-text">NSURLSession</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionTask"><span class="nav-number">12.</span> <span class="nav-text">NSURLSessionTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionDataTask"><span class="nav-number">13.</span> <span class="nav-text">NSURLSessionDataTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionUploadTask"><span class="nav-number">14.</span> <span class="nav-text">NSURLSessionUploadTask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSURLSessionDownloadTask"><span class="nav-number">15.</span> <span class="nav-text">NSURLSessionDownloadTask</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0%E5%85%A8%E9%83%A8"><span class="nav-number">15.1.</span> <span class="nav-text">上述全部</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sharing-notes-with-NSURLSession"><span class="nav-number">16.</span> <span class="nav-text">Sharing notes with NSURLSession</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Creating-an-NSURLSession"><span class="nav-number">16.1.</span> <span class="nav-text">Creating an NSURLSession</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GET-Notes-through-the-Dropbox-API"><span class="nav-number">16.2.</span> <span class="nav-text">GET Notes through the Dropbox API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POST-Notes-through-the-Dropbox-API"><span class="nav-number">16.3.</span> <span class="nav-text">POST Notes through the Dropbox API</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-NSURLSessionTask-%E4%BB%A3%E7%90%86%E5%8F%91%E9%80%81%E7%85%A7%E7%89%87"><span class="nav-number">17.</span> <span class="nav-text">使用 NSURLSessionTask 代理发送照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E4%B8%80%E5%BC%A0%E5%85%A8%E6%99%AF%E7%85%A7%E7%89%87"><span class="nav-number">18.</span> <span class="nav-text">上传一张全景照片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E5%8E%BB%E4%BD%95%E4%BB%8E%EF%BC%9F"><span class="nav-number">19.</span> <span class="nav-text">何去何从？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
