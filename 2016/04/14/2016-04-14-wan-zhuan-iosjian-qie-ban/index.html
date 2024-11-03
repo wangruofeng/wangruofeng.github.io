@@ -29,7 +29,7 @@
 <meta property="og:description" content="前言移动应用风靡的今天，大家越来越觉得，一个 App 的处理事情的效率至关重要，包括一些细节处理，像 本地化 （localization）和 辅助功能 （accessibility）的支持是高品质的应用和其它应用区分开的两个特性，今天我们来聊聊一个增加用户体验和效率的功能– 编辑操作 ### 编辑操作 标准编辑动作处理复制，剪切，删除和粘贴命令 复制 （**copy:**） 剪切 （**cut:*">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-04-14T14:20:52.000Z">
-<meta property="article:modified_time" content="2024-11-03T05:32:35.302Z">
+<meta property="article:modified_time" content="2024-11-03T06:10:25.586Z">
 <meta property="article:author" content="王若风">
 <meta property="article:tag" content="剪切板">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+                <time title="修改时间：2024-11-03 14:10:25" itemprop="dateModified" datetime="2024-11-03T14:10:25+08:00">2024-11-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -302,47 +302,33 @@
 <li>最后，使 label 成为第一响应者</li>
 </ul>
 <h3 id="UIMenuController"><a href="#UIMenuController" class="headerlink" title="UIMenuController"></a>UIMenuController</h3><p> <code>UIMenuController</code> 负责展示编辑动作的菜单项。每个应用都持有自己的一个单例对象 sharedMenuController。<br>默认情况下，菜单控制器会展示 <code>UIResponderStandardEditActions</code> 这个非正式协议（即不需要对应实现的协议）中的方法，<br>假如 <code>canPerformAction:withSender:</code> 返回 <code>YES</code> 。</p>
-<h3 id="UIMenuItem"><a href="#UIMenuItem" class="headerlink" title="UIMenuItem"></a>UIMenuItem</h3><p>可以通过 <code>UIMenuController</code> 的 <code>menuItems</code> 属性添加自定义的命令，每一个都是 <code>UIMenuItem</code> 对象，只需要指定每个动作的 <code>title</code> 和 <code>action</code> &#96;&#96;&#96;objc</p>
-<ul>
-<li>(instancetype)initWithTitle:(NSString *)title action:(SEL)action NS_DESIGNATED_INITIALIZER;</li>
+<h3 id="UIMenuItem"><a href="#UIMenuItem" class="headerlink" title="UIMenuItem"></a>UIMenuItem</h3><p>可以通过 <code>UIMenuController</code> 的 <code>menuItems</code> 属性添加自定义的命令，每一个都是 <code>UIMenuItem</code> 对象，只需要指定每个动作的 <code>title</code> 和 <code>action</code> </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title action:(SEL)action <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="UITableView-和-UICollectionView"><a href="#UITableView-和-UICollectionView" class="headerlink" title="UITableView 和 UICollectionView"></a>UITableView 和 UICollectionView</h3><p> <code>UITableView</code> 和 <code>UICollectionView</code> 可以在cell上调出编辑菜单,其实任何自定义的 <code>UIView</code> 都能实现， <code>UIViewController</code> 的子类只是以不同的方式实现而已。为了让 <code>UITableView</code> 和 <code>UICollectionView</code> 也能实现，你需要使用一些额外的方法否则屏幕上不会显示任何东西。这些方法给予了你更多的控制在显示指定的上下文菜单基于你将要显示在 <code>UITableView</code> 和 <code>UICollectionView</code> 的内容。</p>
+<h4 id="UITableViewDelegate-方法"><a href="#UITableViewDelegate-方法" class="headerlink" title="UITableViewDelegate 方法"></a><strong>UITableViewDelegate</strong> 方法</h4><ul>
+<li>– tableView:shouldShowMenuForRowAtIndexPath:</li>
+<li>– tableView:canPerformAction:forRowAtIndexPath:withSender:</li>
+<li>– tableView:performAction:forRowAtIndexPath:withSender:</li>
 </ul>
-<pre><code>
-### UITableView 和 UICollectionView
-
- `UITableView` 和 `UICollectionView` 可以在cell上调出编辑菜单,其实任何自定义的 `UIView` 都能实现， `UIViewController` 的子类只是以不同的方式实现而已。为了让 `UITableView` 和 `UICollectionView` 也能实现，你需要使用一些额外的方法否则屏幕上不会显示任何东西。这些方法给予了你更多的控制在显示指定的上下文菜单基于你将要显示在 `UITableView` 和 `UICollectionView` 的内容。
-
-#### **UITableViewDelegate** 方法
-
-* – tableView:shouldShowMenuForRowAtIndexPath:
-* – tableView:canPerformAction:forRowAtIndexPath:withSender:
-* – tableView:performAction:forRowAtIndexPath:withSender:
-
-#### **UICollectionViewDelegate** 方法
-
-* – collectionView:shouldShowMenuForItemAtIndexPath:
-* – collectionView:canPerformAction:forItemAtIndexPath:withSender:
-* – collectionView:performAction:forItemAtIndexPath:withSender:
-
-### Bonus
-
-实现 `UIImageView` 图片的复制粘贴功能
-
-Demo 地址：
-
-* [Menu_Controller_Demo](https://github.com/wangruofeng/Menu_Controller_Demo)
-
-### 参考链接
-
-* [UIMenuController](http://nshipster.cn/uimenucontroller/) -- nshipster
-* [UIMenuController_Class](https://developer.apple.com/library/ios/documentation/iPhone/Reference/UIMenuController_Class/) -- UIMenuController Class Reference
-* [Show the UIMenuController and Display Custom Edit Menus](http://supereasyapps.com/blog/2014/4/17/show-the-uimenucontroller-and-display-custom-edit-menus-for-uiviewcontroller-uitableviewcontroller-and-uicollectionview-on-ios-7)
-* [UITableViewCell on iOS 5](https://www.captechconsulting.com/blogs/getting-started-with-uimenucontroller-in-ios-5)
-* [UITableViewController](https://github.com/jszumski/uimenucontroller-example) -- Demo
-
-
-
-&lt;!-- processed 2 --&gt;
-</code></pre>
+<h4 id="UICollectionViewDelegate-方法"><a href="#UICollectionViewDelegate-方法" class="headerlink" title="UICollectionViewDelegate 方法"></a><strong>UICollectionViewDelegate</strong> 方法</h4><ul>
+<li>– collectionView:shouldShowMenuForItemAtIndexPath:</li>
+<li>– collectionView:canPerformAction:forItemAtIndexPath:withSender:</li>
+<li>– collectionView:performAction:forItemAtIndexPath:withSender:</li>
+</ul>
+<h3 id="Bonus"><a href="#Bonus" class="headerlink" title="Bonus"></a>Bonus</h3><p>实现 <code>UIImageView</code> 图片的复制粘贴功能</p>
+<p>Demo 地址：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wangruofeng/Menu_Controller_Demo">Menu_Controller_Demo</a></li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/uimenucontroller/">UIMenuController</a> – nshipster</li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/iPhone/Reference/UIMenuController_Class/">UIMenuController_Class</a> – UIMenuController Class Reference</li>
+<li><a target="_blank" rel="noopener" href="http://supereasyapps.com/blog/2014/4/17/show-the-uimenucontroller-and-display-custom-edit-menus-for-uiviewcontroller-uitableviewcontroller-and-uicollectionview-on-ios-7">Show the UIMenuController and Display Custom Edit Menus</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.captechconsulting.com/blogs/getting-started-with-uimenucontroller-in-ios-5">UITableViewCell on iOS 5</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jszumski/uimenucontroller-example">UITableViewController</a> – Demo</li>
+</ul>
+<!-- processed 2 -->
 
     </div>
 
@@ -441,7 +427,7 @@ Demo 地址：
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%BC%96%E8%BE%91%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">标准编辑动作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%A4%8D%E5%88%B6%EF%BC%8C%E5%89%AA%E5%88%87%EF%BC%8C%E5%88%A0%E9%99%A4%E5%92%8C%E7%B2%98%E8%B4%B4%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.1.</span> <span class="nav-text">处理复制，剪切，删除和粘贴命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E9%80%89%E6%8B%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">处理选择命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">富文本编辑命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E4%B9%A6%E5%86%99%E6%96%B9%E5%90%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.4.</span> <span class="nav-text">改变书写方向命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E6%96%87%E6%9C%AC%E5%B0%BA%E5%AF%B8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.5.</span> <span class="nav-text">改变文本尺寸命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-label-%E7%9A%84%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">实现 label 的复制粘贴功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIMenuController"><span class="nav-number">3.</span> <span class="nav-text">UIMenuController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIMenuItem"><span class="nav-number">4.</span> <span class="nav-text">UIMenuItem</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%BC%96%E8%BE%91%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">标准编辑动作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%A4%8D%E5%88%B6%EF%BC%8C%E5%89%AA%E5%88%87%EF%BC%8C%E5%88%A0%E9%99%A4%E5%92%8C%E7%B2%98%E8%B4%B4%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.1.</span> <span class="nav-text">处理复制，剪切，删除和粘贴命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E9%80%89%E6%8B%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">处理选择命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.3.</span> <span class="nav-text">富文本编辑命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E4%B9%A6%E5%86%99%E6%96%B9%E5%90%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.4.</span> <span class="nav-text">改变书写方向命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E6%96%87%E6%9C%AC%E5%B0%BA%E5%AF%B8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.5.</span> <span class="nav-text">改变文本尺寸命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-label-%E7%9A%84%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">实现 label 的复制粘贴功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIMenuController"><span class="nav-number">3.</span> <span class="nav-text">UIMenuController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIMenuItem"><span class="nav-number">4.</span> <span class="nav-text">UIMenuItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UITableView-%E5%92%8C-UICollectionView"><span class="nav-number">5.</span> <span class="nav-text">UITableView 和 UICollectionView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UITableViewDelegate-%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">UITableViewDelegate 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UICollectionViewDelegate-%E6%96%B9%E6%B3%95"><span class="nav-number">5.2.</span> <span class="nav-text">UICollectionViewDelegate 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bonus"><span class="nav-number">6.</span> <span class="nav-text">Bonus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
