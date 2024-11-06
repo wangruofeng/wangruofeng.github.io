@@ -203,6 +203,406 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/14/2016-01-14-sqlite-jiao-cheng-liu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/14/2016-01-14-sqlite-jiao-cheng-liu/" class="post-title-link" itemprop="url">SQLite 教程(六)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-14 01:41:01" itemprop="dateCreated datePublished" datetime="2016-01-14T01:41:01+08:00">2016-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/14/2016-01-14-sqlite-jiao-cheng-liu/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/14/2016-01-14-sqlite-jiao-cheng-liu/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="SQLite-Delete-语句"><a href="#SQLite-Delete-语句" class="headerlink" title="SQLite Delete 语句"></a>SQLite Delete 语句</h4><p>SQLite 的 <strong>DELETE</strong> 查询用于删除表中已有的记录。可以使用带有 WHERE 子句的 DELETE 查询来删除选定行，否则所有的记录都会被删除。</p>
+<hr>
+<p><strong>语法</strong></p>
+<p>带有 WHERE 子句的 DELETE 查询的基本语法如下：</p>
+<pre><code>DELETE FROM table_name
+WHERE [condition];
+</code></pre>
+<p>您可以使用 AND 或 OR 运算符来结合 N 个数量的条件。</p>
+<p><strong>实例</strong></p>
+<p>假设 COMPANY 表有以下记录：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
+</code></pre>
+<p>现在，COMPANY 表有以下记录：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+</code></pre>
+<p>如果您想要从 COMPANY 表中删除所有记录，则不需要使用 WHERE 子句，DELETE 查询如下：</p>
+<pre><code>sqlite&gt; DELETE FROM COMPANY;
+</code></pre>
+<p>现在，COMPANY 表中没有任何的记录，因为所有的记录已经通过 DELETE 语句删除。</p>
+<h4 id="SQLite-Like-子句"><a href="#SQLite-Like-子句" class="headerlink" title="SQLite Like 子句"></a>SQLite Like 子句</h4><p>SQLite 的 <strong>LIKE</strong> 运算符是用来匹配通配符指定模式的文本值。如果搜索表达式与模式表达式匹配，LIKE 运算符将返回真（true），也就是 1。这里有两个通配符与 LIKE 运算符一起使用：</p>
+<ul>
+<li>百分号 （%）</li>
+<li>下划线 （_）</li>
+</ul>
+<p>百分号（%）代表零个、一个或多个数字或字符。下划线（_）代表一个单一的数字或字符。这些符号可以被组合使用。</p>
+<hr>
+<p><strong>语法</strong></p>
+<p>% 和 _ 的基本语法如下：</p>
+<pre><code>SELECT FROM table_name
+WHERE column LIKE &#39;XXXX%&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE &#39;%XXXX%&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE &#39;XXXX_&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE &#39;_XXXX&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE &#39;_XXXX_&#39;
+</code></pre>
+<p>您可以使用 AND 或 OR 运算符来结合 N 个数量的条件。在这里，XXXX 可以是任何数字或字符串值。</p>
+<p><strong>实例</strong></p>
+<p>下面一些实例演示了 带有 ‘%’ 和 ‘_’ 运算符的 LIKE 子句不同的地方：</p>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WHERE SALARY LIKE ‘200%’</td>
+<td>查找以 200 开头的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY LIKE ‘%200%’</td>
+<td>查找任意位置包含 200 的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY LIKE ‘_00%‘</td>
+<td>查找第二位和第三位为 00 的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY LIKE ‘2_%_%’</td>
+<td>查找以 2 开头，且长度至少为 3 个字符的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY LIKE ‘%2’</td>
+<td>查找以 2 结尾的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY LIKE ‘_2%3’</td>
+<td>查找第二位为 2，且以 3 结尾的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY LIKE ‘2___3’</td>
+<td>查找长度为 5 位数，且以 2 开头以 3 结尾的任意值</td>
+</tr>
+</tbody></table>
+<p>让我们举一个实际的例子，假设 COMPANY 表有以下记录：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
+</code></pre>
+<p>下面是一个实例，它显示 COMPANY 表中 AGE 以 2 开头的所有记录：</p>
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE LIKE &#39;2%&#39;;
+</code></pre>
+<p>这将产生以下结果：</p>
+<pre><code>    ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
+</code></pre>
+<p>下面是一个实例，它显示 COMPANY 表中 ADDRESS 文本里包含一个连字符（-）的所有记录：</p>
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE ADDRESS LIKE &#39;%-%&#39;;
+</code></pre>
+<p>这将产生以下结果：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+6 Kim 22 South-Hall 45000.0
+</code></pre>
+<h4 id="SQLite-Glob-子句"><a href="#SQLite-Glob-子句" class="headerlink" title="SQLite Glob 子句"></a>SQLite Glob 子句</h4><p>SQLite 的 <strong>GLOB</strong> 运算符是用来匹配通配符指定模式的文本值。如果搜索表达式与模式表达式匹配，GLOB 运算符将返回真（true），也就是 1。与 LIKE 运算符不同的是，GLOB 是大小写敏感的，对于下面的通配符，它遵循 UNIX 的语法。</p>
+<ul>
+<li>星号 （*）</li>
+<li>问号 （?）</li>
+</ul>
+<p>星号（*）代表零个、一个或多个数字或字符。问号（?）代表一个单一的数字或字符。这些符号可以被组合使用。</p>
+<hr>
+<p><strong>语法</strong></p>
+<p>* 和 ? 的基本语法如下：</p>
+<pre><code>SELECT FROM table_name
+WHERE column GLOB &#39;XXXX*&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column GLOB &#39;*XXXX*&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column GLOB &#39;XXXX?&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column GLOB &#39;?XXXX&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column GLOB &#39;?XXXX?&#39;
+
+or
+
+SELECT FROM table_name
+WHERE column GLOB &#39;????&#39;
+</code></pre>
+<p>您可以使用 AND 或 OR 运算符来结合 N 个数量的条件。在这里，XXXX 可以是任何数字或字符串值。</p>
+<hr>
+<p><strong>实例</strong></p>
+<p>下面一些实例演示了 带有 ‘*’ 和 ‘?’ 运算符的 GLOB 子句不同的地方：</p>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>WHERE SALARY GLOB ‘200*‘</td>
+<td>查找以 200 开头的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘*200*‘</td>
+<td>查找任意位置包含 200 的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘?00*‘</td>
+<td>查找第二位和第三位为 00 的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘2??’</td>
+<td>查找以 2 开头，且长度至少为 3 个字符的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘*2’</td>
+<td>查找以 2 结尾的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘?2*3’</td>
+<td>查找第二位为 2，且以 3 结尾的任意值</td>
+</tr>
+<tr>
+<td>WHERE SALARY GLOB ‘2???3’</td>
+<td>查找长度为 5 位数，且以 2 开头以 3 结尾的任意值</td>
+</tr>
+</tbody></table>
+<p>让我们举一个实际的例子，假设 COMPANY 表有以下记录：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
+</code></pre>
+<p>下面是一个实例，它显示 COMPANY 表中 AGE 以 2 开头的所有记录：</p>
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE AGE GLOB &#39;2*&#39;;
+</code></pre>
+<p>这将产生以下结果：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
+</code></pre>
+<p>下面是一个实例，它显示 COMPANY 表中 ADDRESS 文本里包含一个连字符（-）的所有记录：</p>
+<pre><code>sqlite&gt; SELECT * FROM COMPANY WHERE ADDRESS GLOB &#39;*-*&#39;;
+</code></pre>
+<p>这将产生以下结果：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+4 Mark 25 Rich-Mond 65000.0
+6 Kim 22 South-Hall 45000.0
+</code></pre>
+<h4 id="SQLite-Limit-子句"><a href="#SQLite-Limit-子句" class="headerlink" title="SQLite Limit 子句"></a>SQLite Limit 子句</h4><p>SQLite 的 <strong>LIMIT</strong> 子句用于限制由 SELECT 语句返回的数据数量。</p>
+<hr>
+<p><strong>语法</strong></p>
+<p>带有 LIMIT 子句的 SELECT 语句的基本语法如下：</p>
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+LIMIT [no of rows]
+</code></pre>
+<p>下面是 <code>LIMIT</code> 子句与 <code>OFFSET</code> 子句一起使用时的语法：</p>
+<pre><code>SELECT column1, column2, columnN
+FROM table_name
+LIMIT [no of rows] OFFSET [row num]
+</code></pre>
+<p>SQLite 引擎将返回从下一行开始直到给定的 <code>OFFSET</code> 为止的所有行，如下面的最后一个实例所示。</p>
+<p><strong>实例</strong></p>
+<p>假设 COMPANY 表有以下记录：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+7 James 24 Houston 10000.0
+</code></pre>
+<p>下面是一个实例，它限制了您想要从表中提取的行数：</p>
+<pre><code>sqlite&gt; SELECT * FROM COMPANY LIMIT 6;
+</code></pre>
+<p>这将产生以下结果：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+1 Paul 32 California 20000.0
+2 Allen 25 Texas 15000.0
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+6 Kim 22 South-Hall 45000.0
+</code></pre>
+<p>但是，在某些情况下，可能需要从一个特定的偏移开始提取记录( <code>OFFSET下标从0开始</code> )。下面是一个实例，从第三位开始提取 3 个记录：</p>
+<pre><code>sqlite&gt; SELECT * FROM COMPANY LIMIT 3 OFFSET 2;
+</code></pre>
+<p>这将产生以下结果：</p>
+<pre><code>ID NAME AGE ADDRESS SALARY
+---------- ---------- ---------- ---------- ----------
+3 Teddy 23 Norway 20000.0
+4 Mark 25 Rich-Mond 65000.0
+5 David 27 Texas 85000.0
+</code></pre>
+<p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/14/2016-01-14-sqlite-jiao-cheng-wu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2711,165 +3111,6 @@ WHERE CONDITION;
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsthread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsthread/" class="post-title-link" itemprop="url">多线程之 NSThread</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-13 05:36:48" itemprop="dateCreated datePublished" datetime="2016-01-13T05:36:48+08:00">2016-01-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:40:58" itemprop="dateModified" datetime="2024-11-03T13:40:58+08:00">2024-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-  
-    <a title="disqus" href="/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsthread/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsthread/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
- <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>919</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每个 iOS 应用程序都有个专门用来更新显示 UI 界面、处理用户触摸事件的主线程，因此不能将其他太耗时的操作放在主线程中执行，不然会造成主线程堵塞(出现卡机现象)，带来极坏的用户体验。一般的解决方案就是将那些耗时的操作放到另外一个线程中去执行，多线程编程是防止主线程堵塞，增加运行效率的最佳方法。</p>
-<p>iOS 中有 3 种常见的多线程编程方法</p>
-<ol>
-<li><p><code>NSThread</code> 这种方法需要管理线程的生命周期、同步、加锁问题，会导致一定的性能开销</p>
-</li>
-<li><p><code>NSOperation</code> 和 <code>NSOperationQueue</code> 是基于 OC 实现的。NSOperation 以面向对象的方式封装了需要执行的操作，然后可以将这个操作放到一个 NSOperationQueue 中去异步执行。不必关心线程管理、同步等问题。</p>
-</li>
-<li><p><code>Grand Centeral Dispatch</code> 简称 GCD，iOS4 才开始支持，是纯 C 语言的 API。自 iPad2 开始，苹果设备开始有了双核 CPU，为了充分利用这 2 个核，GCD 提供了一些新特性来支持多核并行编程</p>
-</li>
-</ol>
-<p>这篇文章简单介绍 <code>NSThread 这</code> 个类，一个 <code>NSThread</code> 实例就代表着一条线程</p>
-<h2 id="获取当前线程"><a href="#获取当前线程" class="headerlink" title="获取当前线程"></a>获取当前线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取主线程"><a href="#获取主线程" class="headerlink" title="获取主线程"></a>获取主线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSThread</span> *main = [<span class="built_in">NSThread</span> mainThread];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;主线程:%@&quot;</span>, main);    </span><br></pre></td></tr></table></figure>
-
-<p>打印结果是：</p>
-<p> 2013-04-18 21:36:38.599 thread[7499:c07] 主线程:&lt;NSThread: 0x71434e0&gt;{name &#x3D; (null), num &#x3D; 1}</p>
-<p>num 相当于线程的 id，主线程的 num 是为 1 的</p>
-<h2 id="NSThread-的创建"><a href="#NSThread-的创建" class="headerlink" title="NSThread 的创建"></a>NSThread 的创建</h2><h3 id="a-动态方法"><a href="#a-动态方法" class="headerlink" title="a.动态方法"></a>a.动态方法</h3><ul>
-<li>(id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument;</li>
-</ul>
-<p>在第 2 行创建了一条新线程，然后在第 4 行调用 <code>start</code> 方法启动线程，线程启动后会调用 self 的 <code>run:</code> 方法，并且将@”mj”作为方法参数</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化线程</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(run:) object:<span class="string">@&quot;mj&quot;</span>] autorelease];</span><br><span class="line"><span class="comment">// 开启线程</span></span><br><span class="line">[thread start];</span><br></pre></td></tr></table></figure>
-
-<p>假如 run:方法是这样的：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)run:(<span class="built_in">NSString</span> *)string &#123;</span><br><span class="line">     <span class="built_in">NSThread</span> *current = [<span class="built_in">NSThread</span> currentThread];</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了 run:方法-参数：%@，当前线程：%@&quot;</span>, string, current);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>打印结果为：</p>
-<p> 2013-04-18 21:40:33.102 thread[7542:3e13] 执行了 run:方法-参数：mj，当前线程：&lt;NSThread: 0x889e8d0&gt;{name &#x3D; (null), num &#x3D; 3}</p>
-<p>可以发现，这条线程的 num 值为 3，说明不是主线程，主线程的 num 为 1</p>
-<h3 id="b-静态方法"><a href="#b-静态方法" class="headerlink" title="b.静态方法"></a>b.静态方法</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">void</span>)detachNewThreadSelector:(SEL)selector toTarget:(<span class="type">id</span>)target withObject:(<span class="type">id</span>)argument;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector:<span class="keyword">@selector</span>(run:) toTarget:<span class="keyword">self</span> withObject:<span class="string">@&quot;mj&quot;</span>];</span><br></pre></td></tr></table></figure>
-
-<h3 id="c-隐式创建线程"><a href="#c-隐式创建线程" class="headerlink" title="c.隐式创建线程"></a>c.隐式创建线程</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelectorInBackground:<span class="keyword">@selector</span>(run:) withObject:<span class="string">@&quot;mj&quot;</span>];</span><br></pre></td></tr></table></figure>
-<p>会隐式地创建一条新线程，并且在这条线程上调用 self 的 run:方法，以@”mj”为方法参数</p>
-<h2 id="暂停当前线程"><a href="#暂停当前线程" class="headerlink" title="暂停当前线程"></a>暂停当前线程</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">NSThread</span> sleepForTimeInterval:<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDate</span> *date = [<span class="built_in">NSDate</span> dateWithTimeInterval:<span class="number">2</span> sinceDate:[<span class="built_in">NSDate</span> date]];  </span><br><span class="line">[<span class="built_in">NSThread</span> sleepUntilDate:date];</span><br></pre></td></tr></table></figure>
-
-<p>上面两种做法都是暂停当前线程 2 秒</p>
-<h2 id="线程的其他操作"><a href="#线程的其他操作" class="headerlink" title="线程的其他操作"></a>线程的其他操作</h2><h3 id="a-在指定线程上执行操作"><a href="#a-在指定线程上执行操作" class="headerlink" title="a.在指定线程上执行操作"></a>a.在指定线程上执行操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(run) onThread:thread withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>上面代码的意思是在 thread 这条线程上调用 self 的 run 方法</li>
-<li>最后的 YES 代表：上面的代码会阻塞，等 run 方法在 thread 线程执行完毕后，上面的代码才会通过</li>
-</ul>
-<h3 id="b-在主线程上执行操作"><a href="#b-在主线程上执行操作" class="headerlink" title="b.在主线程上执行操作"></a>b.在主线程上执行操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelectorOnMainThread:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">YES</span>];  </span><br></pre></td></tr></table></figure>
-
-<p>在主线程调用 self 的 run 方法</p>
-<h3 id="c-在当前线程执行操作"><a href="#c-在当前线程执行操作" class="headerlink" title="c.在当前线程执行操作"></a>c.在当前线程执行操作</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
-<p>在当前线程调用 self 的 run 方法</p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><ol>
-<li>优点： <code>NSThread</code> 比其他多线程方案较轻量级，更直观地控制线程对象</li>
-<li>缺点：需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁会有一定的系统开销</li>
-</ol>
-<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed 2 -->
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2939,7 +3180,7 @@ WHERE CONDITION;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2952,7 +3193,7 @@ WHERE CONDITION;
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3002,12 +3243,12 @@ WHERE CONDITION;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">108k</span>
+    <span title="站点总字数">111k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:33</span>
+    <span title="站点阅读时长">6:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
