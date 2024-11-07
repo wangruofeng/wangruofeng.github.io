@@ -203,6 +203,203 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-gong-han-mo-shi-xiang-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/13/2016-01-13-gong-han-mo-shi-xiang-jie/" class="post-title-link" itemprop="url">工厂模式详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 05:39:21" itemprop="dateCreated datePublished" datetime="2016-01-13T05:39:21+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/13/2016-01-13-gong-han-mo-shi-xiang-jie/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-gong-han-mo-shi-xiang-jie/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="3-种工厂模式"><a href="#3-种工厂模式" class="headerlink" title="3 种工厂模式"></a>3 种工厂模式</h2><p>概述：工厂模式是个系列，分为简单工厂模式， 工厂方法模式， 抽象工厂模式，这三种模式也非常常用。这些模式最最经典的就例子就是设计计算器。</p>
+<ul>
+<li>Factory Method (工厂方法模式)</li>
+<li>Abstract Factory (抽象工厂模式）</li>
+<li>Simple Factory（简单工厂模式）</li>
+</ul>
+<p> <code>参考 GoF《Design Patterns》一书</code> GOF 是这样描述工厂模式的：</p>
+<blockquote>
+<p>“Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.”</p>
+</blockquote>
+<blockquote>
+<p>在基类中定义创建对象的一个接口，让子类决定实例化哪个类。工厂方法让一个类的实例化延迟到子类中进行。</p>
+</blockquote>
+<h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p> 严格的说，简单工厂模式并不是 23 种常用的设计模式之一，它只算工厂模式的一个特殊实现。简单工厂模式在实际中的应用相对于其他 2 个工厂模式用的还是相对少得多，因为它只适应很多简单的情况，最最重要的是它违背了我们在概述中说的开放-封闭原则。因为每次你要新添加一个功能，都需要在生 switch-case 语句（或者 if-else 语句）中去修改代码，添加分支条件</p>
+<p> 简单工厂模式角色分配：</p>
+<ol>
+<li><p>Creator（产品创建者）<br>简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类可以被外界直接调用，创建所需的产品对象。</p>
+</li>
+<li><p>Product （ 产品抽象类）<br>简单工厂模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口。</p>
+</li>
+<li><p>Concrete Product （具体产品）<br>是简单工厂模式的创建目标，所有创建的对象都是充当这个角色的某个具体类的实例。</p>
+</li>
+</ol>
+<p>简单的工厂模式 UML 图<br><img src="/images/factory_pattern/uml_1.jpg" alt="简单工厂模式"></p>
+<p>考虑下面一个事例： 加入你是一个商人，你做的的是手机生意。现在你生产 android 手机和 iphone 等，考虑到以后你可能还会生产其他手机例如 ubuntu 手机。假定你选择了简单工厂模式来实现。那么显然，我们需要所有产品的抽象基类（Product） 即是 Phone 类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要具体的产品类 Concrete Product： AndroidPhone 和 iOSPhone</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;IosPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>最后我们需要 Creator</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PhoneFactory</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Phone* createPhone(string phoneName)  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span>(phoneName == <span class="string">&quot;AndroidPhone&quot;</span>)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPhone</span>();  </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(phoneName == <span class="string">&quot;IosPhone&quot;</span>)  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPhone</span>();  </span><br><span class="line">        &#125;  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>客户端这样实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span>  </span><br><span class="line">&#123;  </span><br><span class="line">    PhoneFactor factory;  </span><br><span class="line">    Phone* myAndroid = factory.createPhone(<span class="string">&quot;AndroidPhone&quot;</span>);  </span><br><span class="line">    Phone* myIPhone = factory.createPhone(<span class="string">&quot;iOSPhone&quot;</span>);  </span><br><span class="line">    <span class="keyword">if</span>(myAndroid)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myAndroid-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete myAndroid;  </span><br><span class="line">        myAndroid = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(myIPhone)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myIPhone-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete  myIPhone;  </span><br><span class="line">        myIPhone = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是简单工厂方法，把所有的创建交给 creator,creator 通过 switch-case(或者 if-else)语句来选择具体创建的对象。简单明了。但是就如上面所说，它最致命的问题的违背了开放-封闭原则。每次你要新添加一个功能，都要修改 factor 里面的 createPhone 代码。 但是工厂方法模式可以解决这个问题。</p>
+<h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><p>个人觉得工厂方法模式在工厂模式家族中是用的最多模式。上面说过了，如果简单工厂模式，要添加一个新功能，比如我现在要增加 WinPhone 的生产，那么我要修改 PhoneFactory 中的 createPhone 中的分支判断条件。这违背了开放-封闭原则，那为什么不能将创建方法放到子类中呢？<br>工厂方法的定义就是：定义一个用于创建对象的接口，让子类决定实例化哪一个类，工厂方法使一个类的实例化延迟到其子类。</p>
+<p> 工厂方法模式角色：</p>
+<ol>
+<li>抽象工厂(Creator)角色：是工厂方法模式的核心，与应用程序无关。任何在模式中创建的对象的工厂类必须实现这个接口。</li>
+<li>具体工厂(Concrete Creator)角色：这是实现抽象工厂接口的具体工厂类，包含与应用程序密切相关的逻辑，并且受到应用程序调用以创建产品对象。</li>
+<li>抽象产品(Product)角色：工厂方法模式所创建的对象的超类型，也就是产品对象的共同父类或共同拥有的接口。</li>
+<li>具体产品(Concrete Product)角色：这个角色实现了抽象产品角色所定义的接口。某具体产品有专门的具体工厂创建，它们之间往往一一对应</li>
+</ol>
+<p>工厂方法模式 UML 图：<br><img src="/images/factory_pattern/uml_2.jpg" alt="工厂方法模式"></p>
+<p>看定义看的晕乎乎的？那么我们来看代码：产品接口，以及其相应的子类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">iOSPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;iOSPhone is calling...&quot;</span>&lt;&lt;endl;&#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面这个和简单工厂方法还是一样的。接下来不一样的来了…</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PhoneFactory</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~PhoneFactory()&#123;&#125;;  </span><br><span class="line">    virtual Phone* createPhone() = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhoneFactory</span> : <span class="keyword">public</span> PhoneFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhoneFactory</span> : <span class="keyword">public</span> PhoneFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>工厂方法将 PhoneFactory 抽象成了基类，PhoneFactory 的 createPhone 不在像以前那样将所有的判断塞到里面。而是改由其子类来实现创建功能，这感觉就是权力下放。<br>客户端：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span>  </span><br><span class="line">&#123;  </span><br><span class="line">    PhoneFactory*  androidCreator = <span class="keyword">new</span> <span class="title class_">AndroidPhoneFactory</span>();  </span><br><span class="line">    PhoneFactory*  iosCreator = <span class="keyword">new</span> <span class="title class_">IosPhoneFactory</span>();  </span><br><span class="line">    Phone*  myAndroid = androidCreator-&gt;createPhone();  </span><br><span class="line">    Phone* myIPhone = iosCreator-&gt;createPhone();  </span><br><span class="line">    <span class="keyword">if</span>(myAndroid)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myAndroid-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete myAndroid;  </span><br><span class="line">        myAndroid = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(myIPhone)  </span><br><span class="line">    &#123;  </span><br><span class="line">        myIPhone-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">        delete  myIPhone;  </span><br><span class="line">        myIPhone = NULL;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    delete androidCreator;  </span><br><span class="line">    delete iosCreator;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在工厂方法模式中，核心工厂类不在负责产品的创建，而是将具体的创建工作交给子类去完成。也就是后所这个核心工厂仅仅只是提供创建的接口，具体实现方法交给继承它的子类去完成。当我们的系统需要增加其他新功能时，只需要继承 PhoneFactory 这个类，并且实现 createPhone 接口。 不需要对原工厂 PhoneFactory 进行任何修改，这样很好地符合了“开放-封闭“原则。</p>
+<p>虽然工厂方法模式满足了”开放-封闭”原则，但是这个模式也仍然有缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，是的系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</p>
+<h3 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h3><p>在工厂方法模式中，其实我们有一个潜在意识的意识。那就是我们生产的都是同一类产品，例如我们生产的都是手机！那么现在假如现在我们又要生产平板了了呢？那么就要用到抽象工厂模式。我抽象工厂模式也用的比较多在工厂模式家族中，仅次于工厂方法模式。在了解抽象工厂模式之前，还是老生常谈的理清下产品等级结构和产品簇的概念。下面的图还是老图。但是我讲讲我的理解：</p>
+<p><img src="/images/factory_pattern/uml_3.jpg" alt="抽象工厂模式"></p>
+<p>产品等级结构：产品的等级结构也就是产品的继承结构。我理解就是同一类产品，比如手机是一个系列，有 android 手机，ios 手机，win 手机，那么这个抽象类手机和他的子类就构成了一个产品等级结构。那其他的平板显然不是和手机一个系列的，一个平板，一个是手机，所以他们是不同的产品等级结构。</p>
+<p>产品族: 在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品。比如分为 android 产品，和 ios 产品。其中一个 ios 产品包含 ios 手机和 ios 平板。显然 ios 手机和 ios 平板不是同一个产品等级结构的，因为一个是手机，一个是平板。但他们是同一个产品簇—都是 ios 产品。<br>希望大家通过上面的例子大家明白了这两个概念。</p>
+<p> 抽象工厂模式的 UML 图：<br> <img src="/images/factory_pattern/uml_4.jpg" alt="抽象工厂模式"></p>
+<p>接着上面的话题，现在假如我要增加对平板的支持，那么我们肯定先添加两个产品等级结构，一个是手机，一个是平板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//产品等级结构--手机  </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Phone</span>   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Phone()&#123;&#125;;<span class="comment">//在删除的时候防止内存泄露  </span></span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPhone</span> : <span class="keyword">public</span> Phone   </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span>&#123; cout&lt;&lt;<span class="string">&quot;AndroidPhone is calling...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPhone</span> : <span class="keyword">public</span> Phone  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">call</span><span class="params">(string number)</span> &#123; cout&lt;&lt;<span class="string">&quot;IosPhone is calling...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//产品等级结构--平板  </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pad</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~Pad()&#123;&#125;;  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span> = <span class="number">0</span>;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidPad</span> : <span class="keyword">public</span> Pad  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span>&#123; cout&lt;&lt;<span class="string">&quot;AndriodPad is playing movie...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IosPad</span> : <span class="keyword">public</span> Pad  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual <span class="keyword">void</span> <span class="title function_">playMovie</span><span class="params">()</span>&#123; cout&lt;&lt;<span class="string">&quot;IosPad is playing movie...&quot;</span>&lt;&lt;endl; &#125;  </span><br><span class="line">&#125;;   </span><br></pre></td></tr></table></figure>
+<p>然后具体的工厂我们整个工厂是生产移动设备的所以我们取名为 MobileFactory,然后工厂可以生产平板和手机，故有了 createPhone 和 createPad 两个接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MobileFactory</span>  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    virtual ~MobileFactory()&#123;&#125;;  </span><br><span class="line">    virtual Phone* createPhone() = <span class="number">0</span>;  </span><br><span class="line">    virtual Pad* createPad() = <span class="number">0</span>;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接着是 android 产品簇 的工厂类，负责生产 android 的手机和平板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AndroidFactory</span> : <span class="keyword">public</span> MobileFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">    Pad* createPad()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AndroidPad</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>接着是 ios 的产品簇的工厂类，负责生产 ios 的手机和平板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">IosFactory</span> : <span class="keyword">public</span> MobileFactory  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Phone* createPhone()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPhone</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    Pad* createPad()  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">IosPad</span>();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>最后客户端这样实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span>  </span><br><span class="line">&#123;  </span><br><span class="line">    MobileFactory*  androidCreator = <span class="keyword">new</span> <span class="title class_">AndroidFactory</span>();  </span><br><span class="line">    MobileFactory*  iosCreator = <span class="keyword">new</span> <span class="title class_">IosFactory</span>();  </span><br><span class="line">    Phone*  myAndroidPhone = androidCreator-&gt;createPhone();  </span><br><span class="line">    Pad* myAndroidPad = androidCreator-&gt;createPad();  </span><br><span class="line">    Phone* myIosPhone = iosCreator-&gt;createPhone();  </span><br><span class="line">    Pad* myIosPad = iosCreator-&gt;createPad();  </span><br><span class="line"></span><br><span class="line">    myAndroidPhone-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">    myAndroidPad-&gt;playMovie();  </span><br><span class="line"></span><br><span class="line">    myIosPhone-&gt;call(<span class="string">&quot;123&quot;</span>);  </span><br><span class="line">    myIosPad-&gt;playMovie();  </span><br><span class="line">    <span class="comment">//这里没有做释放和判断，请自己判断和释放  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>抽象工厂模式适用于那些有多种产品的产品簇，并且每次使用其中的某一产品簇的产品。<br>缺点 ： 抽象工厂模式的添加新功能也非常麻烦，比工厂方法模式都还要复杂的多。<br>优点： 当一个产品族中的多个对象被设计成一起工作时，它能够保证客户端始终只使用同一个产品族中的对象</p>
+<h2 id="主要用途"><a href="#主要用途" class="headerlink" title="主要用途"></a>主要用途</h2><p>工厂方法要解决的问题是对象的创建时机，它提供了一种扩展的策略，很好地符合了开放封闭原则。工厂方法也叫做虚构造器（Virtual Constructor）。</p>
+<p><img src="http://cdn.cocimg.com/cms/uploads/allimg/130516/4196_130516112054_1.png" alt="工厂方法的类结构图"></p>
+<h2 id="什么时候使用工厂方法"><a href="#什么时候使用工厂方法" class="headerlink" title="什么时候使用工厂方法"></a>什么时候使用工厂方法</h2><p>当是如下情况是，可以使用工厂方法：一个类不知道它所必须创建的对象的类时，一个类希望有它的子类决定所创建的对象时。</p>
+<p>更多关于工厂方法的介绍，可以参考本文最后给出的参考内容。下面我们就来看看在 iOS 中工厂方法的一种实现方法。</p>
+<h2 id="iOS-中工厂方法的实现实例"><a href="#iOS-中工厂方法的实现实例" class="headerlink" title="iOS 中工厂方法的实现实例"></a>iOS 中工厂方法的实现实例</h2><p>如下有一个类图，该图描述了下面即将实现的工厂方法（利用工厂方法，创建出不同的形状）。其中 BVShapeFactory 为工厂方法的基类，BVShape 为形状的基类，BVClient 通过 BVShapeFactory，利用 BVShapeFactory 的子类（BVCircleShapeFactory 和 BVSquareShapeFactory）分别创建出 BVCircleShape 和 BVSquareShape。<br><img src="http://cdn.cocimg.com/cms/uploads/allimg/130516/4196_130516112123_1.png" alt="工厂方法"></p>
+<p>github 下载地址:<a target="_blank" rel="noopener" href="https://github.com/BeyondVincent/ios_patterns/tree/master/FactoryMethodPattern">https://github.com/BeyondVincent/ios_patterns/tree/master/FactoryMethodPattern</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://doc.okbase.net/luozhonglan/archive/103843.html">iOS 设计模式——工厂方法（简单工厂模式，工厂方法模式， 抽象工厂模式）</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cocoachina.com/ios/20130516/6219.html">iOS 设计模式(03):工厂方法</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cocoachina.com/ios/20141124/10296.html">Objective-C 类族和工厂模式</a></li>
+<li><a target="_blank" rel="noopener" href="http://crosbymichael.com/objective-c-design-patterns-factory.html">Objective C Design Patterns - Factory</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/General/Conceptual/CocoaEncyclopedia/ClassFactoryMethods/ClassFactoryMethods.html">Class Factory Methods</a>–Apple</li>
+<li><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/46988/ios-design-patterns">iOS Design Patterns</a>–raywenderlich</li>
+<li><a target="_blank" rel="noopener" href="http://www.knowstack.com/abstract-factory-design-pattern-objective-c/">Abstract Factory Design Pattern Objective C</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.binpress.com/tutorial/the-factory-design-pattern-explained-by-example/142">The factory design pattern explained by example</a>-php</li>
+<li><a target="_blank" rel="noopener" href="https://www.safaribooksonline.com/blog/2014/12/10/design-patterns-series-day-3-factory-singleton-patterns/">Design Patterns Series, Day 3: Factory and Singleton Patterns</a>–safaribooksonline</li>
+<li><a target="_blank" rel="noopener" href="http://www.bobmccune.com/2011/04/08/automagic-factories-in-objective-c/">Automagic Factories in Objective-C</a>–bobmccune</li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-duo-xian-cheng-zhi-nsthread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2025,211 +2222,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-attribute/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/13/2016-01-13-attribute/" class="post-title-link" itemprop="url">__attribute__</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-13 04:10:33" itemprop="dateCreated datePublished" datetime="2016-01-13T04:10:33+08:00">2016-01-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">系统原理</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-  
-    <a title="disqus" href="/2016/01/13/2016-01-13-attribute/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-attribute/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
- <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>译自 Written by <a target="_blank" rel="noopener" href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a> — January 14th, 2013</li>
-<li>原文链接：<a target="_blank" rel="noopener" href="http://nshipster.com/__attribute__/">http://nshipster.com/__attribute__/</a></li>
-<li>译者 <a target="_blank" rel="noopener" href="https://twitter.com/oneruofeng">@oneruofeng</a></li>
-</ul>
-<p>重复发布这个主题已经说明了同编译器保存健康关系的重要性,像任何草稿一样，作为一个实践者的效率取决于他们怎样对待他们的工具，你照顾好它们，它们反过来也会对你有好处。</p>
-<p> <code>__attribute__</code> 是一个编译器的指令在声明的时候指明了一些参数，这些参数允许更多的检查错误和高级的优化。</p>
-<p> 语法关键字是 <code>__attribute__</code> 紧跟 2 套圆括号（双圆括号让出现的宏更容易辨认，特别是在有多个属性的时候）。在括号内部是一个以逗号分隔的属性列表， <code>__attribute__</code> 指令被放在函数，变量和类型声明后面。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// Return the square of a number</span></span><br><span class="line"><span class="type">int</span> square(<span class="type">int</span> n) __attribute__((<span class="keyword">const</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Declare the availability of a particular API</span></span><br><span class="line"><span class="type">void</span> f(<span class="type">void</span>)</span><br><span class="line">  __attribute__((availability(macosx,introduced=<span class="number">10.4</span>,deprecated=<span class="number">10.6</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Send printf-like message to stderr and exit</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> die(<span class="keyword">const</span> <span class="type">char</span> *format, ...)</span><br><span class="line">  __attribute__((noreturn, format(printf, <span class="number">1</span>, <span class="number">2</span>)));</span><br></pre></td></tr></table></figure>
-
-<p>假如这个让你想起 ISO C 语言的 <code>#pragma</code> ,你就不会感到孤单了。</p>
-<p>实际上，当 <code>__attribute__</code> 被第一次引入到 <code>GCC</code> 编译器时，它面临一些阻力，有人建议使用专用的 <code>#pragma</code> 因为相同的目的。</p>
-<p>这里，然而，有 2 个非常好的理由为什么 <code>__attribute__</code> 被添加进来</p>
-<blockquote>
-<ul>
-<li>从一个宏中产生 <code>#pragma</code> 命令几乎是不能的（在 C99 _Pragma 预算符以前）。</li>
-<li>这里没人知道相同的 <code>#pragma</code> 在另一个编译器中可能的意思。</li>
-</ul>
-</blockquote>
-<p> 引用 <a target="_blank" rel="noopener" href="http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">GCC Documentation for Function Attributes</a></p>
-<blockquote>
-<ul>
-<li>这里有 2 个原因被应用到几乎所有的应用推荐使用 <code>#pragma</code> ,这犯了一个低级错误就是把 <code>#pragma</code> 使用到任何地方。</li>
-</ul>
-</blockquote>
-<p> 确实，假如你在苹果的框架中和牛逼工程师的开源项目中的头文件看一下现代的 <code>Objective-c</code> – <code>__attribute__</code> 被大量使用。（相反， <code>#pragma</code> 的主要声明名声来着这些天是装饰: <code>#pragma mark</code> ）</p>
-<p> 所以为了以后不费力，我们还是先看一下最重要的属性：</p>
-<hr>
-<h3 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h3><p><strong>format</strong></p>
-<blockquote>
-<p><code>format</code> 属性指定了一个函数像 <code>printf</code> , <code>scanf</code> , <code>strftime</code> 或者 <code>strfmo</code> 风格的参数，这个参数应该是可以进行类型检查的一个格式化字符串。</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">int</span></span><br><span class="line">my_printf (<span class="type">void</span> *my_object, <span class="keyword">const</span> <span class="type">char</span> *my_format, ...)</span><br><span class="line">  __attribute__((format(printf, <span class="number">2</span>, <span class="number">3</span>)));</span><br></pre></td></tr></table></figure>
-
-<p>Objective-C 程序员也可使用 <code>__NSString__</code> 来格式化来做到相同的格式化规则，像在 <code>NNString</code> 中通过 <code> +stringWithFormat:</code> 和 <code>NSLog()</code> 格式化字符串一样。</p>
-<p><strong>nonnull</strong></p>
-<blockquote>
-<p>这个 <code>nonnull</code> 属性指定了某些函数的参数必须是非空的指针。</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">void</span> *</span><br><span class="line">my_memcpy (<span class="type">void</span> *dest, <span class="keyword">const</span> <span class="type">void</span> *src, size_t len)</span><br><span class="line">  __attribute__((<span class="keyword">nonnull</span> (<span class="number">1</span>, <span class="number">2</span>)));</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>nonnull</code> 编码期望这个值遵守一个明确的约定中，这样能帮助捕获潜伏在任何代码调用的 NULL 指针 bugs，请记住：<br> <code>编译时的错误 &gt;&gt; 运行时的错误。</code> <strong>noreturn</strong></p>
-<blockquote>
-<p>一些标准库函数，例如 <code>abort</code> 和 <code>exit</code> ,是不能返回的。GCC 自动知道这些东西，这个 noreturn 属性用于指定任何其他函数永远不会返回的情况。</p>
-</blockquote>
-<p>例如，AFNetworking 使用 <code>noreturn</code> 属性在它的 <a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking/blob/1.1.0/AFNetworking/AFURLConnectionOperation.m#L157">网络请求线程进入点的方法</a> 里面,这个方法用在当大量产生专用的网络的线程里用来保证分离的线程持续执行在应用的整个生命周期中。</p>
-<p><strong>pure&#x2F;const</strong></p>
-<blockquote>
-<p><code>pure</code> 属性指定了一个函数除了返回值没有副作用，例如它的返回值仅仅依赖参数和&#x2F;或者全局变量。这样的函数可以用公共子表达式消除并且循环优化就像一个算数操作符那样。</p>
-</blockquote>
-<blockquote>
-<p><code>pure</code> 属性指定了一个函数不会检查任何值除了它们的参数，并且返回值没有副作用。注意到一个函数有一个指针参数并且需呀检查数据的指向不能声明成 <code>const</code> 。同样的，一个函数调用一个非 <code>nonst</code> 函数通常不能为 <code>const</code> ,一个 <code>const</code> 函数返回 <code>void</code> 并没有什么意义。</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> square(<span class="type">int</span> n) __attribute__((<span class="keyword">const</span>));</span><br></pre></td></tr></table></figure>
-
-<p> <code>pure</code> 和 <code>const</code> 是两个执行在一个函数式编程惯例中的参数为了允许有效性能优化。 <code>const</code> 可以被认为是严格形式的 <code>pure</code> 因为它不依赖全局变量或者指针。</p>
-<p>例如，因为一个函数声明为 <code>const</code> 的结果并不依赖任何东西除了传进来的参数。函数的结果能够缓存那个结果并且当函数被调用时返回，这样的函数叫做相同的组合参数（也就是说，我们知道一个数字的平方是一个常量，所以我们仅仅需要只计算它一次)。</p>
-<p><strong>unused</strong></p>
-<blockquote>
-<p>这个属性，附着在一个函数后面，意味着那个函数很可能不会被使用，GCC 不会对这个函数产生警告。</p>
-</blockquote>
-<p>用 <code>__unused</code> 关键词可以获得相同的效果，声明这个在方法实现中不会被使用的参数中。知道那以后一些上下文就可以允许编译器来做相应的优化。你很可能喜欢在 delegate 方法实现李勉使用 <code>__unused</code> ,因为协议频繁的提高更多的上下文比通常必要的情况，为了满足大量的潜在使用案例。</p>
-<h3 id="LLVM"><a href="#LLVM" class="headerlink" title="LLVM"></a>LLVM</h3><p>像 GCC 的很多特征一样，Clang 也支持 <code>__attribute__</code> ,添加到它自己的小范围的扩展。为了检查某个属性的可用性，你可以直接使用 <code>__has_attribute</code> 属性。</p>
-<p><strong>availability</strong></p>
-<blockquote>
-<p>Clang 引进了 availability 属性，这个可以被取代在声明描述的生命周期中声明相对于操作系统的版本。思考对一个简单函数 f：的函数声明</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> f(<span class="type">void</span>) __attribute__((availability(macosx,introduced=<span class="number">10.4</span>,deprecated=<span class="number">10.6</span>,obsoleted=<span class="number">10.7</span>)));</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><code>availability</code> 属性声明 f 在 OS X 老虎系统中被引入，在 OS X 雪豹系统中被弃用，在 OS X 山狮系统中被废弃。</p>
-</blockquote>
-<blockquote>
-<p>这个信息被 Clang 用来决定什么时候使用 f：函数式安全的，例如，假如 Clang 在 OS X 美洲豹系统上编译，调用 f()函数将成功。假如 Clang 在 OS X 雪豹系统中编译，函数调用将成功但是 Clang 会发出一个警告指明这个函数被弃用了。最后，假如 Clang 被引进编译 OS X 山狮系统的代码，函数调用将失败，因为 f()函数已经不再可用了。</p>
-</blockquote>
-<blockquote>
-<p><code>availability</code> 属性是一个逗号分隔的列表以平台名开始然后引入一些定语列举出生命周期内的重要里程碑事件附加额外的信息（以任何顺序）。</p>
-</blockquote>
-<ul>
-<li>introduced：声明被引入的第一个版本</li>
-<li>deprecated：声明被弃用的第一个版本，这意味着用户应该把这个 API 移走</li>
-<li>obsoleted： 声明被废弃的第一个版本，这意味着它将被完全移除并且不能再使用</li>
-<li>unavailable：声明在这个平台上将永远不可用</li>
-<li>message：额外的消息将被 Clang 提供当忽略一个警告或者一个错误在使用一个被弃用或者被废弃的声明。对引导用户替换 APIs 很有用。</li>
-</ul>
-<blockquote>
-<p>在声明时可以使用多个 availability 属性，每个对应不同的平台，仅当 availability 属性对应相应的目标平台被使用的时候，任何其他才将被忽略。假如没有 availability 属性指定可用性对现在的目标平台，availability 属性将被忽略。</p>
-</blockquote>
-<h3 id="支持的平台"><a href="#支持的平台" class="headerlink" title="支持的平台"></a>支持的平台</h3><ul>
-<li>ios：苹果的 iOS 操作系统。最小的部署目标被指定通过 <code>-mios-version-min=*version*</code> 或者 <code>-miphoneos-version-min=*version*</code> 命令行参数。</li>
-<li>macosx：苹果的 OS X 操作系统，最小的部署目标被指定通过 <code>-mmacosx-version-min=*version*</code> 命令行参数</li>
-</ul>
-<p><strong>overloadable</strong></p>
-<blockquote>
-<p>Clang 提供对 C++函数在 C 中重载的支持。在 C 中函数重载被引进使用 <code>overloadable</code> 属性。例如，一个可能提供一个重载版本的 <code>tgsin</code> 函数来精确执行相关的标准函数计算 <code>float</code> , <code>double</code> , <code>long double</code> 的正弦值：</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="type">float</span> __attribute__((overloadable)) tgsin(<span class="type">float</span> x) &#123; <span class="keyword">return</span> sinf(x); &#125;</span><br><span class="line"><span class="type">double</span> __attribute__((overloadable)) tgsin(<span class="type">double</span> x) &#123; <span class="keyword">return</span> sin(x); &#125;</span><br><span class="line"><span class="type">long</span> <span class="type">double</span> __attribute__((overloadable)) tgsin(<span class="type">long</span> <span class="type">double</span> x) &#123; <span class="keyword">return</span> sinl(x); &#125;</span><br></pre></td></tr></table></figure>
-<p>请注意 <code>overloadable</code> 只对函数起作用。你可以重载方法声明在某种范围内通过使用通用的返回值和参数类型，想 <code>id</code> 或者 <code>void *</code> .</p>
-<hr>
-<p>上下文是国王当它遇到编译器优化时。通过提供限制在怎样解析你的代码，增加你参数尽可能高效代码的可能性。遇到编译器把你打断，这将是一项奖励。</p>
-<p>还有 <code>__attribute__</code> 并不仅仅对编译器有用：下一个人看代码也将感谢这些额外的上下文。所以多走几英尺远将对你的合作中和接替者或者从现在算 2 年以后的你(那个时候你已经忘记了所以的事情关于这份代码)自己有用</p>
-<p>你付出了多少爱,最终你会得到多少爱。</p>
-<p>译者注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
-<!-- processed 2 -->
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2299,7 +2291,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2312,7 +2304,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2362,12 +2354,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">112k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:43</span>
+    <span title="站点阅读时长">6:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

@@ -203,6 +203,262 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/11/17/2016-11-17-ioswu-feng-qiao-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/11/17/2016-11-17-ioswu-feng-qiao-jie/" class="post-title-link" itemprop="url">iOS 无缝桥接【翻译 Apple 官方文档】</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-11-17 23:52:46" itemprop="dateCreated datePublished" datetime="2016-11-17T23:52:46+08:00">2016-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">系统原理</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/11/17/2016-11-17-ioswu-feng-qiao-jie/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/17/2016-11-17-ioswu-feng-qiao-jie/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Toll-Free-Bridged-Types"><a href="#Toll-Free-Bridged-Types" class="headerlink" title="Toll-Free Bridged Types"></a>Toll-Free Bridged Types</h3><p>在 <code>Core Foundation</code> 框架和 <code>Foundation</code> 框架中有很多数据类型可以交替转换。能够被交替转换的数据类型也被叫做 <code>Toll-Free Bridged</code> 数据类型。这意味着你能像参数一样使用相同的数据结构对一个 <code>Core Foundation</code> 的函数进行调用，或者像 <code>Objective-C</code> 的消息接受模式一样执行。例如， <code>NSLocale</code> （查看<a target="_blank" rel="noopener" href="https://developer.apple.com/reference/foundation/nslocale">NSLocale Class Reference</a>）可以与在 <code>Core Foundation</code> 中对应的 <code>CFLocale</code> （查看<a target="_blank" rel="noopener" href="https://developer.apple.com/reference/corefoundation/1666963-cflocale">CFLocale Reference</a>）之间互相转换。</p>
+<p>不是所有数据类型都是 <code>Toll-Free Bridged</code> ,即使它们的名字可能让你认为它们是。例如， <code>NSRunLoop</code> 是没有对应的桥接类型 <code>CFRunLoop</code> , <code>NSBundle</code> 也没有对应的桥接类型 <code>CFBundle</code> ， <code>NSDateFormatter</code> 同样没有对应的桥接类型 <code>CFDateFormatter</code> 。</p>
+<p>文章末尾表 1 提供了一份支持无缝桥接的数据类型的列表。</p>
+<blockquote>
+<p><strong>注意</strong>：假如你使用一个自定义回调在一个 <code>Core Foundation</code> 框架的集合中，包含一个 <code>NULL</code> 回调，当使用 <code>Objective-C</code> 的方式接入它，它的内存管理方式是未定义的。</p>
+</blockquote>
+<h3 id="类型转换和对象语义周期声明"><a href="#类型转换和对象语义周期声明" class="headerlink" title="类型转换和对象语义周期声明"></a>类型转换和对象语义周期声明</h3><p>通过无缝桥接技术，在一个你以 <code>NSLocale *</code> 做为一个参数的方法的例子中，你能传递一个 <code>CFLocaleRef</code> 结构体，并且当你看到有一个 <code>CFLocaleRef</code> 参数的函数中，你能够传递一个 <code>NSLocale</code> 实例对象。当然你也必须提供给编译器相关的一些其它信息:第一，你必须转换一种类型成其它；第二，你可能必须指明对象的语义生命周期。</p>
+<p>编译器理解 <code>Objective-C</code> 的方法并且返回 <code>Core Foundation</code> 数据类型，下面是 <code>Cocoa</code> 命名转换的历史（查看<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i">Advanced Memory Management Programming Guide</a>）。例如，编译器知道，在 <code>iOS</code> 中，通过 <code>UIColor</code> 的 <code>CGColor</code> 方法返回的 <code>CGColor</code> 并不应该被持有。你必须使用恰当的类型转换，像下面例子演示的那样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *colors = [<span class="built_in">NSMutableArray</span> arrayWithObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> darkGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">[colors addObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> lightGrayColor] <span class="built_in">CGColor</span>]];</span><br></pre></td></tr></table></figure>
+
+<p>编译器并不会自动管理 <code>Core Foundation</code> 对象的生命周期。你必须告诉编译器对象的语义所属关系通过使用一种转换（定义在<strong>objc&#x2F;runtime.h</strong>）或者 <code>Core Foundation</code> 风格的宏（定义在 <strong>NSObject.h</strong>）：</p>
+<ul>
+<li><code>__bridge</code> 关键字表示转换指针在 <code>Objective-C</code> 和 <code>Core Foundation</code> 之间而不会转换所属关系。</li>
+<li><code>__bridge_retained</code> 关键字或者 <code>CFBridgingRetain</code> 表示转换指针在 <code>Objective-C</code> 和 <code>Core Foundation</code> 之间并且把所属权交给你。你负责调用 <code>CFRelease</code> 或者相关的函数来交出对象的所属权。</li>
+<li><code>__bridge_transfer</code> 关键字或者 <code>CFBridgingRelease</code> 表示转换一个非 <code>Objective-C</code> 的指针到 <code>Objective-C</code> 并且转换所属权给<strong>ARC</strong>。<strong>ARC</strong>负责交出对象的所属权。</li>
+</ul>
+<p>下面是一些例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLocale</span> *gbNSLocale = [[<span class="built_in">NSLocale</span> alloc] initWithLocaleIdentifier:<span class="string">@&quot;en_GB&quot;</span>];</span><br><span class="line"><span class="built_in">CFLocaleRef</span> gbCFLocale = (__bridge <span class="built_in">CFLocaleRef</span>)gbNSLocale;</span><br><span class="line"><span class="built_in">CFStringRef</span> cfIdentifier = <span class="built_in">CFLocaleGetIdentifier</span>(gbCFLocale);</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;cfIdentifier: %@&quot;</span>, (__bridge <span class="built_in">NSString</span> *)cfIdentifier);</span><br><span class="line"><span class="comment">// Logs: &quot;cfIdentifier: en_GB&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">CFLocaleRef</span> myCFLocale = <span class="built_in">CFLocaleCopyCurrent</span>();</span><br><span class="line"><span class="built_in">NSLocale</span> *myNSLocale = (<span class="built_in">NSLocale</span> *)<span class="built_in">CFBridgingRelease</span>(myCFLocale);</span><br><span class="line"><span class="built_in">NSString</span> *nsIdentifier = [myNSLocale localeIdentifier];</span><br><span class="line"><span class="built_in">CFShow</span>((<span class="built_in">CFStringRef</span>)[<span class="string">@&quot;nsIdentifier: &quot;</span> stringByAppendingString:nsIdentifier]);</span><br><span class="line"><span class="comment">// Logs identifier for current locale</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的例子显示了使用口述的 <code>Core Foundation</code> 内存管理规则来管理 <code>Core Foundation</code> 内存：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceGray</span>();</span><br><span class="line">    <span class="built_in">CGFloat</span> locations[<span class="number">2</span>] = &#123;<span class="number">0.0</span>, <span class="number">1.0</span>&#125;;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *colors = [<span class="built_in">NSMutableArray</span> arrayWithObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> darkGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">    [colors addObject:(<span class="type">id</span>)[[<span class="built_in">UIColor</span> lightGrayColor] <span class="built_in">CGColor</span>]];</span><br><span class="line">    <span class="built_in">CGGradientRef</span> gradient = <span class="built_in">CGGradientCreateWithColors</span>(colorSpace, (__bridge <span class="built_in">CFArrayRef</span>)colors, locations);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);  <span class="comment">// Release owned Core Foundation object.</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">CGPoint</span> startPoint = <span class="built_in">CGPointMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">    <span class="built_in">CGPoint</span> endPoint = <span class="built_in">CGPointMake</span>(<span class="built_in">CGRectGetMaxX</span>(<span class="keyword">self</span>.bounds), <span class="built_in">CGRectGetMaxY</span>(<span class="keyword">self</span>.bounds));</span><br><span class="line">    <span class="built_in">CGContextDrawLinearGradient</span>(ctx, gradient, startPoint, endPoint,</span><br><span class="line">                                kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);</span><br><span class="line">    <span class="built_in">CGGradientRelease</span>(gradient);  <span class="comment">// Release owned Core Foundation object.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="无缝桥接类型"><a href="#无缝桥接类型" class="headerlink" title="无缝桥接类型"></a>无缝桥接类型</h3><p>下面的表格提供了一个在 <code>Core Foundation</code> 和 <code>Foundation</code> 中可以交替转换数据类型列表。对每一对桥接类型，表也列举出了这些无缝桥接类型在 <code>OS X</code> 中的可用版本。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Core Foundation 类型</th>
+<th align="left">Foundation 类型</th>
+<th align="center">可用性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CFArrayRef</td>
+<td align="left">NSArray</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFAttributedStringRef</td>
+<td align="left">NSAttributedString</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFCalendarRef</td>
+<td align="left">NSCalendar</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFCharacterSetRef</td>
+<td align="left">NSCharacterSet</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFDataRef</td>
+<td align="left">NSData</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFDateRef</td>
+<td align="left">NSDate</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFDictionaryRef</td>
+<td align="left">NSDictionary</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFErrorRef</td>
+<td align="left">NSError</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFLocaleRef</td>
+<td align="left">NSLocale</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFMutableArrayRef</td>
+<td align="left">NSMutableArray</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFMutableAttributedStringRef</td>
+<td align="left">NSMutableAttributedString</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFMutableCharacterSetRef</td>
+<td align="left">NSMutableCharacterSet</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFMutableDataRef</td>
+<td align="left">NSMutableData</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFMutableDictionaryRef</td>
+<td align="left">NSMutableDict</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFMutableSetRef</td>
+<td align="left">NSMutableSet</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFMutableStringRef</td>
+<td align="left">NSMutableString</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFNumberRef</td>
+<td align="left">NSNumber</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFReadStreamRef</td>
+<td align="left">NSInputStream</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFRunLoopTimerRef</td>
+<td align="left">NSTimer</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFSetRef</td>
+<td align="left">NSSet</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFStringRef</td>
+<td align="left">NSString</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFTimeZoneRef</td>
+<td align="left">NSTimeZone</td>
+<td align="center">OS X v10.4</td>
+</tr>
+<tr>
+<td align="left">CFURLRef</td>
+<td align="left">NSURL</td>
+<td align="center">OS X v10.0</td>
+</tr>
+<tr>
+<td align="left">CFWriteStreamRef</td>
+<td align="left">NSOutputStream</td>
+<td align="center">OS X v10.4</td>
+</tr>
+</tbody></table>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html">Toll-Free Bridged Types</a></li>
+</ul>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/11/17/2016-11-17-blockbei-wang-lu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2425,190 +2681,6 @@ brew install chisel
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" class="post-title-link" itemprop="url">Unix Shell 常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-03-27 18:29:44" itemprop="dateCreated datePublished" datetime="2016-03-27T18:29:44+08:00">2016-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-  
-    <a title="disqus" href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
- <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>335</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>输出文件内容到基本输出</p>
-<pre><code>cat filename
-</code></pre>
-<p>改变文件的权限</p>
-<pre><code>chmod 或
-change mode
-</code></pre>
-<p>当前的时间和日期</p>
-<pre><code>date
-</code></pre>
-<p>拷贝</p>
-<pre><code>copy
-</code></pre>
-<p>显示当前目录下所有文件以及文件夹</p>
-<pre><code>ls
-</code></pre>
-<p>显示 dir 文件夹下所有文件以及文件夹</p>
-<pre><code>ls dir
-</code></pre>
-<p>查看磁盘空间状况</p>
-<pre><code>du
-</code></pre>
-<p>查看当前进程状况</p>
-<pre><code>ps
-</code></pre>
-<p>你的用户名和终端类型</p>
-<pre><code>who
-</code></pre>
-<p>创建目录</p>
-<pre><code>mkdir dir
-</code></pre>
-<p>删除目录</p>
-<pre><code>rmdir dir
-</code></pre>
-<p>进入目录</p>
-<pre><code>cd dir
-</code></pre>
-<p>删除文件</p>
-<pre><code>rm file
-</code></pre>
-<p>显示文件</p>
-<pre><code>more file
-</code></pre>
-<p>显示指定文本</p>
-<pre><code>echo
-</code></pre>
-<p>改文件名、移动文件</p>
-<pre><code>mv source target
-</code></pre>
-<p>显示目录路径命令</p>
-<pre><code>pwd
-</code></pre>
-<p>清屏</p>
-<pre><code>clear
-</code></pre>
-<p>退出输入命令</p>
-<pre><code>Ctrl + c 
-</code></pre>
-<p>改变文件或目录之最后修改时间</p>
-<pre><code>touch name
-</code></pre>
-<p>删除目录</p>
-<pre><code> rmdir directory-name 或
- rm -r directory-name
-</code></pre>
-<blockquote>
-<ul>
-<li>rmdir dir1 删除目录 dir1，但 dir1 下必须没有文件存在，否则无法删除。</li>
-<li>rm -r dir1 删除目录 dir1，及其下所有文件及子目录。</li>
-</ul>
-</blockquote>
-<p>删除文件</p>
-<pre><code>rm filename (filename 可为文件名，或文件名缩写符号。)
-</code></pre>
-<blockquote>
-<ul>
-<li>rm file1 删除文件名为 file1 之文件。</li>
-<li>rm file? 删除文件名中有五个字符，前四个字符为 file 之所有文件。</li>
-<li>rm f* 删除文件名中，以 f 为字首之所有文件。</li>
-<li>rm -rf file 删除名为 file 的文件夹及其里面的内容</li>
-</ul>
-</blockquote>
-<!-- processed 2 -->
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2678,7 +2750,7 @@ change mode
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2691,7 +2763,7 @@ change mode
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2741,12 +2813,12 @@ change mode
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">112k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:43</span>
+    <span title="站点阅读时长">6:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

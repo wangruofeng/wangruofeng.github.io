@@ -9,8 +9,15 @@
 
 
     <url>
+        <loc>https://blog.wangruofeng007.com/categories/AI/</loc>
+        <lastmod>2024-11-07T03:54:05.230Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.wangruofeng007.com/categories/%25E8%25B5%2584%25E6%2596%2599%25E6%2594%25B6%25E9%259B%2586/</loc>
-        <lastmod>2024-11-06T15:21:35.693Z</lastmod>
+        <lastmod>2024-11-06T15:22:43.859Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -95,13 +102,6 @@
     <url>
         <loc>https://blog.wangruofeng007.com/categories/%25E6%2595%2588%25E7%258E%2587/</loc>
         <lastmod>2024-11-03T05:32:35.305Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.wangruofeng007.com/categories/AI/</loc>
-        <lastmod>2024-11-03T05:32:35.304Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

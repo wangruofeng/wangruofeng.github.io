@@ -203,6 +203,190 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" class="post-title-link" itemprop="url">Unix Shell 常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-03-27 18:29:44" itemprop="dateCreated datePublished" datetime="2016-03-27T18:29:44+08:00">2016-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CLI/" itemprop="url" rel="index"><span itemprop="name">CLI</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/27/2016-03-27-unixshellchang-yong-ming-ling/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>335</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>输出文件内容到基本输出</p>
+<pre><code>cat filename
+</code></pre>
+<p>改变文件的权限</p>
+<pre><code>chmod 或
+change mode
+</code></pre>
+<p>当前的时间和日期</p>
+<pre><code>date
+</code></pre>
+<p>拷贝</p>
+<pre><code>copy
+</code></pre>
+<p>显示当前目录下所有文件以及文件夹</p>
+<pre><code>ls
+</code></pre>
+<p>显示 dir 文件夹下所有文件以及文件夹</p>
+<pre><code>ls dir
+</code></pre>
+<p>查看磁盘空间状况</p>
+<pre><code>du
+</code></pre>
+<p>查看当前进程状况</p>
+<pre><code>ps
+</code></pre>
+<p>你的用户名和终端类型</p>
+<pre><code>who
+</code></pre>
+<p>创建目录</p>
+<pre><code>mkdir dir
+</code></pre>
+<p>删除目录</p>
+<pre><code>rmdir dir
+</code></pre>
+<p>进入目录</p>
+<pre><code>cd dir
+</code></pre>
+<p>删除文件</p>
+<pre><code>rm file
+</code></pre>
+<p>显示文件</p>
+<pre><code>more file
+</code></pre>
+<p>显示指定文本</p>
+<pre><code>echo
+</code></pre>
+<p>改文件名、移动文件</p>
+<pre><code>mv source target
+</code></pre>
+<p>显示目录路径命令</p>
+<pre><code>pwd
+</code></pre>
+<p>清屏</p>
+<pre><code>clear
+</code></pre>
+<p>退出输入命令</p>
+<pre><code>Ctrl + c 
+</code></pre>
+<p>改变文件或目录之最后修改时间</p>
+<pre><code>touch name
+</code></pre>
+<p>删除目录</p>
+<pre><code> rmdir directory-name 或
+ rm -r directory-name
+</code></pre>
+<blockquote>
+<ul>
+<li>rmdir dir1 删除目录 dir1，但 dir1 下必须没有文件存在，否则无法删除。</li>
+<li>rm -r dir1 删除目录 dir1，及其下所有文件及子目录。</li>
+</ul>
+</blockquote>
+<p>删除文件</p>
+<pre><code>rm filename (filename 可为文件名，或文件名缩写符号。)
+</code></pre>
+<blockquote>
+<ul>
+<li>rm file1 删除文件名为 file1 之文件。</li>
+<li>rm file? 删除文件名中有五个字符，前四个字符为 file 之所有文件。</li>
+<li>rm f* 删除文件名中，以 f 为字首之所有文件。</li>
+<li>rm -rf file 删除名为 file 的文件夹及其里面的内容</li>
+</ul>
+</blockquote>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/03/27/2016-03-27-gitchang-yong-ming-ling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2022,334 +2206,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/14/2016-01-14-sqlite-jiao-cheng-qi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/14/2016-01-14-sqlite-jiao-cheng-qi/" class="post-title-link" itemprop="url">SQLite 教程(七)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-14 01:46:57" itemprop="dateCreated datePublished" datetime="2016-01-14T01:46:57+08:00">2016-01-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-  
-    <a title="disqus" href="/2016/01/14/2016-01-14-sqlite-jiao-cheng-qi/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/14/2016-01-14-sqlite-jiao-cheng-qi/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
- <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="SQLite-Order-By"><a href="#SQLite-Order-By" class="headerlink" title="SQLite Order By"></a>SQLite Order By</h4><p>SQLite 的 <strong>ORDER BY</strong> 子句是用来基于一个或多个列按升序或降序顺序排列数据。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>ORDER BY 子句的基本语法如下：</p>
-<pre><code>SELECT column-list
-FROM table_name
-[WHERE condition]
-[ORDER BY column1, column2, .. columnN] [ASC | DESC];
-</code></pre>
-<p>您可以在 ORDER BY 子句中使用多个列。确保您使用的排序列在列清单中。</p>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-</code></pre>
-<p>下面是一个实例，它会将结果按 SALARY 升序排序：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY ORDER BY SALARY ASC;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>    ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-7 James 24 Houston 10000.0
-2 Allen 25 Texas 15000.0
-1 Paul 32 California 20000.0
-3 Teddy 23 Norway 20000.0
-6 Kim 22 South-Hall 45000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-</code></pre>
-<p>下面是一个实例，它会将结果按 NAME 和 SALARY 升序排序：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY ORDER BY NAME, SALARY ASC;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-2 Allen 25 Texas 15000.0
-5 David 27 Texas 85000.0
-7 James 24 Houston 10000.0
-6 Kim 22 South-Hall 45000.0
-4 Mark 25 Rich-Mond 65000.0
-1 Paul 32 California 20000.0
-3 Teddy 23 Norway 20000.0
-</code></pre>
-<p>下面是一个实例，它会将结果按 NAME 降序排序：</p>
-<pre><code>sqlite&gt; SELECT * FROM COMPANY ORDER BY NAME DESC;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-3 Teddy 23 Norway 20000.0
-1 Paul 32 California 20000.0
-4 Mark 25 Rich-Mond 65000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-5 David 27 Texas 85000.0
-2 Allen 25 Texas 15000.0
-</code></pre>
-<h4 id="SQLite-Group-By"><a href="#SQLite-Group-By" class="headerlink" title="SQLite Group By"></a>SQLite Group By</h4><p>SQLite 的 <strong>GROUP BY</strong> 子句用于与 SELECT 语句一起使用，来对相同的数据进行分组。<br>在 SELECT 语句中，GROUP BY 子句放在 WHERE 子句之后，放在 ORDER BY 子句之前。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>下面给出了 GROUP BY 子句的基本语法。GROUP BY 子句必须放在 WHERE 子句中的条件之后，必须放在 ORDER BY 子句之前。</p>
-<pre><code>SELECT column-list
-FROM table_name
-WHERE [ conditions ]
-GROUP BY column1, column2....columnN
-ORDER BY column1, column2....columnN
-</code></pre>
-<p>您可以在 GROUP BY 子句中使用多个列。确保您使用的分组列在列清单中。</p>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-</code></pre>
-<p>如果您想了解每个客户的工资总额，则可使用 GROUP BY 查询，如下所示：</p>
-<pre><code>sqlite&gt; SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY NAME;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>NAME SUM(SALARY)
----------- -----------
-Allen 15000
-David 85000
-James 20000
-Kim 45000
-Mark 65000
-Paul 40000
-Teddy 20000
-</code></pre>
-<p>让我们把 ORDER BY 子句与 GROUP BY 子句一起使用，如下所示：</p>
-<pre><code>sqlite&gt; SELECT NAME, SUM(SALARY)
- FROM COMPANY GROUP BY NAME ORDER BY NAME DESC;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>NAME SUM(SALARY)
----------- -----------
-Teddy 20000
-Paul 40000
-Mark 65000
-Kim 45000
-James 20000
-David 85000
-Allen 15000
-</code></pre>
-<h4 id="SQLite-Having-子句"><a href="#SQLite-Having-子句" class="headerlink" title="SQLite Having 子句"></a>SQLite Having 子句</h4><p>HAVING 子句允许指定条件来过滤将出现在最终结果中的分组结果。</p>
-<p>WHERE 子句在所选列上设置条件，而 HAVING 子句则在由 GROUP BY 子句创建的分组上设置条件。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>下面是 HAVING 子句在 SELECT 查询中的位置：</p>
-<pre><code>SELECT
-FROM
-WHERE
-GROUP BY
-HAVING
-ORDER BY
-</code></pre>
-<p>在一个查询中，HAVING 子句必须放在 GROUP BY 子句之后，必须放在 ORDER BY 子句之前。下面是包含 HAVING 子句的 SELECT 语句的语法：</p>
-<pre><code>SELECT column1, column2
-FROM table1, table2
-WHERE [ conditions ]
-GROUP BY column1, column2
-HAVING [ conditions ]
-ORDER BY column1, column2
-</code></pre>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-8 Paul 24 Houston 20000.0
-9 James 44 Norway 5000.0
-10 James 45 Texas 5000.0
-</code></pre>
-<p>下面是一个实例，它将显示名称计数小于 2 的所有记录：</p>
-<pre><code>sqlite &gt; SELECT * FROM COMPANY GROUP BY name HAVING count(name) &lt; 2;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-2 Allen 25 Texas 15000
-5 David 27 Texas 85000
-6 Kim 22 South-Hall 45000
-4 Mark 25 Rich-Mond 65000
-3 Teddy 23 Norway 20000
-</code></pre>
-<p>下面是一个实例，它将显示名称计数大于 2 的所有记录,注意其实这里只返回最后一条记录：</p>
-<pre><code>sqlite &gt; SELECT * FROM COMPANY GROUP BY name HAVING count(name) &gt; 2;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-10 James 45 Texas 5000
-</code></pre>
-<h4 id="SQLite-Distinct-关键字"><a href="#SQLite-Distinct-关键字" class="headerlink" title="SQLite Distinct 关键字"></a>SQLite Distinct 关键字</h4><p>SQLite 的 <strong>DISTINCT</strong> 关键字与 SELECT 语句一起使用，来消除所有重复的记录，并只获取唯一一次记录。<br>有可能出现一种情况，在一个表中有多个重复的记录。当提取这样的记录时，DISTINCT 关键字就显得特别有意义，它只获取唯一一次记录，而不是获取重复记录。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>用于消除重复记录的 DISTINCT 关键字的基本语法如下：</p>
-<pre><code>SELECT DISTINCT column1, column2,.....columnN
-FROM table_name
-WHERE [condition]
-</code></pre>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-8 Paul 24 Houston 20000.0
-9 James 44 Norway 5000.0
-10 James 45 Texas 5000.0
-</code></pre>
-<p>首先，让我们来看看下面的 SELECT 查询，它将返回重复的工资记录：</p>
-<pre><code>sqlite&gt; SELECT name FROM COMPANY;
-</code></pre>
-<p>这将产生以下结果：</p>
-<pre><code>NAME
-----------
-Paul
-Allen
-Teddy
-Mark
-David
-Kim
-James
-Paul
-James
-James
-</code></pre>
-<p>现在，让我们在上述的 SELECT 查询中使用 DISTINCT 关键字：</p>
-<pre><code>sqlite&gt; SELECT DISTINCT name FROM COMPANY;
-</code></pre>
-<p>这将产生以下结果，没有任何重复的条目：</p>
-<pre><code>NAME
-----------
-Paul
-Allen
-Teddy
-Mark
-David
-Kim
-James
-</code></pre>
-<p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed 2 -->
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2419,7 +2275,7 @@ James
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2432,7 +2288,7 @@ James
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2482,12 +2338,12 @@ James
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">112k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:43</span>
+    <span title="站点阅读时长">6:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

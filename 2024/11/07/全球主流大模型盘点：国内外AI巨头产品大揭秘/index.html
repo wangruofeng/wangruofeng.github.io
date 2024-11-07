@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wangruofeng007.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+        <meta name="description" content="简介收集国内外的主要的大模型公司的产品，持续更新…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全球主流大模型盘点：国内外AI巨头产品大揭秘">
+<meta property="og:url" content="https://blog.wangruofeng007.com/2024/11/07/%E5%85%A8%E7%90%83%E4%B8%BB%E6%B5%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%98%E7%82%B9%EF%BC%9A%E5%9B%BD%E5%86%85%E5%A4%96AI%E5%B7%A8%E5%A4%B4%E4%BA%A7%E5%93%81%E5%A4%A7%E6%8F%AD%E7%A7%98/index.html">
+<meta property="og:site_name" content="王若风的技术博客">
+<meta property="og:description" content="简介收集国内外的主要的大模型公司的产品，持续更新…">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-07T03:04:47.000Z">
+<meta property="article:modified_time" content="2024-11-07T03:54:05.230Z">
+<meta property="article:author" content="王若风">
+<meta property="article:tag" content="大模型">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.wangruofeng007.com/2024/11/07/%E5%85%A8%E7%90%83%E4%B8%BB%E6%B5%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%98%E7%82%B9%EF%BC%9A%E5%9B%BD%E5%86%85%E5%A4%96AI%E5%B7%A8%E5%A4%B4%E4%BA%A7%E5%93%81%E5%A4%A7%E6%8F%AD%E7%A7%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+        <title>
+            全球主流大模型盘点：国内外AI巨头产品大揭秘 | 王若风的技术博客
+        </title>
+        
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7M5CYEY807"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7M5CYEY807');
+      }
+    </script>
+
+
+
+
+
+
+        <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+    <link rel="alternate" href="/atom.xml" title="王若风的技术博客" type="application/atom+xml">
+</head>
+
+    <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+        <div class="container use-motion">
+            <div class="headband"></div>
+
+            <header
+                class="header"
+                itemscope="itemscope"
+                itemtype="http://schema.org/WPHeader">
+                <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">王若风的技术博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界尽头の冷酷仙境</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+            </header>
+
+            
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+            <main class="main">
+                <div class="main-inner">
+                    <div class="content-wrap">
+                        
+
+                        <div class="content post posts-expand">
+                            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2024/11/07/%E5%85%A8%E7%90%83%E4%B8%BB%E6%B5%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%98%E7%82%B9%EF%BC%9A%E5%9B%BD%E5%86%85%E5%A4%96AI%E5%B7%A8%E5%A4%B4%E4%BA%A7%E5%93%81%E5%A4%A7%E6%8F%AD%E7%A7%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          全球主流大模型盘点：国内外AI巨头产品大揭秘
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-11-07 11:04:47 / 修改时间：11:54:05" itemprop="dateCreated datePublished" datetime="2024-11-07T11:04:47+08:00">2024-11-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2024/11/07/%E5%85%A8%E7%90%83%E4%B8%BB%E6%B5%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%98%E7%82%B9%EF%BC%9A%E5%9B%BD%E5%86%85%E5%A4%96AI%E5%B7%A8%E5%A4%B4%E4%BA%A7%E5%93%81%E5%A4%A7%E6%8F%AD%E7%A7%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/11/07/全球主流大模型盘点：国内外AI巨头产品大揭秘/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>收集国内外的主要的大模型公司的产品，持续更新…</p>
+<span id="more"></span>
+
+
+
+<h1 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h1><table>
+<thead>
+<tr>
+<th><strong>序号</strong></th>
+<th><strong>公司</strong></th>
+<th><strong>产品</strong></th>
+<th><strong>主页链接</strong></th>
+<th><strong>产品特点</strong></th>
+<th><strong>应用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>OpenAI</strong></td>
+<td>GPT系列 (GPT-4o, ChatGPT)</td>
+<td><a target="_blank" rel="noopener" href="https://openai.com/">OpenAI</a></td>
+<td>强大的语言生成、理解和对话能力，支持多种任务类型</td>
+<td>教育、智能客服、编程助手、创意写作、语言翻译等</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Google</strong></td>
+<td>Bard (基于PaLM 2)</td>
+<td><a target="_blank" rel="noopener" href="https://bard.google.com/">Google Bard</a></td>
+<td>多语言对话、多模态理解和逻辑推理能力强，适合信息检索和知识问答</td>
+<td>Google搜索、智能助手、跨语言翻译、数据分析等</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Meta</strong></td>
+<td>LLaMA系列</td>
+<td><a target="_blank" rel="noopener" href="https://ai.meta.com/llama/">Meta LLaMA</a></td>
+<td>开源大语言模型，支持NLP任务和生成，广泛用于学术和开发社区</td>
+<td>学术研究、NLP任务定制、开源社区工具开发</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Anthropic</strong></td>
+<td>Claude系列</td>
+<td><a target="_blank" rel="noopener" href="https://www.anthropic.com/">Anthropic Claude</a></td>
+<td>强调安全性和可控性，通过“宪法式AI”设计提升道德安全性和回答质量</td>
+<td>智能客服、教育、内容审核等</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Microsoft</strong></td>
+<td>Azure OpenAI 服务</td>
+<td><a target="_blank" rel="noopener" href="https://azure.microsoft.com/en-us/products/cognitive-services/openai-service/">Microsoft Azure OpenAI</a></td>
+<td>集成OpenAI模型（如GPT-4, DALL-E），提供高度安全的云平台支持</td>
+<td>企业应用、智能客服、内容生成、代码生成、图片生成等</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Microsoft 365 Copilot</td>
+<td><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/microsoft-365/copilot">Microsoft 365 Copilot</a></td>
+<td>集成在Microsoft 365办公套件中，提供智能辅助，提高办公生产力</td>
+<td>办公自动化、数据分析、文本编辑、幻灯片制作等</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>GitHub Copilot</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/features/copilot">GitHub Copilot</a></td>
+<td>基于OpenAI Codex，为开发者提供实时代码建议，提升开发效率和代码质量</td>
+<td>软件开发、代码编写、代码补全和问题排查</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Cohere</strong></td>
+<td>Command R</td>
+<td><a target="_blank" rel="noopener" href="https://cohere.com/">Cohere</a></td>
+<td>面向企业，具有文本生成、分析和推荐系统能力，适合高负载企业场景</td>
+<td>内容生成、客户管理、推荐系统、数据挖掘、企业知识管理等</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>MosaicML</strong></td>
+<td>MPT系列</td>
+<td><a target="_blank" rel="noopener" href="https://www.mosaicml.com/">MosaicML</a></td>
+<td>强调高效性和可定制性，支持用户定制化训练和微调模型</td>
+<td>NLP任务定制、企业应用定制化、机器学习实验</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Aleph Alpha</strong></td>
+<td>Luminous</td>
+<td><a target="_blank" rel="noopener" href="https://aleph-alpha.com/">Aleph Alpha</a></td>
+<td>专注多语言和跨领域大模型，提供隐私保护和模型可控性，主要面向欧洲市场</td>
+<td>法律文档分析、商业报告生成、内容理解与生成</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Character.AI</strong></td>
+<td>Character专用生成模型</td>
+<td><a target="_blank" rel="noopener" href="https://character.ai/">Character.AI</a></td>
+<td>专注个性化对话体验，拟人化角色对话内容，应用于娱乐和教育</td>
+<td>虚拟助手、个性化教育、娱乐对话体验</td>
+</tr>
+</tbody></table>
+<h1 id="国内"><a href="#国内" class="headerlink" title="国内"></a>国内</h1><table>
+<thead>
+<tr>
+<th><strong>序号</strong></th>
+<th><strong>公司</strong></th>
+<th><strong>产品</strong></th>
+<th><strong>主页链接</strong></th>
+<th><strong>产品特点</strong></th>
+<th><strong>应用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>字节跳动</strong></td>
+<td>豆包 (Doubao)</td>
+<td><a target="_blank" rel="noopener" href="https://www.doubao.com/chat/">豆包</a></td>
+<td>专注于用户兴趣和个性化推荐系统，通过大数据和智能分析为用户提供高相关性的内容推荐</td>
+<td>内容推荐、短视频个性化推荐、广告推荐、用户行为分析</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>百度</strong></td>
+<td>文心一言 (ERNIE Bot)</td>
+<td><a target="_blank" rel="noopener" href="https://yiyan.baidu.com/">百度文心一言</a></td>
+<td>专注中文自然语言处理，具备语义理解、文本生成、多模态处理能力</td>
+<td>搜索、智能助手、智能客服、内容推荐、翻译等</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>阿里巴巴</strong></td>
+<td>通义千问 (Tongyi Qianwen)</td>
+<td><a target="_blank" rel="noopener" href="https://tongyi.aliyun.com/">阿里巴巴通义千问</a></td>
+<td>强大语言生成、多语言支持和文本分析能力</td>
+<td>智能客服、知识管理、电子商务推荐、教育、内容生成等</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>腾讯</strong></td>
+<td>混元 (Hunyuan)</td>
+<td><a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/hunyuan">腾讯混元大模型</a></td>
+<td>在数据处理、文本生成、多模态交互上具有优势</td>
+<td>金融、社交媒体、广告推荐、内容安全、智能客服等</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>华为</strong></td>
+<td>盘古 (Pangu)</td>
+<td><a target="_blank" rel="noopener" href="https://www.huaweicloud.com/product/pangu.html">华为盘古</a></td>
+<td>注重行业应用，结合硬件和算法优势，适合垂直领域的深度数据分析</td>
+<td>工业制造、医疗健康、科学研究、智慧城市等</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>科大讯飞</strong></td>
+<td>星火 (iFLYTEK Spark)</td>
+<td><a target="_blank" rel="noopener" href="https://spark.xfyun.cn/">讯飞星火</a></td>
+<td>针对中文处理和语音识别，优化教育和医疗场景，具有高准确率和自然交互能力</td>
+<td>教育领域智能辅导、医疗诊断辅助、病例分析等</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>智谱AI</strong></td>
+<td>清言 (GLM系列)</td>
+<td><a target="_blank" rel="noopener" href="https://www.zhipu.ai/">智谱AI GLM</a></td>
+<td>支持中文和多语言处理，强调学术应用和科研辅助</td>
+<td>教育科研、文本生成、问答系统，开源社区的技术研究</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>月之暗面</strong></td>
+<td>Dark Side of the Moon</td>
+<td><a target="_blank" rel="noopener" href="https://kimi.moonshot.cn/">Kimi</a></td>
+<td>强调隐私保护和高安全性，主要针对高度敏感的文本处理和生成任务</td>
+<td>政府和企业隐私数据处理、合规性内容生成、安全监控</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>360 AI研究院</strong></td>
+<td>360智脑</td>
+<td><a target="_blank" rel="noopener" href="https://ai.360.cn/">360智脑</a></td>
+<td>聚焦安全场景和内容审核，结合360的网络安全优势</td>
+<td>内容安全、企业安全管理、客服系统</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+        
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>王若风
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.wangruofeng007.com/2024/11/07/%E5%85%A8%E7%90%83%E4%B8%BB%E6%B5%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%98%E7%82%B9%EF%BC%9A%E5%9B%BD%E5%86%85%E5%A4%96AI%E5%B7%A8%E5%A4%B4%E4%BA%A7%E5%93%81%E5%A4%A7%E6%8F%AD%E7%A7%98/" title="全球主流大模型盘点：国内外AI巨头产品大揭秘">https://blog.wangruofeng007.com/2024/11/07/全球主流大模型盘点：国内外AI巨头产品大揭秘/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" rel="tag"># 大模型</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/11/03/%E5%8C%97%E4%B8%8A%E5%B9%BF%E6%B7%B1%E6%9D%AD%E6%88%90%E4%BA%92%E8%81%94%E7%BD%91%E5%85%AC%E5%8F%B8%E6%B1%87%E6%80%BB/" rel="prev" title="北上广深杭成互联网公司汇总">
+      <i class="fa fa-chevron-left"></i> 北上广深杭成互联网公司汇总
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+                        </div>
+                        
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+ 
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+                    </div>
+                        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BD%E5%A4%96"><span class="nav-number">2.</span> <span class="nav-text">国外</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BD%E5%86%85"><span class="nav-number">3.</span> <span class="nav-text">国内</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">王若风</p>
+  <div class="site-description" itemprop="description">王若风的技术博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangruofeng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangruofeng" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wangruofeng007@gmail.com" title="E-Mail → mailto:wangruofeng007@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/oneruofeng" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;oneruofeng" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/ace_freeman007" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;ace_freeman007" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="footer-inner">
+                    
+
+                    
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王若风</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:48</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+                    
+
+
+
+
+
+
+
+
+                </div>
+            </footer>
+        </div>
+
+        
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+        
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            <script
+                type="text/javascript"
+                src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+        
+            
+
+            
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wangruofeng007.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.wangruofeng007.com/2024/11/07/%E5%85%A8%E7%90%83%E4%B8%BB%E6%B5%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%98%E7%82%B9%EF%BC%9A%E5%9B%BD%E5%86%85%E5%A4%96AI%E5%B7%A8%E5%A4%B4%E4%BA%A7%E5%93%81%E5%A4%A7%E6%8F%AD%E7%A7%98/";
+    this.page.identifier = "2024/11/07/全球主流大模型盘点：国内外AI巨头产品大揭秘/";
+    this.page.title = "全球主流大模型盘点：国内外AI巨头产品大揭秘";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://wangruofeng007.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+    </body>
+</html>
