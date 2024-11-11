@@ -203,6 +203,932 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-iosli-cheng-bei-shi-jian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/13/2016-01-13-iosli-cheng-bei-shi-jian/" class="post-title-link" itemprop="url">iOS 里程碑事件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 04:46:48" itemprop="dateCreated datePublished" datetime="2016-01-13T04:46:48+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:43:30" itemprop="dateModified" datetime="2024-11-03T13:43:30+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">资料收集</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/13/2016-01-13-iosli-cheng-bei-shi-jian/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-iosli-cheng-bei-shi-jian/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>441</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>记录 iOS 各种重要里程碑事件</p>
+</blockquote>
+<h3 id="私有成员变量的实现"><a href="#私有成员变量的实现" class="headerlink" title="私有成员变量的实现"></a>私有成员变量的实现</h3><p>1.0 时代，在.h 文件采用 <code>@private</code> 关键词</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">@private</span></span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.0 时代 通过在.m 文件通过 <code>匿名Category</code> </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSInteger</span> value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>3.0 时代 2013 年的 WWDC 允许在 .m 的 <code>@implementation </code> 中</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span> </span>&#123;</span><br><span class="line">    <span class="built_in">NSInteger</span> _value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="ARC-推出"><a href="#ARC-推出" class="headerlink" title="ARC 推出"></a>ARC 推出</h3><p>2011</p>
+<h3 id="自动生成-getter-和-setter-方法的-synthesize-2012"><a href="#自动生成-getter-和-setter-方法的-synthesize-2012" class="headerlink" title="自动生成 getter 和 setter 方法的 @synthesize 2012"></a>自动生成 getter 和 setter 方法的 <code>@synthesize</code> 2012</h3><h3 id="AutoLayout-引入"><a href="#AutoLayout-引入" class="headerlink" title="AutoLayout 引入"></a>AutoLayout 引入</h3><p>iOS 6.0</p>
+<h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://baike.baidu.com/view/404495.htm">WWDC</a> 1.0 版本发布 – 2014.06.02 </li>
+<li>Swift 2.0 发布 – 2015.08.07</li>
+<li>Open Source – 2015.12.04</li>
+</ul>
+<h3 id="Size-Classes"><a href="#Size-Classes" class="headerlink" title="Size Classes"></a>Size Classes</h3><p>iOS 8.0</p>
+<h3 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mac_OS_X_Snow_Leopard">Mac OS X 10.6 “Snow Leopard”</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/IOS">iOS 4.0</a></p>
+<h3 id="Objective-C-2-0"><a href="#Objective-C-2-0" class="headerlink" title="Objective-C 2.0"></a>Objective-C 2.0</h3><p>At the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Apple_Worldwide_Developers_Conference">2006 Worldwide Developers Conference</a> release of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Objective-C#Objective-C_2.0">Objective-C 2.0</a></p>
+<h3 id="Watch-OS"><a href="#Watch-OS" class="headerlink" title="Watch OS"></a>Watch OS</h3><p>2015.05.21</p>
+<h3 id="iOS-API-Differences"><a href="#iOS-API-Differences" class="headerlink" title="iOS API Differences"></a>iOS API Differences</h3><h4 id="iOS-2-1-to-iOS-2-2-API-Differences"><a href="#iOS-2-1-to-iOS-2-2-API-Differences" class="headerlink" title="iOS 2.1 to iOS 2.2 API Differences"></a>iOS 2.1 to iOS 2.2 API Differences</h4><p>Added frameworks:</p>
+<ul>
+<li>AVFoundation</li>
+</ul>
+<h4 id="iOS-2-2-to-iOS-3-0-API-Differences"><a href="#iOS-2-2-to-iOS-3-0-API-Differences" class="headerlink" title="iOS 2.2 to iOS 3.0 API Differences"></a>iOS 2.2 to iOS 3.0 API Differences</h4><p>Added frameworks:</p>
+<ul>
+<li>CoreData</li>
+<li>ExternalAccessory</li>
+<li>GameKit</li>
+<li>MapKit</li>
+<li>MessageUI</li>
+<li>MobileCoreServices</li>
+<li>StoreKit</li>
+</ul>
+<h4 id="iOS-3-2-to-iOS-4-0-API-Differences"><a href="#iOS-3-2-to-iOS-4-0-API-Differences" class="headerlink" title="iOS 3.2 to iOS 4.0 API Differences"></a>iOS 3.2 to iOS 4.0 API Differences</h4><p>Added frameworks:</p>
+<ul>
+<li>Accelerate</li>
+<li>AssetsLibrary</li>
+<li>CoreMedia</li>
+<li>CoreMotion</li>
+<li>CoreTelephony</li>
+<li>CoreVideo</li>
+<li>EventKit</li>
+<li>EventKitUI</li>
+<li>iAd</li>
+<li>ImageIO</li>
+<li>QuickLook</li>
+</ul>
+<h4 id="iOS-4-3-to-iOS-5-0-API-Differences"><a href="#iOS-4-3-to-iOS-5-0-API-Differences" class="headerlink" title="iOS 4.3 to iOS 5.0 API Differences"></a>iOS 4.3 to iOS 5.0 API Differences</h4><p>Added frameworks</p>
+<ul>
+<li>Accounts</li>
+<li>CoreBluetooth</li>
+<li>CoreImage</li>
+<li>GLKit</li>
+<li>GSS</li>
+<li>NewsstandKit</li>
+<li>Twitter</li>
+</ul>
+<h4 id="5-1-to-iOS-6-0-API-Differences"><a href="#5-1-to-iOS-6-0-API-Differences" class="headerlink" title="5.1 to iOS 6.0 API Differences"></a>5.1 to iOS 6.0 API Differences</h4><p>Added frameworks</p>
+<ul>
+<li>AdSupport</li>
+<li>MediaToolbox</li>
+<li>PassKit</li>
+<li>Social</li>
+</ul>
+<h4 id="6-1-to-iOS-7-0-API-Differences"><a href="#6-1-to-iOS-7-0-API-Differences" class="headerlink" title="6.1 to iOS 7.0 API Differences"></a>6.1 to iOS 7.0 API Differences</h4><p>Added frameworks</p>
+<ul>
+<li>GameController</li>
+<li>JavaScriptCore</li>
+<li>MediaAccessibility</li>
+<li>MultipeerConnectivity</li>
+<li>SafariServices</li>
+<li>SpriteKit</li>
+</ul>
+<h4 id="iOS-7-1-to-iOS-8-0-API-Differences"><a href="#iOS-7-1-to-iOS-8-0-API-Differences" class="headerlink" title="iOS 7.1 to iOS 8.0 API Differences"></a>iOS 7.1 to iOS 8.0 API Differences</h4><p>Added frameworks</p>
+<ul>
+<li>Accelerate</li>
+<li>Accounts</li>
+<li>AddressBook</li>
+<li>AddressBookUI</li>
+<li>AudioToolbox</li>
+<li>AudioUnit</li>
+<li>AVFoundation</li>
+<li>AVKit (Added)</li>
+<li>CFNetwork</li>
+<li>CloudKit (Added)</li>
+<li>CoreAudio</li>
+<li>CoreAudioKit (Added)</li>
+<li>CoreAuthentication (Added)</li>
+<li>CoreBluetooth</li>
+<li>CoreData</li>
+<li>CoreFoundation</li>
+<li>CoreImage</li>
+<li>CoreLocation</li>
+<li>CoreMedia</li>
+<li>CoreMotion</li>
+<li>CoreText</li>
+<li>CoreVideo</li>
+<li>EventKit</li>
+<li>EventKitUI</li>
+<li>ExternalAccessory</li>
+<li>Foundation</li>
+<li>GameController</li>
+<li>GameKit</li>
+<li>GLKit</li>
+<li>GSS</li>
+<li>HealthKit (Added)</li>
+<li>HomeKit (Added)</li>
+<li>iAd</li>
+<li>ImageIO</li>
+<li>IOKit</li>
+<li>JavaScriptCore</li>
+<li>LocalAuthentication (Added)</li>
+<li>MapKit</li>
+<li>MediaAccessibility</li>
+<li>MediaPlayer</li>
+<li>MessageUI</li>
+<li>Metal (Added)</li>
+<li>MobileCoreServices</li>
+<li>MultipeerConnectivity</li>
+<li>NetworkExtension (Added)</li>
+<li>NewsstandKit</li>
+<li>NotificationCenter (Added)</li>
+<li>OpenGLES</li>
+<li>PassKit</li>
+<li>Photos (Added)</li>
+<li>PhotosUI (Added)</li>
+<li>PushKit (Added)</li>
+<li>QuartzCore</li>
+<li>QuickLook</li>
+<li>SceneKit (Added)</li>
+<li>Security</li>
+<li>Social</li>
+<li>SpriteKit</li>
+<li>StoreKit</li>
+<li>UIKit</li>
+<li>VideoToolbox</li>
+<li>WebKit (Added)</li>
+</ul>
+<h4 id="iOS-8-3-to-iOS-9-0-API-Differences"><a href="#iOS-8-3-to-iOS-9-0-API-Differences" class="headerlink" title="iOS 8.3 to iOS 9.0 API Differences"></a>iOS 8.3 to iOS 9.0 API Differences</h4><p>Added frameworks</p>
+<p>Objective-C</p>
+<ul>
+<li>&#x2F;usr&#x2F;include</li>
+<li>Accelerate</li>
+<li>Accounts</li>
+<li>AddressBook</li>
+<li>AddressBookUI</li>
+<li>AssetsLibrary</li>
+<li>AudioToolbox</li>
+<li>AudioUnit</li>
+<li>AVFoundation</li>
+<li>AVKit</li>
+<li>CFNetwork</li>
+<li>CloudKit</li>
+<li>Contacts (Added)</li>
+<li>ContactsUI (Added)</li>
+<li>CoreAudio</li>
+<li>CoreAudioKit</li>
+<li>CoreBluetooth</li>
+<li>CoreData</li>
+<li>CoreFoundation</li>
+<li>CoreGraphics</li>
+<li>CoreImage</li>
+<li>CoreLocation</li>
+<li>CoreMedia</li>
+<li>CoreMIDI</li>
+<li>CoreMotion</li>
+<li>CoreSpotlight (Added)</li>
+<li>CoreTelephony</li>
+<li>CoreText</li>
+<li>CoreVideo</li>
+<li>EventKit</li>
+<li>EventKitUI</li>
+<li>ExternalAccessory</li>
+<li>Foundation</li>
+<li>GameController</li>
+<li>GameKit</li>
+<li>GameplayKit (Added)</li>
+<li>GLKit</li>
+<li>GSS</li>
+<li>HealthKit</li>
+<li>HomeKit</li>
+<li>iAd</li>
+<li>ImageIO</li>
+<li>JavaScriptCore</li>
+<li>LocalAuthentication</li>
+<li>MapKit</li>
+<li>MediaPlayer</li>
+<li>MediaToolbox</li>
+<li>MessageUI</li>
+<li>Metal</li>
+<li>MetalKit (Added)</li>
+<li>MetalPerformanceShaders (Added)</li>
+<li>MobileCoreServices</li>
+<li>ModelIO (Added)</li>
+<li>MultipeerConnectivity</li>
+<li>NetworkExtension</li>
+<li>NewsstandKit</li>
+<li>OpenAL</li>
+<li>PassKit</li>
+<li>Photos</li>
+<li>PushKit</li>
+<li>QuartzCore</li>
+<li>QuickLook</li>
+<li>ReplayKit (Added)</li>
+<li>SafariServices</li>
+<li>SceneKit</li>
+<li>Security</li>
+<li>SpriteKit</li>
+<li>StoreKit</li>
+<li>SystemConfiguration</li>
+<li>UIKit</li>
+<li>VideoToolbox</li>
+<li>WatchConnectivity (Added)</li>
+<li>WatchKit</li>
+<li>WebKit</li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-you-ya-chu-li-uiimagetu-pian-xuan-zhuan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/13/2016-01-13-you-ya-chu-li-uiimagetu-pian-xuan-zhuan/" class="post-title-link" itemprop="url">优雅处理 UIImage 图片旋转</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 04:38:49" itemprop="dateCreated datePublished" datetime="2016-01-13T04:38:49+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 14:27:49" itemprop="dateModified" datetime="2024-11-03T14:27:49+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/13/2016-01-13-you-ya-chu-li-uiimagetu-pian-xuan-zhuan/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-you-ya-chu-li-uiimagetu-pian-xuan-zhuan/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="UIImag-构造方式"><a href="#UIImag-构造方式" class="headerlink" title="UIImag 构造方式"></a>UIImag 构造方式</h2><p>UIImag 构造方式大致有 4 种方式</p>
+<ul>
+<li>从本地 bundle 中加载 <code>imageNamed:</code> ，传入一个 bundle 的文件名即可</li>
+<li>从本地一个文件路径读取 <code>imageWithContentsOfFile:</code> ，需要传一个文件的文件路径 path</li>
+<li>通过二进制数据 <code>NSData</code> 来创建 <code>imageWithData:</code> * 通过一个 <code>CoreGraphics</code> 的 <code>CGImageRef</code> 来创建， <code>initWithCGImage:</code> * 通过一个 <code>CoreImage</code> 的 <code>CIImage</code> 来创建 <code>initWithCIImage</code> 通过查阅 Apple 官网文档我们发现有 2 个这样的方法，今天就来一探究竟</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCIImage:(<span class="built_in">CIImage</span> *)ciImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCIImage:(<span class="built_in">CIImage</span> *)ciImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">6</span>_0);</span><br></pre></td></tr></table></figure>
+
+<p>2 个类方法 2 个实例方法都是类似，这里以 <code>CGImageRef</code> 为例</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)imageWithCGImage:(<span class="built_in">CGImageRef</span>)cgImage scale:(<span class="built_in">CGFloat</span>)scale orientation:(<span class="built_in">UIImageOrientation</span>)orientation <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">4</span>_0);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>新建的 Xcode 工程选择 single Application</p>
+</li>
+<li><p>在 storyboard 中拖一个 <code>UIImageView</code> 设置它水平垂直居中对齐，宽带高度随便设一个值不要太大就行，设置 <code>UIImageView</code> 的 <code>contentMode</code> 为 <code>Aspect Fit</code> 方便查看以免变形</p>
+</li>
+<li><p>在 <code>UIImageView</code> 下发放一个 <code>UIButton</code> 控件方便后面好对图片进行旋转操作</p>
+</li>
+<li><p>在 viewController 中建立一个 <code>UIImageView</code> 引用,拉出一个 rotate 按钮的 <code>IBAction</code>  现在大概界面大概这样<br> <img src="/images/common/image_rotate.jpg" alt="UIImageOrientation 效果图"></p>
+</li>
+<li><p>下面我们实现<br> <code>- (IBAction)rotateImage:(id)sender &#123;&#125;</code> 这个方法</p>
+</li>
+</ol>
+<blockquote>
+<p>在这里我们想通过点击按钮实现图片旋转<br> 为了方便使用我们使用 Category 的方式实现<br> 新建一个 UIImage 的分类取名叫 Rotate</p>
+</blockquote>
+<blockquote>
+<p>这里需要传一张要处理的图片和一个待处理成的图片方向</p>
+</blockquote>
+   <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage</span><br><span class="line">         orientation:(<span class="built_in">UIImageOrientation</span>)orientation;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">    + (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage orientation:(<span class="built_in">UIImageOrientation</span>)orientation&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *newImage = [<span class="built_in">UIImage</span> imageWithCGImage:oldImage.CGImage scale:<span class="number">1</span> orientation:orientation];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *orientationStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">switch</span> (orientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUp&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDown&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeft&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRight&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUpMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDownMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeftMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRightMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;current orientation: %@&quot;</span>,orientationStr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 button 点击事件触发时的这样使用</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)rotateImage:(<span class="type">id</span>)sender &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *oldImage = <span class="keyword">self</span>.imgView.image;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *rotatedImage = [<span class="built_in">UIImage</span> rotateImage:oldImage orientation:<span class="built_in">UIImageOrientationLeft</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.imgView.image = rotatedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>点击按钮测试发现第一次没问题，但是重逢点击无效<br>原来 <code>+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation</code> 方法执行原理是执行前通过 <code>@property(nonatomic,readonly) UIImageOrientation imageOrientation;</code> 接口先判断当前图片的方向是否为将要旋转的方向，如果是就直接返回不做处理，如果不是再作旋转处理，也就是说这个方法并没有实际上旋转 image 的数据，只是用一个枚举标记旋转的状态</p>
+<p>如果我们想每次旋转需要直接改变原始 image 的数据该怎么办呢？<br>在这里我们通过 <code>CGBitmapContext</code> ,使用 <code>CGContextRotateCTM</code> 来设置旋转，再把 UIImage 通过 <code>drawInRect</code> 重新绘制出来，通过 <code>UIGraphicsGetImageFromCurrentImageContext</code> 获得处理后的图片</p>
+<p>下面是具体实现</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)fixedRotation&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.imageOrientation == <span class="built_in">UIImageOrientationUp</span>) <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">    <span class="built_in">CGAffineTransform</span> transform = <span class="built_in">CGAffineTransformIdentity</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="number">0</span>, <span class="keyword">self</span>.size.height);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformRotate</span>(transform, -M_PI_2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.width, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="keyword">self</span>.size.height, <span class="number">0</span>);</span><br><span class="line">            transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Now we draw the underlying CGImage into a new context, applying the transform</span></span><br><span class="line">    <span class="comment">// calculated above.</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>, <span class="keyword">self</span>.size.width, <span class="keyword">self</span>.size.height,</span><br><span class="line">                                             <span class="built_in">CGImageGetBitsPerComponent</span>(<span class="keyword">self</span>.CGImage), <span class="number">0</span>,</span><br><span class="line">                                             <span class="built_in">CGImageGetColorSpace</span>(<span class="keyword">self</span>.CGImage),</span><br><span class="line">                                             <span class="built_in">CGImageGetBitmapInfo</span>(<span class="keyword">self</span>.CGImage));</span><br><span class="line">    <span class="built_in">CGContextConcatCTM</span>(ctx, transform);</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">self</span>.imageOrientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>:</span><br><span class="line">            <span class="comment">// Grr...</span></span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.height,<span class="keyword">self</span>.size.width), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">CGContextDrawImage</span>(ctx, <span class="built_in">CGRectMake</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">self</span>.size.width,<span class="keyword">self</span>.size.height), <span class="keyword">self</span>.CGImage);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// And now we just create a new UIImage from the drawing context</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> cgimg = <span class="built_in">CGBitmapContextCreateImage</span>(ctx);</span><br><span class="line">    <span class="built_in">UIImage</span> *img = [<span class="built_in">UIImage</span> imageWithCGImage:cgimg];</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(ctx);</span><br><span class="line">    <span class="built_in">CGImageRelease</span>(cgimg);</span><br><span class="line">    <span class="keyword">return</span> img;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在再优化一下原来 <code>+ (UIImage *)rotateImage:(UIImage *)oldImage orientation:(UIImageOrientation)orientation</code> 方法,修改成这样</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span> *)rotateImage:(<span class="built_in">UIImage</span> *)oldImage orientation:(<span class="built_in">UIImageOrientation</span>)orientation&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIImage</span> *newImage = [<span class="built_in">UIImage</span> imageWithCGImage:oldImage.CGImage scale:<span class="number">1</span> orientation:orientation];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//fix original Image with gived orientation.</span></span><br><span class="line">    <span class="built_in">UIImage</span> *fixedRotationImage = [newImage fixedRotation];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSString</span> *orientationStr = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">switch</span> (orientation) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUp</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUp&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDown</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDown&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeft</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeft&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRight</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRight&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationUpMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationUpMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationDownMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationDownMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationLeftMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationLeftMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIImageOrientationRightMirrored</span>: &#123;</span><br><span class="line">            orientationStr = <span class="string">@&quot;UIImageOrientationRightMirrored&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;current orientation: %@&quot;</span>,orientationStr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fixedRotationImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 现在再测试一下，well，It‘s OK。</p>
+<p> have fun!!!</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.galloway.me.uk/2012/01/uiimageorientation-exif-orientation-sample-images/">UIImageOrientation &#x2F; EXIF orientation sample images</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/#//apple_ref/c/tdef/UIImageOrientation">Apple-UIImage Class Reference</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/8915630/ios-uiimageview-how-to-handle-uiimage-image-orientation">ios-uiimageview-how-to-handle-uiimage-image-orientation</a></li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/13/2016-01-13-dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath/" class="post-title-link" itemprop="url">用 CAShapeLayer 动画绘制 CGPath</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 04:35:42" itemprop="dateCreated datePublished" datetime="2016-01-13T04:35:42+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%A8%E7%94%BB/" itemprop="url" rel="index"><span itemprop="name">动画</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/13/2016-01-13-dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-dong-hua-hui-zhi-cashapelayerde-lu-jing-cgpath/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="这是什么？"><a href="#这是什么？" class="headerlink" title="这是什么？"></a>这是什么？</h4><blockquote>
+<p>此文将讲解通过形状图层 <code>CAShaperLayer</code> 的 <code>strokeStart</code> 和 <code>strokeEnd</code> 来实现动画绘制路径 <code>CGPath</code> ,此文是<a target="_blank" rel="noopener" href="http://oleb.net/">By Ole Begemann</a>创建于 December 18, 2010,当时是发布 iOS SDK 4.2 时 <code>CAShapeLayer</code> 新增加的两个属性<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW16">strokeStart</a>和<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAShapeLayer_class/Reference/Reference.html#//apple_ref/doc/uid/TP40008314-CH1-SW15">strokeEnd</a>,这两个值是两个浮点数取值范围 0.0~1.0,用来表明形状图层所指向的路径在绘制开始和结束路径中的相对位置。</p>
+</blockquote>
+<p> <code>strokeStart</code> 默认值是0.0， <code>strokeEnd</code> 默认值是1.0，显然这会导致形状图层的路径将一整个被绘制。假如，你想说，如果设置了layer.strokeEnd &#x3D; 0.5f,只让她绘制前半部分，那该多好。</p>
+<p>真正有趣的事情是这些接口都是可动画的。通过动画绘制 <code>strokeEnd</code> 从 0.0 到 1.0 在几秒内，我们就能很容易自己绘制路径像下面这样写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CABasicAnimation</span> *pathAnimation = [<span class="built_in">CABasicAnimation</span> animationWithKeyPath:<span class="string">@&quot;strokeEnd&quot;</span>];</span><br><span class="line">pathAnimation.duration = <span class="number">10.0</span>;</span><br><span class="line">pathAnimation.fromValue = [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">0.0</span>f];</span><br><span class="line">pathAnimation.toValue = [<span class="built_in">NSNumber</span> numberWithFloat:<span class="number">1.0</span>f];</span><br><span class="line">[<span class="keyword">self</span>.pathLayer addAnimation:pathAnimation forKey:<span class="string">@&quot;strokeEndAnimation&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>最后，再添加第二个图层包含一个铅笔图片，使用关键帧动画 <code>CAKeyframeAnimation</code> 来让它随着这个路径以相同的速度绘制，就可以达到完美的错觉效果：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAKeyframeAnimation</span> *penAnimation = [<span class="built_in">CAKeyframeAnimation</span> animationWithKeyPath:<span class="string">@&quot;position&quot;</span>];</span><br><span class="line">penAnimation.duration = <span class="number">10.0</span>;</span><br><span class="line">penAnimation.path = <span class="keyword">self</span>.pathLayer.path;</span><br><span class="line">penAnimation.calculationMode = kCAAnimationPaced;</span><br><span class="line">[<span class="keyword">self</span>.penLayer addAnimation:penAnimation forKey:<span class="string">@&quot;penAnimation&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">绘制普通路径效果视频</a></p>
+<p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHausVomNikolaus.mp4">下载地址</a></p>
+<p>这个对文本一样有效；我们只需要把字符转化成 <code>CGPath</code> 。 <code>Core Text</code> 提供了那样的功能的函数，<a target="_blank" rel="noopener" href="http://developer.apple.com/library/ios/documentation/Carbon/Reference/CTFontRef/Reference/reference.html#//apple_ref/c/func/CTFontCreatePathForGlyph">CTFontCreatePathForGlyph( )</a>。为了使用它，我们需要创建一个带属性的字符串用我们想要渲染的文本，先把它们分割成行在分割成一个个字符。在把所有的字符转换成路径后，我们以子路径方式把它添加到一个单个的 <code>CGPath</code> 路径中。更多细节可以查看<a target="_blank" rel="noopener" href="http://www.codeproject.com/script/Membership/View.aspx?mid=2887692">Ohmu</a>写的<a target="_blank" rel="noopener" href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">Low-level text rendering</a>这篇文章。结果看以来非常的炫酷：</p>
+<p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">绘制文字路径效果视频</a></p>
+<p><a target="_blank" rel="noopener" href="http://oleb.net/media/AnimatedPathsHelloWorld.mp4">下载地址</a></p>
+<p>从 Github 上获得<a target="_blank" rel="noopener" href="http://github.com/ole/Animated-Paths">iPad 版的样品工程</a></p>
+<h4 id="你将学到的知识点"><a href="#你将学到的知识点" class="headerlink" title="你将学到的知识点"></a>你将学到的知识点</h4><ul>
+<li>使用 <code>CAShapeLayer</code> 的 <code>strokeStart</code> 和 <code>strokeEnd</code> 来实现路径动画,比较高级复杂的效果像 google 的下拉刷新转圈就可以从这里引申去实现。</li>
+<li><code>CABasicAnimation</code> 和 <code>CABasicAnimation</code> 使用</li>
+<li>深入理解 <code>CAShapeLayer</code> 和 <code>CALayer</code> * 通过文本创建路径，核心函数 <code>CTFontCreatePathForGlyph()</code></li>
+</ul>
+<h4 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAShapeLayer</span> *pathLayer = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">pathLayer.frame = <span class="keyword">self</span>.animationLayer.bounds;</span><br><span class="line">pathLayer.bounds = pathRect;</span><br><span class="line">pathLayer.geometryFlipped = <span class="literal">YES</span>;</span><br><span class="line">pathLayer.path = path.CGPath;</span><br><span class="line">pathLayer.strokeColor = [[<span class="built_in">UIColor</span> blackColor] <span class="built_in">CGColor</span>];</span><br><span class="line">pathLayer.fillColor = <span class="literal">nil</span>;</span><br><span class="line">pathLayer.lineWidth = <span class="number">10.0</span>f;</span><br><span class="line">pathLayer.lineJoin = kCALineJoinBevel;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.animationLayer addSublayer:pathLayer];</span><br></pre></td></tr></table></figure>
+
+<p>有一点非常重要，CALayer 在 iOS 系统中相对坐标系是以屏幕左上 <code>top-left</code> 为坐标原点的，在 Mac OS X 上以坐下 <code>bottom-left</code> 为坐标原点,但是可以通过 <code>CALayer</code> 的接口 <code>geometryFlipped</code> 垂直翻转坐标系，这个值默认是 <code>NO</code> ，设置成 <code>YES</code> 就可以把坐标系转换成左下 <code>bottom-left</code> 了，这里作者使用的左下 <code>bottom-left</code> 的坐标系。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span>(<span class="keyword">getter</span>=isGeometryFlipped) <span class="type">BOOL</span> geometryFlipped;</span><br></pre></td></tr></table></figure>
+<p>关于这个属性使用时需要特别注意</p>
+<ol>
+<li>翻转会同时作用于它的子图层</li>
+<li>即使这个属性设置成 <code>YES</code> ,图片的 <code>orientation</code> 仍然是不变的（也就是说当设置 <code>flipped=YES</code> 和 <code>flipped=NO</code> 时一个 <code>CGImageRef</code> 储存在 <code>contents</code> 接口中的内容将会显示一致，赋值并不会真正变换底层的图层）</li>
+</ol>
+<h4 id="pathLayer-动画实现原理"><a href="#pathLayer-动画实现原理" class="headerlink" title="pathLayer 动画实现原理"></a>pathLayer 动画实现原理</h4><ol>
+<li>先创建一个动画用的图层 <code>animationLayer</code> 类型 <code>CALayer</code> ，用来充当动画的画布。</li>
+<li>创建真正的路径图层 <code>pathLayer</code> 类型为 <code>CAShapeLayer</code> ,让它的坐标系垂直翻转，并且让图层宽高同时向内收缩 100 个点,通过 <code>CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)</code> 实现</li>
+<li>把 <code>pathLayer</code> 添加到 <code>animationLayer</code> 的子图层中去</li>
+<li>创建一个铅笔图层 <code>penLayer</code> 类型为 <code>CALayer</code> ,把它添加到 <code>pathLayer</code> 去</li>
+<li>对 <code>pathLayer</code> 添加 <code>CABasicAnimation</code> 动画，动画属性为 <code>strokeEnd</code> 6. 对 <code>penLayer</code> 添加 <code>CAKeyframeAnimation</code> 动画，动画属性为 <code>position</code> #### textLayer 动画实现原理</li>
+<li>先创建一个动画用的图层 <code>animationLayer</code> 类型 <code>CALayer</code> ，用来充当动画的画布</li>
+<li>Create path from text,See:<a target="_blank" rel="noopener" href="http://www.codeproject.com/KB/iPhone/Glyph.aspx">http://www.codeproject.com/KB/iPhone/Glyph.aspx</a>，最终保存到一个类型为 <code>CGMutablePathRef</code> 的 letter 中</li>
+<li>通过 letter 来创建文字 <code>UIBezierPath</code> 类型的 <code>path</code> 4. 通过 path 再创建 <code>CAShapeLayer</code> pathLayer,并且把 pathLayer 添加到 <code>animationLayer</code> 中去</li>
+<li>创建一个铅笔图层 <code>penLayer</code> 类型为 <code>CALayer</code> ,把它添加到 <code>pathLayer</code> 去</li>
+<li>对 <code>pathLayer</code> 添加 <code>CABasicAnimation</code> 动画，动画属性为 <code>strokeEnd</code> 6. 对 <code>penLayer</code> 添加 <code>CAKeyframeAnimation</code> 动画，动画属性为 <code>position</code></li>
+</ol>
+<h4 id="修复一处-bug"><a href="#修复一处-bug" class="headerlink" title="修复一处 bug"></a>修复一处 bug</h4><p>重复点击 <code>UISegmentedControl</code> 导致铅笔消失，这是设置了 <code>penAnimation.delegate = self;</code> 在代理方法里面没有判断结束直接将设置 <code>self.penLayer.hidden = YES</code> ，导致连续切换时铅笔不见了，要修复这个 bug 只需加一个判断<code>if (flag) self.penLayer.hidden = YES; </code>即可,这样的意思是只有当动画完成时才设置<code> self.penLayer.hidden</code>的值，好了现在已经非常完美了，快去动手自己试试吧！🍺</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/">原文链接</a></li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-blogwang-zhan-bei-wang-lu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/13/2016-01-13-blogwang-zhan-bei-wang-lu/" class="post-title-link" itemprop="url">Blog 网站备忘录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 04:29:59" itemprop="dateCreated datePublished" datetime="2016-01-13T04:29:59+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">资料收集</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/13/2016-01-13-blogwang-zhan-bei-wang-lu/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-blogwang-zhan-bei-wang-lu/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>787</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简书"><a href="#简书" class="headerlink" title="简书"></a>简书</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/b82d2721ba07/latest_articles">叶孤城___</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/39eeabac725a/latest_articles">MarkNote</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/384f80cdc57b/latest_articles">lp_马建成</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/7ba5d9065301/latest_articles">seedante
+</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/960f3b94323a/latest_articles">大灰灰 iOS</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.jianshu.com/users/56475732c6e9/latest_articles">StrongX</a></li>
+</ul>
+<h2 id="国内个人"><a href="#国内个人" class="headerlink" title="国内个人"></a>国内个人</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://onevcat.com/?from=inf&wvr=5&loc=infblog">猫神 onevcat</a> – 地球人都知道</li>
+<li><a target="_blank" rel="noopener" href="http://blog.devtang.com/">唐巧</a>–猿题库作者</li>
+<li><a target="_blank" rel="noopener" href="http://blog.txx.im/?from=inf&wvr=5&loc=infblog">虾神</a>–话说你们晓得虾神年纪多大么？反正我是觉得白活了。90 后太厉害了。</li>
+<li><a target="_blank" rel="noopener" href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">sunnyxx</a> – <a target="_blank" rel="noopener" href="https://github.com/forkingdog/FDFullscreenPopGesture">FDFullscreenPopGesture</a>作者，值得关注</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nixzhu/dev-blog">nixzhu</a>–有几篇翻译的文章质量不错</li>
+<li><a target="_blank" rel="noopener" href="http://beyondvincent.com/">破船之家</a>–这让我想起，喝上一杯朗姆酒🍺</li>
+<li><a target="_blank" rel="noopener" href="http://limboy.me/">Limboy</a> – 蘑菇街一位资深 iOS 程序员</li>
+<li><a target="_blank" rel="noopener" href="http://macshuo.com/?page_id=93">MacTalk-池建强的随想录</a>–Mac 开发大牛</li>
+<li><a target="_blank" rel="noopener" href="http://www.xuanyusong.com/">雨松 MOMO</a>–专注移动互联网，专注 Unity3D 游戏开发,国内最早开发 Unity3d 的大神之一</li>
+<li><a target="_blank" rel="noopener" href="http://yulingtianxia.com/">玉令天下的博客</a> – 关于 runtime 的资料整理得非常不错</li>
+<li><a target="_blank" rel="noopener" href="http://chun.tips/">Chun Tips</a> – 对 Runtime,RunLoop,AutoLayout 讲解得非常详细 ❤️</li>
+<li><a target="_blank" rel="noopener" href="http://blog.treney.com/">鹏威の博客</a> – 非常炫酷的博客，值得学习</li>
+<li><a target="_blank" rel="noopener" href="https://www.mgenware.com/blog/">mgenware</a> – 往全栈方向发展 ing</li>
+</ul>
+<h2 id="国外个人"><a href="#国外个人" class="headerlink" title="国外个人"></a>国外个人</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.mikeash.com/">mikeash</a>–白天飞行员，晚上程序员 ：] just this guy, you know?</li>
+<li><a target="_blank" rel="noopener" href="https://www.shinobicontrols.com/blog">shinobicontrols</a>–iOS 最新 API 以及新功能用法</li>
+<li><a target="_blank" rel="noopener" href="http://iosdevelopertips.com/user-interface/custom-visual-calendar-control-for-ios.html">iosdevelopertips</a>–教程配合 Demo 让你学习成长立竿见影</li>
+<li><a target="_blank" rel="noopener" href="http://iosdevweekly.com/">iosdevweekly</a>–很棒的个人技术博客网，已发表 230 篇文章</li>
+<li><a target="_blank" rel="noopener" href="http://ios-goodies.com/">ios-goodies</a>–iOS,UI,UX,Objective-c,Swift,Xcode</li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/authors/mattt-thompson/">mattt-thompson</a> – 不用解释</li>
+<li><a target="_blank" rel="noopener" href="http://subjc.com/">subjc</a> –Subjective-C is a study of innovative iOS interfaces.</li>
+<li><a target="_blank" rel="noopener" href="http://www.thinkandbuild.it/">thinkandbuild</a>–《Introduction To 3D Drawing in CoreAnimtion》作者</li>
+<li><a target="_blank" rel="noopener" href="http://robb.is/">robb.is</a>–《How to build a nice Hamburger transition in swift》作者</li>
+<li><a target="_blank" rel="noopener" href="http://commandshift.co.uk/">commandshift</a>–不多说，质量极高</li>
+<li><a target="_blank" rel="noopener" href="http://indieambitions.com/">indieambitions</a>–raywenderlich 常驻作者之一的 blog，非常赞。</li>
+<li><a target="_blank" rel="noopener" href="http://nvie.com/">nvie</a>–国外一个大神的 blog，讲得比较杂，git，ios，python 都有涉猎，但是每篇都很精彩。</li>
+<li><a target="_blank" rel="noopener" href="http://stuartkhall.com/">stuartkhall</a>–很多关于 app 上线运营之类的 blog，值得一看。</li>
+<li><a target="_blank" rel="noopener" href="http://blog.ittybittyapps.com/">ittybittyapps</a>–神器 Reveal 的作者的 blog。</li>
+<li><a target="_blank" rel="noopener" href="http://adoptioncurve.net/">adoptioncurve</a>–更新极快，当时 iOS8 还没出几个周，作者就写了篇 sizeclass 解析。非常棒</li>
+<li><a target="_blank" rel="noopener" href="http://ciechanowski.me/">ciechanowski</a>–各种数学上几何变化</li>
+<li><a target="_blank" rel="noopener" href="https://www.bignerdranch.com/blog/">bignerdranch</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cocoawithlove.com/">cocoawithlove</a>–2008-2011 的老文章，现在没怎么跟新了</li>
+<li><a target="_blank" rel="noopener" href="http://blog.codinghorror.com/">codinghorror</a> –<a target="_blank" rel="noopener" href="https://twitter.com/codinghorror">Jeff Atwood </a>主站</li>
+<li><a target="_blank" rel="noopener" href="http://www.g8production.com/">g8production</a></li>
+<li><a target="_blank" rel="noopener" href="http://lucida.me/about/">lucida</a> – 我比较佩服一名程序员，想学算法找他推荐咯😁</li>
+</ul>
+<h2 id="团体-blog"><a href="#团体-blog" class="headerlink" title="团体 blog"></a>团体 blog</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.ibireme.com/">ibireme</a>–最近很🔥的 YYKit 的作者</li>
+<li><a target="_blank" rel="noopener" href="http://tech.glowing.com/cn/">Glow 技术团队</a></li>
+<li><a target="_blank" rel="noopener" href="http://tech.meituan.com/">美团点评技术团队</a></li>
+</ul>
+<h2 id="优质-iOS-学习资源"><a href="#优质-iOS-学习资源" class="headerlink" title="优质 iOS 学习资源"></a>优质 iOS 学习资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/">github</a>–这个不用我说吧</li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/">stackoverflow</a>–最专业的问答社区</li>
+<li><a target="_blank" rel="noopener" href="http://www.raywenderlich.com/">raywenderlich</a>–iOS 界的百科全书</li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.com/">nshipster</a>–里面文章质量非常的高，最喜欢的几个网站之一<a target="_blank" rel="noopener" href="https://github.com/AFNetworking/AFNetworking">AFNetworkting</a>的作者<a target="_blank" rel="noopener" href="http://nshipster.com/authors/mattt-thompson/">Mattt Thompson</a>–经常出没</li>
+<li><a target="_blank" rel="noopener" href="http://nshipster.cn/">nshipster 中国</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.objc.io/">objc.io</a>–这个也不用多说了，Raywenderlich 是百科全书的话，这个就是深入深入再深入</li>
+<li><a target="_blank" rel="noopener" href="http://objcio.cn/">objc 中国</a></li>
+<li><a target="_blank" rel="noopener" href="https://realm.io/">realm.io</a>–一个跨平台的移动数据库引擎</li>
+<li><a target="_blank" rel="noopener" href="http://tutsplus.com/">tutsplus</a>–也是包罗万象的一个网站，有 web ios ui，不比 Raywenderlich 逊色。</li>
+<li><a target="_blank" rel="noopener" href="https://maniacdev.com/">maniacdev</a>–类似 Raywenderlich，文章质量高，而且涵盖面广</li>
+<li><a target="_blank" rel="noopener" href="https://www.appcoda.com/">Appcoda</a> – 技术类学习网站，里面的技术更新挺及时的</li>
+</ul>
+<h2 id="中文网站"><a href="#中文网站" class="headerlink" title="中文网站"></a>中文网站</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.cocoachina.com/">cocoachina</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.code4app.com/">code4app</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.tairan.com/">泰然网</a> –游戏教程不错的网站</li>
+<li><a target="_blank" rel="noopener" href="http://blog.jobbole.com/">伯乐在线</a></li>
+</ul>
+<h2 id="Swift："><a href="#Swift：" class="headerlink" title="Swift："></a>Swift：</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://wiki.jikexueyuan.com/project/swift/">介紹 | 《The Swift Programming Language》中文版</a></li>
+<li><a target="_blank" rel="noopener" href="http://swifter.tips/">Swift 必备 Tips</a> – 猫神的杰作</li>
+<li><a target="_blank" rel="noopener" href="http://letsswift.com/swift-site-index/">Let’s Swift </a> – Swift 站点导航</li>
+<li><a target="_blank" rel="noopener" href="https://objectivec2swift.com/#/converter/code">Swiftify | Objective-C to Swift Converter </a> – 辅助将旧的* Objective-C 代码转成 Swift。</li>
+<li><a target="_blank" rel="noopener" href="https://swift.org/">Swift.org</a> – Apple Swift 官网</li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/swift/blog/">Swift - Blog</a> – Apple Swift 官方博客</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CocoaChina-editors/Welcome-to-Swift">CocoaChina 小组翻译的 Swift 版本</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.tutorialspoint.com/swift/swift_environment.htm">tutorialspoint</a> – 有一些 Swift 教程</li>
+</ul>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-autoreleasingde-li-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/13/2016-01-13-autoreleasingde-li-jie/" class="post-title-link" itemprop="url">__autoreleasing 的理解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-13 04:27:10" itemprop="dateCreated datePublished" datetime="2016-01-13T04:27:10+08:00">2016-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">系统原理</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/13/2016-01-13-autoreleasingde-li-jie/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-autoreleasingde-li-jie/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>293</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="autoreleasing-修饰符"><a href="#autoreleasing-修饰符" class="headerlink" title="__autoreleasing 修饰符"></a>__autoreleasing 修饰符</h3><p>将对象赋值给附有 __autoreleasing 修饰符的变量等同于 ARC 无效时调用对象的 autorelease 方法。我们通过以下源代码来看一下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">    <span class="type">id</span> __autoreleasing obj  = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该源代码主要将 NSObject 类对象注册到 autoreleasepool 中，可作如下变换：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 编译器的模拟代码 */</span></span><br><span class="line"><span class="type">id</span> pool = objc_autoreleasePoolPush();</span><br><span class="line"><span class="type">id</span> obj = objc_msgSend(<span class="built_in">NSObject</span>, <span class="keyword">@selector</span>(alloc));</span><br><span class="line">objc_msgSend(obj, <span class="keyword">@selector</span>(init));</span><br><span class="line">objc_autorelease(obj);</span><br><span class="line">objc_autoreleasePoolPop(pool);</span><br></pre></td></tr></table></figure>
+
+<p>这与苹果的 autorelease 实现中的说明（参考 1.2.7 节）完全相同。虽然 ARC 有效和无效时，其在源代码上的表现有所不同，但 autorelease 的功能完全一样。</p>
+<p>在 alloc&#x2F;new&#x2F;copy&#x2F;mutableCopy 方法群之外的方法中使用注册到 autoreleasepool 中的对象会如何呢？下面我们来看看 NSMutableArray 类的 array 类方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">    <span class="type">id</span> __autoreleasing obj = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这与前面的源代码有何不同呢？</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 编译器的模拟代码 */</span></span><br><span class="line"><span class="type">id</span> pool = objc_autoreleasePoolPush();</span><br><span class="line"><span class="type">id</span> obj = objc_msgSend(<span class="built_in">NSMutableArray</span>, <span class="keyword">@selector</span>(array));</span><br><span class="line">objc_retainAutoreleasedReturnValue(obj);</span><br><span class="line">objc_autorelease(obj);</span><br><span class="line">objc_autoreleasePoolPop(pool);</span><br></pre></td></tr></table></figure>
+<p>虽然持有对象的方法从 alloc 方法变为 objc_retainAutoreleasedReturnValue 函数， 但注册 autoreleasepool 的方法没有改变，仍是 objc_autorelease 函数。</p>
+<p>备注：欢迎转载，但请一定注明出处！ <a href="http://blog.wangruofeng007.com/">http://blog.wangruofeng007.com</a></p>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-attribute/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1110,20 +2036,20 @@ author: Ace
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1173,12 +2099,12 @@ author: Ace
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">112k</span>
+    <span title="站点总字数">118k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:48</span>
+    <span title="站点阅读时长">7:09</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
