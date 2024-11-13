@@ -203,6 +203,240 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/29/2016-01-29-watch-app-kai-fa-zhi-interface-elements-xiang-jie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="王若风">
+      <meta itemprop="description" content="王若风的技术博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王若风的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/01/29/2016-01-29-watch-app-kai-fa-zhi-interface-elements-xiang-jie/" class="post-title-link" itemprop="url">Watch App 开发之 Interface Elements 详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-01-29 17:36:26" itemprop="dateCreated datePublished" datetime="2016-01-29T17:36:26+08:00">2016-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%B3%BB%E7%BB%9F-API/" itemprop="url" rel="index"><span itemprop="name">系统 API</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+  
+    <a title="disqus" href="/2016/01/29/2016-01-29-watch-app-kai-fa-zhi-interface-elements-xiang-jie/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/29/2016-01-29-watch-app-kai-fa-zhi-interface-elements-xiang-jie/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+ <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p> <code>iWatch</code> 原生态支持的控件主要有以下类型,下面对每个类型一一解刨。</p>
+<ul>
+<li>Labels</li>
+<li>Images</li>
+<li>Groups</li>
+<li>Pickers</li>
+<li>Tables</li>
+<li>Buttons</li>
+<li>Switches</li>
+<li>Sliders</li>
+<li>Maps</li>
+<li>Movies</li>
+<li>Date and Timer Labels</li>
+<li>Menus</li>
+</ul>
+<h3 id="Labels-–-WKInterfaceLabel"><a href="#Labels-–-WKInterfaceLabel" class="headerlink" title="Labels – WKInterfaceLabel"></a>Labels – WKInterfaceLabel</h3><p> <code>Labels</code> 使用静态的文本来传达简短的消息，是你App中最常见的一个元素之一。它能支持多行显示也可通过代码动态更新内容。</p>
+<p> <code>iWatch</code> ,设计一个标签事，首先应该把精力集中在 <code>易读性</code> ,使用更亮的颜色和使用动态类型（ <code> Dynamic Type</code> ）来保证文本尺寸的正确，内置已经提供了最佳的易读性和自动的动态的类型支持。假如需要使用自定义的字体，应该避免使用过度格式化的。</p>
+<p>更多信息查看：<a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/typography/">Typography</a><br><img src="/images/iwatch/img_iwatch_00.jpg" style='width:50%;height:50%'></img></p>
+<h3 id="Images-–-WKInterfaceImage"><a href="#Images-–-WKInterfaceImage" class="headerlink" title="Images – WKInterfaceImage"></a>Images – WKInterfaceImage</h3><p><img src="/images/iwatch/img_iwatch_01.jpg" style='width:50%;height:50%'></img></p>
+<p>一个 <code>Image</code> 元素用来显示单张图片或者一系列动画图片。Images 支持在 <code>iOS</code> 上的的任何格式，但是跟偏向于 PNG 格式。动画系列图片可以通过代码控制启停。</p>
+<p> <code>38mm</code> 和 <code>42mm</code> 共用一套图片资源，只要内容能够表达清晰。</p>
+<p>Apple Watch 支持高清屏显示，所有没有必要创建一个标准的分辨率图片，在图片名应该包括 <code>@2x</code> 。</p>
+<p><strong>当图片正在加载时，应该使用占位图片来占据它的空间</strong>。</p>
+<p>优化图片查看：<a href="/images/iwatch/img_iwatch_02.jpg">Image Optimizations</a></p>
+<h3 id="Groups-–-WKInterfaceGroup"><a href="#Groups-–-WKInterfaceGroup" class="headerlink" title="Groups – WKInterfaceGroup"></a>Groups – WKInterfaceGroup</h3><p> <code>Group</code> 这个概念是专为有限空间的 <code>iWatch</code> 打造的，可以帮你对其他元素进行布局。它有 <code>postion</code> , <code>size</code> , <code>marigns</code> 以及其他布局相关的接口，一个 <code>Group</code> 对象本身也是一个可见的元素，它也有背景图片，颜色，圆角半径等属性。</p>
+<p><strong>支持水平 <code>horizontally</code> 和垂直 <code>vertically</code> 布局</strong>，可以让放在里面的项目实现相应的布局，可以使用 <code>spacing</code> 属性来设置内部项目之间的间距，使用 <code>margins</code> 来控制 <code>Group</code> 和它周边的元素的距离。</p>
+<p> <code>Group</code> 支持镶嵌操作，你可以通过镶嵌来指定你想要的布局样式。</p>
+<p>你应该优化你的 <code>Group</code> 的背景图片来获得更好的体验，因为太大可能使你的 App 变得卡顿。优化请参考：<a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/icons-and-images/#image-optimizations">Image Optimizations</a></p>
+<p>外观大概这样:<br><img src="/images/iwatch/img_iwatch_02.jpg" style='width:50%;height:50%'></img></p>
+<h3 id="Pickers-–-WKInterfacePicker"><a href="#Pickers-–-WKInterfacePicker" class="headerlink" title="Pickers – WKInterfacePicker"></a>Pickers – WKInterfacePicker</h3><p> <code>Pickers</code> 能够显示一个可以使用数字表冠导航的列表。这意味着你可以使用一种更精确和迷人的方式选择。 <code>Pickers</code> 可以通过下面三种方式的一种来展示它们的项目：<br><img src="/images/iwatch/img_iwatch_03.jpg" style='width:50%;height:50%'></img></p>
+<ul>
+<li><code>List style</code> ,可以显示文本或者图片在一个滚动列表里面</li>
+<li><code>Stack style</code> ,栈风格以一个卡片风格的界面显示图片，当用户滚动，被选择的图片动画进入最上方，这种风格适合浏览照片。</li>
+<li><code>Sequence style</code> ,序列显示，可以显示一系列的图片。当用户转动表冠时， <code>Picker</code> 显示先前或下一张图片在这个序列中没有动画，这种风格适合于构建自定义的界面使用你自己的图片。</li>
+</ul>
+<p> <code>Pickers</code> 还能被配置成显示一个 <code>轮廓</code> ， <code>标题</code> ， <code>滚动指示器</code> 。这些元素可以让你分辨出屏幕上的 <code>Pickers</code> 并且可以帮助用户导航它的内容。</p>
+<p><strong>使用标题来指明你选择项目的意义或者 picker 本身的作用</strong></p>
+<p>你可以给项目指定一个独特的标题当那些项目的意思表达不清晰的时候，可选，你也可以设置所有的项目相同的标题来标明 <code>Picker</code> 它本身的作用。<br><img src="/images/iwatch/img_iwatch_04.jpg" style='width:50%;height:50%'></img></p>
+<p><strong>显示一个滚动指示器当所有的内容不是全部可见时</strong><br><img src="/images/iwatch/img_iwatch_05.jpg" style='width:50%;height:50%'></img></p>
+<h3 id="Tabels-–-WKInterfaceTable"><a href="#Tabels-–-WKInterfaceTable" class="headerlink" title="Tabels – WKInterfaceTable"></a>Tabels – WKInterfaceTable</h3><p> <code>Tabels</code> 在一列中展示多行的内容。一个表的一行是动态配置的，它的内容可以在随时改变。 <code>Tabels</code> 天生可滚动，支持各种交互，能够设置背景颜色或者图片。<br><img src="/images/iwatch/img_iwatch_06.jpg" style='width:50%;height:50%'></img></p>
+<p>使用注意事项：</p>
+<ul>
+<li><p><strong>统一使用行的风格类型</strong>，即使一个表可以包含多行，它应该呈现一个全局统一的外观，每一行使用你的主要内容开始，然后随你的需要添加更多支持的其他类型的内容，例如 <code>headers</code> 或者 <code>footers</code> ,总是用原来设计的目的来使用行类型。例如，你不应该用一行来显示 <code>headers</code> 或 <code>footers</code> 的内容。</p>
+</li>
+<li><p><strong>限制行数最大 20</strong>，显示最重要的行在顶部，让用户能够浏览尽可能的多。行数越少越容易快速浏览。</p>
+</li>
+<li><p>**不要在 <code>groups</code> 里面镶嵌 <code>tables</code> **, <code>Tabels</code> 会动态改变它的尺寸基于它所包含的行的数目。它会忽略 <code>groups</code> 对高度的限制。</p>
+</li>
+<li><p><strong>不要在 table 行内包含 <code>∧</code> 或者 <code>∨</code> 符号</strong>，行后台实现可以自然点击，你不需要包含一个 <code>∧</code> 或者 <code>∨</code> 符号或者文字来表明行是可点击的。</p>
+</li>
+</ul>
+<h3 id="Buttons-–-WKInterfaceButton"><a href="#Buttons-–-WKInterfaceButton" class="headerlink" title="Buttons – WKInterfaceButton"></a>Buttons – WKInterfaceButton</h3><p>一个 <code>button</code> 可以执行一个 app 指定的动作， <code>button</code> 可以自定背景和圆角半径。它还可以充当容器使用，包含一个标签 <code>labe;</code> ，图片 <code>image</code> ，或者一个组 <code>group</code> 对象。<br><img src="/images/iwatch/img_iwatch_07.jpg" style='width:50%;height:50%'></img></p>
+<p>使用事项：</p>
+<ul>
+<li><p><strong>创建横跨屏幕的 Buttons</strong> ，全宽的 buttons 看起来更容易点击，假如有两个 buttons，必须有相同的水平间距，两者使用相同的高度使用相同的图或者简短的文本标签。</p>
+</li>
+<li><p><strong>使用相同的高度对于 <code>vertical stacks</code> 风格布局一行和两行文本按钮</strong>，原则是，尽可能的，使用一致到高度让他们在视觉上统一。</p>
+</li>
+<li><p><strong>使用标准的圆角半径</strong>，标准的圆角半径的是 <code>6点</code> ，使用标准的圆角半径可以提升整个 app 的视觉的一致性并且可以增强 button 的内容。</p>
+</li>
+<li><p><strong>让 butotns 足够大以便容易点击</strong>，创建让用户很容易点击的 button，buttons 应该遵循下面最小的值。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>38mm (minimum)</th>
+<th>42mm (minimum)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Circular buttons</td>
+<td>75 pixels</td>
+<td>80 pixels</td>
+</tr>
+<tr>
+<td>Round rectangular buttons</td>
+<td>50 pixels high</td>
+<td>52 pixels high</td>
+</tr>
+</tbody></table>
+<h3 id="Switches-–-WKInterfaceSwitch"><a href="#Switches-–-WKInterfaceSwitch" class="headerlink" title="Switches – WKInterfaceSwitch"></a>Switches – WKInterfaceSwitch</h3><p>开关控件更 <code>iOS</code> 类似，让用户在量个互斥的选择或者状态中选择，例如开或者关，一个靠近 <code>switch</code> 的标签应该指定响应的效果当，开关切换时。</p>
+<p>效果像这样：<br><img src="/images/iwatch/img_iwatch_08.jpg" style='width:50%;height:50%'></img></p>
+<h3 id="Sliders-–-WKInterfaceSlider"><a href="#Sliders-–-WKInterfaceSlider" class="headerlink" title="Sliders – WKInterfaceSlider"></a>Sliders – WKInterfaceSlider</h3><p>一个滑动条让用户来调整到某一个值。一个 <code>slider</code> 用来显示它设置的一系列的值或者是一个持续的 <code>bar</code> , 它可以在一个有限的范围内根据预定的数量自增或者自减。</p>
+<p><img src="/images/iwatch/img_iwatch_09.jpg" style='width:50%;height:50%'> </img></p>
+<p>Note：你可以像使用 <code>slider</code> 那样使用自定图片,系统默认显示 <code>+</code> 和 <code>-</code> 符号。</p>
+<h3 id="Maps-–-WKInterfaceMap"><a href="#Maps-–-WKInterfaceMap" class="headerlink" title="Maps – WKInterfaceMap"></a>Maps – WKInterfaceMap</h3><p> <code>Maps</code> 是地理位置的静态快照。你可以放一张地图在你的界面里面在预计的时间，但是你 <code>WatchKit extension</code> 必须配置显示的区域在运行时。显示区域是不可交互的，但是点击一个地图将会打开你 <code>Apple Watch</code> 上的 <code>Maps</code> app。</p>
+<p>你可以在地图上用一个高亮的点对你感兴趣或者其他相关信息进行标注。地图能显示标准的 <code>红</code> ， <code>黄</code> ， <code>绿</code> 大头针，它也可以显示自定义的图片，系统允许你最多添加 <code>5个</code> 在一张地图上。</p>
+<p>使用注意实现：</p>
+<ul>
+<li><strong>让你地图的元素根据屏幕自动适应</strong>。用户应该能够看到整个地图元素在 Apple Watch 上而不用滚动屏幕。</li>
+<li><strong>配置显示的地图区域到包含兴趣点的最小范围</strong>，地图元素内容本身不能滚动，所有所有内容必须附着在一个指定的地图区域</li>
+</ul>
+<h3 id="Movies-–-WKInterfaceMovie"><a href="#Movies-–-WKInterfaceMovie" class="headerlink" title="Movies – WKInterfaceMovie"></a>Movies – WKInterfaceMovie</h3><p>一个 <code>movie</code> 对象会显示一张海报图片，当点击时，模态呈现一份视频或者音频对象，使用这个元素来放置简短的媒体剪切和你内容内联。媒文件的重放由系统来管理。</p>
+<p>使用注意事项：</p>
+<ul>
+<li><strong>使用一种海报图片来呈现剪切的内容</strong>，海报图片能让用户提前做决定是否观看与这个剪切关联的媒体，不要使用没有意义的剪切图片。</li>
+<li><strong>不要创建海报图片像系统控件</strong>， <code>Movies</code> 会让视频和音频内容看起来像你节目的一部分，所以不要通过让他们看起来像其他东西的方式把他们隐藏起来。你应该使用一个 <code>Button</code> （而不是一个 <code>movie</code> ）来呈现媒体回放界面假如你喜欢的话。</li>
+<li><strong>保证视频或者音频剪辑得足够短</strong>，剪辑不应该超过 30 秒，首选更短的。长的剪辑会占用更多的磁盘空间并且要求用户保持他们的手腕抬起更长时间，这样可能导致疲劳。</li>
+<li><strong>适当的设置剪辑视频的尺寸</strong>，无论时候都应该使用推荐的尺寸来剪切，缩放视频剪辑将影响性能导致不理想的外观。更多信息关于推荐的尺寸和编码的值，参考<a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/watch-technologies/#audio-and-video">Audio &amp; Video</a></li>
+</ul>
+<div style="text-align:center">
+<video src='https://developer.apple.com/watch/human-interface-guidelines/ui-elements/images/iwatch/ui-elements-movies.mp4' style='width:50%;height:50%;'>
+</video>
+</div>
+
+<h3 id="Date-Timer-Labels-–-WKInterfaceDate-WKInterfaceTimer"><a href="#Date-Timer-Labels-–-WKInterfaceDate-WKInterfaceTimer" class="headerlink" title="Date &amp; Timer Labels – WKInterfaceDate,WKInterfaceTimer"></a>Date &amp; Timer Labels – WKInterfaceDate,WKInterfaceTimer</h3><p>Date 和 Timer 标签用来显示真实的时间在 <code>Apple Watch</code> 上。</p>
+<p><img src="/images/iwatch/img_iwatch_10.jpg" style='width:50%;height:50%'></img></p>
+<p>一个 <code>date label</code> 显示了现在的日期，现在的时间或者两者的组合。它可以使用各种样式，日历和时区来配置，在你配置好后，日期标签直接跟新它的值而不需要通过你 app 的进一步输入。</p>
+<p><img src="/images/iwatch/img_iwatch_11.jpg" style='width:50%;height:50%'></img></p>
+<p>一个 <code>timer label</code> 用来显示一个精准的倒计时和和计数定时器。它能够配置它显示的计数的值以各种形式，在你配置完成后，一个 <code>timer label</code> 能够计数或者倒计时不用从你的 app 的进一步输入。</p>
+<h3 id="Menus-–-WKMenuItemIcon"><a href="#Menus-–-WKMenuItemIcon" class="headerlink" title="Menus – WKMenuItemIcon"></a>Menus – WKMenuItemIcon</h3><p>强力触摸 <code>Apple Watch</code> 将调出当前屏幕的 <code>menu</code> （假如有点话）。一个菜单能够显示多达 4 个有关的动作对于当前屏幕，而不用从你的界面离开。</p>
+<p><img src="/images/iwatch/img_iwatch_12.jpg" style='width:50%;height:50%'></img></p>
+<p>使用注意事项：</p>
+<ul>
+<li><strong>包含一个 Menu 当现在屏幕有相关的操作的时候</strong>，菜单是可选的。假如没有菜单呈现，系统将播放一段动画来响应用户的强力触摸操作。</li>
+<li><strong>使用一个 label 和一个 icon 来传达每个菜单动作的意图</strong>，label 和 icon 都需要，label 限制 2 行，所以文本应该尽量的短。</li>
+<li><strong>使用菜单来响应它们预期的目的</strong>， <code>Menus</code> 是一种能够修改当前界面控制器内容的方式，不要使用它们来作为主要的导航形式在你的 app 中。</li>
+<li><strong>避免复制你的其他 app 中菜单的视觉风格</strong>，假如你必须使用一个相似的布局，加上颜色给你的界面或者排列的项目，用一种不同于其他菜单的方式。</li>
+</ul>
+<p><img src="/images/iwatch/img_iwatch_13.jpg" style='width:50%;height:50%'></img></p>
+<p><img src="/images/iwatch/img_iwatch_14.jpg" style='width:50%;height:50%'></img></p>
+<p><img src="/images/iwatch/img_iwatch_15.jpg" style='width:50%;height:50%'></img></p>
+<p>更多 menu icons 设计的信息，参考<a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/icons-and-images/#menu-icons"> Menu Icons</a>。</p>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/">human-interface-guidelines</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.apple.com/watch/human-interface-guidelines/visual-design/">human-interface-guidelines Visual Design</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ipader/SwiftGuide/tree/master/Apple%20Watch">Apple Watch 指南</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.wareable.com/apple-watch/best-apple-watch-apps-832">Best-apple-watch-apps</a></li>
+</ul>
+<!-- processed 2 -->
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/20/2016-01-20-mvvmzi-liao-zheng-li/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2907,258 +3141,6 @@ sqlite&gt; select (60 &gt;&gt; 2);
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.wangruofeng007.com/2016/01/13/2016-01-13-sqlite-jiao-cheng-san/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="王若风">
-      <meta itemprop="description" content="王若风的技术博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王若风的技术博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/01/13/2016-01-13-sqlite-jiao-cheng-san/" class="post-title-link" itemprop="url">SQLite 教程(三)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-01-13 23:22:37" itemprop="dateCreated datePublished" datetime="2016-01-13T23:22:37+08:00">2016-01-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-11-03 13:32:35" itemprop="dateModified" datetime="2024-11-03T13:32:35+08:00">2024-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-  
-    <a title="disqus" href="/2016/01/13/2016-01-13-sqlite-jiao-cheng-san/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/13/2016-01-13-sqlite-jiao-cheng-san/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
- <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="SQLite-Insert-语句"><a href="#SQLite-Insert-语句" class="headerlink" title="SQLite Insert 语句"></a>SQLite Insert 语句</h4><p>SQLite 的 INSERT INTO 语句用于向数据库的某个表中添加新的数据行。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>INSERT INTO 语句有两种基本语法，如下所示：</p>
-<pre><code>INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)] 
-VALUES (value1, value2, value3,...valueN);
-</code></pre>
-<p>在这里，column1, column2,…columnN 是要插入数据的表中的列的名称。<br>如果要为表中的所有列添加值，您也可以不需要在 SQLite 查询中指定列名称。但要确保值的顺序与列在表中的顺序一致。SQLite 的 INSERT INTO 语法如下：</p>
-<pre><code>INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
-</code></pre>
-<hr>
-<p><strong>实例</strong></p>
-<p>假设您已经在 testDB.db 中创建了 COMPANY 表，如下所示：</p>
-<pre><code>sqlite&gt; CREATE TABLE COMPANY(
- ID INT PRIMARY KEY NOT NULL,
- NAME TEXT NOT NULL,
- AGE INT NOT NULL,
- ADDRESS CHAR(50),
- SALARY REAL
-);
-</code></pre>
-<p>现在，下面的语句将在 COMPANY 表中创建六个记录：</p>
-<pre><code>INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (1, &#39;Paul&#39;, 32, &#39;California&#39;, 20000.00 );
-
-INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (2, &#39;Allen&#39;, 25, &#39;Texas&#39;, 15000.00 );
-
-INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (3, &#39;Teddy&#39;, 23, &#39;Norway&#39;, 20000.00 );
-
-INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (4, &#39;Mark&#39;, 25, &#39;Rich-Mond &#39;, 65000.00 );
-
-INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (5, &#39;David&#39;, 27, &#39;Texas&#39;, 85000.00 );
-
-INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)
-VALUES (6, &#39;Kim&#39;, 22, &#39;South-Hall&#39;, 45000.00 );
-</code></pre>
-<p>您也可以使用第二种语法在 COMPANY 表中创建一个记录，如下所示：</p>
-<pre><code>INSERT INTO COMPANY VALUES (7, &#39;James&#39;, 24, &#39;Houston&#39;, 10000.00 );
-</code></pre>
-<p>上面的所有语句将在 COMPANY 表中创建下列记录。下一章会教您如何从一个表中显示所有这些记录。</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-</code></pre>
-<h4 id="使用一个表来填充另一个表"><a href="#使用一个表来填充另一个表" class="headerlink" title="使用一个表来填充另一个表"></a>使用一个表来填充另一个表</h4><p>您可以通过在一个有一组字段的表上使用 select 语句，填充数据到另一个表中。下面是语法：</p>
-<pre><code>INSERT INTO first_table_name [(column1, column2, ... columnN)]
- SELECT column1, column2, ...columnN
- FROM second_table_name
- [WHERE condition];
-</code></pre>
-<h4 id="SQLite-Select-语句"><a href="#SQLite-Select-语句" class="headerlink" title="SQLite Select 语句"></a>SQLite Select 语句</h4><p>SQLite 的 SELECT 语句用于从 SQLite 数据库表中获取数据，以结果表的形式返回数据。这些结果表也被称为结果集。</p>
-<hr>
-<p><strong>语法</strong></p>
-<p>SQLite 的 SELECT 语句的基本语法如下：</p>
-<pre><code>SELECT column1, column2, columnN FROM table_name;
-</code></pre>
-<p>在这里，column1, column2…是表的字段，他们的值即是您要获取的。如果您想获取所有可用的字段，那么可以使用下面的语法：</p>
-<pre><code>SELECT * FROM table_name;
-</code></pre>
-<hr>
-<p><strong>实例</strong></p>
-<p>假设 COMPANY 表有以下记录：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-</code></pre>
-<p>下面是一个实例，使用 SELECT 语句获取并显示所有这些记录。在这里，前三个命令被用来设置正确格式化的输出。</p>
-<pre><code>sqlite&gt;.header on
-sqlite&gt;.mode column
-sqlite&gt; SELECT * FROM COMPANY;
-</code></pre>
-<p>最后，将得到以下的结果：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- ---------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-</code></pre>
-<p>如果只想获取 COMPANY 表中指定的字段，则使用下面的查询：</p>
-<pre><code>sqlite&gt; SELECT ID, NAME, SALARY FROM COMPANY;
-</code></pre>
-<p>上面的查询会产生以下结果：</p>
-<pre><code>ID NAME SALARY
----------- ---------- ----------
-1 Paul 20000.0
-2 Allen 15000.0
-3 Teddy 20000.0
-4 Mark 65000.0
-5 David 85000.0
-6 Kim 45000.0
-7 James 10000.0
-</code></pre>
-<hr>
-<p><strong>设置输出列的宽度</strong></p>
-<p>有时，由于要显示的列的默认宽度导致 .mode column，这种情况下，输出被截断。此时，您可以使用 .width num, num…. 命令设置显示列的宽度，如下所示：</p>
-<pre><code>sqlite&gt;.width 10, 20, 10
-sqlite&gt;SELECT * FROM COMPANY;
-</code></pre>
-<p>上面的 .width 命令设置第一列的宽度为 10，第二列的宽度为 20，第三列的宽度为 10。因此上述 SELECT 语句将得到以下结果：</p>
-<pre><code>ID NAME AGE ADDRESS SALARY
----------- -------------------- ---------- ---------- ----------
-1 Paul 32 California 20000.0
-2 Allen 25 Texas 15000.0
-3 Teddy 23 Norway 20000.0
-4 Mark 25 Rich-Mond 65000.0
-5 David 27 Texas 85000.0
-6 Kim 22 South-Hall 45000.0
-7 James 24 Houston 10000.0
-</code></pre>
-<p><strong>Schema 信息</strong><br>因为所有的点命令只在 SQLite 提示符中可用，所以当您进行带有 SQLite 的编程时，您要使用下面的带有 sqlite_master 表的 SELECT 语句来列出所有在数据库中创建的表：</p>
-<pre><code>sqlite&gt; SELECT tbl_name FROM sqlite_master WHERE type = &#39;table&#39;;
-</code></pre>
-<p>假设在 testDB.db 中已经存在唯一的 COMPANY 表，则将产生以下结果：</p>
-<pre><code>tbl_name
-----------
-COMPANY
-</code></pre>
-<p>您可以列出关于 COMPANY 表的完整信息，如下所示：</p>
-<pre><code>sqlite&gt; SELECT sql FROM sqlite_master WHERE type = &#39;table&#39; AND tbl_name = &#39;COMPANY&#39;;
-</code></pre>
-<p>假设在 testDB.db 中已经存在唯一的 COMPANY 表，则将产生以下结果：</p>
-<pre><code>CREATE TABLE COMPANY(
- ID INT PRIMARY KEY NOT NULL,
- NAME TEXT NOT NULL,
- AGE INT NOT NULL,
- ADDRESS CHAR(50),
- SALARY REAL
-)
-</code></pre>
-<p>资料整理于：<a target="_blank" rel="noopener" href="http://www.runoob.com/sqlite/sqlite-tutorial.html">RUNOOB.COM-SQLite 教程</a><br>转载请注明出处。</p>
-<!-- processed 2 -->
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3228,7 +3210,7 @@ COMPANY
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3241,7 +3223,7 @@ COMPANY
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3291,12 +3273,12 @@ COMPANY
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">118k</span>
+    <span title="站点总字数">120k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:09</span>
+    <span title="站点阅读时长">7:18</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
